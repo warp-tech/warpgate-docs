@@ -1,0 +1,71 @@
+site_name: Warpgate
+site_author: Warp Technologies
+site_description: Securely expose your internal services to the internet
+site_url: https://docs.warpgate.dev
+
+repo_name: warp-tech/warpgate
+repo_url: https://github.com/warp-tech/warpgate
+
+theme:
+  name: null
+  custom_dir: 'theme/'
+
+  favicon: https://github.com/warp-tech/warpgate/raw/refs/heads/main/warpgate-web/public/assets/favicon.svg
+
+  features:
+    - navigation.expand
+
+nav:
+  - index.md
+  - Getting started:
+    - Native: getting-started.md
+    - Docker: getting-started-on-docker.md
+  - Adding targets:
+    - SSH: targets/ssh.md
+    - HTTP: targets/http.md
+    - MySQL: targets/mysql.md
+    - PostgreSQL: targets/postgres.md
+  - Access control:
+    - auth-and-roles.md
+    - sso.md
+  - Advanced topics:
+    - http-domain-binding.md
+    - log-forwarding.md
+    - reverse-proxy.md
+  - protocol-support.md
+#   - Getting Started:
+#       - Binary: getting-started/binary.md
+#       - Docker: getting-started/docker.md
+#   - Authentication:
+#       - auth/user-authentication.md
+#       - auth/mfa.md
+#       - auth/tickets.md
+#       - auth/sso.md
+#   - Targets:
+#       SSH: targets/ssh.md
+#       HTTP: targets/http.md
+#       MySQL: targets/mysql.md
+#       PostgreSQL: targets/postgresql.md
+#   - install-as-systemd-service.md
+#   - chaining-warpgate.md
+#   - protocol-support.md
+#   - log-forwarding.md
+#   - behind-reverse-proxy.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - callouts
+  - pymdownx.blocks.caption
+  - pymdownx.highlight:
+      noclasses: true
+      use_pygments: true
+      pygments_lang_class: true
+      pygments_style: github-dark
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition

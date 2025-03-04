@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
+  <link rel="icon" type="image/svg" href="./assets/favicon.svg">
+
+  {%- for path in config.extra_css %}
+  <link href="{{ path | url }}" rel="stylesheet">
+  {%- endfor %}
+</head>
+
+<body>
+  <header class="container">
+    <img class="logo" src="./assets/brand-dark.svg" />
+    <a class="btn btn-success me-2" href="https://github.com/Eugeny/warpgate/releases" target="_blank">Downloads</a>
+    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+  </header>
+
+  <div class="layout container">
+    {% if nav|length > 1 %}
+    <div class="nav">
+      <h3>Docs</h3>
+      <ul>
+        {% for nav_item in nav %}
+        {% if nav_item.children %}
+        <li>{{ nav_item.title }}
+          <ul>
+            {% for nav_item in nav_item.children %}
+            <li>
+              <a class="{% if nav_item.active %}text-success{% endif %}" href="{{ nav_item.url|url }}">{{ nav_item.title
+                }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% else %}
+        <li>
+          <a class="{% if nav_item.active %}text-success{% endif %}" href="{{ nav_item.url|url }}">{{ nav_item.title }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <div class="page-content">
+      <article>
+        {{ page.content }}
+      </article>
+
+      <div class="d-flex">
+        {% if page.previous_page %}
+          <a class="btn btn-secondary btn-prev" href="{{ page.previous_page.url | url }}">
+            &larr;
+            {{page.previous_page.title}}
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        {% endif %}
+
+        <!-- Next page -->
+        {% if page.next_page %}
+          <a class="btn btn-success btn-next ms-auto" href="{{ page.next_page.url | url }}">
+            {{page.next_page.title}}
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+
+
+
+  {%- for script in config.extra_javascript %}
+  {{ script | script_tag }}
+  {%- endfor %}
+
+  <script type="module" src="src/main.js"></script>
+</body>
+
+</html>
