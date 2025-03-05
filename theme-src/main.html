@@ -6,17 +6,33 @@
   <title>{% if page.title %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
   <link rel="icon" type="image/svg" href="./assets/favicon.svg">
 
+  {%- for path in config.extra_js %}
+  <script src="{{ path | url }}"></script>
+  {%- endfor %}
   {%- for path in config.extra_css %}
   <link href="{{ path | url }}" rel="stylesheet">
   {%- endfor %}
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
 </head>
 
 <body>
   <header class="container">
-    <img class="logo" src="./assets/brand-dark.svg" />
-    <a class="btn btn-success me-2" href="https://github.com/Eugeny/warpgate/releases" target="_blank">Downloads</a>
+    <a href="/">
+      <img class="logo" src="./assets/brand-dark.svg" />
+    </a>
+
+    <form action="search.html" class="search-form">
+      <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+    </form>
+
+    <a class="btn btn-success" href="https://github.com/Eugeny/warpgate/releases" target="_blank">Downloads</a>
     <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
   </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
 
   <div class="layout container">
     {% if nav|length > 1 %}

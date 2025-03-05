@@ -8,10 +8,10 @@ header {
   padding: 0 0 1rem;
   display: flex;
   align-items: center;
+  gap: 1rem;
 
   .logo {
     width: 200px;
-    margin-right: auto;
   }
 }
 
@@ -132,4 +132,24 @@ figcaption {
   opacity: 0.6;
   margin-top: -16px;
   margin-bottom: 3rem;
+}
+
+.search-results {
+  background: $dark;
+  padding: 1rem 2rem;
+
+  &:empty {
+    display: none;
+  }
+
+  article p {
+    font-style: italic;
+  }
+}
+
+.search-form {
+  margin: 0 auto;
+  max-width: 40%;
+  min-width: 100px;
+  flex-grow: 1;
 }
