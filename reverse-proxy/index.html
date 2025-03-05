@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Running behind a reverse proxy - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+  <script type="module" crossorigin src="/assets/app-7bfOvzbE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CxEHjXO2.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    </a>
+
+    
+      <form action="search.html" class="search-form">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3>Docs</h3>
+      <ul>
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth-and-roles/">User authentication and roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Ops
+          <ul>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">Running behind a reverse proxy</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <div class="page-content">
+      <article>
+        <h1 id="running-behind-a-reverse-proxy">Running behind a reverse proxy<a class="headerlink" href="#running-behind-a-reverse-proxy" title="Permanent link">§</a></h1>
+<p>Warpgate doesn't need any specific configuration except in the following case:</p>
+<ul>
+<li>When using <strong>single sign-on</strong>, make sure your reverse proxy supplies the correct <code>Host</code> and <code>X-Forwarded-Proto</code> headers - this allows Warpgate to construct correct redirect URLs.</li>
+<li>Set <code>http.trust_x_forwarded_headers</code> to <code>true</code> in the config file.</li>
+</ul>
+<p>Example for NGINX:</p>
+<div class="language-toml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">server</span><span style="color: #6E7681"> </span><span style="color: #F85149">{</span>
+<span style="color: #6E7681">    </span><span style="color: #E6EDF3">server_name</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">warpgate.acme.inc</span><span style="color: #F85149">;</span>
+<span style="color: #6E7681">    </span><span style="color: #E6EDF3">listen</span><span style="color: #6E7681"> </span><span style="color: #F85149">*:</span><span style="color: #E6EDF3">443</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">http2</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">ssl</span><span style="color: #F85149">;</span>
+<span style="color: #6E7681">    </span><span style="color: #E6EDF3">ssl_certificate</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">...</span><span style="color: #F85149">;</span>
+<span style="color: #6E7681">    </span><span style="color: #E6EDF3">ssl_certificate_key</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">...</span><span style="color: #F85149">;</span>
+
+<span style="color: #6E7681">    </span><span style="color: #E6EDF3">location</span><span style="color: #6E7681"> </span><span style="color: #F85149">/</span><span style="color: #6E7681">  </span><span style="color: #F85149">{</span>
+<span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_pass</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">https</span><span style="color: #F85149">://</span><span style="color: #E6EDF3">192.168.10.1</span><span style="color: #F85149">:</span><span style="color: #E6EDF3">8888</span><span style="color: #F85149">;</span>
+<span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_set_header</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">Host</span><span style="color: #6E7681"> </span><span style="color: #F85149">$</span><span style="color: #E6EDF3">http_host</span><span style="color: #F85149">;</span>
+<span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_set_header</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">X-Forwarded-Proto</span><span style="color: #6E7681"> </span><span style="color: #F85149">$</span><span style="color: #E6EDF3">scheme</span><span style="color: #F85149">;</span>
+<span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_http_version</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">1.1</span><span style="color: #F85149">;</span>
+<span style="color: #6E7681">    </span><span style="color: #F85149">}</span>
+<span style="color: #F85149">}</span>
+</code></pre></div>
+      </article>
+
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../log-forwarding/">
+            &larr;
+            Log forwarding
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../http-domain-binding/">
+            HTTP domain binding
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>

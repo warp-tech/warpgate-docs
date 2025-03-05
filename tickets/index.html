@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Access tickets - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+  <script type="module" crossorigin src="/assets/app-7bfOvzbE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CxEHjXO2.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    </a>
+
+    
+      <form action="search.html" class="search-form">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3>Docs</h3>
+      <ul>
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth-and-roles/">User authentication and roles</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Ops
+          <ul>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <div class="page-content">
+      <article>
+        <h1 id="access-tickets">Access tickets<a class="headerlink" href="#access-tickets" title="Permanent link">§</a></h1>
+<p>You can issue tickets that grant a specific user access to a specific target, bypassing authorization. This is especially useful for non-interactive sessions where 2FA flows aren't possible, e.g. when connecting an application to a database or an API through Warpgate.</p>
+<h2 id="creating-a-ticket">Creating a ticket<a class="headerlink" href="#creating-a-ticket" title="Permanent link">§</a></h2>
+<p>In the admin UI, create a ticket in the <code>Config</code> -&gt; <code>Tickets</code> section, selecting a user account and a target:</p>
+<figure>
+<p><img alt="" src="../images/ticket-creating.png" /></p>
+<figcaption>
+<p>Creating a ticket</p>
+</figcaption>
+</figure>
+<p>Once the ticket is created, you'll see the protocol-specific connection instructions. In this example, for an MySQL database, the ticket is passed as a part of the connection string / <code>DATABASE_URL</code>:</p>
+<figure>
+<p><img alt="" src="../images/ticket-instructions.png" /></p>
+<figcaption>
+<p>Ticket connection instructions</p>
+</figcaption>
+</figure>
+      </article>
+
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../auth-and-roles/">
+            &larr;
+            User authentication and roles
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../otp/">
+            One-time passwords (OTP)
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Docker - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+  <script type="module" crossorigin src="/assets/app-7bfOvzbE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CxEHjXO2.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    </a>
+
+    
+      <form action="search.html" class="search-form">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3>Docs</h3>
+      <ul>
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">Docker</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth-and-roles/">User authentication and roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Ops
+          <ul>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <div class="page-content">
+      <article>
+        <h1 id="getting-started-on-docker">Getting started on Docker<a class="headerlink" href="#getting-started-on-docker" title="Permanent link">§</a></h1>
+<h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">§</a></h2>
+<ul>
+<li>Image name: <code>ghcr.io/warp-tech/warpgate</code></li>
+<li>Image in the GHCR: <a href="https://github.com/warp-tech/warpgate/pkgs/container/warpgate">https://github.com/warp-tech/warpgate/pkgs/container/warpgate</a></li>
+<li>Volumes required: <code>/data</code></li>
+<li>Ports: <code>2222</code> (SSH), <code>8888</code> (HTTP), <code>33306</code> (MySQL), <code>55432</code> (PostgreSQL)</li>
+<li>Tags: <code>latest</code> (stable), <code>vX.Y</code>, <code>vX.Y.Z</code></li>
+</ul>
+<h2 id="running-with-docker-compose">Running with Docker Compose<a class="headerlink" href="#running-with-docker-compose" title="Permanent link">§</a></h2>
+<ul>
+<li>Download the <a href="https://github.com/warp-tech/warpgate/blob/main/docker/docker-compose.yml">Docker Compose config</a>.</li>
+<li>Run <code>docker compose run warpgate setup</code> to generate a config file.</li>
+<li>Run <code>docker compose up</code> to start.</li>
+</ul>
+<h2 id="running-directly-from-the-image">Running directly from the image<a class="headerlink" href="#running-directly-from-the-image" title="Permanent link">§</a></h2>
+<h3 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">§</a></h3>
+<p>The Warpgate image requires one volume to store its configuration and database in, mounted at <code>/data</code>.</p>
+<h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">§</a></h3>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>docker run --rm -it -v &lt;data dir&gt;:/data ghcr.io/warp-tech/warpgate setup
+</code></pre></div>
+<p>If you have a valid SSL certificate &amp; key for your domain, now is the best time to replace the self-signed certificate inside the data volume.</p>
+<h3 id="running">Running<a class="headerlink" href="#running" title="Permanent link">§</a></h3>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>docker run --rm --name warpgate -p &lt;host https port&gt;:8888 -p &lt;host ssh port&gt;:2222 -it -v &lt;data dir&gt;:/data ghcr.io/warp-tech/warpgate
+</code></pre></div>
+<h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
+<ul>
+<li><a href="../targets/ssh/">Adding an SSH target</a></li>
+<li><a href="../targets/http/">Adding an HTTP target</a></li>
+</ul>
+      </article>
+
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../getting-started/">
+            &larr;
+            Native
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../targets/ssh/">
+            SSH
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>

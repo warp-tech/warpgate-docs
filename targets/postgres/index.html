@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>PostgreSQL - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+  <script type="module" crossorigin src="/assets/app-7bfOvzbE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CxEHjXO2.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    </a>
+
+    
+      <form action="search.html" class="search-form">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3>Docs</h3>
+      <ul>
+        
+        
+        <li>
+          <a class="" href="../../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../getting-started-on-docker/">Docker</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">PostgreSQL</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../../auth-and-roles/">User authentication and roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Ops
+          <ul>
+            
+            <li>
+              <a class="" href="../../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <div class="page-content">
+      <article>
+        <h1 id="adding-postgresql-targets">Adding PostgreSQL targets<a class="headerlink" href="#adding-postgresql-targets" title="Permanent link">§</a></h1>
+<h2 id="authentication-setup">Authentication setup<a class="headerlink" href="#authentication-setup" title="Permanent link">§</a></h2>
+<p>Currently, Warpgate can connect to PostgreSQL servers with a username/password using <code>md5</code> and <code>password</code> (plaintext) auth mode.</p>
+<p>As a PostgreSQL protocol server, Warpgate only allows secure (TLS) connections and uses <code>password</code> auth mode.</p>
+<h2 id="enabling-postgresql-listener">Enabling PostgreSQL listener<a class="headerlink" href="#enabling-postgresql-listener" title="Permanent link">§</a></h2>
+<p>Enable the PostgreSQL protocol in your config file (default: <code>/etc/warpgate.yaml</code>) if you didn't do so during the initial setup:</p>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #56D364; background-color: #0F5323">+ postgres:</span>
+<span style="color: #56D364; background-color: #0F5323">+   enable: true</span>
+<span style="color: #56D364; background-color: #0F5323">+   certificate: /var/lib/warpgate/tls.certificate.pem</span>
+<span style="color: #56D364; background-color: #0F5323">+   key: /var/lib/warpgate/tls.key.pem</span>
+</code></pre></div>
+<p>You can reuse the same certificate and key that are used for the HTTP listener.</p>
+<h2 id="connection-setup">Connection setup<a class="headerlink" href="#connection-setup" title="Permanent link">§</a></h2>
+<p>Log into the Warpgate admin UI and navigate to <code>Config</code> &gt; <code>Targets</code> &gt; <code>Add target</code> and give the new PostgreSQL target a name:</p>
+<figure>
+<p><img alt="" src="../../images/adding-postgres.png" /></p>
+<figcaption>
+<p>Adding a PostgreSQL target</p>
+</figcaption>
+</figure>
+<p>Fill out the configuration:</p>
+<figure>
+<p><img alt="" src="../../images/postgres-config.png" /></p>
+<figcaption>
+<p>PostgreSQL target configuration</p>
+</figcaption>
+</figure>
+<p>The target should show up on the Warpgate's homepage:</p>
+<figure>
+<p><img alt="" src="../../images/postgres-on-home.png" /></p>
+<figcaption>
+<p>PostgreSQL target on the homepage</p>
+</figcaption>
+</figure>
+<p>Users will be able to click the entry to obtain connection instructions:</p>
+<figure>
+<p><img alt="" src="../../images/postgres-instructions.png" /></p>
+<figcaption>
+<p>PostgreSQL target connection instructions</p>
+</figcaption>
+</figure>
+<h2 id="client-setup">Client setup<a class="headerlink" href="#client-setup" title="Permanent link">§</a></h2>
+<p>You can now use any PostgreSQL client applications to connect through Warpgate with the following settings:</p>
+<ul>
+<li>Host: the Warpgate host</li>
+<li>Port: the Warpgate PostgreSQL port (default: 55432)</li>
+<li>Username: <code>admin#&lt;target-name&gt;</code> or <code>admin:&lt;target-name&gt;</code>, in this example: <code>admin#db1</code></li>
+<li>Password: your Warpgate admin password</li>
+<li>
+<div class="admonition tls">
+<p class="admonition-title">Tls</p>
+<p>enabled</p>
+</div>
+</li>
+<li>Cleartext password authentication: allowed</li>
+</ul>
+<p>If your client uses a database URL, use: <code>postgresql://&lt;username&gt;#&lt;target&gt;:&lt;password&gt;@&lt;warpgate host&gt;:&lt;warpgate postgresql port&gt;?sslmode=require</code></p>
+<p>While your PostgreSQL session is running, you'll be able to see its status in the Admin UI, including the query log:</p>
+<figure>
+<p><img alt="" src="../../images/postgres-log.png" /></p>
+<figcaption>
+<p>PostgreSQL session log</p>
+</figcaption>
+</figure>
+<h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
+<ul>
+<li><a href="../../auth-and-roles/">User authentication and roles</a></li>
+</ul>
+      </article>
+
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../mysql/">
+            &larr;
+            MySQL
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../../auth-and-roles/">
+            User authentication and roles
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+  <script src="../../search/main.js"></script>
+
+</body>
+
+</html>

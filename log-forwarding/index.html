@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Log forwarding - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+  <script type="module" crossorigin src="/assets/app-7bfOvzbE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CxEHjXO2.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    </a>
+
+    
+      <form action="search.html" class="search-form">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3>Docs</h3>
+      <ul>
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth-and-roles/">User authentication and roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Ops
+          <ul>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <div class="page-content">
+      <article>
+        <h1 id="log-forwarding">Log forwarding<a class="headerlink" href="#log-forwarding" title="Permanent link">§</a></h1>
+<div class="badge font-xs text-bg-warning mb-3">v0.2+</div>
+
+<p>By default, Warpgate logs into its <code>stdout</code>, relying on <code>systemd</code>/<code>journald</code> for log management. However, you can configure it to forward logs to a local log collector through a UNIX Datagram ("UDP") socket, e.g. <a href="https://vector.dev">Vector</a>.</p>
+<h2 id="format">Format<a class="headerlink" href="#format" title="Permanent link">§</a></h2>
+<p>Warpgate will send log records into the socket as separate datagrams, formatted as JSON.</p>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">§</a></h2>
+<p>This example uses <a href="https://vector.dev">Vector</a> as a log collector.</p>
+<h3 id="set-up-a-listener-socket">Set up a listener socket<a class="headerlink" href="#set-up-a-listener-socket" title="Permanent link">§</a></h3>
+<p>In Vector config, add a socket source:</p>
+<div class="language-toml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #FF7B72">[sources.warpgate]</span>
+<span style="color: #E6EDF3">type</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;socket&quot;</span>
+<span style="color: #E6EDF3">path</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;/var/run/vector-warpgate.sock&quot;</span>
+<span style="color: #E6EDF3">mode</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;unix_datagram&quot;</span>
+</code></pre></div>
+<blockquote>
+
+If you just want to try Vector out, here's a full config file that you can run with `vector -c file.toml` that will dump all received log entries to console:
+
+<div class="language-toml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">data_dir</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;/var/lib/vector/&quot;</span>
+
+<span style="color: #FF7B72">[sources.source0]</span>
+<span style="color: #E6EDF3">path</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;/var/run/vector-warpgate.sock&quot;</span>
+<span style="color: #E6EDF3">mode</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;unix_datagram&quot;</span>
+<span style="color: #E6EDF3">type</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;socket&quot;</span>
+
+<span style="color: #FF7B72">[transforms.transform0]</span>
+<span style="color: #E6EDF3">inputs</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">[</span><span style="color: #A5D6FF">&quot;source0&quot;</span><span style="color: #E6EDF3">]</span>
+<span style="color: #E6EDF3">drop_field</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">true</span>
+<span style="color: #E6EDF3">drop_invalid</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">false</span>
+<span style="color: #E6EDF3">type</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;json_parser&quot;</span>
+
+<span style="color: #FF7B72">[sinks.sink0]</span>
+<span style="color: #E6EDF3">inputs</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">[</span><span style="color: #A5D6FF">&quot;transform0&quot;</span><span style="color: #E6EDF3">]</span>
+<span style="color: #E6EDF3">target</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;stdout&quot;</span>
+<span style="color: #E6EDF3">type</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;console&quot;</span>
+
+<span style="color: #FF7B72">[sinks.sink0.encoding]</span>
+<span style="color: #E6EDF3">codec</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;json&quot;</span>
+
+<span style="color: #FF7B72">[sinks.sink0.healthcheck]</span>
+<span style="color: #E6EDF3">enabled</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">true</span>
+
+<span style="color: #FF7B72">[sinks.sink0.buffer]</span>
+<span style="color: #E6EDF3">type</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;memory&quot;</span>
+<span style="color: #E6EDF3">max_events</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">500</span>
+<span style="color: #E6EDF3">when_full</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;block&quot;</span>
+</code></pre></div>
+</blockquote>
+
+<h3 id="set-up-forwarding">Set up forwarding<a class="headerlink" href="#set-up-forwarding" title="Permanent link">§</a></h3>
+<p>In the Warpgate config, set <code>log.send_to</code>:</p>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #56D364; background-color: #0F5323">+ log:</span>
+<span style="color: #56D364; background-color: #0F5323">+   send_to: /var/run/vector-warpgate.sock</span>
+</code></pre></div>
+<p>and restart Warpgate.</p>
+      </article>
+
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../systemd/">
+            &larr;
+            Installing as a systemd service
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../reverse-proxy/">
+            Running behind a reverse proxy
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>

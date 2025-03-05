@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Single sign-on - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+  <script type="module" crossorigin src="/assets/app-7bfOvzbE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CxEHjXO2.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    </a>
+
+    
+      <form action="search.html" class="search-form">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3>Docs</h3>
+      <ul>
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth-and-roles/">User authentication and roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Ops
+          <ul>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <div class="page-content">
+      <article>
+        <h1 id="single-sign-on">Single sign-on<a class="headerlink" href="#single-sign-on" title="Permanent link">§</a></h1>
+<div class="badge font-xs text-bg-warning mb-3">v0.5+</div>
+
+<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">§</a></h2>
+<p>Warpgate can use arbitrary OpenID Connect (OIDC) providers to authenticate users based on their verified emails.</p>
+<p>OIDC providers include, but are not limited to:</p>
+<ul>
+<li>Google Accounts</li>
+<li>Sign in with Apple</li>
+<li>GitLab</li>
+<li>Microsoft Azure</li>
+<li>Okta</li>
+</ul>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">§</a></h2>
+<h3 id="host-header">Host header<a class="headerlink" href="#host-header" title="Permanent link">§</a></h3>
+<div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
+
+<p>To use SSO, Warpgate needs to know what its external hostname is. Starting with v0.12, Warpgate uses the <code>Host</code> header to determine the external host. If you're <a href="../reverse-proxy/">running behind a reverse proxy</a>, the proxy needs to pass through the <code>Host</code> header.</p>
+<h3 id="external-host-setting-legacy">External host setting (legacy)<a class="headerlink" href="#external-host-setting-legacy" title="Permanent link">§</a></h3>
+<div class="badge font-xs text-bg-danger mb-3">Pre v0.12</div>
+
+<p>Warpgate would try its best to figure it out based on the client's request, but it's better if you set it explicitly via the top-level <code>external_host</code> config option:</p>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #56D364; background-color: #0F5323">+ external_host: warpgate.acme.inc</span>
+</code></pre></div>
+<blockquote>
+<p><code>external_host</code> can include a port as well</p>
+</blockquote>
+<h3 id="obtaining-app-credentials-from-a-provider">Obtaining app credentials from a provider<a class="headerlink" href="#obtaining-app-credentials-from-a-provider" title="Permanent link">§</a></h3>
+<p>You'll need to register your Warpgate instance as an "app" (terminology varies per provider) at the provider and obtain a <em>Client ID</em> and a <em>Client secret</em>. You'll need to provide a <em>Redirect URL</em> which - which will be verified by the SSO provider.</p>
+<p>The <em>redirect URL</em> (aka <em>return URL</em>) for Warpgate is <code>https://&lt;warpgate-external-host&gt;/@warpgate/api/sso/return</code>.</p>
+<p>Okta provides excellent guides on registering an app with various providers:</p>
+<ul>
+<li><a href="https://developer.okta.com/docs/guides/social-login/google/main/#create-an-app-at-the-identity-provider">Google</a></li>
+<li><a href="https://developer.okta.com/docs/guides/social-login/apple/main/#create-an-app-at-the-identity-provider">Apple</a></li>
+<li><a href="https://developer.okta.com/docs/guides/social-login/gitlab/main/#create-an-app-at-the-identity-provider">GitLab</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app">Microsoft Azure</a></li>
+</ul>
+<h3 id="adding-credentials-to-the-config-file">Adding credentials to the config file<a class="headerlink" href="#adding-credentials-to-the-config-file" title="Permanent link">§</a></h3>
+<p>With a <em>Client ID</em> and a <em>Client Secret</em> in hand, you can add these to the Warpgate config file:</p>
+<h4 id="google">Google<a class="headerlink" href="#google" title="Permanent link">§</a></h4>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>external_host: warpgate.acme.inc:8888
+
+<span style="color: #56D364; background-color: #0F5323">+ sso_providers:</span>
+<span style="color: #56D364; background-color: #0F5323">+ - name: google</span>
+<span style="color: #56D364; background-color: #0F5323">+   label: Google login</span>
+<span style="color: #56D364; background-color: #0F5323">+   provider:</span>
+<span style="color: #56D364; background-color: #0F5323">+     type: google</span>
+<span style="color: #56D364; background-color: #0F5323">+     client_id: 1234...</span>
+<span style="color: #56D364; background-color: #0F5323">+     client_secret: ABC...</span>
+</code></pre></div>
+<h4 id="microsoft-azure">Microsoft Azure<a class="headerlink" href="#microsoft-azure" title="Permanent link">§</a></h4>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>external_host: warpgate.acme.inc:8888
+
+<span style="color: #56D364; background-color: #0F5323">+ sso_providers:</span>
+<span style="color: #56D364; background-color: #0F5323">+ - name: azure</span>
+<span style="color: #56D364; background-color: #0F5323">+   provider:</span>
+<span style="color: #56D364; background-color: #0F5323">+     type: azure</span>
+<span style="color: #56D364; background-color: #0F5323">+     client_id: 123...</span>
+<span style="color: #56D364; background-color: #0F5323">+     client_secret: ABC...</span>
+<span style="color: #56D364; background-color: #0F5323">+     tenant: XYZ...</span>
+</code></pre></div>
+<h4 id="apple">Apple<a class="headerlink" href="#apple" title="Permanent link">§</a></h4>
+<div class="badge font-xs text-bg-warning mb-3">v0.6.6+</div>
+
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>external_host: warpgate.acme.inc:8888
+
+<span style="color: #56D364; background-color: #0F5323">+ sso_providers:</span>
+<span style="color: #56D364; background-color: #0F5323">+ - name: apple</span>
+<span style="color: #56D364; background-color: #0F5323">+   label: Apple ID</span>
+<span style="color: #56D364; background-color: #0F5323">+   provider:</span>
+<span style="color: #56D364; background-color: #0F5323">+     type: apple</span>
+<span style="color: #56D364; background-color: #0F5323">+     team_id: ABC...  # your Apple Team ID</span>
+<span style="color: #56D364; background-color: #0F5323">+     client_id: com.warpgate.test  # your Service ID (not the App ID!)</span>
+<span style="color: #56D364; background-color: #0F5323">+     key_id: ABC...  # the ID of the key you&#39;ve created</span>
+<span style="color: #56D364; background-color: #0F5323">+     client_secret: ABC...  # Base64 encoded contents of the .p8 private key file you&#39;ve got from Apple</span>
+</code></pre></div>
+<h4 id="custom">Custom<a class="headerlink" href="#custom" title="Permanent link">§</a></h4>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>external_host: warpgate.acme.inc:8888
+
+<span style="color: #56D364; background-color: #0F5323">+ sso_providers:</span>
+<span style="color: #56D364; background-color: #0F5323">+ - name: custom</span>
+<span style="color: #56D364; background-color: #0F5323">+   label: ACME SSO</span>
+<span style="color: #56D364; background-color: #0F5323">+   provider:</span>
+<span style="color: #56D364; background-color: #0F5323">+     type: custom</span>
+<span style="color: #56D364; background-color: #0F5323">+     client_id: 123...</span>
+<span style="color: #56D364; background-color: #0F5323">+     client_secret: ABC...</span>
+<span style="color: #56D364; background-color: #0F5323">+     issuer_url: https://sso.acme.inc</span>
+<span style="color: #56D364; background-color: #0F5323">+     scopes: [&quot;email&quot;]</span>
+</code></pre></div>
+<h3 id="oidc-audience-verification">OIDC audience verification<a class="headerlink" href="#oidc-audience-verification" title="Permanent link">§</a></h3>
+<p>Normally, the OIDC provider should issue a token that is only valid for Warpgate itself. If this is not possible, you have two options:</p>
+<ul>
+<li>Explicitly whitelist additional trusted audiences:</li>
+</ul>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
+<span style="color: #6E7681"> </span> - name: custom
+<span style="color: #6E7681"> </span>   label: ACME SSO
+<span style="color: #56D364; background-color: #0F5323">+   additional_trusted_audiences:</span>
+<span style="color: #56D364; background-color: #0F5323">+   - one</span>
+<span style="color: #56D364; background-color: #0F5323">+   - two</span>
+<span style="color: #6E7681"> </span>   provider:
+<span style="color: #6E7681"> </span>   ...
+</code></pre></div>
+<ul>
+<li>Fully ignore any additional audiences in the token (v0.13.1+):</li>
+</ul>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
+<span style="color: #6E7681"> </span> - name: custom
+<span style="color: #6E7681"> </span>   label: ACME SSO
+<span style="color: #56D364; background-color: #0F5323">+   trust_unknown_audiences: true</span>
+<span style="color: #6E7681"> </span>   provider:
+<span style="color: #6E7681"> </span>   ...
+</code></pre></div>
+<h3 id="automatically-creating-users">Automatically creating users<a class="headerlink" href="#automatically-creating-users" title="Permanent link">§</a></h3>
+<div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
+
+<p>Warpgate can automatically create users for new SSO logins. The SSO server has to provide the <code>preferred_username</code> OIDC claim for this to work.</p>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
+<span style="color: #6E7681"> </span> - name: custom
+<span style="color: #6E7681"> </span>   label: ACME SSO
+<span style="color: #56D364; background-color: #0F5323">+   auto_create_users: true</span>
+<span style="color: #6E7681"> </span>   provider:
+<span style="color: #6E7681"> </span>   ...
+</code></pre></div>
+<h3 id="requiring-sso-for-a-user">Requiring SSO for a user<a class="headerlink" href="#requiring-sso-for-a-user" title="Permanent link">§</a></h3>
+<p>Users are linked to their SSO accounts based on their email. If the SSO provider advertises email verification status, Warpgate will require the email to be verified.</p>
+<p>To link a user to SSO, click <code>Add SSO</code> in the credentials section, and then (optionally) set SSO as the only accepted credential type for HTTP connections.</p>
+<figure>
+<p><img alt="" src="../images/oob-policy.png" /></p>
+<figcaption>
+<p>Setting SSO as the only authentication method</p>
+</figcaption>
+</figure>
+<p>Here, we've also set SSO to be the only allowed login credential for HTTP auth, and have set SSH to use out-of-band web authentication.</p>
+<blockquote>
+<p><code>In-browser auth</code> (OOB web authentication) means that Warpgate will send a login link to the SSH client and will wait for the user to authenticate themselves in a browser. The auth requirements will be the same as set for the <code>http</code> protocol.</p>
+</blockquote>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>❯ ssh cwilde:tnt@warpgate.acme.inc -p 2222
+----------------------------------------------------------------
+Warpgate authentication: please open https://warpgate.acme.inc/@warpgate#/login/31282192-ad29-4fa7-bdc2-5b481d531e58 in your browser
+
+Make sure you&#39;re seeing this security key: E E 0 5
+----------------------------------------------------------------
+
+(cwilde:tnt@warpgate.acme.inc) Press Enter when done:
+</code></pre></div>
+<figure>
+<p><img alt="" src="../images/sso-buttons.png" /></p>
+<figcaption>
+<p>Login page with SSO buttons</p>
+</figcaption>
+</figure>
+<figure>
+<p><img alt="" src="../images/oob-request.png" /></p>
+<figcaption>
+<p>In-browser auth request</p>
+</figcaption>
+</figure>
+<h3 id="setting-roles-via-sso">Setting roles via SSO<a class="headerlink" href="#setting-roles-via-sso" title="Permanent link">§</a></h3>
+<div class="badge font-xs text-bg-warning mb-3">v0.10+</div>
+
+<p>With <code>custom</code> type OIDC providers, Warpgate can also sync the user's role memberships when they log in.</p>
+<p>For that, your provider must set a <code>warpgate_roles</code> OIDC claim (a JSON array of role names) either in the ID Token or the UserInfo response. By default, Warpgate will use these names as-is and completely overwrite the user's memberships.</p>
+<p>You can also set <code>role_mappings</code> in the provider's configuration to explicitly map claim values to role names. In this case, only the roles mentioned here will be synced SSO, and the memberships in other roles won't be affected. For example:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">-</span><span style="color: #6E7681"> </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">oidc-custom</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">label</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">Custom SSO</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">provider</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">type</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">custom</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">client_id</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">...</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">client_secret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">...</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">issuer_url</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">...</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">scopes</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">[]</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">role_mappings</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">      </span><span style="color: #A5D6FF">&#39;QA</span><span style="color: #79C0FF"> </span><span style="color: #A5D6FF">group&#39;</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;qa&#39;</span>
+<span style="color: #6E7681">      </span><span style="color: #7EE787">Admins</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;warpgate:admin&#39;</span>
+</code></pre></div>
+      </article>
+
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../otp/">
+            &larr;
+            One-time passwords (OTP)
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../recovering-access/">
+            Recovering admin access
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>

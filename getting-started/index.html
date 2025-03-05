@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Native - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+  <script type="module" crossorigin src="/assets/app-7bfOvzbE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CxEHjXO2.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    </a>
+
+    
+      <form action="search.html" class="search-form">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3>Docs</h3>
+      <ul>
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="text-success" href="./">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth-and-roles/">User authentication and roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Ops
+          <ul>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <div class="page-content">
+      <article>
+        <h1 id="getting-started-binary">Getting started (binary)<a class="headerlink" href="#getting-started-binary" title="Permanent link">§</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For Docker / k8s, see <a href="../getting-started-on-docker/">Getting started on Docker</a>.</p>
+</div>
+<ul>
+<li>Download the binary and save it as <code>/usr/bin/warpgate</code>:<ul>
+<li>grab a stable/beta release from the <a href="https://github.com/warp-tech/warpgate/releases">Releases</a> page</li>
+<li>or get a <a href="https://nightly.link/warp-tech/warpgate/workflows/build/main">nightly build</a></li>
+</ul>
+</li>
+<li>Make it executable:</li>
+</ul>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>chmod +x /usr/bin/warpgate
+</code></pre></div>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">§</a></h2>
+<p>Run <code>warpgate setup</code> and follow the prompts. If you want to use a non-default (<code>/etc/warpgate.yaml</code>) config path, pass it to all <code>warpgate</code> commands via <code>--config &lt;path&gt;</code>.</p>
+<p>To use an external database (MySQL or PostgreSQL) instead of the built-in SQLite, add <code>--database-url mysql://...</code> or <code>--database-url postgres://...</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Unattended setup</p>
+<p>There's also a non-interactive setup mode available - check out <code>warpgate unattended-setup --help</code></p>
+<p><div class="badge font-xs text-bg-warning mt-3">v0.7+</div></p>
+</div>
+<p>Here's what it might look like:</p>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>$ warpgate setup
+
+13:43:10  INFO Welcome to Warpgate 0.6.0
+13:43:10  INFO Let&#39;s do some basic setup first.
+13:43:10  INFO The new config will be written in /etc/warpgate.yaml.
+13:43:10  INFO * Paths can be either absolute or relative to /etc.
+✔ Directory to store app data (up to a few MB) in · /var/lib/warpgate
+✔ Endpoint to listen for SSH connections on · 0.0.0.0:2222
+✔ Endpoint to expose admin web interface on · 0.0.0.0:8888
+✔ Do you want to record user sessions? · yes
+✔ Set a password for the Warpgate admin user · ********
+13:43:28  INFO Generated configuration:
+[...]
+13:43:28  INFO Saved into /etc/warpgate.yaml
+13:43:28  INFO Using config: &quot;/etc/warpgate.yaml&quot; (users: 1, targets: 1, roles: 1)
+13:43:28  INFO Generating HTTPS certificate
+13:43:28  INFO
+13:43:28  INFO Admin user credentials:
+13:43:28  INFO   * Username: admin
+13:43:28  INFO   * Password: &lt;your password&gt;
+13:43:28  INFO
+13:43:28  INFO You can now start Warpgate with:
+13:43:28  INFO   warpgate --config /etc/warpgate.yaml run
+</code></pre></div>
+<p>If you need to start over, delete or move away the config file and run <code>warpgate setup</code> again.</p>
+<p>You can now start Warpgate with <code>warpgate run</code> and the output should look like this:</p>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>$ warpgate run
+
+13:44:13  INFO Warpgate version=0.6.0
+13:44:13  INFO Using config: &quot;/etc/warpgate.yaml&quot; (users: 1, targets: 1, roles: 1)
+13:44:13  INFO --------------------------------------------
+13:44:13  INFO Warpgate is now running.
+13:44:13  INFO Accepting SSH connections on 0.0.0.0:2222
+13:44:13  INFO Access admin UI on https://0.0.0.0:8888
+13:44:13  INFO --------------------------------------------
+13:44:13  INFO Listening address=0.0.0.0:2222
+13:44:13  INFO Listening address=0.0.0.0:8888
+</code></pre></div>
+<p>Try accessing <code>https://&lt;host&gt;:8888/@warpgate/admin</code> (note the <code>https://</code>) via a browser to confirm that the Admin UI is functional.</p>
+<p>The default username is <code>admin</code> and the password is the one you've set during setup.</p>
+<figure>
+<p><img alt="" src="../images/login.png" /></p>
+<figcaption>
+<p>Login screen</p>
+</figcaption>
+</figure>
+<figure>
+<p><img alt="" src="../images/session-list.png" /></p>
+<figcaption>
+<p>Session list in the admin UI</p>
+</figcaption>
+</figure>
+<h2 id="setting-up-as-a-service">Setting up as a service<a class="headerlink" href="#setting-up-as-a-service" title="Permanent link">§</a></h2>
+<p>On <code>systemd</code>, follow <a href="../systemd/">Installing as a systemd service</a> to configure Warpgate to run as a service.</p>
+<h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
+<ul>
+<li><a href="../targets/ssh/">Adding an SSH target</a></li>
+<li><a href="../targets/http/">Adding an HTTP target</a></li>
+</ul>
+      </article>
+
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../docs/">
+            &larr;
+            Home
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../getting-started-on-docker/">
+            Docker
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>

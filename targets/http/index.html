@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>HTTP - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+  <script type="module" crossorigin src="/assets/app-7bfOvzbE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CxEHjXO2.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    </a>
+
+    
+      <form action="search.html" class="search-form">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3>Docs</h3>
+      <ul>
+        
+        
+        <li>
+          <a class="" href="../../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../getting-started-on-docker/">Docker</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../postgres/">PostgreSQL</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../../auth-and-roles/">User authentication and roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Ops
+          <ul>
+            
+            <li>
+              <a class="" href="../../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <div class="page-content">
+      <article>
+        <h1 id="adding-http-targets">Adding HTTP targets<a class="headerlink" href="#adding-http-targets" title="Permanent link">§</a></h1>
+<h2 id="connection-setup">Connection setup<a class="headerlink" href="#connection-setup" title="Permanent link">§</a></h2>
+<p>Log into the Warpgate admin UI and navigate to <code>Config</code> &gt; <code>Targets</code> &gt; <code>Add target</code> and give the new HTTP target a name:</p>
+<figure>
+<p><img alt="" src="../../images/adding-http.png" /></p>
+<figcaption>
+<p>Adding an HTTP target</p>
+</figcaption>
+</figure>
+<p>Fill out the configuration:</p>
+<ul>
+<li><strong>Target URL</strong>: the destination web service, including the protocol (<code>http://</code> or <code>https://</code>).</li>
+<li><strong>TLS mode</strong>: whether to ignore, prefer or require TLS (overrides the URL's protocol).</li>
+<li><strong>Verify certificate</strong>: whether to reject untrusted certificates.</li>
+<li><strong>Bind to a domain</strong>: link this target to a specific sub-domain of the domain Warpgate is on - see <a href="../../http-domain-binding/">HTTP domain binding</a></li>
+</ul>
+<p>Example:</p>
+<figure>
+<p><img alt="" src="../../images/http-config.png" /></p>
+<figcaption>
+<p>HTTP target configuration</p>
+</figcaption>
+</figure>
+<p>The target should show up on the Warpgate's homepage:</p>
+<figure>
+<p><img alt="" src="../../images/http-on-home.png" /></p>
+<figcaption>
+<p>HTTP target on the home page</p>
+</figcaption>
+</figure>
+<h1 id="accessing-the-target">Accessing the target<a class="headerlink" href="#accessing-the-target" title="Permanent link">§</a></h1>
+<p>Users can either access the target by selecting it on the Warpgate's homepage, with a direct URL:</p>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>https://&lt;warpgate host&gt;:&lt;port&gt;/?warpgate-target=&lt;name&gt;
+</code></pre></div>
+<p>You can also find a copyable URL in the <em>Targets</em> section of the admin UI:</p>
+<figure>
+<p><img alt="" src="../../images/http-instructions.png" /></p>
+<figcaption>
+<p>HTTP connection instructions</p>
+</figcaption>
+</figure>
+<p>While the target is active, Warpgate will pass-through all HTTP traffic in this session straight to it. You can return back to the homepage by manually navigating to <code>/@warpgate</code>, or by using the injected session menu (shown below). The menu button can be dragged around to stay out of the way and will remember its location.</p>
+<figure>
+<p><img alt="" src="../../images/http-browsing.png" /></p>
+<figcaption>
+<p>Accessing an HTTP target</p>
+</figcaption>
+</figure>
+<h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
+<ul>
+<li><a href="../../auth-and-roles/">User authentication and roles</a></li>
+</ul>
+      </article>
+
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../ssh/">
+            &larr;
+            SSH
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../mysql/">
+            MySQL
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+  <script src="../../search/main.js"></script>
+
+</body>
+
+</html>

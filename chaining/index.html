@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Chaining Warpgates - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+  <script type="module" crossorigin src="/assets/app-7bfOvzbE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CxEHjXO2.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    </a>
+
+    
+      <form action="search.html" class="search-form">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3>Docs</h3>
+      <ul>
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth-and-roles/">User authentication and roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Ops
+          <ul>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <div class="page-content">
+      <article>
+        <h1 id="chaining-warpgates">Chaining Warpgates<a class="headerlink" href="#chaining-warpgates" title="Permanent link">§</a></h1>
+<p>Sometimes exposing a host on the network to the outside is not an option. In this case you can opt to forward connections from one Warpgate to another.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is fully transparent to the client (except for the double "warpgate connected" message in interactive sessions) - there are no SSH "jump hosts" involved in this setup.</p>
+</div>
+<h2 id="copy-outer-warpgates-public-key">Copy outer Warpgate's public key<a class="headerlink" href="#copy-outer-warpgates-public-key" title="Permanent link">§</a></h2>
+<ul>
+<li>Run <code>warpgate client-keys</code> and copy the Ed25519 public key:</li>
+</ul>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>➜  ~ warpgate client-keys
+16:55:10  INFO Using config: &quot;/etc/warpgate.yaml&quot; (users: 1, targets: 6, roles: 1)
+Warpgate SSH client keys:
+(add these to your target&#39;s authorized_hosts file)
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAxxxx+3RBsT5  # &lt;-- this line
+rsa-sha2-256 AAAADHJzYS1zaGEyLTI1Ngxxxx
+</code></pre></div>
+<h2 id="set-up-inner-warpgate">Set up inner Warpgate<a class="headerlink" href="#set-up-inner-warpgate" title="Permanent link">§</a></h2>
+<ul>
+<li>Add your targets as usual (in this example: <code>inner-server</code>).</li>
+<li>Add a "jump user" (here we'll be using <code>wg-jump</code> as a username) and add the outer Warpgate's public key as a credential.</li>
+<li>Check connection to the target with <code>warpgate test-target inner-server</code></li>
+</ul>
+<h2 id="set-up-outer-warpgate">Set up outer Warpgate<a class="headerlink" href="#set-up-outer-warpgate" title="Permanent link">§</a></h2>
+<ul>
+<li>Add the targets on the inner network again, using the inner Warpgate's address and port, as well as the Warpgate-style username:<ul>
+<li>Host: <code>&lt;inner Warpgate's IP&gt;</code></li>
+<li>Port: <code>&lt;inner Warpgate's SSH port&gt;</code></li>
+<li>Username: <code>wg-jump:inner-server</code></li>
+</ul>
+</li>
+<li>Check your config with <code>warpgate check</code>.</li>
+<li>Check connection to the target <em>through the inner Warpgate</em> on the outer Warpgate with <code>warpgate test-target inner-server</code></li>
+</ul>
+<h2 id="connect">Connect<a class="headerlink" href="#connect" title="Permanent link">§</a></h2>
+<p>You can now grab the connection command from the landing page (or the admin UI) as usual and test it on a client:</p>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>ssh &lt;username&gt;:inner-server@&lt;outer-warpgate&gt; -p &lt;outer-wg-port&gt;
+</code></pre></div>
+      </article>
+
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../http-domain-binding/">
+            &larr;
+            HTTP domain binding
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../protocol-support/">
+            Protocol support
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>
