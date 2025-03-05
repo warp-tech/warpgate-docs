@@ -1,4 +1,5 @@
 import '@fontsource/work-sans'
+import '@fontsource/work-sans/latin-700.css'
 import './imported-theme/theme.dark.scss'
 import './style.scss'
 

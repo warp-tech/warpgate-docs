@@ -7,7 +7,7 @@ Warpgate doesn't need any specific configuration except in the following case:
 
 Example for NGINX:
 
-```
+```toml
 server {
     server_name warpgate.acme.inc;
     listen *:443 http2 ssl;
@@ -15,10 +15,10 @@ server {
     ssl_certificate_key ...;
 
     location /  {
-                proxy_pass https://192.168.10.1:8888;
-                proxy_set_header Host $http_host;
-                proxy_set_header X-Forwarded-Proto $scheme;
-                proxy_http_version 1.1;
+        proxy_pass https://192.168.10.1:8888;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_http_version 1.1;
     }
 }
 

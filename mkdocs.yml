@@ -16,7 +16,7 @@ theme:
     - navigation.expand
 
 nav:
-  - index.md
+  - Home: docs.md
   - Getting started:
     - Native: getting-started.md
     - Docker: getting-started-on-docker.md
@@ -27,30 +27,18 @@ nav:
     - PostgreSQL: targets/postgres.md
   - Access control:
     - auth-and-roles.md
+    - tickets.md
+    - otp.md
     - sso.md
-  - Advanced topics:
-    - http-domain-binding.md
+    - recovering-access.md
+  - Ops:
+    - systemd.md
     - log-forwarding.md
     - reverse-proxy.md
-  - protocol-support.md
-#   - Getting Started:
-#       - Binary: getting-started/binary.md
-#       - Docker: getting-started/docker.md
-#   - Authentication:
-#       - auth/user-authentication.md
-#       - auth/mfa.md
-#       - auth/tickets.md
-#       - auth/sso.md
-#   - Targets:
-#       SSH: targets/ssh.md
-#       HTTP: targets/http.md
-#       MySQL: targets/mysql.md
-#       PostgreSQL: targets/postgresql.md
-#   - install-as-systemd-service.md
-#   - chaining-warpgate.md
-#   - protocol-support.md
-#   - log-forwarding.md
-#   - behind-reverse-proxy.md
+  - Advanced topics:
+    - http-domain-binding.md
+    - chaining.md
+    - protocol-support.md
 
 plugins:
   - search
@@ -69,3 +57,6 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
   - admonition
+  - toc:
+      permalink: §
+  - meta

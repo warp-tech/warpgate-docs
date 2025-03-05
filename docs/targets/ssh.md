@@ -32,7 +32,7 @@ Although not recommended, you can use a password to authenticate against a targe
 
 ## Connection setup
 
-[Log into the Warpgate admin UI](https://github.com/warp-tech/warpgate/wiki/Accessing-the-admin-UI) and navigate to `Config` > `Targets` > `Add target` and give the new target a name:
+Log into the Warpgate admin UI and navigate to `Config` > `Targets` > `Add target` and give the new target a name:
 
 ![](../images/adding-ssh.png)
 /// caption

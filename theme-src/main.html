@@ -24,18 +24,26 @@
       <img class="logo" src="./assets/brand-dark.svg" />
     </a>
 
-    <form action="search.html" class="search-form">
-      <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
-    </form>
+    {% if not page.meta.special %}
+      <form action="search.html" class="search-form">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    {% else %}
+      <div class="m-auto"></div>
+    {% endif %}
 
-    <a class="btn btn-success" href="https://github.com/Eugeny/warpgate/releases" target="_blank">Downloads</a>
+    {% if page.meta.special %}
+      <a class="btn btn-warning" href="/docs">Docs</a>
+    {% endif %}
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
     <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
   </header>
 
   <div id="mkdocs-search-results" class="container search-results"></div>
 
   <div class="layout container">
-    {% if nav|length > 1 %}
+    {% if not page.meta.special and nav|length > 1 %}
     <div class="nav">
       <h3>Docs</h3>
       <ul>

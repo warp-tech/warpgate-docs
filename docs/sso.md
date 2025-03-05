@@ -165,7 +165,10 @@ Users are linked to their SSO accounts based on their email. If the SSO provider
 
 To link a user to SSO, click `Add SSO` in the credentials section, and then (optionally) set SSO as the only accepted credential type for HTTP connections.
 
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/4644395c-4325-44db-85de-5da0470f1aa7">
+![](images/oob-policy.png)
+/// caption
+Setting SSO as the only authentication method
+///
 
 Here, we've also set SSO to be the only allowed login credential for HTTP auth, and have set SSH to use out-of-band web authentication.
 
@@ -182,9 +185,16 @@ Make sure you're seeing this security key: E E 0 5
 (cwilde:tnt@warpgate.acme.inc) Press Enter when done:
 ```
 
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/8e4e94a2-0e6e-40a6-a550-eb45b298cf0a">
+![](images/sso-buttons.png)
+/// caption
+Login page with SSO buttons
+///
 
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/f4a3b16f-1a3d-4169-80b7-d3e3360dc89c">
+
+![](images/oob-request.png)
+/// caption
+In-browser auth request
+///
 
 ### Setting roles via SSO
 

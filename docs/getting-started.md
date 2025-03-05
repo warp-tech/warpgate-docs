@@ -1,19 +1,17 @@
 # Getting started (binary)
 
+NOTE: For Docker / k8s, see [Getting started on Docker](./getting-started-on-docker.md).
+
 * Download the binary and save it as `/usr/bin/warpgate`:
-    * a stable/beta release from the [Releases](https://github.com/Eugeny/warpgate/releases) page
-    * or a nightly build from https://nightly.link/Eugeny/warpgate/workflows/build/main
+    * grab a stable/beta release from the [Releases](https://github.com/warp-tech/warpgate/releases) page
+    * or get a [nightly build](https://nightly.link/warp-tech/warpgate/workflows/build/main)
 * Make it executable:
 
 ```
 chmod +x /usr/bin/warpgate
 ```
 
-# Installation (Docker)
-
-* See [Getting started on Docker](./getting-started-on-docker.md).
-
-# Setup
+## Setup
 
 Run `warpgate setup` and follow the prompts. If you want to use a non-default (`/etc/warpgate.yaml`) config path, pass it to all `warpgate` commands via `--config <path>`.
 
@@ -85,9 +83,9 @@ Session list in the admin UI
 ///
 
 
-# Setting up as a service
+## Setting up as a service
 
-On `systemd`, follow [[Installing as a systemd service]] to configure Warpgate to run as a service.
+On `systemd`, follow [Installing as a systemd service](systemd.md) to configure Warpgate to run as a service.
 
 ### Up next
 

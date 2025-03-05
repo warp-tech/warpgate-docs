@@ -11,7 +11,7 @@ header {
   gap: 1rem;
 
   .logo {
-    width: 200px;
+    width: 160px;
   }
 }
 
@@ -152,4 +152,10 @@ figcaption {
   max-width: 40%;
   min-width: 100px;
   flex-grow: 1;
+}
+
+.headerlink {
+  opacity: .25;
+  margin-left: .5rem;
+  font-family: $font-family-sans-serif;
 }
