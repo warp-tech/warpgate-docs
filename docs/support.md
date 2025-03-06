@@ -13,7 +13,7 @@ Warpgate offers a professional support service that includes:
 
 In the times where one project after another falls into the enshittification cycle of becoming a worse SaaS version of itself, this funding model allows Warpgate to stay what it was always meant to be: a secure, open and robust gatekeeper at the edge of your infrastructure.
 
-<a class="btn btn-success" href="https://github.com/sponsors/Eugeny" target="_blank">
+<a class="btn btn-success" href="https://github.com/sponsors/Eugeny/sponsorships?sponsor=Eugeny&tier_id=471037" target="_blank">
     Order via GitHub Sponsors &rarr;
 </a>
 
