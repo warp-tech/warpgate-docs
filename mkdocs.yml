@@ -32,6 +32,7 @@ nav:
     - sso.md
     - recovering-access.md
   - Ops:
+    - support.md
     - systemd.md
     - log-forwarding.md
     - reverse-proxy.md
