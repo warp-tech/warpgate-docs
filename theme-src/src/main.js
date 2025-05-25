@@ -2,6 +2,7 @@ import '@fontsource/work-sans'
 import '@fontsource/work-sans/latin-700.css'
 import './imported-theme/theme.dark.scss'
 import './style.scss'
+import './animations'
 
 const classRemapping = [
     { from: '.admonition.note', to: ['alert', 'alert-info'] },

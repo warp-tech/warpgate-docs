@@ -2,6 +2,15 @@
 special: home
 ---
 
+<div id="animation-container-home"></div>
+
+<style>
+    #animation-container-home {
+        margin: auto;
+        max-width: 500px;
+    }
+</style>
+
 <div class="homepage">
     <div class="jumbo">
         <h1>The last bastion</h1>
@@ -23,7 +32,7 @@ special: home
         </div>
         <div class="feature col-md-6 col-12">
             <h1>No jump hosts</h1>
-            <p>Warpgate handles authentication, and then transparently forwards the connection to the target server, while taking a live recording for auditing.</p>
+            <p>Warpgate handles authentication, and then transparently forwards the connection to the target server, while making a live recording for auditing.</p>
         </div>
     </div>
 
