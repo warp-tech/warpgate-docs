@@ -6,6 +6,8 @@
   <title>PostgreSQL - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <script>
     window.base_url = '/' // for search
   </script>
@@ -19,26 +21,27 @@
 
     gtag('config', 'G-55PX9VYM8V');
   </script>
-  <script type="module" crossorigin src="/assets/app-BJB8X56j.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-CKRbU5ud.css">
+  <script type="module" crossorigin src="/assets/app-CDwZQMxF.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-yq3ZNXLq.css">
 </head>
 
 <body>
   <header class="container">
-    <a href="/">
+    <a href="/" class="me-auto">
       <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
     </a>
 
     
-      <form action="search.html" class="search-form">
+      <form action="search.html" class="search-form d-none d-sm-inline-block">
         <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
       </form>
     
 
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary ms-auto" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+
     
 
-    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
-    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
   </header>
 
   <div id="mkdocs-search-results" class="container search-results"></div>
@@ -46,8 +49,13 @@
   <div class="layout container">
     
     <div class="nav">
-      <h3>Docs</h3>
-      <ul>
+      <h3 class="d-flex align-items-center">
+        <span class="nav-collapsible">Docs</span>
+        <!-- <button class="btn btn-link ms-auto nav-toggle">
+          <i class="fa-solid fa-list"></i>
+        </button> -->
+      </h3>
+      <ul class="nav-collapsible">
         
         
         <li>
@@ -237,6 +245,10 @@
 <p>PostgreSQL session log</p>
 </figcaption>
 </figure>
+<h2 id="2-factor-authentication">2-factor authentication<a class="headerlink" href="#2-factor-authentication" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.14+</div>
+
+<p>Warpgate supports the "In-browser auth" authentication for PostgreSQL clients by sending a login link in a PostgreSQL notice message. Some clients might ignore notice messages, but the users will still be able see and confirm their login request if they log into the Warpgate web UI.</p>
 <h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
 <ul>
 <li><a href="../../auth-and-roles/">User authentication and roles</a></li>

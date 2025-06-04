@@ -6,6 +6,8 @@
   <title>Protocol support - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <script>
     window.base_url = '/' // for search
   </script>
@@ -19,26 +21,27 @@
 
     gtag('config', 'G-55PX9VYM8V');
   </script>
-  <script type="module" crossorigin src="/assets/app-BJB8X56j.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-CKRbU5ud.css">
+  <script type="module" crossorigin src="/assets/app-CDwZQMxF.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-yq3ZNXLq.css">
 </head>
 
 <body>
   <header class="container">
-    <a href="/">
+    <a href="/" class="me-auto">
       <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
     </a>
 
     
-      <form action="search.html" class="search-form">
+      <form action="search.html" class="search-form d-none d-sm-inline-block">
         <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
       </form>
     
 
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary ms-auto" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+
     
 
-    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
-    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
   </header>
 
   <div id="mkdocs-search-results" class="container search-results"></div>
@@ -46,8 +49,13 @@
   <div class="layout container">
     
     <div class="nav">
-      <h3>Docs</h3>
-      <ul>
+      <h3 class="d-flex align-items-center">
+        <span class="nav-collapsible">Docs</span>
+        <!-- <button class="btn btn-link ms-auto nav-toggle">
+          <i class="fa-solid fa-list"></i>
+        </button> -->
+      </h3>
+      <ul class="nav-collapsible">
         
         
         <li>
@@ -176,53 +184,57 @@
         <h1 id="protocol-support">Protocol support<a class="headerlink" href="#protocol-support" title="Permanent link">§</a></h1>
 <h2 id="ssh">SSH<a class="headerlink" href="#ssh" title="Permanent link">§</a></h2>
 <ul>
-<li>Ciphers: <code>chacha20-poly1305</code>, <code>aes256-gcm@openssh.com</code></li>
-<li>Key exchange: <code>curve25519-sha256@libssh.org</code></li>
+<li>Ciphers: <code>chacha20-poly1305</code>, AES256-GCM, AES256-CTR, AES192-CTR, AES128-CTR.</li>
+<li>Key exchanges: Curve25519, DH GEX SHA-256, DH groups 14-18.</li>
 <li>Keys: <code>ssh-ed25519</code>, <code>ssh-rsa</code>, <code>rsa-sha2-512</code>, <code>rsa-sha2-256</code></li>
-<li>Compression: <code>zlib</code>, <code>zlib@openssh.com</code></li>
-<li>Tickets ✅</li>
-<li>2FA ✅</li>
+<li>MACs: HMAC-SHA-1/256/512 with optional ETM.</li>
+<li>Compression: Zlib.</li>
+<li>✅ Tickets</li>
+<li>✅ 2FA</li>
 </ul>
 <h2 id="mysql">MySQL<a class="headerlink" href="#mysql" title="Permanent link">§</a></h2>
 <ul>
 <li>MySQL text protocol only (prepared statements are not supported)</li>
-<li>No MariaDB protocol extensions (such as query progressbars).</li>
-<li>As server:</li>
-<li>Identifies itself as MySQL 8.0<ul>
-<li>(meaning you can use MySQL Workbench even if the target is a MariaDB)</li>
+<li>As server:<ul>
+<li>Identifies itself as MySQL 8.0 (meaning you can use the MySQL Workbench even if the target is a MariaDB)</li>
+<li>✅ TLS (forced)</li>
+<li><code>mysql_clear_password</code> auth over TLS</li>
 </ul>
 </li>
-<li>TLS ✅ (forced)</li>
-<li><code>mysql_clear_password</code> auth over TLS</li>
-<li>As client:</li>
-<li>TLS ✅ (optional)</li>
-<li><code>mysql_native_password</code> auth ✅</li>
-<li>Tickets ✅</li>
-<li>2FA ❌</li>
+<li>As client:<ul>
+<li>✅ TLS (optional)</li>
+<li>✅<code>mysql_native_password</code> auth</li>
+</ul>
+</li>
+<li>✅ Tickets</li>
+<li>❌ 2FA</li>
+<li>❌ MariaDB protocol extensions (such as query progress bars)</li>
 </ul>
 <h2 id="postgresql">PostgreSQL<a class="headerlink" href="#postgresql" title="Permanent link">§</a></h2>
 <ul>
-<li>As server:</li>
-<li>TLS ✅ (forced)</li>
+<li>As server:<ul>
+<li>✅ TLS (forced)</li>
 <li><code>password</code> cleartext auth over TLS</li>
-<li><code>sha256-scram</code> auth ❌</li>
-<li>As client:</li>
-<li>TLS ✅ (optional)</li>
-<li><code>password</code> auth ✅</li>
-<li><code>md5</code> auth ✅</li>
-<li><code>sha256-scram</code> auth ✅</li>
-<li>Tickets ✅</li>
-<li>2FA ❌</li>
+</ul>
+</li>
+<li>As client:<ul>
+<li>✅ TLS (optional)</li>
+<li>✅ <code>password</code> auth</li>
+<li>✅ <code>md5</code> auth</li>
+<li>✅ <code>sha256-scram</code> auth</li>
+</ul>
+</li>
+<li>✅ Tickets</li>
+<li>✅ 2FA <div class="badge font-xs text-bg-warning">v0.14+</div></li>
 </ul>
 <h2 id="http">HTTP<a class="headerlink" href="#http" title="Permanent link">§</a></h2>
 <ul>
-<li>HTTP/1.1 ✅</li>
-<li>HTTP/2 ✅</li>
-<li>TLS ✅ (as server: forced)</li>
-<li>Websockets ✅</li>
-<li>SSE ❌</li>
-<li>Tickets ✅ <div class="badge font-xs text-bg-warning">v0.5+</div></li>
-<li>2FA ✅</li>
+<li>✅ HTTP/1.1</li>
+<li>✅ HTTP/2</li>
+<li>✅ TLS (as server: forced)</li>
+<li>✅ Websockets</li>
+<li>✅ Tickets <div class="badge font-xs text-bg-warning">v0.5+</div></li>
+<li>✅ 2FA</li>
 </ul>
       </article>
 
