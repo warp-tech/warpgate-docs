@@ -69,6 +69,12 @@ While your PostgreSQL session is running, you'll be able to see its status in th
 PostgreSQL session log
 ///
 
+## 2-factor authentication
+
+<div class="badge font-xs text-bg-warning mb-3">v0.14+</div>
+
+Warpgate supports the "In-browser auth" authentication for PostgreSQL clients by sending a login link in a PostgreSQL notice message. Some clients might ignore notice messages, but the users will still be able see and confirm their login request if they log into the Warpgate web UI.
+
 ### Up next
 
 * [User authentication and roles](../auth-and-roles.md)

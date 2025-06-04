@@ -74,10 +74,10 @@ When connecting for the first time, Warpgate will ask you to check and confirm t
 Here's what it looks like with OpenSSH:
 
 ```
-$ ssh admin:vm1@192.168.77.253 -p 2222
-admin:vm1@192.168.77.253's password:
+$ ssh c.wilde:staging-env@warpgate.acme.inc
+c.wilde:staging-env@warpgate.acme.inc's password:
 
- Warpgate  Selected target: vm1
+ Warpgate  Selected target: staging-env
  Warpgate  Host key (ssh-ed25519): AAAAC3[...]
  Warpgate  There is no trusted ssh-ed25519 key for this host.
  Warpgate  Trust this key? (y/n)
