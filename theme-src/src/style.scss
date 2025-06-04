@@ -1,15 +1,17 @@
 @import "./imported-theme/vars.dark.scss";
 
 @font-face {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-style: normal;
   font-display: block; /* changed */
   font-weight: 700;
-  src: url(./../../node_modules/@fontsource/poppins/files/poppins-latin-700-normal.woff2) format('woff2'), url(./../../node_modules/@fontsource/poppins/files/poppins-latin-700-normal.woff) format('woff');
+  src:
+    url(./../../node_modules/@fontsource/poppins/files/poppins-latin-700-normal.woff2) format("woff2"),
+    url(./../../node_modules/@fontsource/poppins/files/poppins-latin-700-normal.woff) format("woff");
 }
 
-
 body {
+  width: 100vw;
   padding: 2rem;
 }
 
@@ -57,10 +59,30 @@ h3 {
     h3 {
       margin: 0 0 0.5rem;
     }
+
+    &.collapsed {
+      margin-right: 0;
+
+      .nav-collapsible {
+        display: none;
+      }
+    }
   }
 
   > .page-content {
     flex-grow: 1;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .layout {
+    flex-direction: column-reverse;
+
+    > .nav {
+      margin-right: 0;
+      margin-top: 2rem;
+    }
   }
 }
 
@@ -164,7 +186,7 @@ figcaption {
 }
 
 .headerlink {
-  opacity: .25;
-  margin-left: .5rem;
+  opacity: 0.25;
+  margin-left: 0.5rem;
   font-family: $font-family-sans-serif;
 }

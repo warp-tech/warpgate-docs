@@ -1,5 +1,6 @@
 import '@fontsource/work-sans'
 import '@fontsource/work-sans/latin-700.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 import './imported-theme/theme.dark.scss'
 import './style.scss'
 import './animations'
@@ -14,4 +15,11 @@ for (const item of classRemapping) {
             el.classList.add(to)
         }
     }
+}
+
+const navToggle = document.querySelector('.nav-toggle')
+if (navToggle) {
+    navToggle.addEventListener('click', () => {
+        document.querySelector('.nav').classList.toggle('collapsed')
+    })
 }

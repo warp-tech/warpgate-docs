@@ -6,6 +6,8 @@
   <title>{% if page.title %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
   <link rel="icon" type="image/svg" href="./assets/favicon.svg">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   {%- for path in config.extra_js %}
   <script src="{{ path | url }}"></script>
   {%- endfor %}
@@ -30,24 +32,25 @@
 
 <body>
   <header class="container">
-    <a href="/">
+    <a href="/" class="me-auto">
       <img class="logo" src="./assets/brand-dark.svg" />
     </a>
 
     {% if not page.meta.special %}
-      <form action="search.html" class="search-form">
+      <form action="search.html" class="search-form d-none d-sm-inline-block">
         <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
       </form>
     {% else %}
       <div class="m-auto"></div>
     {% endif %}
 
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary ms-auto" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+
     {% if page.meta.special %}
-      <a class="btn btn-warning" href="/docs">Docs</a>
+      <a class="btn btn-warning d-none d-sm-inline-block" href="/docs">Docs</a>
     {% endif %}
 
-    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
-    <a class="btn btn-primary" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
   </header>
 
   <div id="mkdocs-search-results" class="container search-results"></div>
@@ -55,8 +58,13 @@
   <div class="layout container">
     {% if not page.meta.special and nav|length > 1 %}
     <div class="nav">
-      <h3>Docs</h3>
-      <ul>
+      <h3 class="d-flex align-items-center">
+        <span class="nav-collapsible">Docs</span>
+        <!-- <button class="btn btn-link ms-auto nav-toggle">
+          <i class="fa-solid fa-list"></i>
+        </button> -->
+      </h3>
+      <ul class="nav-collapsible">
         {% for nav_item in nav %}
         {% if nav_item.children %}
         <li>{{ nav_item.title }}
