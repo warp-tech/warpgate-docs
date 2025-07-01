@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Installing as a systemd service - Warpgate</title>
+  <title>TLS SNI - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -140,7 +140,7 @@
             </li>
             
             <li>
-              <a class="text-success" href="./">Installing as a systemd service</a>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
             </li>
             
             <li>
@@ -164,7 +164,7 @@
             </li>
             
             <li>
-              <a class="" href="../sni/">TLS SNI</a>
+              <a class="text-success" href="./">TLS SNI</a>
             </li>
             
             <li>
@@ -185,34 +185,30 @@
 
     <div class="page-content">
       <article>
-        <h1 id="installing-as-a-systemd-service">Installing as a systemd service<a class="headerlink" href="#installing-as-a-systemd-service" title="Permanent link">§</a></h1>
-<p>To add Warpgate to systemd and have it start automatically, run:</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>cat<span style="color: #6E7681"> </span><span style="color: #A5D6FF">&lt;&lt;EOF &gt; /etc/systemd/system/warpgate.service</span>
-<span style="color: #A5D6FF">[Unit]</span>
-<span style="color: #A5D6FF">Description=Warpgate</span>
-<span style="color: #A5D6FF">After=network.target</span>
-<span style="color: #A5D6FF">StartLimitIntervalSec=0</span>
+        <h1 id="tls-sni">TLS SNI<a class="headerlink" href="#tls-sni" title="Permanent link">§</a></h1>
+<div class="badge font-xs text-bg-warning mb-3">v0.15+</div>
 
-<span style="color: #A5D6FF">[Service]</span>
-<span style="color: #A5D6FF">Type=notify</span>
-<span style="color: #A5D6FF">Restart=always</span>
-<span style="color: #A5D6FF">RestartSec=5</span>
-<span style="color: #A5D6FF">ExecStart=/usr/bin/warpgate --config /etc/warpgate.yaml run</span>
-
-<span style="color: #A5D6FF">[Install]</span>
-<span style="color: #A5D6FF">WantedBy=multi-user.target</span>
-<span style="color: #A5D6FF">EOF</span>
-
-systemctl<span style="color: #6E7681"> </span>daemon-reload
-systemctl<span style="color: #6E7681"> </span><span style="color: #E6EDF3">enable</span><span style="color: #6E7681"> </span>--now<span style="color: #6E7681"> </span>warpgate
+<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">§</a></h2>
+<p><a href="https://en.wikipedia.org/wiki/Server_Name_Indication">SNI</a> allows Warpgate to automatically pick the correct certificate for each domain when serving HTTPS.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">§</a></h2>
+<p>In the config file, add the <code>http.sni_certificates</code> list:</p>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>http:
+<span style="color: #6E7681"> </span> certificate: ...
+<span style="color: #6E7681"> </span> key: ...
+<span style="color: #56D364; background-color: #0F5323">+ sni_certificates:</span>
+<span style="color: #56D364; background-color: #0F5323">+ - certificate: other_cert.pem</span>
+<span style="color: #56D364; background-color: #0F5323">+   key: other_key.pem</span>
+<span style="color: #56D364; background-color: #0F5323">+ - certificate: yet_another_cert.pem</span>
+<span style="color: #56D364; background-color: #0F5323">+   key: yet_another_key.pem</span>
 </code></pre></div>
+<p>The "main" certificate will remain active as a fallback for any requests that do not match domain names known from the SNI certificate list.</p>
       </article>
 
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../support/">
+          <a class="btn btn-secondary btn-prev" href="../http-domain-binding/">
             &larr;
-            Support
+            HTTP domain binding
             <br/>
             <small class="text-muted">
               Previous
@@ -222,8 +218,8 @@ systemctl<span style="color: #6E7681"> </span><span style="color: #E6EDF3">enabl
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../log-forwarding/">
-            Log forwarding
+          <a class="btn btn-success btn-next ms-auto" href="../chaining/">
+            Chaining Warpgates
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

@@ -2,82 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.warpgate.dev/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/auth-and-roles/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/chaining/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/docs/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/getting-started-on-docker/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/getting-started/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/http-domain-binding/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/log-forwarding/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/otp/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/protocol-support/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/recovering-access/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/reverse-proxy/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.warpgate.dev/sni/</loc>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/sso/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/support/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/systemd/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/tickets/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/targets/http/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/targets/mysql/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/targets/postgres/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
     <url>
          <loc>https://docs.warpgate.dev/targets/ssh/</loc>
-         <lastmod>2025-06-04</lastmod>
+         <lastmod>2025-07-01</lastmod>
     </url>
 </urlset>
