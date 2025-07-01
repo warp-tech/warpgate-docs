@@ -38,6 +38,7 @@ nav:
     - reverse-proxy.md
   - Advanced topics:
     - http-domain-binding.md
+    - sni.md
     - chaining.md
     - protocol-support.md
 
