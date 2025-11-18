@@ -60,6 +60,21 @@ special: home
     </div>
 </div>
 
+
+## How is Warpgate different from a jump host / VPN / Teleport?
+
+| Warpgate | SSH jump host | VPN | Teleport |
+|-|-|-|-|
+| ✅ **Precise 1:1 assignment between users and services** | (Usually) full access to the network behind the jump host | (Usually) full access to the network | ✅ **Precise 1:1 assignment between users and services** |
+| ✅ **No custom client needed** | Jump host config needed | ✅ **No custom client needed** | Custom client required |
+| ✅ **2FA out of the box** | 🟡 2FA possible with additional PAM plugins | 🟡 Depends on the provider | ✅ **2FA out of the box** |
+| ✅ **SSO out of the box** | 🟡 SSO possible with additional PAM plugins | 🟡 Depends on the provider | Paid |
+| ✅ **Command-level audit** | 🟡 Connection-level audit on the jump host, no secure audit on the target if root access is given | No secure audit on the target if root access is given | ✅ **Command-level audit** |
+| ✅ **Full session recording** | No secure recording possible on the target if root access is given | No secure recording possible on the target if root access is given | ✅ **Full session recording** |
+| ✅ **Non-interactive connections** | 🟡 Non-interactive connections are possible if the clients supports jump hosts natively | ✅ **Non-interactive connections** | Non-interactive connections require using an SSH client wrapper or running a tunnel |
+| ✅ **Self-hosted, you own the data** | ✅ **Self-hosted, you own the data** | 🟡 Depends on the provider | SaaS |
+
+
 <div class="how-it-be">
     <h1> How does all this work?</h1>
     <p class="mt-5">You download and run a single binary or a Docker container:</p>
@@ -97,6 +112,12 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
 
     <p>Sounds good?</p>
     <a class="btn btn-warning" href="/docs">Read the docs</a>
+</div>
+
+<hr class="mt-5" />
+
+<div class="text-center">
+    <a href="/imprint">Imprint</a>
 </div>
 
 <style>
@@ -163,5 +184,11 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
         margin: 0 auto 2rem;
     }
 
+    table {
+        td, th {
+            padding: 1rem 1rem;
+        }
 
+        margin-bottom: 2rem;
+    }
 </style>
