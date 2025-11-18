@@ -109,6 +109,67 @@
     </div>
 </div>
 
+<h2 id="how-is-warpgate-different-from-a-jump-host-vpn-teleport">How is Warpgate different from a jump host / VPN / Teleport?<a class="headerlink" href="#how-is-warpgate-different-from-a-jump-host-vpn-teleport" title="Permanent link">§</a></h2>
+<table>
+<thead>
+<tr>
+<th>Warpgate</th>
+<th>SSH jump host</th>
+<th>VPN</th>
+<th>Teleport</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅ <strong>Precise 1:1 assignment between users and services</strong></td>
+<td>(Usually) full access to the network behind the jump host</td>
+<td>(Usually) full access to the network</td>
+<td>✅ <strong>Precise 1:1 assignment between users and services</strong></td>
+</tr>
+<tr>
+<td>✅ <strong>No custom client needed</strong></td>
+<td>Jump host config needed</td>
+<td>✅ <strong>No custom client needed</strong></td>
+<td>Custom client required</td>
+</tr>
+<tr>
+<td>✅ <strong>2FA out of the box</strong></td>
+<td>🟡 2FA possible with additional PAM plugins</td>
+<td>🟡 Depends on the provider</td>
+<td>✅ <strong>2FA out of the box</strong></td>
+</tr>
+<tr>
+<td>✅ <strong>SSO out of the box</strong></td>
+<td>🟡 SSO possible with additional PAM plugins</td>
+<td>🟡 Depends on the provider</td>
+<td>Paid</td>
+</tr>
+<tr>
+<td>✅ <strong>Command-level audit</strong></td>
+<td>🟡 Connection-level audit on the jump host, no secure audit on the target if root access is given</td>
+<td>No secure audit on the target if root access is given</td>
+<td>✅ <strong>Command-level audit</strong></td>
+</tr>
+<tr>
+<td>✅ <strong>Full session recording</strong></td>
+<td>No secure recording possible on the target if root access is given</td>
+<td>No secure recording possible on the target if root access is given</td>
+<td>✅ <strong>Full session recording</strong></td>
+</tr>
+<tr>
+<td>✅ <strong>Non-interactive connections</strong></td>
+<td>🟡 Non-interactive connections are possible if the clients supports jump hosts natively</td>
+<td>✅ <strong>Non-interactive connections</strong></td>
+<td>Non-interactive connections require using an SSH client wrapper or running a tunnel</td>
+</tr>
+<tr>
+<td>✅ <strong>Self-hosted, you own the data</strong></td>
+<td>✅ <strong>Self-hosted, you own the data</strong></td>
+<td>🟡 Depends on the provider</td>
+<td>SaaS</td>
+</tr>
+</tbody>
+</table>
 <div class="how-it-be">
     <h1> How does all this work?</h1>
     <p class="mt-5">You download and run a single binary or a Docker container:</p>
@@ -146,6 +207,12 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
 
     <p>Sounds good?</p>
     <a class="btn btn-warning" href="/docs">Read the docs</a>
+</div>
+
+<hr class="mt-5" />
+
+<div class="text-center">
+    <a href="/imprint">Imprint</a>
 </div>
 
 <style>
@@ -212,7 +279,13 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
         margin: 0 auto 2rem;
     }
 
+    table {
+        td, th {
+            padding: 1rem 1rem;
+        }
 
+        margin-bottom: 2rem;
+    }
 </style>
       </article>
 
