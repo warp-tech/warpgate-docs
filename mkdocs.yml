@@ -20,6 +20,7 @@ nav:
   - Getting started:
     - Native: getting-started.md
     - Docker: getting-started-on-docker.md
+    - Helm: getting-started-on-helm.md
   - Adding targets:
     - SSH: targets/ssh.md
     - HTTP: targets/http.md
