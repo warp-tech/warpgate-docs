@@ -1,5 +1,7 @@
 # Getting started on Helm
 
+<div class="badge font-xs text-bg-warning mb-3">The Helm chart is community-maintained</div>
+
 ## TL;DR
 
 * Official Helm chart: [warp-tech/warpgate/helm/warpgate](https://github.com/warp-tech/warpgate/tree/main/helm/warpgate)
@@ -71,13 +73,13 @@ setup:
   type: "job"  # or "podinit"
   envFromSecret:
     WARPGATE_ADMIN_PASSWORD: "warpgate-secret/adminPassword"
-  
+
   # Ports to expose
   ssh: 2222
   http: 8888
   mysql: 33306
   pgsql: 55432
-  
+
   # Optional: External database
   # databaseUrl: "postgres://user:password@postgres-service:5432/warpgate"
 
