@@ -215,6 +215,7 @@
 <h3 id="obtaining-app-credentials-from-a-provider">Obtaining app credentials from a provider<a class="headerlink" href="#obtaining-app-credentials-from-a-provider" title="Permanent link">§</a></h3>
 <p>You'll need to register your Warpgate instance as an "app" (terminology varies per provider) at the provider and obtain a <em>Client ID</em> and a <em>Client secret</em>. You'll need to provide a <em>Redirect URL</em> which - which will be verified by the SSO provider.</p>
 <p>The <em>redirect URL</em> (aka <em>return URL</em>) for Warpgate is <code>https://&lt;warpgate-external-host&gt;/@warpgate/api/sso/return</code>.</p>
+<p>For providers that do not allow the @ sign in the URL (Azure), you can use an underscore instead: <code>https://&lt;warpgate-external-host&gt;/_warpgate/api/sso/return</code> (v0.17+ only)</p>
 <p>Okta provides excellent guides on registering an app with various providers:</p>
 <ul>
 <li><a href="https://developer.okta.com/docs/guides/social-login/google/main/#create-an-app-at-the-identity-provider">Google</a></li>
