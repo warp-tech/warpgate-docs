@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Helm - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55PX9VYM8V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-55PX9VYM8V');
+  </script>
+  <script type="module" crossorigin src="/assets/app-CDwZQMxF.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-yq3ZNXLq.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/" class="me-auto">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    </a>
+
+    
+      <form action="search.html" class="search-form d-none d-sm-inline-block">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary ms-auto" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+
+    
+
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3 class="d-flex align-items-center">
+        <span class="nav-collapsible">Docs</span>
+        <!-- <button class="btn btn-link ms-auto nav-toggle">
+          <i class="fa-solid fa-list"></i>
+        </button> -->
+      </h3>
+      <ul class="nav-collapsible">
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">Helm</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth-and-roles/">User authentication and roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Ops
+          <ul>
+            
+            <li>
+              <a class="" href="../support/">Support</a>
+            </li>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sni/">TLS SNI</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <div class="page-content">
+      <article>
+        <h1 id="getting-started-on-helm">Getting started on Helm<a class="headerlink" href="#getting-started-on-helm" title="Permanent link">§</a></h1>
+<div class="badge font-xs text-bg-warning mb-3">The Helm chart is community-maintained</div>
+
+<h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">§</a></h2>
+<ul>
+<li>Official Helm chart: <a href="https://github.com/warp-tech/warpgate/tree/main/helm/warpgate">warp-tech/warpgate/helm/warpgate</a></li>
+<li>Image name: <code>ghcr.io/warp-tech/warpgate</code></li>
+<li>Image in the GHCR: <a href="https://github.com/warp-tech/warpgate/pkgs/container/warpgate">https://github.com/warp-tech/warpgate/pkgs/container/warpgate</a></li>
+<li>Persistent volume required: <code>/data</code> (when using SQLite)</li>
+<li>Ports: <code>2222</code> (SSH), <code>8888</code> (HTTP), <code>33306</code> (MySQL), <code>55432</code> (PostgreSQL)</li>
+<li>Tags: <code>latest</code> (stable), <code>vX.Y</code>, <code>vX.Y.Z</code></li>
+</ul>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">§</a></h2>
+<ul>
+<li>Kubernetes cluster (1.19+)</li>
+<li>Helm 3.x installed</li>
+<li>kubectl configured to access your cluster</li>
+</ul>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">§</a></h2>
+<h3 id="install-from-official-chart">Install from Official Chart<a class="headerlink" href="#install-from-official-chart" title="Permanent link">§</a></h3>
+<p>The official Helm chart is available in the Warpgate repository. Clone the repository and install from the local chart:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>git<span style="color: #6E7681"> </span>clone<span style="color: #6E7681"> </span>https://github.com/warp-tech/warpgate.git
+<span style="color: #E6EDF3">cd</span><span style="color: #6E7681"> </span>warpgate/helm/warpgate
+helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>.<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--create-namespace
+</code></pre></div>
+<h3 id="automatic-setup">Automatic Setup<a class="headerlink" href="#automatic-setup" title="Permanent link">§</a></h3>
+<p>The Helm chart includes automatic setup via a Kubernetes Job (recommended) or initContainer. Create a secret with the admin password:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>create<span style="color: #6E7681"> </span>secret<span style="color: #6E7681"> </span>generic<span style="color: #6E7681"> </span>warpgate-secret<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--from-literal<span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #79C0FF">adminPassword</span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #A5D6FF">&#39;your-secure-password&#39;</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate
+</code></pre></div>
+<p>Then install with setup enabled:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">cd</span><span style="color: #6E7681"> </span>warpgate/helm/warpgate
+helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>.<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--create-namespace<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>setup.enabled<span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #E6EDF3">true</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>data.pvc.enabled<span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #E6EDF3">true</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>setup.envFromSecret.WARPGATE_ADMIN_PASSWORD<span style="color: #FF7B72; font-weight: bold">=</span>warpgate-secret/adminPassword
+</code></pre></div>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">§</a></h2>
+<p>For the complete list of available configuration options, see the <a href="https://github.com/warp-tech/warpgate/blob/main/helm/warpgate/values.yaml">full Helm values file</a>.</p>
+<h3 id="basic-values">Basic Values<a class="headerlink" href="#basic-values" title="Permanent link">§</a></h3>
+<p>Create a <code>values.yaml</code> file to customize your deployment:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">image</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">repository</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">ghcr.io/warp-tech/warpgate</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">tag</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;0.16.0&quot;</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">pullPolicy</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">IfNotPresent</span>
+
+<span style="color: #8B949E; font-style: italic"># Automatic setup configuration</span>
+<span style="color: #7EE787">setup</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">enabled</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">true</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">type</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;job&quot;</span><span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># or &quot;podinit&quot;</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">envFromSecret</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">WARPGATE_ADMIN_PASSWORD</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-secret/adminPassword&quot;</span>
+
+<span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># Ports to expose</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">ssh</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">2222</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">http</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">8888</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">mysql</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">33306</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">pgsql</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">55432</span>
+
+<span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># Optional: External database</span>
+<span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># databaseUrl: &quot;postgres://user:password@postgres-service:5432/warpgate&quot;</span>
+
+<span style="color: #8B949E; font-style: italic"># Persistent storage</span>
+<span style="color: #7EE787">data</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">pvc</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">enabled</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">true</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">template</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">      </span><span style="color: #7EE787">accessModes</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">[</span><span style="color: #A5D6FF">&quot;ReadWriteOnce&quot;</span><span style="color: #E6EDF3">]</span>
+<span style="color: #6E7681">      </span><span style="color: #7EE787">resources</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">        </span><span style="color: #7EE787">requests</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">          </span><span style="color: #7EE787">storage</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">10Gi</span>
+
+<span style="color: #8B949E; font-style: italic"># Service configuration</span>
+<span style="color: #7EE787">service</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">type</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">ClusterIP</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">ports</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">ssh</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">2222</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">http</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">8888</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">mysql</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">33306</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">pgsql</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">55432</span>
+
+<span style="color: #8B949E; font-style: italic"># Resource limits</span>
+<span style="color: #7EE787">resources</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">requests</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">memory</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;256Mi&quot;</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">cpu</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;250m&quot;</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">limits</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">memory</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;512Mi&quot;</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">cpu</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;500m&quot;</span>
+</code></pre></div>
+<p>Install with custom values:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">cd</span><span style="color: #6E7681"> </span>warpgate/helm/warpgate
+helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>.<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--create-namespace<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--values<span style="color: #6E7681"> </span>values.yaml
+</code></pre></div>
+<h3 id="persistent-storage">Persistent Storage<a class="headerlink" href="#persistent-storage" title="Permanent link">§</a></h3>
+<p>Warpgate requires persistent storage when using the built-in SQLite database. The chart supports both PersistentVolumeClaim and emptyDir:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">data</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">pvc</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">enabled</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">true</span><span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># Use PVC for persistence</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">claimName</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;&quot;</span><span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># Use existing PVC (optional)</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">template</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">      </span><span style="color: #7EE787">accessModes</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">[</span><span style="color: #A5D6FF">&quot;ReadWriteOnce&quot;</span><span style="color: #E6EDF3">]</span>
+<span style="color: #6E7681">      </span><span style="color: #7EE787">storageClassName</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;fast-ssd&quot;</span>
+<span style="color: #6E7681">      </span><span style="color: #7EE787">resources</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">        </span><span style="color: #7EE787">requests</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">          </span><span style="color: #7EE787">storage</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">10Gi</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">SQLite and Replicas</p>
+<p>Do NOT increase <code>replicaCount</code> above 1 when using SQLite as the database. For high availability, use an external PostgreSQL database.</p>
+</div>
+<h3 id="external-database">External Database<a class="headerlink" href="#external-database" title="Permanent link">§</a></h3>
+<p>To use an external PostgreSQL or MySQL database:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">setup</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">enabled</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">true</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">databaseUrl</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;postgres://user:password@postgres-service:5432/warpgate&quot;</span>
+
+<span style="color: #7EE787">data</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">pvc</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">enabled</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">false</span><span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># Can use emptyDir with external DB</span>
+</code></pre></div>
+<h3 id="service-configuration">Service Configuration<a class="headerlink" href="#service-configuration" title="Permanent link">§</a></h3>
+<p>For production deployments, configure the service type and ports:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">service</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">type</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">LoadBalancer</span><span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># or NodePort, ClusterIP</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">annotations</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">service.beta.kubernetes.io/aws-load-balancer-type</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;nlb&quot;</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">ports</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">ssh</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">2222</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">http</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">8888</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">mysql</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">33306</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">pgsql</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">55432</span>
+</code></pre></div>
+<h3 id="ingress-configuration">Ingress Configuration<a class="headerlink" href="#ingress-configuration" title="Permanent link">§</a></h3>
+<p>Enable Ingress for HTTP access:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">ingress</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">enabled</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">true</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">className</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;nginx&quot;</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">annotations</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">cert-manager.io/cluster-issuer</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">letsencrypt-prod</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">hosts</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #E6EDF3">-</span><span style="color: #6E7681"> </span><span style="color: #7EE787">host</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">warpgate.example.com</span>
+<span style="color: #6E7681">      </span><span style="color: #7EE787">paths</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">        </span><span style="color: #E6EDF3">-</span><span style="color: #6E7681"> </span><span style="color: #7EE787">path</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">/</span>
+<span style="color: #6E7681">          </span><span style="color: #7EE787">pathType</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">Prefix</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">tls</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #E6EDF3">-</span><span style="color: #6E7681"> </span><span style="color: #7EE787">secretName</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">warpgate-tls</span>
+<span style="color: #6E7681">      </span><span style="color: #7EE787">hosts</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">        </span><span style="color: #E6EDF3">-</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">warpgate.example.com</span>
+</code></pre></div>
+<h3 id="ssh-keys-and-tls-certificates">SSH Keys and TLS Certificates<a class="headerlink" href="#ssh-keys-and-tls-certificates" title="Permanent link">§</a></h3>
+<p>Provide SSH keys and TLS certificates via Kubernetes secrets:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #8B949E; font-style: italic"># Create secret with SSH keys</span>
+kubectl<span style="color: #6E7681"> </span>create<span style="color: #6E7681"> </span>secret<span style="color: #6E7681"> </span>generic<span style="color: #6E7681"> </span>warpgate-ssh-keys<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--from-file<span style="color: #FF7B72; font-weight: bold">=</span>host-ed25519<span style="color: #FF7B72; font-weight: bold">=</span>./host-ed25519<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--from-file<span style="color: #FF7B72; font-weight: bold">=</span>host-rsa<span style="color: #FF7B72; font-weight: bold">=</span>./host-rsa<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--from-file<span style="color: #FF7B72; font-weight: bold">=</span>client-ed25519<span style="color: #FF7B72; font-weight: bold">=</span>./client-ed25519<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--from-file<span style="color: #FF7B72; font-weight: bold">=</span>client-rsa<span style="color: #FF7B72; font-weight: bold">=</span>./client-rsa<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate
+
+<span style="color: #8B949E; font-style: italic"># Create secret with TLS certificate</span>
+kubectl<span style="color: #6E7681"> </span>create<span style="color: #6E7681"> </span>secret<span style="color: #6E7681"> </span>tls<span style="color: #6E7681"> </span>warpgate-tls<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--cert<span style="color: #FF7B72; font-weight: bold">=</span>./tls.crt<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--key<span style="color: #FF7B72; font-weight: bold">=</span>./tls.key<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate
+</code></pre></div>
+<p>Reference in values.yaml:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">ssh_keys_secret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-ssh-keys&quot;</span>
+<span style="color: #7EE787">tls_cert_secret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-tls&quot;</span>
+</code></pre></div>
+<h3 id="custom-configuration">Custom Configuration<a class="headerlink" href="#custom-configuration" title="Permanent link">§</a></h3>
+<p>To provide a full custom Warpgate configuration:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">overrides_config</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">|</span>
+<span style="color: #6E7681">  </span><span style="color: #79C0FF; font-weight: bold"># Your complete warpgate.yaml configuration here</span>
+<span style="color: #6E7681">  </span><span style="color: #79C0FF; font-weight: bold"># Ensure ports match the service configuration</span>
+</code></pre></div>
+<h2 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">§</a></h2>
+<p>To upgrade Warpgate to a new version, pull the latest chart and upgrade:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">cd</span><span style="color: #6E7681"> </span>warpgate/helm/warpgate
+git<span style="color: #6E7681"> </span>pull<span style="color: #6E7681"> </span>origin<span style="color: #6E7681"> </span>main
+helm<span style="color: #6E7681"> </span>upgrade<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>.<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>image.tag<span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #A5D6FF">0</span>.17.0
+</code></pre></div>
+<h2 id="uninstalling">Uninstalling<a class="headerlink" href="#uninstalling" title="Permanent link">§</a></h2>
+<p>To remove Warpgate:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>helm<span style="color: #6E7681"> </span>uninstall<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>--namespace<span style="color: #6E7681"> </span>warpgate
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Data Persistence</p>
+<p>Uninstalling with Helm will remove the deployment, but persistent volume claims (PVCs) are retained by default. To remove all data:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>delete<span style="color: #6E7681"> </span>pvc<span style="color: #6E7681"> </span>-l<span style="color: #6E7681"> </span>app.kubernetes.io/name<span style="color: #FF7B72; font-weight: bold">=</span>warpgate<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+</code></pre></div>
+</div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">§</a></h2>
+<h3 id="check-pod-status">Check Pod Status<a class="headerlink" href="#check-pod-status" title="Permanent link">§</a></h3>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>get<span style="color: #6E7681"> </span>pods<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+kubectl<span style="color: #6E7681"> </span>describe<span style="color: #6E7681"> </span>pod<span style="color: #6E7681"> </span>&lt;pod-name&gt;<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </span>&lt;pod-name&gt;<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+</code></pre></div>
+<h3 id="check-setup-job">Check Setup Job<a class="headerlink" href="#check-setup-job" title="Permanent link">§</a></h3>
+<p>If using automatic setup with Job mode:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>get<span style="color: #6E7681"> </span><span style="color: #E6EDF3">jobs</span><span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </span>job/warpgate-setup<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+</code></pre></div>
+<h3 id="access-warpgate-admin-ui">Access Warpgate Admin UI<a class="headerlink" href="#access-warpgate-admin-ui" title="Permanent link">§</a></h3>
+<p>Get the service endpoint:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>get<span style="color: #6E7681"> </span>svc<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+</code></pre></div>
+<p>If using LoadBalancer or NodePort, access the HTTP port (default 8888) in your browser.</p>
+<p>For ClusterIP, use port-forwarding:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>port-forward<span style="color: #6E7681"> </span>svc/warpgate<span style="color: #6E7681"> </span><span style="color: #A5D6FF">8888</span>:8888<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+</code></pre></div>
+<p>Then access <code>http://localhost:8888</code> in your browser.</p>
+<h3 id="verify-persistent-volume">Verify Persistent Volume<a class="headerlink" href="#verify-persistent-volume" title="Permanent link">§</a></h3>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>get<span style="color: #6E7681"> </span>pvc<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+kubectl<span style="color: #6E7681"> </span>describe<span style="color: #6E7681"> </span>pvc<span style="color: #6E7681"> </span>&lt;pvc-name&gt;<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+</code></pre></div>
+<h3 id="view-configuration">View Configuration<a class="headerlink" href="#view-configuration" title="Permanent link">§</a></h3>
+<p>Check the generated configuration:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span><span style="color: #E6EDF3">exec</span><span style="color: #6E7681"> </span>-it<span style="color: #6E7681"> </span>deployment/warpgate<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>--<span style="color: #6E7681"> </span>cat<span style="color: #6E7681"> </span>/data/warpgate.yaml
+</code></pre></div>
+<h2 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h2>
+<ul>
+<li><a href="../targets/ssh/">Adding an SSH target</a></li>
+<li><a href="../targets/http/">Adding an HTTP target</a></li>
+<li><a href="../auth-and-roles/">Access control</a></li>
+</ul>
+      </article>
+
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../getting-started-on-docker/">
+            &larr;
+            Docker
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../targets/ssh/">
+            SSH
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>
