@@ -45,3 +45,16 @@
 * ✅ Websockets
 * ✅ Tickets <div class="badge font-xs text-bg-warning">v0.5+</div>
 * ✅ 2FA
+
+## Kubernetes
+
+<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
+
+* ✅ API proxy
+* ✅ `kubectl` support
+* ✅ TLS (forced)
+* ✅ Client certificate authentication
+* ✅ Bearer token authentication
+* ✅ RBAC
+* ✅ Session recording (including `kubectl exec`)
+* ✅ 2FA

@@ -14,7 +14,7 @@ special: home
 <div class="homepage mb-5">
     <div class="jumbo">
         <h1>The last bastion.</h1>
-        <p class="lead title">Secure access / PAM for your internal SSH, HTTPS, MySQL and Postgres servers with SSO and RBAC.</p>
+        <p class="lead title">Secure access / PAM for your internal SSH, HTTPS, MySQL, Postgres and Kubernetes servers with SSO and RBAC.</p>
         <p class="lead subtitle">No client apps needed.</p>
         <div class="buttons d-block d-sm-flex">
             <a class="btn btn-warning d-block" href="/docs">Read the docs</a>
@@ -26,10 +26,11 @@ special: home
     <div class="row">
         <div class="feature col-lg-6 col-12">
             <h1>No client</h1>
-            <p>Warpgate directly exposes native SSH, HTTPS, MySQL and Postgres listeners.
+            <p>Warpgate directly exposes native SSH, HTTPS, MySQL, Postgres and Kubernetes listeners.
             <div>Use it as a git proxy.</div>
             <div>Connect your gRPC service through it.</div>
             <div>Set it as your <code>DATABASE_URL</code>.</div>
+            <div>Connect your Kubernetes clusters.</div>
         </div>
         <div class="feature col-lg-6 col-12">
             <h1>No jump hosts</h1>
@@ -58,22 +59,21 @@ special: home
             </p>
         </div>
     </div>
-</div>
 
+</div>
 
 ## How is Warpgate different from a jump host / VPN / Teleport?
 
-| Warpgate | SSH jump host | VPN | Teleport |
-|-|-|-|-|
-| ✅ **Precise 1:1 assignment between users and services** | (Usually) full access to the network behind the jump host | (Usually) full access to the network | ✅ **Precise 1:1 assignment between users and services** |
-| ✅ **No custom client needed** | Jump host config needed | ✅ **No custom client needed** | Custom client required |
-| ✅ **2FA out of the box** | 🟡 2FA possible with additional PAM plugins | 🟡 Depends on the provider | ✅ **2FA out of the box** |
-| ✅ **SSO out of the box** | 🟡 SSO possible with additional PAM plugins | 🟡 Depends on the provider | Paid |
-| ✅ **Command-level audit** | 🟡 Connection-level audit on the jump host, no secure audit on the target if root access is given | No secure audit on the target if root access is given | ✅ **Command-level audit** |
-| ✅ **Full session recording** | No secure recording possible on the target if root access is given | No secure recording possible on the target if root access is given | ✅ **Full session recording** |
-| ✅ **Non-interactive connections** | 🟡 Non-interactive connections are possible if the clients supports jump hosts natively | ✅ **Non-interactive connections** | Non-interactive connections require using an SSH client wrapper or running a tunnel |
-| ✅ **Self-hosted, you own the data** | ✅ **Self-hosted, you own the data** | 🟡 Depends on the provider | SaaS |
-
+| Warpgate                                                 | SSH jump host                                                                                     | VPN                                                                | Teleport                                                                            |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
+| ✅ **Precise 1:1 assignment between users and services** | (Usually) full access to the network behind the jump host                                         | (Usually) full access to the network                               | ✅ **Precise 1:1 assignment between users and services**                            |
+| ✅ **No custom client needed**                           | Jump host config needed                                                                           | ✅ **No custom client needed**                                     | Custom client required                                                              |
+| ✅ **2FA out of the box**                                | 🟡 2FA possible with additional PAM plugins                                                       | 🟡 Depends on the provider                                         | ✅ **2FA out of the box**                                                           |
+| ✅ **SSO out of the box**                                | 🟡 SSO possible with additional PAM plugins                                                       | 🟡 Depends on the provider                                         | Paid                                                                                |
+| ✅ **Command-level audit**                               | 🟡 Connection-level audit on the jump host, no secure audit on the target if root access is given | No secure audit on the target if root access is given              | ✅ **Command-level audit**                                                          |
+| ✅ **Full session recording**                            | No secure recording possible on the target if root access is given                                | No secure recording possible on the target if root access is given | ✅ **Full session recording**                                                       |
+| ✅ **Non-interactive connections**                       | 🟡 Non-interactive connections are possible if the clients supports jump hosts natively           | ✅ **Non-interactive connections**                                 | Non-interactive connections require using an SSH client wrapper or running a tunnel |
+| ✅ **Self-hosted, you own the data**                     | ✅ **Self-hosted, you own the data**                                                              | 🟡 Depends on the provider                                         | SaaS                                                                                |
 
 <div class="how-it-be">
     <h1> How does all this work?</h1>
@@ -112,6 +112,7 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
 
     <p>Sounds good?</p>
     <a class="btn btn-warning" href="/docs">Read the docs</a>
+
 </div>
 
 <hr class="mt-5" />

@@ -63,6 +63,41 @@ You can now use any MySQL/MariaDB client applications to connect through Warpgat
 
 If your client uses a database URL, use: `mysql://<username>#<target>:<password>@<warpgate host>:<warpgate mysql port>?sslMode=required`
 
+## Default database name
+
+<div class="badge font-xs text-bg-warning mb-3">v0.20+</div>
+
+You can specify a default database name that Warpgate will automatically connect to when a client connects to this target. This is useful when:
+
+- Your application always needs a specific database
+- You want to simplify connection strings for users
+- You have database-per-user setups
+
+To configure this:
+
+1. In the target configuration, fill in the `Default database` field
+2. When users connect, Warpgate will automatically use this database
+
+### Example
+
+If you have a MySQL target named `production` and you want users to automatically connect to the `app_data` database:
+
+```
+Default database: app_data
+```
+
+Now users can connect with a simplified connection string:
+
+```bash
+# Instead of:
+mysql -h warpgate.acme.inc -P 33306 -u admin#production -p app_data --ssl=REQUIRED
+
+# They can just use:
+mysql -h warpgate.acme.inc -P 33306 -u admin#production -p --ssl=REQUIRED
+```
+
+The database will default to `app_data` automatically.
+
 While your MySQL session is running, you'll be able to see its status in the Admin UI, including the query log:
 
 ![](../images/mysql-log.png)
