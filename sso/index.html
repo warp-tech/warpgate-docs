@@ -190,8 +190,6 @@
     <div class="page-content">
       <article>
         <h1 id="single-sign-on">Single sign-on<a class="headerlink" href="#single-sign-on" title="Permanent link">§</a></h1>
-<div class="badge font-xs text-bg-warning mb-3">v0.5+</div>
-
 <h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">§</a></h2>
 <p>Warpgate can use arbitrary OpenID Connect (OIDC) providers to authenticate users based on their verified emails.</p>
 <p>OIDC providers include, but are not limited to:</p>
@@ -252,8 +250,6 @@
 <span style="color: #56D364; background-color: #0F5323">+     tenant: XYZ...</span>
 </code></pre></div>
 <h4 id="apple">Apple<a class="headerlink" href="#apple" title="Permanent link">§</a></h4>
-<div class="badge font-xs text-bg-warning mb-3">v0.6.6+</div>
-
 <div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>external_host: warpgate.acme.inc:8888
 
 <span style="color: #56D364; background-color: #0F5323">+ sso_providers:</span>
@@ -349,8 +345,6 @@ Make sure you&#39;re seeing this security key: E E 0 5
 </figcaption>
 </figure>
 <h3 id="setting-roles-via-sso">Setting roles via SSO<a class="headerlink" href="#setting-roles-via-sso" title="Permanent link">§</a></h3>
-<div class="badge font-xs text-bg-warning mb-3">v0.10+</div>
-
 <p>With <code>custom</code> type OIDC providers, Warpgate can also sync the user's role memberships when they log in.</p>
 <p>For that, your provider must set a <code>warpgate_roles</code> OIDC claim (a JSON array of role names) either in the ID Token or the UserInfo response. By default, Warpgate will use these names as-is and completely overwrite the user's memberships.</p>
 <p>You can also set <code>role_mappings</code> in the provider's configuration to explicitly map claim values to role names. In this case, only the roles mentioned here will be synced SSO, and the memberships in other roles won't be affected. For example:</p>
@@ -366,6 +360,50 @@ Make sure you&#39;re seeing this security key: E E 0 5
 <span style="color: #6E7681">      </span><span style="color: #A5D6FF">&#39;QA</span><span style="color: #79C0FF"> </span><span style="color: #A5D6FF">group&#39;</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;qa&#39;</span>
 <span style="color: #6E7681">      </span><span style="color: #7EE787">Admins</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;warpgate:admin&#39;</span>
 </code></pre></div>
+<h4 id="syncing-google-workspace-groups">Syncing Google Workspace groups<a class="headerlink" href="#syncing-google-workspace-groups" title="Permanent link">§</a></h4>
+<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
+
+<p>Google Workspace does not expose group memberships in OIDC claims, but Warpgate can use Google's Directory API to fetch the user's groups during login.</p>
+<p>For that you'll need to:</p>
+<ul>
+<li>
+<p>Create a new Google Cloud <a href="https://console.cloud.google.com/iam-admin/serviceaccounts">service account</a>. Note the <em>Service Account E-mail</em> and <em>Client ID</em>.</p>
+</li>
+<li>
+<p>Create a new JSON <em>private key</em> for the account and download it.</p>
+</li>
+<li>
+<p>Open the key file and copy the <code>private_key</code> JSON value from it as-is.</p>
+</li>
+<li>
+<p>Add the new SSO provider properties:</p>
+</li>
+</ul>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> - name: google
+<span style="color: #6E7681"> </span>   label: Google
+<span style="color: #6E7681"> </span>   provider:
+<span style="color: #6E7681"> </span>     type: google
+<span style="color: #6E7681"> </span>     client_id: 123....
+<span style="color: #6E7681"> </span>     client_secret: GOCSPX...
+<span style="color: #56D364; background-color: #0F5323">+     admin_email: admin@acme.inc</span>
+<span style="color: #56D364; background-color: #0F5323">+     role_mappings:</span>
+<span style="color: #56D364; background-color: #0F5323">+       qa@acme.inc: qa</span>
+<span style="color: #56D364; background-color: #0F5323">+     admin_role_mappings:</span>
+<span style="color: #56D364; background-color: #0F5323">+       admins@acme.inc: &#39;warpgate:admin&#39;</span>
+<span style="color: #56D364; background-color: #0F5323">+     service_account_email: warpgate@xyz.iam.gserviceaccount.com</span>
+<span style="color: #56D364; background-color: #0F5323">+     service_account_key: &quot;-----BEGIN PRIVATE...</span>
+</code></pre></div>
+<ul>
+<li>
+<p><code>admin_email</code> is the email of a Google Workspace admin user that Warpgate will impersonate when calling the Directory API.</p>
+</li>
+<li>
+<p>Enable <a href="https://console.cloud.google.com/apis/api/admin.googleapis.com">Admin SDK API</a>.</p>
+</li>
+<li>
+<p>Enable <a href="https://admin.google.com/u/4/ac/owl/domainwidedelegation">domain-wide delegation</a>, using your service account's <em>Client ID</em> (visible in the <a href="https://console.cloud.google.com/iam-admin/serviceaccounts">service accounts list</a>) and <code>https://www.googleapis.com/auth/admin.directory.group.readonly</code> scope value.</p>
+</li>
+</ul>
       </article>
 
       <div class="d-flex">

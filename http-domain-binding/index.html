@@ -190,8 +190,6 @@
     <div class="page-content">
       <article>
         <h1 id="http-domain-binding">HTTP domain binding<a class="headerlink" href="#http-domain-binding" title="Permanent link">§</a></h1>
-<div class="badge font-xs text-bg-warning mb-3">v0.5+</div>
-
 <p>Instead of using <code>?warpgate-target=</code> in the URL, you can use multiple domains/hostnames and link each to a specific target.</p>
 <p>Accessing Warpgate over HTTP on a specific domain will then automatically select the corresponding target.</p>
 <p>For optimal results, you want to host Warpgate on a common higher-level domain (e.g. <code>wg.acme.inc</code>, as set by the <code>external_host</code> config option), with target-specific domains as subdomains of this one (e.g. <code>gitlab.wg.acme.inc</code>) - this will prevent users from having to log in again when switching between domains (Warpgate will set its session cookie for all subdomains).</p>
