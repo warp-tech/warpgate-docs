@@ -1,7 +1,5 @@
 # Single sign-on
 
-<div class="badge font-xs text-bg-warning mb-3">v0.5+</div>
-
 ## Intro
 
 Warpgate can use arbitrary OpenID Connect (OIDC) providers to authenticate users based on their verified emails.
@@ -84,8 +82,6 @@ external_host: warpgate.acme.inc:8888
 
 
 #### Apple
-
-<div class="badge font-xs text-bg-warning mb-3">v0.6.6+</div>
 
 ```diff
 external_host: warpgate.acme.inc:8888
@@ -201,8 +197,6 @@ In-browser auth request
 
 ### Setting roles via SSO
 
-<div class="badge font-xs text-bg-warning mb-3">v0.10+</div>
-
 With `custom` type OIDC providers, Warpgate can also sync the user's role memberships when they log in.
 
 For that, your provider must set a `warpgate_roles` OIDC claim (a JSON array of role names) either in the ID Token or the UserInfo response. By default, Warpgate will use these names as-is and completely overwrite the user's memberships.
@@ -222,3 +216,41 @@ You can also set `role_mappings` in the provider's configuration to explicitly m
       'QA group': 'qa'
       Admins: 'warpgate:admin'
 ```
+
+#### Syncing Google Workspace groups
+
+<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
+
+Google Workspace does not expose group memberships in OIDC claims, but Warpgate can use Google's Directory API to fetch the user's groups during login.
+
+For that you'll need to:
+
+* Create a new Google Cloud [service account](https://console.cloud.google.com/iam-admin/serviceaccounts). Note the _Service Account E-mail_ and _Client ID_.
+
+* Create a new JSON _private key_ for the account and download it.
+
+* Open the key file and copy the `private_key` JSON value from it as-is.
+
+* Add the new SSO provider properties:
+
+```diff
+  - name: google
+    label: Google
+    provider:
+      type: google
+      client_id: 123....
+      client_secret: GOCSPX...
++     admin_email: admin@acme.inc
++     role_mappings:
++       qa@acme.inc: qa
++     admin_role_mappings:
++       admins@acme.inc: 'warpgate:admin'
++     service_account_email: warpgate@xyz.iam.gserviceaccount.com
++     service_account_key: "-----BEGIN PRIVATE...
+```
+
+  * `admin_email` is the email of a Google Workspace admin user that Warpgate will impersonate when calling the Directory API.
+
+* Enable [Admin SDK API](https://console.cloud.google.com/apis/api/admin.googleapis.com).
+
+* Enable [domain-wide delegation](https://admin.google.com/u/4/ac/owl/domainwidedelegation), using your service account's *Client ID* (visible in the [service accounts list](https://console.cloud.google.com/iam-admin/serviceaccounts)) and `https://www.googleapis.com/auth/admin.directory.group.readonly` scope value.

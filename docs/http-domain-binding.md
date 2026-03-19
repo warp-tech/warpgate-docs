@@ -1,7 +1,5 @@
 # HTTP domain binding
 
-<div class="badge font-xs text-bg-warning mb-3">v0.5+</div>
-
 Instead of using `?warpgate-target=` in the URL, you can use multiple domains/hostnames and link each to a specific target.
 
 Accessing Warpgate over HTTP on a specific domain will then automatically select the corresponding target.

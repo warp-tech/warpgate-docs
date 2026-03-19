@@ -43,5 +43,5 @@
 * ✅ HTTP/2
 * ✅ TLS (as server: forced)
 * ✅ Websockets
-* ✅ Tickets <div class="badge font-xs text-bg-warning">v0.5+</div>
+* ✅ Tickets
 * ✅ 2FA
