@@ -38,8 +38,16 @@ You'll need to register your Warpgate instance as an "app" (terminology varies p
 
 The _redirect URL_ (aka _return URL_) for Warpgate is `https://<warpgate-external-host>/@warpgate/api/sso/return`.
 
-For providers that do not allow the @ sign in the URL (Azure), you can use an underscore instead: `https://<warpgate-external-host>/_warpgate/api/sso/return` (v0.17+ only)
+For providers that do not allow the @ sign in the URL (Azure), you can use an underscore instead: `https://<warpgate-external-host>/_warpgate/api/sso/return` (v0.17+ only):
 
+```diff
+  sso_providers:
+  - name: azure
++   return_url_prefix: _
+    provider:
+      type: azure
+      ...
+```
 
 Okta provides excellent guides on registering an app with various providers:
 
@@ -73,6 +81,7 @@ external_host: warpgate.acme.inc:8888
 
 + sso_providers:
 + - name: azure
++   return_url_prefix: _
 +   provider:
 +     type: azure
 +     client_id: 123...
