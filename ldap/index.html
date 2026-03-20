@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Recovering admin access - Warpgate</title>
+  <title>LDAP - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -132,11 +132,11 @@
             </li>
             
             <li>
-              <a class="" href="../ldap/">LDAP</a>
+              <a class="text-success" href="./">LDAP</a>
             </li>
             
             <li>
-              <a class="text-success" href="./">Recovering admin access</a>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
             </li>
             
           </ul>
@@ -197,22 +197,18 @@
 
     <div class="page-content">
       <article>
-        <h1 id="recovering-admin-access">Recovering admin access<a class="headerlink" href="#recovering-admin-access" title="Permanent link">§</a></h1>
-<p>Forgot your password and your dog ate the OTP dongle?</p>
-<p>Use <code>warpgate recover-access</code> to reset the admin password and disable 2FA:</p>
-<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>➜  ~ warpgate recover-access
-17:08:24  INFO Using config: &quot;/etc/warpgate.yaml&quot;
-✔ Select a user to recover access for · admin
-✔ New password for admin · ********
-? This tool will add a new password for the user and set their HTTP auth policy to only require a password. Continue? (y/n) › yes
-</code></pre></div>
+        <h1 id="ldap">LDAP<a class="headerlink" href="#ldap" title="Permanent link">§</a></h1>
+<p>Warpgate can sync users' SSH public keys from LDAP.</p>
+<p>You can manage LDAP servers under <code>Config</code> &gt; <code>LDAP Servers</code>.</p>
+<p>Once an LDAP server is added, you can import users by browsing the LDAP server (from the <code>Config</code> &gt; <code>Users</code> page, click <code>Add from LDAP</code>) or link existing users to their LDAP entries by clicking <code>LDAP</code> &gt; <code>Auto-link to LDAP</code> on the user configuration page.</p>
+<p>Once a user is linked to LDAP, Warpgate will sync their SSH public keys from LDAP every time they try to authenticate. Any existing keys are going to be removed and neither the user nor you will be able to manage their own keys from the Warpgate UI anymore.</p>
       </article>
 
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../ldap/">
+          <a class="btn btn-secondary btn-prev" href="../sso/">
             &larr;
-            LDAP
+            Single sign-on
             <br/>
             <small class="text-muted">
               Previous
@@ -222,8 +218,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../support/">
-            Support
+          <a class="btn btn-success btn-next ms-auto" href="../recovering-access/">
+            Recovering admin access
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

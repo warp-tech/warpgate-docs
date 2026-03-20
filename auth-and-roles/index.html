@@ -103,6 +103,10 @@
               <a class="" href="../targets/postgres/">PostgreSQL</a>
             </li>
             
+            <li>
+              <a class="" href="../targets/kubernetes/">Kubernetes</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -125,6 +129,10 @@
             
             <li>
               <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../ldap/">LDAP</a>
             </li>
             
             <li>
@@ -190,7 +198,7 @@
     <div class="page-content">
       <article>
         <h1 id="user-authentication-and-roles">User authentication and roles<a class="headerlink" href="#user-authentication-and-roles" title="Permanent link">§</a></h1>
-<p>In the <a href="../targets/ssh/">previous example</a>, we've reused the Warpgate's <code>admin</code> user, which only had a password as its only way to authenticate. Warpgate supports passwords, public keys, authenticator apps, SSO (OIDC) and combinations thereof as authentication methods.</p>
+<p>In the <a href="../targets/ssh/">previous example</a>, we've reused the Warpgate's <code>admin</code> user, which only had a password as its only way to authenticate. Warpgate supports passwords, public keys, authenticator apps, SSO (OIDC), API tokens and combinations thereof as authentication methods.</p>
 <h2 id="changing-a-users-password">Changing a user's password<a class="headerlink" href="#changing-a-users-password" title="Permanent link">§</a></h2>
 <p>Log into the Warpgate admin UI and navigate to <code>Config</code> &gt; <code>Users</code> &gt; <code>admin</code>, delete the old password and click <code>Add password</code> to add a new one.</p>
 <figure>
@@ -215,6 +223,26 @@
 <p>Adding a public key</p>
 </figcaption>
 </figure>
+<h2 id="adding-a-client-certificate-for-a-user">Adding a client certificate for a user<a class="headerlink" href="#adding-a-client-certificate-for-a-user" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.21+</div>
+
+<p>Warpgate supports client certificates for authentication over the <a href="../targets/kubernetes/">Kubernetes API</a> protocol.</p>
+<ul>
+<li>Click <code>Issue certificate</code> and Warpgate will generate a keypair in-browser and issue a client certificate for the user:</li>
+</ul>
+<figure>
+<p><img alt="" src="../images/create-certificate-1.png" /></p>
+<figcaption>
+<p>Issuing a client certificate</p>
+</figcaption>
+</figure>
+<figure>
+<p><img alt="" src="../images/create-certificate-2.png" /></p>
+<figcaption>
+<p>Certificate is issued</p>
+</figcaption>
+</figure>
+<p>Since the private key is not stored, you must download it immediately, or copy both the certificate and the key as a kubectl config snippet.</p>
 <h2 id="requiring-multiple-authentication-factors">Requiring multiple authentication factors<a class="headerlink" href="#requiring-multiple-authentication-factors" title="Permanent link">§</a></h2>
 <p>Warpgate can require a client to present both a public key and a password.</p>
 <ul>
@@ -226,19 +254,40 @@
 <p>Setting up a multifactor auth policy</p>
 </figcaption>
 </figure>
+<h2 id="ssh-client-authentication-methods">SSH client authentication methods<a class="headerlink" href="#ssh-client-authentication-methods" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.20+</div>
+
+<p>Warpgate allows you to globally block SSH authentication methods. This can be useful if you exclusively use public key authentication and would like to prevent network scanners from hammering password authentication on a public port. By default, all methods are enabled.</p>
+<p>You can disable them individually under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>SSH authentication methods</code>:</p>
+<figure>
+<p><img alt="" src="../images/ssh-methods.png" /></p>
+<figcaption>
+<p>SSH authentication methods configuration in Global Parameters</p>
+</figcaption>
+</figure>
 <h2 id="using-roles-to-assign-access">Using roles to assign access<a class="headerlink" href="#using-roles-to-assign-access" title="Permanent link">§</a></h2>
 <p>You can use <em>roles</em> to grant a new user access to multiple targets at once (or assign multiple users to a target).</p>
 <ul>
 <li>Create and remove roles under <code>Config</code> &gt; <code>Roles</code>.</li>
 <li>Assign roles to users and targets on their respective configuration pages.</li>
 </ul>
+<h2 id="api-tokens">API Tokens<a class="headerlink" href="#api-tokens" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
+
+<p>Warpgate supports API tokens for programmatic access. Users can create and manage their own API tokens through the web interface by clicking their username in the top right corner and navigating to the "API Tokens" section.</p>
+<p>Requests made with an API token are considered authenticated in the same way as if the user would have logged in normally.</p>
+<h3 id="using-api-tokens">Using API Tokens<a class="headerlink" href="#using-api-tokens" title="Permanent link">§</a></h3>
+<p>Pass the token in the <code>x-warpgate-token</code> header when making API requests:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #8B949E; font-style: italic"># Example: Get server info</span>
+curl<span style="color: #6E7681"> </span>-H<span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;x-warpgate-token: xyz&quot;</span><span style="color: #6E7681"> </span>https://warpgate.acme.inc/@warpgate/api/info
+</code></pre></div>
       </article>
 
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../targets/postgres/">
+          <a class="btn btn-secondary btn-prev" href="../targets/kubernetes/">
             &larr;
-            PostgreSQL
+            Kubernetes
             <br/>
             <small class="text-muted">
               Previous

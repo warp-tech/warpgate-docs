@@ -103,6 +103,10 @@
               <a class="" href="../postgres/">PostgreSQL</a>
             </li>
             
+            <li>
+              <a class="" href="../kubernetes/">Kubernetes</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -125,6 +129,10 @@
             
             <li>
               <a class="" href="../../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../ldap/">LDAP</a>
             </li>
             
             <li>
@@ -237,6 +245,30 @@
 <p>Accessing an HTTP target</p>
 </figcaption>
 </figure>
+<h2 id="custom-headers">Custom headers<a class="headerlink" href="#custom-headers" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.12+</div>
+
+<p>You can specify custom HTTP headers that Warpgate will send to the target for every request. This is useful for adding authentication tokens or debugging headers.</p>
+<h3 id="built-in-headers">Built-in headers<a class="headerlink" href="#built-in-headers" title="Permanent link">§</a></h3>
+<p>Warpgate automatically adds the following headers to all requests:</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x-warpgate-username</code></td>
+<td>The authenticated username</td>
+</tr>
+<tr>
+<td><code>x-warpgate-authentication-type</code></td>
+<td>The authentication method used (e.g., <code>user</code>, <code>ticket</code>)</td>
+</tr>
+</tbody>
+</table>
 <h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
 <ul>
 <li><a href="../../auth-and-roles/">User authentication and roles</a></li>

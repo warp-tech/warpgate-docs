@@ -63,7 +63,7 @@
 <div class="homepage mb-5">
     <div class="jumbo">
         <h1>The last bastion.</h1>
-        <p class="lead title">Secure access / PAM for your internal SSH, HTTPS, MySQL and Postgres servers with SSO and RBAC.</p>
+        <p class="lead title">Secure access / PAM for your internal SSH, HTTPS, MySQL, Postgres and Kubernetes servers with SSO and RBAC.</p>
         <p class="lead subtitle">No client apps needed.</p>
         <div class="buttons d-block d-sm-flex">
             <a class="btn btn-warning d-block" href="/docs">Read the docs</a>
@@ -75,10 +75,11 @@
     <div class="row">
         <div class="feature col-lg-6 col-12">
             <h1>No client</h1>
-            <p>Warpgate directly exposes native SSH, HTTPS, MySQL and Postgres listeners.
+            <p>Warpgate directly exposes native SSH, HTTPS, MySQL, Postgres and Kubernetes listeners.
             <div>Use it as a git proxy.</div>
             <div>Connect your gRPC service through it.</div>
             <div>Set it as your <code>DATABASE_URL</code>.</div>
+            <div>Connect your Kubernetes clusters.</div>
         </div>
         <div class="feature col-lg-6 col-12">
             <h1>No jump hosts</h1>
@@ -107,6 +108,7 @@
             </p>
         </div>
     </div>
+
 </div>
 
 <h2 id="how-is-warpgate-different-from-a-jump-host-vpn-teleport">How is Warpgate different from a jump host / VPN / Teleport?<a class="headerlink" href="#how-is-warpgate-different-from-a-jump-host-vpn-teleport" title="Permanent link">§</a></h2>
@@ -207,6 +209,7 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
 
     <p>Sounds good?</p>
     <a class="btn btn-warning" href="/docs">Read the docs</a>
+
 </div>
 
 <hr class="mt-5" />

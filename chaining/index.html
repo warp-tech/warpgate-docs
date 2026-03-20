@@ -103,6 +103,10 @@
               <a class="" href="../targets/postgres/">PostgreSQL</a>
             </li>
             
+            <li>
+              <a class="" href="../targets/kubernetes/">Kubernetes</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -125,6 +129,10 @@
             
             <li>
               <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../ldap/">LDAP</a>
             </li>
             
             <li>
@@ -191,10 +199,7 @@
       <article>
         <h1 id="chaining-warpgates">Chaining Warpgates<a class="headerlink" href="#chaining-warpgates" title="Permanent link">§</a></h1>
 <p>Sometimes exposing a host on the network to the outside is not an option. In this case you can opt to forward connections from one Warpgate to another.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This is fully transparent to the client (except for the double "warpgate connected" message in interactive sessions) - there are no SSH "jump hosts" involved in this setup.</p>
-</div>
+<p>NOTE: This is fully transparent to the client (except for the double "warpgate connected" message in interactive sessions) - there are no SSH "jump hosts" involved in this setup.</p>
 <h2 id="copy-outer-warpgates-public-key">Copy outer Warpgate's public key<a class="headerlink" href="#copy-outer-warpgates-public-key" title="Permanent link">§</a></h2>
 <ul>
 <li>Run <code>warpgate client-keys</code> and copy the Ed25519 public key:</li>

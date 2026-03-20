@@ -103,6 +103,10 @@
               <a class="text-success" href="./">PostgreSQL</a>
             </li>
             
+            <li>
+              <a class="" href="../kubernetes/">Kubernetes</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -125,6 +129,10 @@
             
             <li>
               <a class="" href="../../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../ldap/">LDAP</a>
             </li>
             
             <li>
@@ -237,12 +245,7 @@
 <li>Port: the Warpgate PostgreSQL port (default: 55432)</li>
 <li>Username: <code>admin#&lt;target-name&gt;</code> or <code>admin:&lt;target-name&gt;</code>, in this example: <code>admin#db1</code></li>
 <li>Password: your Warpgate admin password</li>
-<li>
-<div class="admonition tls">
-<p class="admonition-title">Tls</p>
-<p>enabled</p>
-</div>
-</li>
+<li>TLS: enabled</li>
 <li>Cleartext password authentication: allowed</li>
 </ul>
 <p>If your client uses a database URL, use: <code>postgresql://&lt;username&gt;#&lt;target&gt;:&lt;password&gt;@&lt;warpgate host&gt;:&lt;warpgate postgresql port&gt;?sslmode=require</code></p>
@@ -277,8 +280,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../../auth-and-roles/">
-            User authentication and roles
+          <a class="btn btn-success btn-next ms-auto" href="../kubernetes/">
+            Kubernetes
             &rarr;
             <br/>
             <small class="text-muted">Next</small>
