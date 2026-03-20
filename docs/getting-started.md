@@ -54,8 +54,6 @@ curl -H "x-warpgate-token: my-secret-token" \
 !!! NOTE "Unattended setup"
     There's also a non-interactive setup mode available - check out `warpgate unattended-setup --help`
 
-    <div class="badge font-xs text-bg-warning mt-3">v0.7+</div>
-
 Here's what it might look like:
 
 ```
