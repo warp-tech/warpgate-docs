@@ -62,41 +62,6 @@ You can now use any PostgreSQL client applications to connect through Warpgate w
 
 If your client uses a database URL, use: `postgresql://<username>#<target>:<password>@<warpgate host>:<warpgate postgresql port>?sslmode=require`
 
-## Default database name
-
-<div class="badge font-xs text-bg-warning mb-3">v0.20+</div>
-
-You can specify a default database name that Warpgate will automatically connect to when a client connects to this target. This is useful when:
-
-- Your application always needs a specific database
-- You want to simplify connection strings for users
-- You have database-per-user setups
-
-To configure this:
-
-1. In the target configuration, fill in the `Default database` field
-2. When users connect, Warpgate will automatically use this database
-
-### Example
-
-If you have a PostgreSQL target named `analytics` and you want users to automatically connect to the `reports` database:
-
-```
-Default database: reports
-```
-
-Now users can connect with a simplified connection string:
-
-```bash
-# Instead of:
-psql "host=warpgate.acme.inc port=55432 user=admin#analytics dbname=reports sslmode=require"
-
-# They can just use:
-psql "host=warpgate.acme.inc port=55432 user=admin#analytics sslmode=require"
-```
-
-The database will default to `reports` automatically.
-
 While your PostgreSQL session is running, you'll be able to see its status in the Admin UI, including the query log:
 
 ![](../images/postgres-log.png)

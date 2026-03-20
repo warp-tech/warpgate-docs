@@ -1,6 +1,6 @@
 # Adding a Kubernetes target
 
-<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
+<div class="badge font-xs text-bg-warning mb-3">v0.21+</div>
 
 Warpgate allows you to securely access Kubernetes clusters through a unified entry point, providing auditing and session recording for all API requests.
 
@@ -10,66 +10,57 @@ When you add a Kubernetes target, Warpgate acts as an authenticating proxy for t
 
 All requests are recorded and can be audited later.
 
-## Creating a Kubernetes target
+## Enabling Kubernetes listener
 
-1.  In the admin UI, navigate to `Config` > `Targets`.
-2.  Click `Add target`.
-3.  Select `Kubernetes` as the target type.
-4.  Enter the follow connection details:
-    *   **Name**: A unique name for this target.
-    *   **Cluster URL**: The URL of your Kubernetes API server (e.g., `https://k8s.example.com:6443`).
-    *   **TLS Mode**: Choose between `off`, `verify`, or `trust` (skip verification).
+Enable the Kubernetes protocol in your config file (default: `/etc/warpgate.yaml`) if you didn't do so during the initial setup:
 
-### Upstream Authentication
-
-Configure how Warpgate should authenticate with your Kubernetes cluster:
-
-*   **Token**: Provide a ServiceAccount token or any valid Bearer token for the cluster.
-*   **Certificate**: Upload a client certificate and private key (mTLS) that has access to the cluster.
-
-## Using the Kubernetes target
-
-Users can connect to the target using `kubectl` or any other Kubernetes client by pointing them to the Warpgate Kubernetes endpoint (default port 8443).
-
-### Authentication to Warpgate
-
-To authenticate your requests to Warpgate, you can use:
-
-1.  **API Tokens**: Create an API token in your user profile and use it as a Bearer token in your client.
-2.  **Client Certificates**: Add a client certificate to your user profile. When connecting, your client must present this certificate.
-
-### Configuring kubectl
-
-The easiest way to use `kubectl` with Warpgate is to create a new context in your `kubeconfig`:
-
-```bash
-# Set the cluster
-kubectl config set-cluster warpgate-k8s \
-  --server=https://<your-warpgate-host>:8443/<target-name> \
-  --certificate-authority=/path/to/warpgate-ca.pem
-
-# Set the credentials (using a Warpgate API token)
-kubectl config set-credentials warpgate-user \
-  --token=<your-warpgate-api-token>
-
-# Set the context
-kubectl config set-context warpgate \
-  --cluster=warpgate-k8s \
-  --user=warpgate-user
-
-# Use the context
-kubectl config use-context warpgate
+```diff
++ kubernetes:
++   enable: true
++   listen: '[::]:8443'
++   certificate: /var/lib/warpgate/tls.certificate.pem
++   key: /var/lib/warpgate/tls.key.pem
 ```
 
-Now you can run your usual `kubectl` commands:
+You can reuse the same certificate and key that are used for the HTTP listener.
 
-```bash
-kubectl get pods
-```
+## Connection setup
 
-!!! note "Target Name in URL"
-    Notice that the target name is part of the URL path: `https://<warpgate-host>:8443/<target-name>`. This allows Warpgate to route your requests to the correct cluster.
+Log into the Warpgate admin UI and navigate to `Config` > `Targets` > `Add target` and give the new Kubernetes target a name:
 
-## Session Recording
+![](../images/adding-kubernetes.png)
+/// caption
+Adding a Kubernetes target
+///
 
-All Kubernetes API requests are logged and can be viewed in the `Recordings` section of the Admin UI. For interactive sessions (like `kubectl exec` or `kubectl attach`), Warpgate provides a recording of the terminal session that can be replayed.
+Fill out the configuration:
+
+![](../images/kubernetes-config.png)
+/// caption
+Kubernetes target configuration
+///
+
+The target should show up on the Warpgate's homepage:
+
+![](../images/kubernetes-on-home.png)
+/// caption
+Kubernetes target on the homepage
+///
+
+Users will be able to click the entry to obtain connection instructions:
+
+![](../images/kubernetes-instructions.png)
+/// caption
+Kubernetes target on the homepage
+///
+
+## Client setup
+
+You can now use `kubectl` or any other Kubernetes client applications to connect through Warpgate with the settings shown. You can also use a Warpgate API token as a Bearer token when connecting to the Kubernetes API endpoint.
+
+While your Kubernetes client is active, you'll be able to see the session status in the Admin UI, including the log, API queries and session recordings:
+
+![](../images/kubernetes-session.png)
+/// caption
+Kubernetes session view
+///

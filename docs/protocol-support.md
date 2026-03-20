@@ -55,6 +55,8 @@
 * ✅ TLS (forced)
 * ✅ Client certificate authentication
 * ✅ Bearer token authentication
-* ✅ RBAC
 * ✅ Session recording (including `kubectl exec`)
 * ✅ 2FA
+* ✅ Websocket streaming
+* ❌ Protobuf transfer encoding
+* ❌ SPDY streaming

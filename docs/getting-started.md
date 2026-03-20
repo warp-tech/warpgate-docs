@@ -17,40 +17,6 @@ Run `warpgate setup` and follow the prompts. If you want to use a non-default (`
 
 To use an external database (MySQL or PostgreSQL) instead of the built-in SQLite, add `--database-url mysql://...` or `--database-url postgres://...`.
 
-## Enabling Admin Token (Optional)
-
-<div class="badge font-xs text-bg-warning mb-3">v0.12+</div>
-
-For programmatic access to the admin API, you can enable an admin token:
-
-1. Add `--enable-admin-token` to your Warpgate startup command
-2. Set the `WARPGATE_ADMIN_TOKEN` environment variable with your desired token
-
-```bash
-# Example: Running with admin token
-WARPGATE_ADMIN_TOKEN=my-secret-token warpgate run --config /etc/warpgate.yaml
-```
-
-Or in your systemd service file:
-
-```ini
-[Service]
-Environment="WARPGATE_ADMIN_TOKEN=my-secret-token"
-ExecStart=/usr/bin/warpgate run --config /etc/warpgate.yaml --enable-admin-token
-```
-
-### Using the Admin Token
-
-Use the token in the `x-warpgate-token` header:
-
-```bash
-curl -H "x-warpgate-token: my-secret-token" \
-  https://warpgate.acme.inc/@warpgate/api/parameters
-```
-
-!!! warning "Security Note"
-    The admin token provides full administrative access. Keep it secure and rotate it regularly.
-
 !!! NOTE "Unattended setup"
     There's also a non-interactive setup mode available - check out `warpgate unattended-setup --help`
 
@@ -114,23 +80,7 @@ Login screen
 Session list in the admin UI
 ///
 
-
-## Setting Config Path via Environment
-
-<div class="badge font-xs text-bg-warning mb-3">v0.20+</div>
-
-You can set the config path using the `WARPGATE_CONFIG` environment variable instead of the `--config` flag:
-
-```bash
-# Set config via environment variable
-export WARPGATE_CONFIG=/etc/warpgate.yaml
-warpgate run
-```
-
-This is useful for:
-- Docker containers
-- Kubernetes deployments
-- Simplifying command-line usage
+## Setting up as a service
 
 On `systemd`, follow [Installing as a systemd service](systemd.md) to configure Warpgate to run as a service.
 
