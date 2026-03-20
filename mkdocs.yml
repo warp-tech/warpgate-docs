@@ -8,7 +8,7 @@ repo_url: https://github.com/warp-tech/warpgate
 
 theme:
   name: null
-  custom_dir: 'theme/'
+  custom_dir: "theme/"
 
   favicon: https://github.com/warp-tech/warpgate/raw/refs/heads/main/warpgate-web/public/assets/favicon.svg
 
@@ -18,38 +18,40 @@ theme:
 nav:
   - Home: docs.md
   - Getting started:
-    - Native: getting-started.md
-    - Docker: getting-started-on-docker.md
-    - Helm: getting-started-on-helm.md
+      - Native: getting-started.md
+      - Docker: getting-started-on-docker.md
+      - Helm: getting-started-on-helm.md
   - Adding targets:
-    - SSH: targets/ssh.md
-    - HTTP: targets/http.md
-    - MySQL: targets/mysql.md
-    - PostgreSQL: targets/postgres.md
+      - SSH: targets/ssh.md
+      - HTTP: targets/http.md
+      - MySQL: targets/mysql.md
+      - PostgreSQL: targets/postgres.md
+      - Kubernetes: targets/kubernetes.md
   - Access control:
-    - auth-and-roles.md
-    - tickets.md
-    - otp.md
-    - sso.md
-    - recovering-access.md
+      - auth-and-roles.md
+      - tickets.md
+      - otp.md
+      - sso.md
+      - ldap.md
+      - recovering-access.md
   - Ops:
-    - support.md
-    - systemd.md
-    - log-forwarding.md
-    - reverse-proxy.md
+      - support.md
+      - systemd.md
+      - log-forwarding.md
+      - reverse-proxy.md
   - Advanced topics:
-    - http-domain-binding.md
-    - sni.md
-    - chaining.md
-    - protocol-support.md
+      - http-domain-binding.md
+      - sni.md
+      - chaining.md
+      - protocol-support.md
 
 plugins:
   - search
+  - callouts
 
 markdown_extensions:
   - attr_list
   - md_in_html
-  - callouts
   - pymdownx.blocks.caption
   - pymdownx.highlight:
       noclasses: true

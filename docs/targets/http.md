@@ -52,6 +52,21 @@ While the target is active, Warpgate will pass-through all HTTP traffic in this 
 Accessing an HTTP target
 ///
 
+## Custom headers
+
+<div class="badge font-xs text-bg-warning mb-3">v0.12+</div>
+
+You can specify custom HTTP headers that Warpgate will send to the target for every request. This is useful for adding authentication tokens or debugging headers.
+
+### Built-in headers
+
+Warpgate automatically adds the following headers to all requests:
+
+| Header | Description |
+|--------|-------------|
+| `x-warpgate-username` | The authenticated username |
+| `x-warpgate-authentication-type` | The authentication method used (e.g., `user`, `ticket`) |
+
 ### Up next
 
 * [User authentication and roles](../auth-and-roles.md)

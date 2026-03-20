@@ -80,7 +80,6 @@ Login screen
 Session list in the admin UI
 ///
 
-
 ## Setting up as a service
 
 On `systemd`, follow [Installing as a systemd service](systemd.md) to configure Warpgate to run as a service.

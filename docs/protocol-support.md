@@ -45,3 +45,18 @@
 * ✅ Websockets
 * ✅ Tickets
 * ✅ 2FA
+
+## Kubernetes
+
+<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
+
+* ✅ API proxy
+* ✅ `kubectl` support
+* ✅ TLS (forced)
+* ✅ Client certificate authentication
+* ✅ Bearer token authentication
+* ✅ Session recording (including `kubectl exec`)
+* ✅ 2FA
+* ✅ Websocket streaming
+* ❌ Protobuf transfer encoding
+* ❌ SPDY streaming
