@@ -5,6 +5,7 @@
 ## TL;DR
 
 * Official Helm chart: [warp-tech/warpgate/helm/warpgate](https://github.com/warp-tech/warpgate/tree/main/helm/warpgate)
+* OCI: `oci://ghcr.io/warp-tech/helm-charts/warpgate`
 * Image name: `ghcr.io/warp-tech/warpgate`
 * Image in the GHCR: [https://github.com/warp-tech/warpgate/pkgs/container/warpgate](https://github.com/warp-tech/warpgate/pkgs/container/warpgate)
 * Persistent volume required: `/data` (when using SQLite)
@@ -21,14 +22,20 @@
 
 ### Install from Official Chart
 
-The official Helm chart is available in the Warpgate repository. Clone the repository and install from the local chart:
+The official Helm chart is available in the Warpgate repository and as an OCI image. Create a minimal `values.yaml` file specifying the version:
+
+```yaml
+image:
+  tag: "0.21.0"
+```
+
+Then install:
 
 ```bash
-git clone https://github.com/warp-tech/warpgate.git
-cd warpgate/helm/warpgate
-helm install warpgate . \
+helm install warpgate oci://ghcr.io/warp-tech/helm-charts/warpgate \
   --namespace warpgate \
-  --create-namespace
+  --create-namespace \
+  --values values.yaml
 ```
 
 ### Automatic Setup
@@ -45,12 +52,13 @@ Then install with setup enabled:
 
 ```bash
 cd warpgate/helm/warpgate
-helm install warpgate . \
+helm install warpgate oci://ghcr.io/warp-tech/helm-charts/warpgate \
   --namespace warpgate \
   --create-namespace \
   --set setup.enabled=true \
   --set data.pvc.enabled=true \
   --set setup.envFromSecret.WARPGATE_ADMIN_PASSWORD=warpgate-secret/adminPassword
+  --values values.yaml
 ```
 
 ## Configuration
@@ -115,8 +123,7 @@ resources:
 Install with custom values:
 
 ```bash
-cd warpgate/helm/warpgate
-helm install warpgate . \
+helm install warpgate oci://ghcr.io/warp-tech/helm-charts/warpgate \
   --namespace warpgate \
   --create-namespace \
   --values values.yaml
