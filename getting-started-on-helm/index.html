@@ -203,6 +203,7 @@
 <h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">§</a></h2>
 <ul>
 <li>Official Helm chart: <a href="https://github.com/warp-tech/warpgate/tree/main/helm/warpgate">warp-tech/warpgate/helm/warpgate</a></li>
+<li>OCI: <code>oci://ghcr.io/warp-tech/helm-charts/warpgate</code></li>
 <li>Image name: <code>ghcr.io/warp-tech/warpgate</code></li>
 <li>Image in the GHCR: <a href="https://github.com/warp-tech/warpgate/pkgs/container/warpgate">https://github.com/warp-tech/warpgate/pkgs/container/warpgate</a></li>
 <li>Persistent volume required: <code>/data</code> (when using SQLite)</li>
@@ -217,12 +218,15 @@
 </ul>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">§</a></h2>
 <h3 id="install-from-official-chart">Install from Official Chart<a class="headerlink" href="#install-from-official-chart" title="Permanent link">§</a></h3>
-<p>The official Helm chart is available in the Warpgate repository. Clone the repository and install from the local chart:</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>git<span style="color: #6E7681"> </span>clone<span style="color: #6E7681"> </span>https://github.com/warp-tech/warpgate.git
-<span style="color: #E6EDF3">cd</span><span style="color: #6E7681"> </span>warpgate/helm/warpgate
-helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>.<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<p>The official Helm chart is available in the Warpgate repository and as an OCI image. Create a minimal <code>values.yaml</code> file specifying the version:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">image</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">tag</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;0.21.0&quot;</span>
+</code></pre></div>
+<p>Then install:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>oci://ghcr.io/warp-tech/helm-charts/warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
-<span style="color: #6E7681">  </span>--create-namespace
+<span style="color: #6E7681">  </span>--create-namespace<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--values<span style="color: #6E7681"> </span>values.yaml
 </code></pre></div>
 <h3 id="automatic-setup">Automatic Setup<a class="headerlink" href="#automatic-setup" title="Permanent link">§</a></h3>
 <p>The Helm chart includes automatic setup via a Kubernetes Job (recommended) or initContainer. Create a secret with the admin password:</p>
@@ -232,12 +236,13 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 </code></pre></div>
 <p>Then install with setup enabled:</p>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">cd</span><span style="color: #6E7681"> </span>warpgate/helm/warpgate
-helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>.<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>oci://ghcr.io/warp-tech/helm-charts/warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--create-namespace<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>setup.enabled<span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #E6EDF3">true</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>data.pvc.enabled<span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #E6EDF3">true</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>setup.envFromSecret.WARPGATE_ADMIN_PASSWORD<span style="color: #FF7B72; font-weight: bold">=</span>warpgate-secret/adminPassword
+<span style="color: #6E7681">  </span>--values<span style="color: #6E7681"> </span>values.yaml
 </code></pre></div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">§</a></h2>
 <p>For the complete list of available configuration options, see the <a href="https://github.com/warp-tech/warpgate/blob/main/helm/warpgate/values.yaml">full Helm values file</a>.</p>
@@ -293,8 +298,7 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 <span style="color: #6E7681">    </span><span style="color: #7EE787">cpu</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;500m&quot;</span>
 </code></pre></div>
 <p>Install with custom values:</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">cd</span><span style="color: #6E7681"> </span>warpgate/helm/warpgate
-helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>.<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>oci://ghcr.io/warp-tech/helm-charts/warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--create-namespace<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--values<span style="color: #6E7681"> </span>values.yaml
