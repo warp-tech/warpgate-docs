@@ -10,7 +10,7 @@
 * Image in the GHCR: [https://github.com/warp-tech/warpgate/pkgs/container/warpgate](https://github.com/warp-tech/warpgate/pkgs/container/warpgate)
 * Persistent volume required: `/data` (when using SQLite)
 * Ports: `2222` (SSH), `8888` (HTTP), `33306` (MySQL), `55432` (PostgreSQL)
-* Tags: `latest` (stable), `vX.Y`, `vX.Y.Z`
+* Tags: `latest` (stable), `X.Y`, `X.Y.Z`
 
 ## Prerequisites
 
