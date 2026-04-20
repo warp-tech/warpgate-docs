@@ -54,6 +54,10 @@ Users will be able to click the entry to obtain connection instructions:
 Kubernetes target on the homepage
 ///
 
+Note that this dialog offers an option to issue a new certificate in-place, storing it in the browser. This allows the frontend to generate a drop-in `kubeconfig` file with credentials already pre-filled.
+
+See [Authentication](../../auth/#adding-a-client-certificate-for-a-user) for details on certificate key storage.
+
 ## Client setup
 
 You can now use `kubectl` or any other Kubernetes client applications to connect through Warpgate with the settings shown. You can also use a Warpgate API token as a Bearer token when connecting to the Kubernetes API endpoint.
@@ -64,3 +68,5 @@ While your Kubernetes client is active, you'll be able to see the session status
 /// caption
 Kubernetes session view
 ///
+
+Warpgate records API calls and can replay `exec`, `run` and `attach` sessions.

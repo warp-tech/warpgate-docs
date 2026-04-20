@@ -1,7 +1,7 @@
 # Running behind a reverse proxy
 Warpgate doesn't need any specific configuration except in the following case:
 
-* When using **single sign-on**, make sure your reverse proxy supplies the correct `Host` and `X-Forwarded-Proto` headers - this allows Warpgate to construct correct redirect URLs.
+* When using **single sign-on**, make sure your reverse proxy supplies the correct `Host` (or `X-Forwarded-Host`) and `X-Forwarded-Proto` headers - this allows Warpgate to construct correct redirect URLs.
 * Set `http.trust_x_forwarded_headers` to `true` in the config file.
 
 

@@ -1,4 +1,4 @@
-# User authentication and roles
+# User authentication
 
 In the [previous example](./targets/ssh.md), we've reused the Warpgate's `admin` user, which only had a password as its only way to authenticate. Warpgate supports passwords, public keys, authenticator apps, SSO (OIDC), API tokens and combinations thereof as authentication methods.
 
@@ -41,12 +41,19 @@ Warpgate supports client certificates for authentication over the [Kubernetes AP
 Issuing a client certificate
 ///
 
+Note the option to store the private key in the browser's local storage for later use. This allows the Warpgate frontend to later retrieve the private key to generate a `kubeconfig` file for the user.
+
+* The key must be stored in the same browser that the user will be getting connection instructions on.
+* Obviously, do not store the key in an untrusted environment.
+* The key is stored in the browser's IndexedDB and can be deleted by "clearing browser data" or similar.
+* If the key is not stored at the time of certificate generation, Warpgate will generate a `kubeconfig` with placeholders in it.
+* It's not possible to store the private key after the fact; the user will always have an option of simply issuing a new certificate ad-hoc and storing its key (as long as credential self-management is allowed).
+* The private key is never sent over the network.
+
 ![](images/create-certificate-2.png)
 /// caption
 Certificate is issued
 ///
-
-Since the private key is not stored, you must download it immediately, or copy both the certificate and the key as a kubectl config snippet.
 
 ## Requiring multiple authentication factors
 
@@ -71,13 +78,6 @@ You can disable them individually under `Config` > `Global parameters` > `SSH au
 /// caption
 SSH authentication methods configuration in Global Parameters
 ///
-
-## Using roles to assign access
-
-You can use _roles_ to grant a new user access to multiple targets at once (or assign multiple users to a target).
-
-* Create and remove roles under `Config` > `Roles`.
-* Assign roles to users and targets on their respective configuration pages.
 
 ## API Tokens
 

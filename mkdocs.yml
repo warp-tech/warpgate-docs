@@ -29,7 +29,8 @@ nav:
       - PostgreSQL: targets/postgres.md
       - Kubernetes: targets/kubernetes.md
   - Access control:
-      - auth-and-roles.md
+      - auth.md
+      - roles.md
       - tickets.md
       - otp.md
       - sso.md

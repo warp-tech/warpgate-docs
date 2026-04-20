@@ -18,7 +18,7 @@ OIDC providers include, but are not limited to:
 
 <div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
 
-To use SSO, Warpgate needs to know what its external hostname is. Starting with v0.12, Warpgate uses the `Host` header to determine the external host. If you're [running behind a reverse proxy](reverse-proxy.md), the proxy needs to pass through the `Host` header.
+To use SSO, Warpgate needs to know what its external hostname is. Starting with v0.12, Warpgate uses the `Host` header (or, alternatively, `X-Forwarded-Host` starting with v0.23) to determine the external host. If you're [running behind a reverse proxy](reverse-proxy.md), the proxy needs to pass through the `Host` header.
 
 ### External host setting (legacy)
 
@@ -263,3 +263,8 @@ For that you'll need to:
 * Enable [Admin SDK API](https://console.cloud.google.com/apis/api/admin.googleapis.com).
 
 * Enable [domain-wide delegation](https://admin.google.com/u/4/ac/owl/domainwidedelegation), using your service account's *Client ID* (visible in the [service accounts list](https://console.cloud.google.com/iam-admin/serviceaccounts)) and `https://www.googleapis.com/auth/admin.directory.group.readonly` scope value.
+
+
+### Hiding password login
+
+If your users primarily use SSO, you can hide the password login form via `Config` > `Global parameters` > `Minimize password login UI`.
