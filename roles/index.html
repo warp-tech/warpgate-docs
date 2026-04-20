@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Access tickets - Warpgate</title>
+  <title>User roles - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -124,11 +124,11 @@
             </li>
             
             <li>
-              <a class="" href="../roles/">User roles</a>
+              <a class="text-success" href="./">User roles</a>
             </li>
             
             <li>
-              <a class="text-success" href="./">Access tickets</a>
+              <a class="" href="../tickets/">Access tickets</a>
             </li>
             
             <li>
@@ -205,30 +205,40 @@
 
     <div class="page-content">
       <article>
-        <h1 id="access-tickets">Access tickets<a class="headerlink" href="#access-tickets" title="Permanent link">§</a></h1>
-<p>You can issue tickets that grant a specific user access to a specific target, bypassing authorization. This is especially useful for non-interactive sessions where 2FA flows aren't possible, e.g. when connecting an application to a database or an API through Warpgate.</p>
-<h2 id="creating-a-ticket">Creating a ticket<a class="headerlink" href="#creating-a-ticket" title="Permanent link">§</a></h2>
-<p>In the admin UI, create a ticket in the <code>Config</code> -&gt; <code>Tickets</code> section, selecting a user account and a target:</p>
+        <h1 id="user-roles">User roles<a class="headerlink" href="#user-roles" title="Permanent link">§</a></h1>
+<p>Warpgate comes with two kinds of roles:</p>
+<ul>
+<li><strong>Access roles</strong> are used to assign users to targets. A user that has a matching access role will be able to see and connect to the target.</li>
+<li><strong>Admin roles</strong> grant partial or full access to the Warpgate admin UI. You can use admin roles to, for example, allow a user to manage targets but not users.</li>
+</ul>
+<h2 id="access-roles">Access roles<a class="headerlink" href="#access-roles" title="Permanent link">§</a></h2>
+<p>You can use <em>access roles</em> to grant a new user access to multiple targets at once (or assign multiple users to a target).</p>
+<ul>
+<li>Create and remove roles under <code>Config</code> &gt; <code>Access roles</code>.</li>
+<li>Assign roles to users and targets on their respective configuration pages.</li>
+</ul>
+<h2 id="admin-roles">Admin roles<a class="headerlink" href="#admin-roles" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.23+</div>
+
+<p>Admin roles grant granular permissions to the admin UI. Having <em>any</em> single admin role assigned will allow a user to access the admin UI at <code>/@warpgate/admin</code>, and access to individual areas is controlled by the role's permissions.</p>
+<ul>
+<li>Create and remove roles under <code>Config</code> &gt; <code>Admin roles</code>.</li>
+<li>Assign roles to users on their configuration page.</li>
+</ul>
 <figure>
-<p><img alt="" src="../images/ticket-creating.png" /></p>
+<p><img alt="" src="../images/admin-role.png" /></p>
 <figcaption>
-<p>Creating a ticket</p>
+<p>Example admin role permisisons</p>
 </figcaption>
 </figure>
-<p>Once the ticket is created, you'll see the protocol-specific connection instructions. In this example, for an MySQL database, the ticket is passed as a part of the connection string / <code>DATABASE_URL</code>:</p>
-<figure>
-<p><img alt="" src="../images/ticket-instructions.png" /></p>
-<figcaption>
-<p>Ticket connection instructions</p>
-</figcaption>
-</figure>
+<p><em>Note: before v0.23, admin access used to be granted via the <code>warpgate:admin</code> access role.</em></p>
       </article>
 
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../roles/">
+          <a class="btn btn-secondary btn-prev" href="../auth/">
             &larr;
-            User roles
+            User authentication
             <br/>
             <small class="text-muted">
               Previous
@@ -238,8 +248,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../otp/">
-            One-time passwords (OTP)
+          <a class="btn btn-success btn-next ms-auto" href="../tickets/">
+            Access tickets
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

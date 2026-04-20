@@ -79,6 +79,10 @@
               <a class="" href="../getting-started-on-helm/">Helm</a>
             </li>
             
+            <li>
+              <a class="" href="../getting-started-on-kubernetes/">Kubernetes operator</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -116,7 +120,11 @@
           <ul>
             
             <li>
-              <a class="" href="../auth-and-roles/">User authentication and roles</a>
+              <a class="" href="../auth/">User authentication</a>
+            </li>
+            
+            <li>
+              <a class="" href="../roles/">User roles</a>
             </li>
             
             <li>
@@ -212,7 +220,7 @@
 <h3 id="host-header">Host header<a class="headerlink" href="#host-header" title="Permanent link">§</a></h3>
 <div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
 
-<p>To use SSO, Warpgate needs to know what its external hostname is. Starting with v0.12, Warpgate uses the <code>Host</code> header to determine the external host. If you're <a href="../reverse-proxy/">running behind a reverse proxy</a>, the proxy needs to pass through the <code>Host</code> header.</p>
+<p>To use SSO, Warpgate needs to know what its external hostname is. Starting with v0.12, Warpgate uses the <code>Host</code> header (or, alternatively, <code>X-Forwarded-Host</code> starting with v0.23) to determine the external host. If you're <a href="../reverse-proxy/">running behind a reverse proxy</a>, the proxy needs to pass through the <code>Host</code> header.</p>
 <h3 id="external-host-setting-legacy">External host setting (legacy)<a class="headerlink" href="#external-host-setting-legacy" title="Permanent link">§</a></h3>
 <div class="badge font-xs text-bg-danger mb-3">Pre v0.12</div>
 
@@ -225,7 +233,7 @@
 <h3 id="obtaining-app-credentials-from-a-provider">Obtaining app credentials from a provider<a class="headerlink" href="#obtaining-app-credentials-from-a-provider" title="Permanent link">§</a></h3>
 <p>You'll need to register your Warpgate instance as an "app" (terminology varies per provider) at the provider and obtain a <em>Client ID</em> and a <em>Client secret</em>. You'll need to provide a <em>Redirect URL</em> which - which will be verified by the SSO provider.</p>
 <p>The <em>redirect URL</em> (aka <em>return URL</em>) for Warpgate is <code>https://&lt;warpgate-external-host&gt;/@warpgate/api/sso/return</code>.</p>
-<p>For providers that do not allow the @ sign in the URL (Azure), you can use an underscore instead: <code>https://&lt;warpgate-external-host&gt;/_warpgate/api/sso/return</code> (v0.17+ only):</p>
+<p>For providers that do not allow the @ sign in the URL (Azure), you can use an underscore instead: <code>https://&lt;warpgate-external-host&gt;/_warpgate/api/sso/return</code> (v0.22+ only):</p>
 <div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
 <span style="color: #6E7681"> </span> - name: azure
 <span style="color: #56D364; background-color: #0F5323">+   return_url_prefix: _</span>
@@ -420,6 +428,8 @@ Make sure you&#39;re seeing this security key: E E 0 5
 <p>Enable <a href="https://admin.google.com/u/4/ac/owl/domainwidedelegation">domain-wide delegation</a>, using your service account's <em>Client ID</em> (visible in the <a href="https://console.cloud.google.com/iam-admin/serviceaccounts">service accounts list</a>) and <code>https://www.googleapis.com/auth/admin.directory.group.readonly</code> scope value.</p>
 </li>
 </ul>
+<h3 id="hiding-password-login">Hiding password login<a class="headerlink" href="#hiding-password-login" title="Permanent link">§</a></h3>
+<p>If your users primarily use SSO, you can hide the password login form via <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Minimize password login UI</code>.</p>
       </article>
 
       <div class="d-flex">

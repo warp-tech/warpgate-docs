@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>User authentication and roles - Warpgate</title>
+  <title>User authentication - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -79,6 +79,10 @@
               <a class="" href="../getting-started-on-helm/">Helm</a>
             </li>
             
+            <li>
+              <a class="" href="../getting-started-on-kubernetes/">Kubernetes operator</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -116,7 +120,11 @@
           <ul>
             
             <li>
-              <a class="text-success" href="./">User authentication and roles</a>
+              <a class="text-success" href="./">User authentication</a>
+            </li>
+            
+            <li>
+              <a class="" href="../roles/">User roles</a>
             </li>
             
             <li>
@@ -197,7 +205,7 @@
 
     <div class="page-content">
       <article>
-        <h1 id="user-authentication-and-roles">User authentication and roles<a class="headerlink" href="#user-authentication-and-roles" title="Permanent link">§</a></h1>
+        <h1 id="user-authentication">User authentication<a class="headerlink" href="#user-authentication" title="Permanent link">§</a></h1>
 <p>In the <a href="../targets/ssh/">previous example</a>, we've reused the Warpgate's <code>admin</code> user, which only had a password as its only way to authenticate. Warpgate supports passwords, public keys, authenticator apps, SSO (OIDC), API tokens and combinations thereof as authentication methods.</p>
 <h2 id="changing-a-users-password">Changing a user's password<a class="headerlink" href="#changing-a-users-password" title="Permanent link">§</a></h2>
 <p>Log into the Warpgate admin UI and navigate to <code>Config</code> &gt; <code>Users</code> &gt; <code>admin</code>, delete the old password and click <code>Add password</code> to add a new one.</p>
@@ -236,13 +244,21 @@
 <p>Issuing a client certificate</p>
 </figcaption>
 </figure>
+<p>Note the option to store the private key in the browser's local storage for later use. This allows the Warpgate frontend to later retrieve the private key to generate a <code>kubeconfig</code> file for the user.</p>
+<ul>
+<li>The key must be stored in the same browser that the user will be getting connection instructions on.</li>
+<li>Obviously, do not store the key in an untrusted environment.</li>
+<li>The key is stored in the browser's IndexedDB and can be deleted by "clearing browser data" or similar.</li>
+<li>If the key is not stored at the time of certificate generation, Warpgate will generate a <code>kubeconfig</code> with placeholders in it.</li>
+<li>It's not possible to store the private key after the fact; the user will always have an option of simply issuing a new certificate ad-hoc and storing its key (as long as credential self-management is allowed).</li>
+<li>The private key is never sent over the network.</li>
+</ul>
 <figure>
 <p><img alt="" src="../images/create-certificate-2.png" /></p>
 <figcaption>
 <p>Certificate is issued</p>
 </figcaption>
 </figure>
-<p>Since the private key is not stored, you must download it immediately, or copy both the certificate and the key as a kubectl config snippet.</p>
 <h2 id="requiring-multiple-authentication-factors">Requiring multiple authentication factors<a class="headerlink" href="#requiring-multiple-authentication-factors" title="Permanent link">§</a></h2>
 <p>Warpgate can require a client to present both a public key and a password.</p>
 <ul>
@@ -265,12 +281,6 @@
 <p>SSH authentication methods configuration in Global Parameters</p>
 </figcaption>
 </figure>
-<h2 id="using-roles-to-assign-access">Using roles to assign access<a class="headerlink" href="#using-roles-to-assign-access" title="Permanent link">§</a></h2>
-<p>You can use <em>roles</em> to grant a new user access to multiple targets at once (or assign multiple users to a target).</p>
-<ul>
-<li>Create and remove roles under <code>Config</code> &gt; <code>Roles</code>.</li>
-<li>Assign roles to users and targets on their respective configuration pages.</li>
-</ul>
 <h2 id="api-tokens">API Tokens<a class="headerlink" href="#api-tokens" title="Permanent link">§</a></h2>
 <div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
 
@@ -297,8 +307,8 @@ curl<span style="color: #6E7681"> </span>-H<span style="color: #6E7681"> </span>
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../tickets/">
-            Access tickets
+          <a class="btn btn-success btn-next ms-auto" href="../roles/">
+            User roles
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

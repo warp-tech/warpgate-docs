@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Kubernetes operator - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55PX9VYM8V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-55PX9VYM8V');
+  </script>
+  <script type="module" crossorigin src="/assets/app-CDwZQMxF.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-yq3ZNXLq.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/" class="me-auto">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    </a>
+
+    
+      <form action="search.html" class="search-form d-none d-sm-inline-block">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    <!-- <a class="btn btn-success" href="https://github.com/warp-tech/warpgate/releases" target="_blank">Downloads</a> -->
+    <a class="btn btn-primary ms-auto" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+
+    
+
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3 class="d-flex align-items-center">
+        <span class="nav-collapsible">Docs</span>
+        <!-- <button class="btn btn-link ms-auto nav-toggle">
+          <i class="fa-solid fa-list"></i>
+        </button> -->
+      </h3>
+      <ul class="nav-collapsible">
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-helm/">Helm</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">Kubernetes operator</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/kubernetes/">Kubernetes</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth/">User authentication</a>
+            </li>
+            
+            <li>
+              <a class="" href="../roles/">User roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../ldap/">LDAP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Ops
+          <ul>
+            
+            <li>
+              <a class="" href="../support/">Support</a>
+            </li>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sni/">TLS SNI</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <div class="page-content">
+      <article>
+        <h1 id="kubernetes-operator">Kubernetes Operator<a class="headerlink" href="#kubernetes-operator" title="Permanent link">§</a></h1>
+<div class="badge font-xs text-bg-warning mb-3">The Kubernetes operator is community-maintained</div>
+
+<p>The <a href="https://github.com/thereisnotime/warpgate-operator">Warpgate Operator</a> is a community-maintained
+Kubernetes operator that manages Warpgate resources declaratively through Custom Resource Definitions (CRDs).</p>
+<p>It covers the full surface of the Warpgate Terraform provider: roles, users, targets (SSH, HTTP, MySQL,
+PostgreSQL), credentials, tickets, and role/target bindings. It can also deploy and manage Warpgate
+instances directly on Kubernetes via a <code>WarpgateInstance</code> CRD.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The operator is tested against Warpgate 0.22.0-beta.3. The <code>WarpgateInstance</code> controller is under
+active development — it works but expect rough edges.</p>
+</div>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">§</a></h2>
+<ul>
+<li>Kubernetes 1.25+</li>
+<li><a href="https://helm.sh/docs/intro/install/">Helm 3</a> (recommended install method)</li>
+<li><a href="https://cert-manager.io/docs/installation/">cert-manager</a> installed in the cluster (for webhook TLS)</li>
+</ul>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">§</a></h2>
+<h3 id="helm-recommended">Helm (recommended)<a class="headerlink" href="#helm-recommended" title="Permanent link">§</a></h3>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>helm<span style="color: #6E7681"> </span>repo<span style="color: #6E7681"> </span>add<span style="color: #6E7681"> </span>warpgate-operator<span style="color: #6E7681"> </span>https://thereisnotime.github.io/warpgate-operator
+helm<span style="color: #6E7681"> </span>repo<span style="color: #6E7681"> </span>update
+helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate-operator<span style="color: #6E7681"> </span>warpgate-operator/warpgate-operator<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate-operator-system<span style="color: #6E7681"> </span>--create-namespace
+</code></pre></div>
+<h3 id="raw-manifests">Raw manifests<a class="headerlink" href="#raw-manifests" title="Permanent link">§</a></h3>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>apply<span style="color: #6E7681"> </span>-f<span style="color: #6E7681"> </span>https://github.com/thereisnotime/warpgate-operator/releases/latest/download/install.yaml
+</code></pre></div>
+<h2 id="connecting-to-a-warpgate-instance">Connecting to a Warpgate instance<a class="headerlink" href="#connecting-to-a-warpgate-instance" title="Permanent link">§</a></h2>
+<p>Create a Kubernetes Secret with your Warpgate API token:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">apiVersion</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">v1</span>
+<span style="color: #7EE787">kind</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">Secret</span>
+<span style="color: #7EE787">metadata</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">warpgate-auth</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">namespace</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">default</span>
+<span style="color: #7EE787">stringData</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">token</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">YOUR_WARPGATE_API_TOKEN</span>
+</code></pre></div>
+<p>Then create a <code>WarpgateConnection</code> pointing to your instance:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">apiVersion</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">warpgate.warpgate.warp.tech/v1alpha1</span>
+<span style="color: #7EE787">kind</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">WarpgateConnection</span>
+<span style="color: #7EE787">metadata</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">my-warpgate</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">namespace</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">default</span>
+<span style="color: #7EE787">spec</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">host</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">https://warpgate.example.com</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">authSecretRef</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">warpgate-auth</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Username/password authentication is also supported as a fallback for instances without OTP/2FA.
+See the <a href="https://github.com/thereisnotime/warpgate-operator/tree/main/docs/crds">operator docs</a>
+for details.</p>
+</div>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">§</a></h2>
+<p>With a connection in place, you can manage Warpgate resources as Kubernetes manifests:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #8B949E; font-style: italic"># Create a role</span>
+<span style="color: #7EE787">apiVersion</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">warpgate.warpgate.warp.tech/v1alpha1</span>
+<span style="color: #7EE787">kind</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">WarpgateRole</span>
+<span style="color: #7EE787">metadata</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">developers</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">namespace</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">default</span>
+<span style="color: #7EE787">spec</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">connectionRef</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">my-warpgate</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">developers</span>
+<span style="color: #FF7B72">---</span>
+<span style="color: #8B949E; font-style: italic"># Create a user (password auto-generated and stored in a Secret)</span>
+<span style="color: #7EE787">apiVersion</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">warpgate.warpgate.warp.tech/v1alpha1</span>
+<span style="color: #7EE787">kind</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">WarpgateUser</span>
+<span style="color: #7EE787">metadata</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">john-doe</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">namespace</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">default</span>
+<span style="color: #7EE787">spec</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">connectionRef</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">my-warpgate</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">username</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">john.doe</span>
+<span style="color: #FF7B72">---</span>
+<span style="color: #8B949E; font-style: italic"># Bind the user to the role</span>
+<span style="color: #7EE787">apiVersion</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">warpgate.warpgate.warp.tech/v1alpha1</span>
+<span style="color: #7EE787">kind</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">WarpgateUserRole</span>
+<span style="color: #7EE787">metadata</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">john-doe-developers</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">namespace</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">default</span>
+<span style="color: #7EE787">spec</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">connectionRef</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">my-warpgate</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">userRef</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">john-doe</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">roleRef</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">developers</span>
+</code></pre></div>
+<h2 id="key-features">Key features<a class="headerlink" href="#key-features" title="Permanent link">§</a></h2>
+<ul>
+<li><strong>10 CRDs</strong> — instances, connections, roles, users, SSH/HTTP/MySQL/PostgreSQL targets, credentials, tickets, and bindings</li>
+<li><strong>Drift reconciliation</strong> — desired state is enforced every 5 minutes</li>
+<li><strong>Secret references</strong> — sensitive fields (tokens, passwords, SSH keys) reference Kubernetes Secrets; nothing sensitive lives in the CRD spec</li>
+<li><strong>Finalizer-based cleanup</strong> — deleting a CR removes the corresponding Warpgate resource</li>
+<li><strong>Admission webhooks</strong> — validate and default CRD specs at admission time</li>
+</ul>
+<h2 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h2>
+<ul>
+<li><a href="../targets/ssh/">Adding an SSH target</a></li>
+<li><a href="../targets/http/">Adding an HTTP target</a></li>
+<li><a href="./auth-and-roles.md">Access control</a></li>
+</ul>
+      </article>
+
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../getting-started-on-helm/">
+            &larr;
+            Helm
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../targets/ssh/">
+            SSH
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+    </div>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>

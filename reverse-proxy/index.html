@@ -79,6 +79,10 @@
               <a class="" href="../getting-started-on-helm/">Helm</a>
             </li>
             
+            <li>
+              <a class="" href="../getting-started-on-kubernetes/">Kubernetes operator</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -116,7 +120,11 @@
           <ul>
             
             <li>
-              <a class="" href="../auth-and-roles/">User authentication and roles</a>
+              <a class="" href="../auth/">User authentication</a>
+            </li>
+            
+            <li>
+              <a class="" href="../roles/">User roles</a>
             </li>
             
             <li>
@@ -200,7 +208,7 @@
         <h1 id="running-behind-a-reverse-proxy">Running behind a reverse proxy<a class="headerlink" href="#running-behind-a-reverse-proxy" title="Permanent link">§</a></h1>
 <p>Warpgate doesn't need any specific configuration except in the following case:</p>
 <ul>
-<li>When using <strong>single sign-on</strong>, make sure your reverse proxy supplies the correct <code>Host</code> and <code>X-Forwarded-Proto</code> headers - this allows Warpgate to construct correct redirect URLs.</li>
+<li>When using <strong>single sign-on</strong>, make sure your reverse proxy supplies the correct <code>Host</code> (or <code>X-Forwarded-Host</code>) and <code>X-Forwarded-Proto</code> headers - this allows Warpgate to construct correct redirect URLs.</li>
 <li>Set <code>http.trust_x_forwarded_headers</code> to <code>true</code> in the config file.</li>
 </ul>
 <p>Example for NGINX:</p>

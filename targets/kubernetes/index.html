@@ -79,6 +79,10 @@
               <a class="" href="../../getting-started-on-helm/">Helm</a>
             </li>
             
+            <li>
+              <a class="" href="../../getting-started-on-kubernetes/">Kubernetes operator</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -116,7 +120,11 @@
           <ul>
             
             <li>
-              <a class="" href="../../auth-and-roles/">User authentication and roles</a>
+              <a class="" href="../../auth/">User authentication</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../roles/">User roles</a>
             </li>
             
             <li>
@@ -242,6 +250,8 @@
 <p>Kubernetes target on the homepage</p>
 </figcaption>
 </figure>
+<p>Note that this dialog offers an option to issue a new certificate in-place, storing it in the browser. This allows the frontend to generate a drop-in <code>kubeconfig</code> file with credentials already pre-filled.</p>
+<p>See <a href="../../auth/#adding-a-client-certificate-for-a-user">Authentication</a> for details on certificate key storage.</p>
 <h2 id="client-setup">Client setup<a class="headerlink" href="#client-setup" title="Permanent link">§</a></h2>
 <p>You can now use <code>kubectl</code> or any other Kubernetes client applications to connect through Warpgate with the settings shown. You can also use a Warpgate API token as a Bearer token when connecting to the Kubernetes API endpoint.</p>
 <p>While your Kubernetes client is active, you'll be able to see the session status in the Admin UI, including the log, API queries and session recordings:</p>
@@ -251,6 +261,7 @@
 <p>Kubernetes session view</p>
 </figcaption>
 </figure>
+<p>Warpgate records API calls and can replay <code>exec</code>, <code>run</code> and <code>attach</code> sessions.</p>
       </article>
 
       <div class="d-flex">
@@ -267,8 +278,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../../auth-and-roles/">
-            User authentication and roles
+          <a class="btn btn-success btn-next ms-auto" href="../../auth/">
+            User authentication
             &rarr;
             <br/>
             <small class="text-muted">Next</small>
