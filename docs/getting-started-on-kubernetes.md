@@ -1,4 +1,6 @@
-# Getting started on Kubernetes
+# Kubernetes Operator
+
+<div class="badge font-xs text-bg-warning mb-3">The Kubernetes operator is community-maintained</div>
 
 The [Warpgate Operator](https://github.com/thereisnotime/warpgate-operator) is a community-maintained
 Kubernetes operator that manages Warpgate resources declaratively through Custom Resource Definitions (CRDs).
