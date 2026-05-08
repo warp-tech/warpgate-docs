@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>One-time passwords (OTP) - Warpgate</title>
+  <title>Custom root CAs - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -132,7 +132,7 @@
             </li>
             
             <li>
-              <a class="text-success" href="./">One-time passwords (OTP)</a>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
             <li>
@@ -172,7 +172,7 @@
             </li>
             
             <li>
-              <a class="" href="../custom-ca/">Custom root CAs</a>
+              <a class="text-success" href="./">Custom root CAs</a>
             </li>
             
           </ul>
@@ -209,32 +209,31 @@
 
     <div class="page-content">
       <article>
-        <h1 id="one-time-passwords-otp">One-time passwords (OTP)<a class="headerlink" href="#one-time-passwords-otp" title="Permanent link">§</a></h1>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">§</a></h2>
-<p>Log into the Warpgate admin UI and navigate to <code>Config</code> &gt; <code>Users</code> &gt; <code>admin</code> and click <code>Add OTP</code>:</p>
-<figure>
-<p><img alt="" src="../images/editing-otp.png" /></p>
-<figcaption>
-<p>Adding an OTP credential</p>
-</figcaption>
-</figure>
-<p>The QR code shown can now be used to set up a mobile TOTP authenticator app.</p>
-<p>Once done, click <code>Update configuration</code> to save.</p>
-<h2 id="credentials-policy-configuration-for-ssh-http">Credentials policy configuration for SSH &amp; HTTP<a class="headerlink" href="#credentials-policy-configuration-for-ssh-http" title="Permanent link">§</a></h2>
-<p>To specify 2FA policies for SSH or HTTP sessions, uncheck <code>Any credential</code> in the corresponding <code>Auth policy section</code> and select all required credentials:</p>
-<figure>
-<p><img alt="" src="../images/otp-policy.png" /></p>
-<figcaption>
-<p>Authentication policy with OTP</p>
-</figcaption>
-</figure>
+        <h1 id="custom-root-cas">Custom root CAs<a class="headerlink" href="#custom-root-cas" title="Permanent link">§</a></h1>
+<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">§</a></h2>
+<p>In the official Docker image, custom trusted root certificates can be mounted into <code>/etc/ssl/certs</code>.</p>
+<h2 id="kubernetes">Kubernetes<a class="headerlink" href="#kubernetes" title="Permanent link">§</a></h2>
+<p>Mount your certificate as a secret in the Warpgate pod:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">volumes</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #E6EDF3">-</span><span style="color: #6E7681"> </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">custom-ca-volume</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">secret</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">      </span><span style="color: #7EE787">secretName</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">custom-ca-tls</span>
+
+<span style="color: #7EE787">volume_mounts</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #E6EDF3">-</span><span style="color: #6E7681"> </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">custom-ca-volume</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">mountPath</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">/etc/ssl/certs/custom-ca.crt</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">subPath</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">ca.crt</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">readOnly</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">true</span>
+</code></pre></div>
+<h2 id="native">Native<a class="headerlink" href="#native" title="Permanent link">§</a></h2>
+<p>Warpgate will use the host's trusted root certificates automatically.</p>
       </article>
 
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../tickets/">
+          <a class="btn btn-secondary btn-prev" href="../reverse-proxy/">
             &larr;
-            Access tickets
+            Running behind a reverse proxy
             <br/>
             <small class="text-muted">
               Previous
@@ -244,8 +243,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../sso/">
-            Single sign-on
+          <a class="btn btn-success btn-next ms-auto" href="../http-domain-binding/">
+            HTTP domain binding
             &rarr;
             <br/>
             <small class="text-muted">Next</small>
