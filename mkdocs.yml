@@ -41,6 +41,7 @@ nav:
       - systemd.md
       - log-forwarding.md
       - reverse-proxy.md
+      - custom-ca.md
   - Advanced topics:
       - http-domain-binding.md
       - sni.md

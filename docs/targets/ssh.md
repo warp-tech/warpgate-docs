@@ -105,4 +105,4 @@ SSH session recording
 
 ### Up next
 
-* [User authentication and roles](../auth-and-roles.md)
+* [User authentication](../auth.md)

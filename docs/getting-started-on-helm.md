@@ -320,4 +320,4 @@ kubectl exec -it deployment/warpgate -n warpgate -- cat /data/warpgate.yaml
 
 * [Adding an SSH target](./targets/ssh.md)
 * [Adding an HTTP target](./targets/http.md)
-* [Access control](./auth-and-roles.md)
+* [User authentication](./auth.md)

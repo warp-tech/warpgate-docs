@@ -56,7 +56,7 @@ Kubernetes target on the homepage
 
 Note that this dialog offers an option to issue a new certificate in-place, storing it in the browser. This allows the frontend to generate a drop-in `kubeconfig` file with credentials already pre-filled.
 
-See [Authentication](../../auth/#adding-a-client-certificate-for-a-user) for details on certificate key storage.
+See [Authentication](../auth.md/#adding-a-client-certificate-for-a-user) for details on certificate key storage.
 
 ## Client setup
 

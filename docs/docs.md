@@ -9,7 +9,8 @@ Welcome to the Warpgate docs.
 ## Common topics
 
 * [Adding an SSH target](./targets/ssh.md)
-* [User authentication and roles](./auth-and-roles.md)
+* [User authentication](./auth.md)
+* [Roles](./roles.md)
 * [One-time passwords](./otp.md)
 * [Tickets](./tickets.md)
 * [Single sign-on](./sso.md)

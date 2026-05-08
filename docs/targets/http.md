@@ -69,4 +69,4 @@ Warpgate automatically adds the following headers to all requests:
 
 ### Up next
 
-* [User authentication and roles](../auth-and-roles.md)
+* [User authentication](../auth.md)

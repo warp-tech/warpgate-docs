@@ -95,3 +95,7 @@ Pass the token in the `x-warpgate-token` header when making API requests:
 # Example: Get server info
 curl -H "x-warpgate-token: xyz" https://warpgate.acme.inc/@warpgate/api/info
 ```
+
+### Up next
+
+* [Roles](./roles.md)

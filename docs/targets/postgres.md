@@ -77,4 +77,4 @@ Warpgate supports the "In-browser auth" authentication for PostgreSQL clients by
 
 ### Up next
 
-* [User authentication and roles](../auth-and-roles.md)
+* [User authentication](../auth.md)
