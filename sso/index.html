@@ -218,17 +218,12 @@
 <li>Sign in with Apple</li>
 <li>GitLab</li>
 <li>Microsoft Azure</li>
-<li>Okta</li>
+<li>Okta
+*</li>
 </ul>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">§</a></h2>
-<h3 id="host-header">Host header<a class="headerlink" href="#host-header" title="Permanent link">§</a></h3>
-<div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
-
-<p>To use SSO, Warpgate needs to know what its external hostname is. Starting with v0.12, Warpgate uses the <code>Host</code> header (or, alternatively, <code>X-Forwarded-Host</code> starting with v0.23) to determine the external host. If you're <a href="../reverse-proxy/">running behind a reverse proxy</a>, the proxy needs to pass through the <code>Host</code> header.</p>
-<h3 id="external-host-setting-legacy">External host setting (legacy)<a class="headerlink" href="#external-host-setting-legacy" title="Permanent link">§</a></h3>
-<div class="badge font-xs text-bg-danger mb-3">Pre v0.12</div>
-
-<p>Warpgate would try its best to figure it out based on the client's request, but it's better if you set it explicitly via the top-level <code>external_host</code> config option:</p>
+<h3 id="external-host">External host<a class="headerlink" href="#external-host" title="Permanent link">§</a></h3>
+<p>Set the primary external domain explicitly via the top-level <code>external_host</code> config option:</p>
 <div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #56D364; background-color: #0F5323">+ external_host: warpgate.acme.inc</span>
 </code></pre></div>
 <blockquote>
@@ -302,6 +297,27 @@
 <span style="color: #56D364; background-color: #0F5323">+     client_secret: ABC...</span>
 <span style="color: #56D364; background-color: #0F5323">+     issuer_url: https://sso.acme.inc</span>
 <span style="color: #56D364; background-color: #0F5323">+     scopes: [&quot;email&quot;]</span>
+</code></pre></div>
+<h3 id="domain-handling">Domain handling<a class="headerlink" href="#domain-handling" title="Permanent link">§</a></h3>
+<p>There are two possible ways Warpgate can handle SSO when it's servicing multiple domains. Consider the following setup:</p>
+<ul>
+<li>Warpgate itself listens on <code>warpgate.acme.inc</code> and has SSO enabled.</li>
+<li>There is an HTTP target bound to <code>target.warpgate.acme.inc</code>.</li>
+</ul>
+<h4 id="option-a-return-to-the-main-domain-for-sso">Option A: return to the main domain for SSO<a class="headerlink" href="#option-a-return-to-the-main-domain-for-sso" title="Permanent link">§</a></h4>
+<p>When a user logs in at <code>target.warpgate.acme.inc</code>, they will be redirected to SSO with a redirect URL constructed from <code>warpgate.acme.inc</code>. This means you can keep a single redirect URL in the SSO config, but for the user session to work across domains, every target-bound domain must be a strict subdomain of the <code>external_host</code>.</p>
+<p>This is the default in Warpgate pre-0.23 and from 0.25 onwards.</p>
+<h4 id="option-b-stay-on-the-same-domain">Option B: stay on the same domain<a class="headerlink" href="#option-b-stay-on-the-same-domain" title="Permanent link">§</a></h4>
+<p>When a user logs in at <code>target.warpgate.acme.inc</code>, they will be redirected to SSO with a redirect URL that retains <code>target.warpgate.acme.inc</code> as domain name. This means that the user will remain within the same domain throughout, but every target subdomain needs to be explicitly added to the SSO provider's redirect URL list.</p>
+<p>This has briefly been the default in Warpgate 0.24.</p>
+<h4 id="choosing-the-option">Choosing the option<a class="headerlink" href="#choosing-the-option" title="Permanent link">§</a></h4>
+<p>Set <code>return_url_domain</code> to either <code>external_host</code> or <code>host_header</code>:</p>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
+<span style="color: #6E7681"> </span> - name: custom
+<span style="color: #6E7681"> </span>   label: ACME SSO
+<span style="color: #56D364; background-color: #0F5323">+   return_url_domain: host_header</span>
+<span style="color: #6E7681"> </span>   provider:
+<span style="color: #6E7681"> </span>   ...
 </code></pre></div>
 <h3 id="oidc-audience-verification">OIDC audience verification<a class="headerlink" href="#oidc-audience-verification" title="Permanent link">§</a></h3>
 <p>Normally, the OIDC provider should issue a token that is only valid for Warpgate itself. If this is not possible, you have two options:</p>
