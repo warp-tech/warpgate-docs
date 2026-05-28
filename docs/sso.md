@@ -11,20 +11,12 @@ OIDC providers include, but are not limited to:
 * GitLab
 * Microsoft Azure
 * Okta
-
+*
 ## Configuration
 
-### Host header
+### External host
 
-<div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
-
-To use SSO, Warpgate needs to know what its external hostname is. Starting with v0.12, Warpgate uses the `Host` header (or, alternatively, `X-Forwarded-Host` starting with v0.23) to determine the external host. If you're [running behind a reverse proxy](reverse-proxy.md), the proxy needs to pass through the `Host` header.
-
-### External host setting (legacy)
-
-<div class="badge font-xs text-bg-danger mb-3">Pre v0.12</div>
-
-Warpgate would try its best to figure it out based on the client's request, but it's better if you set it explicitly via the top-level `external_host` config option:
+Set the primary external domain explicitly via the top-level `external_host` config option:
 
 ```diff
 + external_host: warpgate.acme.inc
@@ -122,6 +114,38 @@ external_host: warpgate.acme.inc:8888
 +     client_secret: ABC...
 +     issuer_url: https://sso.acme.inc
 +     scopes: ["email"]
+```
+
+### Domain handling
+
+There are two possible ways Warpgate can handle SSO when it's servicing multiple domains. Consider the following setup:
+
+* Warpgate itself listens on `warpgate.acme.inc` and has SSO enabled.
+* There is an HTTP target bound to `target.warpgate.acme.inc`.
+
+#### Option A: return to the main domain for SSO
+
+When a user logs in at `target.warpgate.acme.inc`, they will be redirected to SSO with a redirect URL constructed from `warpgate.acme.inc`. This means you can keep a single redirect URL in the SSO config, but for the user session to work across domains, every target-bound domain must be a strict subdomain of the `external_host`.
+
+This is the default in Warpgate pre-0.23 and from 0.25 onwards.
+
+#### Option B: stay on the same domain
+
+When a user logs in at `target.warpgate.acme.inc`, they will be redirected to SSO with a redirect URL that retains `target.warpgate.acme.inc` as domain name. This means that the user will remain within the same domain throughout, but every target subdomain needs to be explicitly added to the SSO provider's redirect URL list.
+
+This has briefly been the default in Warpgate 0.24.
+
+#### Choosing the option
+
+Set `return_url_domain` to either `external_host` or `host_header`:
+
+```diff
+  sso_providers:
+  - name: custom
+    label: ACME SSO
++   return_url_domain: host_header
+    provider:
+    ...
 ```
 
 ### OIDC audience verification
