@@ -53,7 +53,12 @@ The target should show up on the Warpgate homepage for users that are allowed to
 SSH target on the start page
 ///
 
-Users will be able to click the entry to obtain connection instructions:
+Users will be able to click the entry to connect to it directly via a web-based terminal (v0.24+) and/or obtain connection instructions for their own SSH client:
+
+![](../images/webssh.png)
+/// caption
+Web-based SSH terminal
+///
 
 ![](../images/ssh-instructions.png)
 /// caption
