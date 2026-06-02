@@ -9,7 +9,7 @@ Warpgate offers a professional support service that includes:
 * Knowing that the software your company relies on for core security has a stable future, while being maintained and continuously improved.
 
 !!! NOTE "Pricing"
-    The professional support service costs **$750** per month.
+    The professional support service costs **$750** / **650€** per month.
 
 In the times where one project after another falls into the enshittification cycle of becoming a worse SaaS version of itself, this funding model allows Warpgate to stay what it was always meant to be: a secure, open and robust gatekeeper at the edge of your infrastructure.
 
