@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Native - Warpgate</title>
+  <title>Login protection - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -68,7 +68,7 @@
           <ul>
             
             <li>
-              <a class="text-success" href="./">Native</a>
+              <a class="" href="../getting-started/">Native</a>
             </li>
             
             <li>
@@ -144,7 +144,7 @@
             </li>
             
             <li>
-              <a class="" href="../login-protection/">Login protection</a>
+              <a class="text-success" href="./">Login protection</a>
             </li>
             
             <li>
@@ -213,92 +213,46 @@
 
     <div class="page-content">
       <article>
-        <h1 id="getting-started-binary">Getting started (binary)<a class="headerlink" href="#getting-started-binary" title="Permanent link">§</a></h1>
-<p>NOTE: For Docker / k8s, see <a href="../getting-started-on-docker/">Getting started on Docker</a>.</p>
-<ul>
-<li>Download the binary and save it as <code>/usr/bin/warpgate</code>:<ul>
-<li>grab a stable/beta release from the <a href="https://github.com/warp-tech/warpgate/releases">Releases</a> page</li>
-<li>or get a <a href="https://nightly.link/warp-tech/warpgate/workflows/build/main">nightly build</a></li>
-</ul>
-</li>
-<li>Make it executable:</li>
-</ul>
-<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>chmod +x /usr/bin/warpgate
-</code></pre></div>
-<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">§</a></h2>
-<p>Run <code>warpgate setup</code> and follow the prompts. If you want to use a non-default (<code>/etc/warpgate.yaml</code>) config path, pass it to all <code>warpgate</code> commands via <code>--config &lt;path&gt;</code>.</p>
-<p>To use an external database (MySQL or PostgreSQL) instead of the built-in SQLite, add <code>--database-url mysql://...</code> or <code>--database-url postgres://...</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Unattended setup</p>
-<p>There's also a non-interactive setup mode available - check out <code>warpgate unattended-setup --help</code></p>
-</div>
-<p>Here's what it might look like:</p>
-<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>$ warpgate setup
+        <h1 id="login-protection">Login protection<a class="headerlink" href="#login-protection" title="Permanent link">§</a></h1>
+<div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
 
-13:43:10  INFO Welcome to Warpgate 0.6.0
-13:43:10  INFO Let&#39;s do some basic setup first.
-13:43:10  INFO The new config will be written in /etc/warpgate.yaml.
-13:43:10  INFO * Paths can be either absolute or relative to /etc.
-✔ Directory to store app data (up to a few MB) in · /var/lib/warpgate
-✔ Endpoint to listen for SSH connections on · 0.0.0.0:2222
-✔ Endpoint to expose admin web interface on · 0.0.0.0:8888
-✔ Do you want to record user sessions? · yes
-✔ Set a password for the Warpgate admin user · ********
-13:43:28  INFO Generated configuration:
-[...]
-13:43:28  INFO Saved into /etc/warpgate.yaml
-13:43:28  INFO Using config: &quot;/etc/warpgate.yaml&quot; (users: 1, targets: 1, roles: 1)
-13:43:28  INFO Generating HTTPS certificate
-13:43:28  INFO
-13:43:28  INFO Admin user credentials:
-13:43:28  INFO   * Username: admin
-13:43:28  INFO   * Password: &lt;your password&gt;
-13:43:28  INFO
-13:43:28  INFO You can now start Warpgate with:
-13:43:28  INFO   warpgate --config /etc/warpgate.yaml run
-</code></pre></div>
-<p>If you need to start over, delete or move away the config file and run <code>warpgate setup</code> again.</p>
-<p>You can now start Warpgate with <code>warpgate run</code> and the output should look like this:</p>
-<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>$ warpgate run
-
-13:44:13  INFO Warpgate version=0.6.0
-13:44:13  INFO Using config: &quot;/etc/warpgate.yaml&quot; (users: 1, targets: 1, roles: 1)
-13:44:13  INFO --------------------------------------------
-13:44:13  INFO Warpgate is now running.
-13:44:13  INFO Accepting SSH connections on 0.0.0.0:2222
-13:44:13  INFO Access admin UI on https://0.0.0.0:8888
-13:44:13  INFO --------------------------------------------
-13:44:13  INFO Listening address=0.0.0.0:2222
-13:44:13  INFO Listening address=0.0.0.0:8888
-</code></pre></div>
-<p>Try accessing <code>https://&lt;host&gt;:8888/@warpgate/admin</code> (note the <code>https://</code>) via a browser to confirm that the Admin UI is functional.</p>
-<p>The default username is <code>admin</code> and the password is the one you've set during setup.</p>
+<p>Warpgate has built-in, fail2ban-like protection against brute-force login attempts. It can automatically block offending IP addresses and lock out user accounts after repeated failures.</p>
+<p>Failed login attempts are counted across all protocols.</p>
+<p>You can configure login protection under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Login protection</code>:</p>
 <figure>
-<p><img alt="" src="../images/login.png" /></p>
+<p><img alt="" src="../images/login-protection.png" /></p>
 <figcaption>
-<p>Login screen</p>
+<p>Login protection configuration in Global Parameters</p>
 </figcaption>
 </figure>
-<figure>
-<p><img alt="" src="../images/session-list.png" /></p>
-<figcaption>
-<p>Session list in the admin UI</p>
-</figcaption>
-</figure>
-<h2 id="setting-up-as-a-service">Setting up as a service<a class="headerlink" href="#setting-up-as-a-service" title="Permanent link">§</a></h2>
-<p>On <code>systemd</code>, follow <a href="../systemd/">Installing as a systemd service</a> to configure Warpgate to run as a service.</p>
-<h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
+<h2 id="ip-blocking">IP blocking<a class="headerlink" href="#ip-blocking" title="Permanent link">§</a></h2>
+<p>When an IP address exceeds the allowed number of failed attempts within the time window, it is temporarily blocked from logging in. Each subsequent block for the same IP lasts longer (exponential backoff), up to a configurable maximum.</p>
 <ul>
-<li><a href="../targets/ssh/">Adding an SSH target</a></li>
-<li><a href="../targets/http/">Adding an HTTP target</a></li>
+<li><strong>Max attempts</strong> - failed attempts allowed before the IP is blocked.</li>
+<li><strong>Time window</strong> - the period (in minutes) over which attempts are counted.</li>
+<li><strong>Base block duration</strong> - duration of the first block.</li>
+<li><strong>Block duration multiplier</strong> - each repeated block is multiplied by this factor (e.g. <code>2.0</code> → 30min, 1h, 2h, …).</li>
+<li><strong>Max block duration</strong> - the cap on a single block's duration.</li>
+<li><strong>Cooldown reset</strong> - how long an IP must stay clean before its backoff counter resets.</li>
 </ul>
+<h2 id="user-lockout">User lockout<a class="headerlink" href="#user-lockout" title="Permanent link">§</a></h2>
+<p>In addition to IP blocking, Warpgate can lock individual user accounts after repeated failed attempts against them.</p>
+<ul>
+<li><strong>Max attempts</strong> - failed attempts allowed before the account is locked.</li>
+<li><strong>Time window</strong> - the period (in minutes) over which attempts are counted.</li>
+<li><strong>Auto-unlock</strong> - if enabled, locked accounts are released after the lockout duration; otherwise they stay locked until an admin unlocks them.</li>
+<li><strong>Lockout duration</strong> - how long an account stays locked when auto-unlock is enabled.</li>
+</ul>
+<h2 id="managing-blocks-and-lockouts">Managing blocks and lockouts<a class="headerlink" href="#managing-blocks-and-lockouts" title="Permanent link">§</a></h2>
+<p>Admins can review currently blocked IPs and locked users, and clear them manually, from the Admin UI.</p>
+<p>Blocked IPs and lockout records are retained for a configurable number of days (<strong>Retention</strong>) for auditing, after which they are pruned.</p>
       </article>
 
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../docs/">
+          <a class="btn btn-secondary btn-prev" href="../ldap/">
             &larr;
-            Home
+            LDAP
             <br/>
             <small class="text-muted">
               Previous
@@ -308,8 +262,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../getting-started-on-docker/">
-            Docker
+          <a class="btn btn-success btn-next ms-auto" href="../recovering-access/">
+            Recovering admin access
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

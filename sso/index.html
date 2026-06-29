@@ -144,6 +144,10 @@
             </li>
             
             <li>
+              <a class="" href="../login-protection/">Login protection</a>
+            </li>
+            
+            <li>
               <a class="" href="../recovering-access/">Recovering admin access</a>
             </li>
             
@@ -391,7 +395,8 @@ Make sure you&#39;re seeing this security key: E E 0 5
 <h3 id="setting-roles-via-sso">Setting roles via SSO<a class="headerlink" href="#setting-roles-via-sso" title="Permanent link">§</a></h3>
 <p>With <code>custom</code> type OIDC providers, Warpgate can also sync the user's role memberships when they log in.</p>
 <p>For that, your provider must set a <code>warpgate_roles</code> OIDC claim (a JSON array of role names) either in the ID Token or the UserInfo response. By default, Warpgate will use these names as-is and completely overwrite the user's memberships.</p>
-<p>You can also set <code>role_mappings</code> in the provider's configuration to explicitly map claim values to role names. In this case, only the roles mentioned here will be synced SSO, and the memberships in other roles won't be affected. For example:</p>
+<p>The corresponding optional <code>warpgate_admin_roles</code> claim is interpreted as a list of admin roles to apply.</p>
+<p>You can also set <code>role_mappings</code>/<code>admin_role_mappings</code> in the provider's configuration to explicitly map claim values to role names. In this case, only the roles mentioned here will be synced from SSO, and the memberships in other roles won't be affected. For example:</p>
 <div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">-</span><span style="color: #6E7681"> </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">oidc-custom</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">label</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">Custom SSO</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">provider</span><span style="color: #E6EDF3">:</span>
@@ -404,6 +409,24 @@ Make sure you&#39;re seeing this security key: E E 0 5
 <span style="color: #6E7681">      </span><span style="color: #A5D6FF">&#39;QA</span><span style="color: #79C0FF"> </span><span style="color: #A5D6FF">group&#39;</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;qa&#39;</span>
 <span style="color: #6E7681">      </span><span style="color: #7EE787">Admins</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;warpgate:admin&#39;</span>
 </code></pre></div>
+<h4 id="mapping-from-a-groups-claim">Mapping from a <code>groups</code> claim<a class="headerlink" href="#mapping-from-a-groups-claim" title="Permanent link">§</a></h4>
+<div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
+
+<p>Some providers (e.g. Okta with an org authorization server) can only emit a standard <code>groups</code> claim and do not support arbitrarily-named claims like <code>warpgate_roles</code>. In that case, set <code>roles_claim</code>/<code>admin_roles_claim</code> to the name of the claim that carries the group memberships, and map those groups to Warpgate roles via <code>role_mappings</code> / <code>admin_role_mappings</code>:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">-</span><span style="color: #6E7681"> </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">oidc-custom</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">label</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">Custom SSO</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">provider</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">type</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">custom</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">client_id</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">...</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">client_secret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">...</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">issuer_url</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">...</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">scopes</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">[</span><span style="color: #A5D6FF">&quot;openid&quot;</span><span style="color: #E6EDF3">,</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;groups&quot;</span><span style="color: #E6EDF3">]</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">groups_claim</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">groups</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">role_mappings</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">      </span><span style="color: #A5D6FF">&#39;QA</span><span style="color: #79C0FF"> </span><span style="color: #A5D6FF">group&#39;</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;qa&#39;</span>
+<span style="color: #6E7681">      </span><span style="color: #7EE787">Admins</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;warpgate:admin&#39;</span>
+</code></pre></div>
+<p>Warpgate reads the claim from the ID token first, then falls back to the UserInfo response. The claim may be a bare string, an array of strings, or SCIM-style objects (RFC 7643) - groups can be matched either by their stable ID or their display name.</p>
 <h4 id="syncing-google-workspace-groups">Syncing Google Workspace groups<a class="headerlink" href="#syncing-google-workspace-groups" title="Permanent link">§</a></h4>
 <div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
 
@@ -417,7 +440,7 @@ Make sure you&#39;re seeing this security key: E E 0 5
 <p>Create a new JSON <em>private key</em> for the account and download it.</p>
 </li>
 <li>
-<p>Open the key file and copy the <code>private_key</code> JSON value from it as-is.</p>
+<p>Open the key file and copy the <code>private_key</code> JSON value from it as-is, including the surrounding quotes.</p>
 </li>
 <li>
 <p>Add the new SSO provider properties:</p>

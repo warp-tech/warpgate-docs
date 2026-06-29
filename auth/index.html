@@ -144,6 +144,10 @@
             </li>
             
             <li>
+              <a class="" href="../login-protection/">Login protection</a>
+            </li>
+            
+            <li>
               <a class="" href="../recovering-access/">Recovering admin access</a>
             </li>
             
@@ -285,6 +289,11 @@
 <p>SSH authentication methods configuration in Global Parameters</p>
 </figcaption>
 </figure>
+<h2 id="ssh-login-banner">SSH login banner<a class="headerlink" href="#ssh-login-banner" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
+
+<p>You can set a custom banner that Warpgate sends to SSH clients during authentication (e.g. a legal notice or login instructions). Set it under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>SSH banner</code>.</p>
+<p>The banner is delivered via the standard SSH authentication banner message, so it works with all SSH clients and doesn't interfere with the in-session terminal.</p>
 <h2 id="api-tokens">API Tokens<a class="headerlink" href="#api-tokens" title="Permanent link">§</a></h2>
 <div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
 
