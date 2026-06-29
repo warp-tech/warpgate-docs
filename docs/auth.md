@@ -79,6 +79,14 @@ You can disable them individually under `Config` > `Global parameters` > `SSH au
 SSH authentication methods configuration in Global Parameters
 ///
 
+## SSH login banner
+
+<div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
+
+You can set a custom banner that Warpgate sends to SSH clients during authentication (e.g. a legal notice or login instructions). Set it under `Config` > `Global parameters` > `SSH banner`.
+
+The banner is delivered via the standard SSH authentication banner message, so it works with all SSH clients and doesn't interfere with the in-session terminal.
+
 ## API Tokens
 
 <div class="badge font-xs text-bg-warning mb-3">v0.13+</div>

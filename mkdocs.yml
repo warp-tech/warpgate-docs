@@ -35,6 +35,7 @@ nav:
       - otp.md
       - sso.md
       - ldap.md
+      - login-protection.md
       - recovering-access.md
   - Ops:
       - support.md

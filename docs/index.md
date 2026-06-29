@@ -31,10 +31,12 @@ special: home
             <div>Connect your gRPC service through it.</div>
             <div>Set it as your <code>DATABASE_URL</code>.</div>
             <div>Connect your Kubernetes clusters.</div>
+            <div>Or just open a terminal in your browser.</div>
         </div>
         <div class="feature col-lg-6 col-12">
             <h1>No jump hosts</h1>
             <p>Warpgate handles authentication, and then transparently forwards the connection to the target server, while making a live recording for auditing.</p>
+            <p>Built-in 2FA, SSO and brute-force protection keep the front door locked.</p>
         </div>
     </div>
 

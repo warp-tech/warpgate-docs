@@ -65,6 +65,8 @@ Web-based SSH terminal
 SSH connection instructions
 ///
 
+The web-based terminal can be turned off globally (v0.26+) under `Config` > `Global parameters` > `Web SSH`, leaving users with connection instructions only.
+
 ## Client setup
 
 Now, fire up your favorite SSH client and try connecting to Warpgate:

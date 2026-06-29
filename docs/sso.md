@@ -234,7 +234,9 @@ With `custom` type OIDC providers, Warpgate can also sync the user's role member
 
 For that, your provider must set a `warpgate_roles` OIDC claim (a JSON array of role names) either in the ID Token or the UserInfo response. By default, Warpgate will use these names as-is and completely overwrite the user's memberships.
 
-You can also set `role_mappings` in the provider's configuration to explicitly map claim values to role names. In this case, only the roles mentioned here will be synced SSO, and the memberships in other roles won't be affected. For example:
+The corresponding optional `warpgate_admin_roles` claim is interpreted as a list of admin roles to apply.
+
+You can also set `role_mappings`/`admin_role_mappings` in the provider's configuration to explicitly map claim values to role names. In this case, only the roles mentioned here will be synced from SSO, and the memberships in other roles won't be affected. For example:
 
 ```yaml
 - name: oidc-custom
@@ -250,6 +252,29 @@ You can also set `role_mappings` in the provider's configuration to explicitly m
       Admins: 'warpgate:admin'
 ```
 
+#### Mapping from a `groups` claim
+
+<div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
+
+Some providers (e.g. Okta with an org authorization server) can only emit a standard `groups` claim and do not support arbitrarily-named claims like `warpgate_roles`. In that case, set `roles_claim`/`admin_roles_claim` to the name of the claim that carries the group memberships, and map those groups to Warpgate roles via `role_mappings` / `admin_role_mappings`:
+
+```yaml
+- name: oidc-custom
+  label: Custom SSO
+  provider:
+    type: custom
+    client_id: ...
+    client_secret: ...
+    issuer_url: ...
+    scopes: ["openid", "groups"]
+    groups_claim: groups
+    role_mappings:
+      'QA group': 'qa'
+      Admins: 'warpgate:admin'
+```
+
+Warpgate reads the claim from the ID token first, then falls back to the UserInfo response. The claim may be a bare string, an array of strings, or SCIM-style objects (RFC 7643) - groups can be matched either by their stable ID or their display name.
+
 #### Syncing Google Workspace groups
 
 <div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
@@ -262,7 +287,7 @@ For that you'll need to:
 
 * Create a new JSON _private key_ for the account and download it.
 
-* Open the key file and copy the `private_key` JSON value from it as-is.
+* Open the key file and copy the `private_key` JSON value from it as-is, including the surrounding quotes.
 
 * Add the new SSO provider properties:
 
