@@ -16,10 +16,10 @@ special: home
         <h1>The last bastion.</h1>
         <p class="lead title">Secure access / PAM for your internal SSH, HTTPS, MySQL, Postgres and Kubernetes servers with SSO and RBAC.</p>
         <p class="lead subtitle">No client apps needed.</p>
-        <div class="buttons d-block d-sm-flex">
+        <div class="buttons d-flex align-items-center">
             <a class="btn btn-warning d-block" href="/docs">Read the docs</a>
             <a class="btn btn-success d-block" href="https://github.com/warp-tech/warpgate/releases" target="_blank">&darr; Download</a>
-            <a class="btn btn-primary d-none d-sm-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+            <a class="btn btn-info" href="/for-business" target="_blank">Warpgate for Business &rarr;</a>
         </div>
     </div>
 
@@ -52,7 +52,7 @@ special: home
             <p>
                 This allows it to escape the otherwise inevitable cycle of stagnation or VC enshittification.
             </p>
-            <a class="btn btn-success" href="/support" target="_blank">Pro Support &rarr;</a>
+            <a class="btn btn-success" href="/for-business" target="_blank">Pro Support &rarr;</a>
         </div>
         <div class="feature col-lg-6 col-12">
             <h1>No SaaS bullshit</h1>
@@ -117,12 +117,6 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
 
 </div>
 
-<hr class="mt-5" />
-
-<div class="text-center">
-    <a href="/imprint">Imprint</a>
-</div>
-
 <style>
     .homepage {
         /* width: 400px; */
@@ -144,9 +138,6 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
         display: flex;
         gap: 1rem;
         margin-top: 1rem;
-    }
-
-    .jumbo .buttons .btn {
         margin-bottom: 1rem;
     }
 

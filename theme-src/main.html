@@ -92,6 +92,7 @@
         {{ page.content }}
       </article>
 
+      {% if not page.meta.special %}
       <div class="d-flex">
         {% if page.previous_page %}
           <a class="btn btn-secondary btn-prev" href="{{ page.previous_page.url | url }}">
@@ -114,11 +115,15 @@
           </a>
         {% endif %}
       </div>
+      {% endif %}
     </div>
   </div>
 
+  <hr class="mt-5" />
 
-
+  <div class="text-center">
+      <a href="/imprint">Imprint</a>
+  </div>
 
   {%- for script in config.extra_javascript %}
   {{ script | script_tag }}

@@ -17,6 +17,7 @@ theme:
 
 nav:
   - Home: docs.md
+  - Warpgate for Business: for-business.md
   - Getting started:
       - Native: getting-started.md
       - Docker: getting-started-on-docker.md
@@ -38,7 +39,6 @@ nav:
       - login-protection.md
       - recovering-access.md
   - Ops:
-      - support.md
       - systemd.md
       - log-forwarding.md
       - reverse-proxy.md

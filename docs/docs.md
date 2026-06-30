@@ -14,3 +14,7 @@ Welcome to the Warpgate docs.
 * [One-time passwords](./otp.md)
 * [Tickets](./tickets.md)
 * [Single sign-on](./sso.md)
+
+## Need professional support?
+
+[Warpgate for Business](./for-business.md) offers professional support, prioritized issue handling, and custom feature development.
