@@ -12,15 +12,16 @@
     window.base_url = '/' // for search
   </script>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-55PX9VYM8V"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-55PX9VYM8V');
+    window.op=window.op||function(){var n=[];return new Proxy(function(){arguments.length&&n.push([].slice.call(arguments))},{get:function(t,r){return"q"===r?n:function(){n.push([r].concat([].slice.call(arguments)))}} ,has:function(t,r){return"q"===r}}) }();
+    window.op('init', {
+      clientId: '4de13160-2fa4-412e-84e7-c750f37b41f0',
+      trackScreenViews: true,
+      trackOutgoingLinks: true,
+      trackAttributes: true,
+    });
   </script>
+  <script src="https://openpanel.dev/op1.js" defer async></script>
   <script type="module" crossorigin src="/assets/app-CDwZQMxF.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/app-yq3ZNXLq.css">
 </head>
