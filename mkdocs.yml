@@ -43,6 +43,7 @@ nav:
       - log-forwarding.md
       - reverse-proxy.md
       - custom-ca.md
+      - secrets-vault.md
   - Advanced topics:
       - http-domain-binding.md
       - sni.md
