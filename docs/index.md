@@ -2,63 +2,86 @@
 special: home
 ---
 
-<div id="animation-container-home"></div>
-
-<style>
-    #animation-container-home {
-        margin: auto;
-        max-width: 500px;
-    }
-</style>
-
 <div class="homepage mb-5">
-    <div class="jumbo">
-        <h1>The last bastion.</h1>
-        <p class="lead title">Secure access / PAM for your internal SSH, HTTPS, MySQL, Postgres and Kubernetes servers with SSO and RBAC.</p>
-        <p class="lead subtitle">No client apps needed.</p>
-        <div class="buttons d-flex align-items-center">
-            <a class="btn btn-warning d-block" href="/docs">Read the docs</a>
-            <a class="btn btn-success d-block" href="https://github.com/warp-tech/warpgate/releases" target="_blank">&darr; Download</a>
-            <a class="btn btn-info" href="/for-business" target="_blank">Warpgate for Business &rarr;</a>
+    <div class="row mt-5 jumbo-row">
+        <div class="col-lg-6 jumbo">
+            <h1>The last bastion.</h1>
+            <p class="lead title">Secure access / PAM for your internal SSH, HTTPS, MySQL, Postgres and Kubernetes servers with SSO and RBAC.</p>
+            <p class="lead subtitle">No client apps.</p>
+            <div class="buttons d-flex flex-column align-items-start">
+
+                <a class="btn btn-success d-block" href="/getting-started-on-docker">Get started with Docker &rarr;</a>
+
+                <a class="btn btn-secondary d-block" href="/getting-started">Get started (native) &rarr;</a>
+            </div>
+        </div>
+        <div class="col-lg-6 d-flex align-items-center">
+            <div id="animation-container-home"></div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="feature col-lg-6 col-12">
-            <h1>No client</h1>
-            <p>Warpgate directly exposes native SSH, HTTPS, MySQL, Postgres and Kubernetes listeners.
-            <div>Use it as a git proxy.</div>
-            <div>Connect your gRPC service through it.</div>
-            <div>Set it as your <code>DATABASE_URL</code>.</div>
-            <div>Connect your Kubernetes clusters.</div>
-            <div>Or just open a terminal in your browser.</div>
+    <div class="row home-block">
+        <div class="col col-lg-6">
+            <img src="./images/home-startpage.png" />
         </div>
-        <div class="feature col-lg-6 col-12">
-            <h1>No jump hosts</h1>
-            <p>Warpgate handles authentication, and then transparently forwards the connection to the target server, while making a live recording for auditing.</p>
+        <div class="col col-lg-6">
+            <h2>Elevator pitch</h2>
+            <p>
+                Warpgate is a fully transparent proxy/bastion for your internal infrastructure that lets you skip manual <code>authorized_keys</code> management and both assign and audit access in a single place.
+            </p>
+            <p>
+                It is an alternative to Teleport-style PAMs or a VPN, minus the client apps and connection rituals for your users must learn.
+            </p>
+            <p>
+                Get it running in 15 minutes:
+                <ul>
+                <li>add your internal targets</li>
+                <li>assign them to user groups</li>
+                <li>tell your users where to log in.</li>
+                </ul> Warpgate gives them a web page with copy-paste connection details and a browser-based terminal – and nothing to install.
+            </p>
+        </div>
+    </div>
+
+    <div class="row home-block">
+        <div class="col col-lg-6">
+            <img src="./images/home-connection.png" />
+        </div>
+        <div class="col col-lg-6">
+            <h2>No client</h2>
+            <p>
+                Warpgate directly exposes native protocol listeners.
+                <div>Connect your VSCode through it.</div>
+                <div>Use it in your <code>DATABASE_URL</code>.</div>
+                <div>Connect to your Kubernetes clusters.</div>
+                <div>Or just open a terminal in your browser.</div>
+            </p>
+            <h2>Not a jump host</h2>
+            <p>Warpgate handles authentication, and then transparently hands off the connection to the target server, while saving a live session record for audit.</p>
             <p>Built-in 2FA, SSO and brute-force protection keep the front door locked.</p>
         </div>
     </div>
 
-    <div class="row">
-        <div class="feature col-lg-6 col-12">
-            <h1>No paid plan</h1>
+    <div class="row home-block">
+        <div class="col col-lg-6">
+            <img src="./images/home-web-terminal.png" />
+        </div>
+        <div class="col col-lg-6">
+            <h2>No SaaS bullshit</h2>
+            <p>
+                Warpgate is a single binary (or a Docker image) that you download and run locally on your own infrastructure.
+            </p>
+            <h2>No paid plan</h2>
             <p>
                 Warpgate is 100% open-source, free and will stay this way forever.
             </p>
             <p>
-                Warpgate is financed through support contracts, and custom-order feature development.
+                It is financed through support contracts, and custom-order feature development.
             </p>
             <p>
-                This allows it to escape the otherwise inevitable cycle of stagnation or VC enshittification.
+                This allows it to escape the otherwise inevitable cycle of enshittification.
             </p>
             <a class="btn btn-success" href="/for-business" target="_blank">Pro Support &rarr;</a>
-        </div>
-        <div class="feature col-lg-6 col-12">
-            <h1>No SaaS bullshit</h1>
-            <p>
-                Warpgate is a single binary (or a Docker image) that you download and run locally on your own hardware.
-            </p>
         </div>
     </div>
 
@@ -122,12 +145,13 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
         /* width: 400px; */
     }
 
+    .jumbo-row {
+        margin: 10rem 0;
+    }
+
     .jumbo {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        text-align: center;
-        margin-bottom: 5rem;
     }
 
     .jumbo h1 {
@@ -141,6 +165,14 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
         margin-bottom: 1rem;
     }
 
+    #animation-container-home {
+        flex: auto;
+        padding: 0 50px;
+        /* background: #070c1a;
+        border-radius: 20px;
+        box-shadow: 0 0 1px 1px #ffffff21 inset, 0 1px 3px 1px black; */
+    }
+
     .lead {
         max-width: 442px;
     }
@@ -149,14 +181,9 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
         font-size: 1.5rem;
     }
 
-    .feature {
-        margin-bottom: 2rem;
-        font-size: 1.2rem;
-
-    }
-
-    .feature:first-child {
-        padding-right: 2rem;
+    .home-block {
+        font-size: 1.1rem;
+        margin-bottom: 5rem;
     }
 
     article {
