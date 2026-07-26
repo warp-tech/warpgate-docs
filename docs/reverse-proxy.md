@@ -23,3 +23,17 @@ server {
 }
 
 ```
+
+## TCP PROXY protocol
+
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
+
+When Warpgate sits behind a TCP (layer-4) load balancer such as HAProxy or an AWS Network Load Balancer, the client's real IP address would otherwise be lost. Warpgate can read it from a HAProxy **PROXY protocol** (v1/v2) header on any listener. Enable it per listener with `proxy_protocol: true`:
+
+```diff
+  ssh:
+    listen: '[::]:2222'
++   proxy_protocol: true
+```
+
+Only enable this when the upstream load balancer actually prepends a PROXY header.

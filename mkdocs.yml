@@ -29,6 +29,8 @@ nav:
       - MySQL: targets/mysql.md
       - PostgreSQL: targets/postgres.md
       - Kubernetes: targets/kubernetes.md
+      - RDP: targets/rdp.md
+      - VNC: targets/vnc.md
   - Access control:
       - auth.md
       - roles.md
@@ -40,6 +42,7 @@ nav:
       - recovering-access.md
   - Ops:
       - systemd.md
+      - clustering.md
       - log-forwarding.md
       - reverse-proxy.md
       - custom-ca.md
@@ -48,6 +51,10 @@ nav:
       - sni.md
       - chaining.md
       - protocol-support.md
+  - Compare:
+    - warpgate-vs-teleport.md
+    - warpgate-vs-boundary.md
+    - warpgate-vs-strongdm.md
 
 plugins:
   - search

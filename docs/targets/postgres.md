@@ -2,9 +2,9 @@
 
 ## Authentication setup
 
-Currently, Warpgate can connect to PostgreSQL servers with a username/password using `md5` and `password` (plaintext) auth mode.
+Warpgate can connect to PostgreSQL servers with a username and password using `password` (cleartext), `md5` or SCRAM (SASL) authentication.
 
-As a PostgreSQL protocol server, Warpgate only allows secure (TLS) connections and uses `password` auth mode.
+As a PostgreSQL protocol server (towards clients), Warpgate only allows secure (TLS) connections and uses the `password` auth mode.
 
 ## Enabling PostgreSQL listener
 
@@ -68,6 +68,16 @@ While your PostgreSQL session is running, you'll be able to see its status in th
 /// caption
 PostgreSQL session log
 ///
+
+## AWS RDS IAM authentication
+
+<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
+
+If Warpgate runs on AWS, it can connect to an RDS instance using a short-lived IAM authentication token instead of a stored password. Select **IAM Role** as the target's authentication method (shown only when Warpgate detects it is running on EC2) and set the target username to the RDS database user.
+
+* The RDS instance must have IAM database authentication enabled.
+* Warpgate's IAM role needs the `rds-db:connect` action for that database user.
+* The AWS region is derived from the RDS endpoint hostname.
 
 ## 2-factor authentication
 

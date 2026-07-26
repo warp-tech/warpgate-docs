@@ -79,13 +79,45 @@ You can disable them individually under `Config` > `Global parameters` > `SSH au
 SSH authentication methods configuration in Global Parameters
 ///
 
-## SSH login banner
+## Login banner
 
 <div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
 
 You can set a custom banner that Warpgate sends to SSH clients during authentication (e.g. a legal notice or login instructions). Set it under `Config` > `Global parameters` > `SSH banner`.
 
-The banner is delivered via the standard SSH authentication banner message, so it works with all SSH clients and doesn't interfere with the in-session terminal.
+<div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
+
+Banner now shows up over other protocols beyond SSH:
+
+* **SSH** — as the standard SSH authentication banner message.
+* **HTTP** — once as a dismissable dialog.
+* **PostgreSQL** — as a notice message.
+* **RDP** and **VNC** — as a banner screen the user acknowledges before the session starts.
+
+MySQL connections do not display the banner as MySQL protocol lacks the ability to push messages to the user.
+
+## In-browser approval (out-of-band authentication)
+
+Warpgate can require a login to be **approved in the browser**. This allows you to require OTP or SSO as a second factor over protocols that can't prompt it interactively.
+
+When a connection needs approval, Warpgate shows the user a login URL and a short *security key*. The user opens the URL in their browser session, logs in if they haven't already, checks that the security key matches, and approves (or rejects) the pending request.
+
+Over SSH the URL and key are printed in their terminal; on RDP and VNC they appear on the holding screen.
+
+![Screenshot: approving a login request in the browser](images/oob-request.png)
+/// caption
+Approving a pending login in the browser
+///
+
+### Caching approvals
+
+To avoid approving every single connection, set an approval grace period under `Config` > `Global parameters`. Within this window, a matching connection (same user, source IP, protocol, target and the same credentials presented) is approved automatically. When approving, the user chooses the scope: just this once, this target only, or all targets.
+
+## Requiring re-authentication for sensitive actions
+
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
+
+You can require users to re-authenticate before starting an in-browser session. Set a maximum web session age under `Config` > `Global parameters` - once it is exceeded, Warpgate asks the user to re-authenticate before opening a **web SSH** or a **remote desktop** session.
 
 ## API Tokens
 

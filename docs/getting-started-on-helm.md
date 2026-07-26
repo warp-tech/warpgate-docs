@@ -227,6 +227,9 @@ ssh_keys_secret: "warpgate-ssh-keys"
 tls_cert_secret: "warpgate-tls"
 ```
 
+!!! note
+    As of v0.27 the `client-*` keys live in Warpgate's database. Including them in the secret only seeds them on first startup and is optional — Warpgate generates its own if none are provided, and in a multi-replica deployment the client keys are shared through the database rather than mounted on every replica. The `host-*` keys are still read from the secret.
+
 ### Custom Configuration
 
 To provide a full custom Warpgate configuration:

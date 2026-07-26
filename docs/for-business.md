@@ -6,6 +6,7 @@ special: business
     <div class="jumbo">
         <h1>Warpgate for Business</h1>
         <p class="lead title">Warpgate is already 100% free and open-source. <br/>These plans are for when you're on call.</p>
+        <p class="lead subtitle">No paid tiers, no locked features, no per-seat billing — the whole product ships under Apache-2.0. What you can buy is a direct line to the people who build it.</p>
     </div>
 
     <div class="row pricing justify-content-center">
@@ -44,6 +45,36 @@ special: business
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row why justify-content-center">
+        <div class="col-lg-4 col-12">
+            <h3>Stay on the roadmap</h3>
+            <p>Your feature requests get prioritised on GitHub, and you can commission custom development when you need something the project doesn't cover yet.</p>
+        </div>
+        <div class="col-lg-4 col-12">
+            <h3>Talk to the maintainers</h3>
+            <p>Support comes straight from the developers who write the code — not a first-line queue reading a script. Questions about deployment, upgrades, SSO or protocol quirks land right at the source.</p>
+        </div>
+        <div class="col-lg-4 col-12">
+            <h3>Fund a stable future</h3>
+            <p>Warpgate guards access to your infrastructure. A support subscription keeps the project healthy and well-maintained, so the software you depend on stays that way.</p>
+        </div>
+    </div>
+
+    <div class="row faq justify-content-center">
+        <div class="col-lg-8 col-12">
+            <h2>Questions</h2>
+
+            <h3>Do I need a plan to use Warpgate?</h3>
+            <p>No. Warpgate is fully free and open-source under Apache-2.0, with every feature in the box. These plans only add support and prioritised development.</p>
+
+            <h3>Are there features locked behind a paid tier?</h3>
+            <p>Never. There is no enterprise edition and no feature paywall - SSO, MFA, session recording, clustering and everything else are in the free build.</p>
+
+            <h3>What counts as "custom feature development"?</h3>
+            <p>Anything specific to your environment - a new protocol quirk, an integration, a workflow tweak. It's scoped and billed per project, and Professional Support gets you access to it; Custom gets you priority.</p>
         </div>
     </div>
 </div>
@@ -122,5 +153,39 @@ special: business
         position: absolute;
         left: 0;
         font-weight: 700;
+    }
+
+    .business .why {
+        margin-top: 4rem;
+        gap: 2rem 0;
+        text-align: center;
+    }
+
+    .business .why h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .business .why p {
+        color: rgba(var(--bs-body-color-rgb), 70%);
+    }
+
+    .business .faq {
+        margin-top: 4rem;
+    }
+
+    .business .faq h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .business .faq h3 {
+        font-size: 1.15rem;
+        margin-top: 1.75rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .business .faq p {
+        color: rgba(var(--bs-body-color-rgb), 70%);
     }
 </style>

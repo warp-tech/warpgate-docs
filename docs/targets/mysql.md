@@ -3,9 +3,9 @@
 
 ## Authentication setup
 
-Currently, Wargate can connect to MySQL and MariaDB servers with a username/password via the `mysql_native_password` auth mode.
+Warpgate connects to MySQL and MariaDB servers with a username and password, negotiating whichever authentication plugin the server offers: `mysql_native_password`, `sha256_password` or `caching_sha2_password` (v0.27+).
 
-As a MySQL protocol server, Warpgate only allows secure (TLS) connections and uses `mysql_clear_password` auth mode.
+As a MySQL protocol server (towards clients), Warpgate only allows secure (TLS) connections and uses the `mysql_clear_password` auth mode.
 
 ## Enabling MySQL listener
 
@@ -70,6 +70,16 @@ While your MySQL session is running, you'll be able to see its status in the Adm
 MySQL session log
 ///
 
+
+### AWS RDS IAM authentication
+
+<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
+
+If Warpgate runs on AWS, it can connect to an RDS instance using a short-lived IAM authentication token instead of a stored password. Select **IAM Role** as the target's authentication method (shown only when Warpgate detects it is running on EC2) and set the target username to the RDS database user.
+
+* The RDS instance must have IAM database authentication enabled.
+* Warpgate's IAM role needs the `rds-db:connect` action for that database user.
+* The AWS region is derived from the RDS endpoint hostname.
 
 ### Up next
 

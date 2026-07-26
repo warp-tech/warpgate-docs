@@ -12,7 +12,7 @@ NOTE: This is fully transparent to the client (except for the double "warpgate c
 ➜  ~ warpgate client-keys
 16:55:10  INFO Using config: "/etc/warpgate.yaml" (users: 1, targets: 6, roles: 1)
 Warpgate SSH client keys:
-(add these to your target's authorized_hosts file)
+(add these to your target's authorized_keys file)
 
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAxxxx+3RBsT5  # <-- this line
 rsa-sha2-256 AAAADHJzYS1zaGEyLTI1Ngxxxx
