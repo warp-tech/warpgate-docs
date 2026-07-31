@@ -3,10 +3,28 @@
 
 <head>
   <meta charset="utf-8">
-  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
+  <title>{% if page.meta.title %}{{ page.meta.title }}{% elif page.title %}{{ page.title }} - {{ config.site_name }}{% else %}{{ config.site_name }}{% endif %}</title>
   <link rel="icon" type="image/svg" href="./assets/favicon.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{ page.meta.description or config.site_description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ page.meta.title or page.title or config.site_name }}">
+  <meta property="og:description" content="{{ page.meta.description or config.site_description }}">
+  <meta property="og:url" content="{{ page.canonical_url }}">
+  {% if page.meta.image %}
+  <meta property="og:image" content="{{ config.site_url }}{{ page.meta.image }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Warpgate for Business — run Warpgate confidently in production">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ config.site_url }}{{ page.meta.image }}">
+  {% else %}
+  <meta name="twitter:card" content="summary">
+  {% endif %}
+  <meta name="twitter:title" content="{{ page.meta.title or page.title or config.site_name }}">
+  <meta name="twitter:description" content="{{ page.meta.description or config.site_description }}">
+  <link rel="canonical" href="{{ page.canonical_url }}">
 
   {%- for path in config.extra_js %}
   <script src="{{ path | url }}"></script>
@@ -33,8 +51,8 @@
 
 <body>
   <header class="container text-nowrap">
-    <a href="/" class="me-auto">
-      <img class="logo" src="./assets/brand-dark.svg" />
+    <a href="/" class="me-auto" aria-label="Warpgate home">
+      <img class="logo" src="./assets/brand-dark.svg" alt="Warpgate" />
     </a>
 
     {% if not page.meta.special %}
@@ -45,13 +63,13 @@
       <div class="m-auto"></div>
     {% endif %}
 
-    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank" rel="noopener noreferrer">GitHub</a>
 
     {% if page.meta.special %}
     <a class="btn btn-link btn-sm d-none d-md-inline-block" href="/docs">Docs</a>
     {% endif %}
 
-    <a class="btn btn-link btn-sm" href="/for-business" target="_blank">Warpgate for Business &rarr;</a>
+    <a class="btn btn-link btn-sm" href="/for-business">Warpgate for Business &rarr;</a>
   </header>
 
   <div id="mkdocs-search-results" class="container search-results"></div>
@@ -88,7 +106,7 @@
     </div>
     {% endif %}
 
-    <div class="page-content">
+    <main class="page-content">
       <article>
         {{ page.content }}
       </article>
@@ -117,7 +135,7 @@
         {% endif %}
       </div>
       {% endif %}
-    </div>
+    </main>
   </div>
 
   <hr class="mt-5" />

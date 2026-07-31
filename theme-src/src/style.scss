@@ -99,6 +99,28 @@ h3 {
   }
 }
 
+@media (max-width: 480px) {
+  body {
+    padding: 1.25rem;
+  }
+
+  header {
+    gap: 0.5rem;
+
+    .logo {
+      width: 112px;
+    }
+
+    .btn {
+      font-size: 0.7rem;
+      line-height: 1.25;
+      padding-inline: 0.3rem;
+      text-align: right;
+      white-space: normal;
+    }
+  }
+}
+
 .highlight {
   background: transparent !important;
 

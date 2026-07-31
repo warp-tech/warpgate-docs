@@ -6,10 +6,9 @@ special: home
     <div class="row mt-5 jumbo-row">
         <div class="col-lg-6 jumbo">
             <h1>The last bastion.</h1>
-            <p class="lead title">Secure access / PAM for your internal SSH, HTTPS, MySQL, Postgres and Kubernetes servers with SSO and RBAC.</p>
-            <p class="lead subtitle">No client apps.</p>
+            <p class="lead title">Secure access to SSH, HTTPS, RDP, VNC, Kubernetes, PostgreSQL and MySQL targets with SSO and RBAC.</p>
+            <p class="lead subtitle">No client app.</p>
             <div class="buttons d-flex flex-column align-items-start">
-
                 <a class="btn btn-success d-block" href="/getting-started-on-docker">Get started with Docker &rarr;</a>
 
                 <a class="btn btn-secondary d-block" href="/getting-started">Get started (native) &rarr;</a>
@@ -30,7 +29,7 @@ special: home
                 Warpgate is a fully transparent proxy/bastion for your internal infrastructure that lets you skip manual <code>authorized_keys</code> management and both assign and audit access in a single place.
             </p>
             <p>
-                It is an alternative to Teleport-style PAMs or a VPN, minus the client apps and connection rituals for your users must learn.
+                It is an alternative to Teleport-style PAMs or a VPN, minus the client apps and connection rituals that your users must learn.
             </p>
             <p>
                 Get it running in 15 minutes:
@@ -54,6 +53,7 @@ special: home
                 <div>Connect your VSCode through it.</div>
                 <div>Use it in your <code>DATABASE_URL</code>.</div>
                 <div>Connect to your Kubernetes clusters.</div>
+                <div>Open RDP and VNC desktops with a native client or in your browser.</div>
                 <div>Or just open a terminal in your browser.</div>
             </p>
             <h2>Not a jump host</h2>
@@ -71,7 +71,7 @@ special: home
             <p>
                 Warpgate is a single binary (or a Docker image) that you download and run locally on your own infrastructure.
             </p>
-            <h2>No paid plan</h2>
+            <h2>No paywalls</h2>
             <p>
                 Warpgate is 100% open-source, free and will stay this way forever.
             </p>
@@ -155,7 +155,11 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
     }
 
     .jumbo h1 {
-        font-size: 4rem;
+        font-size: 7rem;
+        letter-spacing: -0.035em;
+        line-height: 6rem;
+        margin-bottom: 1rem;
+        text-indent: -1rem;
     }
 
     .jumbo .buttons {

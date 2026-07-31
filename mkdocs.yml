@@ -1,7 +1,7 @@
 site_name: Warpgate
 site_author: Warp Technologies
 site_description: Securely expose your internal services to the internet
-site_url: https://docs.warpgate.dev
+site_url: https://warpgate.null.page
 
 repo_name: warp-tech/warpgate
 repo_url: https://github.com/warp-tech/warpgate
