@@ -148,67 +148,134 @@
 
 </div>
 
-<h2 id="how-is-warpgate-different-from-a-jump-host-vpn-teleport">How is Warpgate different from a jump host / VPN / Teleport?<a class="headerlink" href="#how-is-warpgate-different-from-a-jump-host-vpn-teleport" title="Permanent link">§</a></h2>
-<table>
-<thead>
-<tr>
-<th>Warpgate</th>
-<th>SSH jump host</th>
-<th>VPN</th>
-<th>Teleport</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>✅ <strong>Precise 1:1 assignment between users and services</strong></td>
-<td>(Usually) full access to the network behind the jump host</td>
-<td>(Usually) full access to the network</td>
-<td>✅ <strong>Precise 1:1 assignment between users and services</strong></td>
-</tr>
-<tr>
-<td>✅ <strong>No custom client needed</strong></td>
-<td>Jump host config needed</td>
-<td>✅ <strong>No custom client needed</strong></td>
-<td>Custom client required</td>
-</tr>
-<tr>
-<td>✅ <strong>2FA out of the box</strong></td>
-<td>🟡 2FA possible with additional PAM plugins</td>
-<td>🟡 Depends on the provider</td>
-<td>✅ <strong>2FA out of the box</strong></td>
-</tr>
-<tr>
-<td>✅ <strong>SSO out of the box</strong></td>
-<td>🟡 SSO possible with additional PAM plugins</td>
-<td>🟡 Depends on the provider</td>
-<td>Paid</td>
-</tr>
-<tr>
-<td>✅ <strong>Command-level audit</strong></td>
-<td>🟡 Connection-level audit on the jump host, no secure audit on the target if root access is given</td>
-<td>No secure audit on the target if root access is given</td>
-<td>✅ <strong>Command-level audit</strong></td>
-</tr>
-<tr>
-<td>✅ <strong>Full session recording</strong></td>
-<td>No secure recording possible on the target if root access is given</td>
-<td>No secure recording possible on the target if root access is given</td>
-<td>✅ <strong>Full session recording</strong></td>
-</tr>
-<tr>
-<td>✅ <strong>Non-interactive connections</strong></td>
-<td>🟡 Non-interactive connections are possible if the clients supports jump hosts natively</td>
-<td>✅ <strong>Non-interactive connections</strong></td>
-<td>Non-interactive connections require using an SSH client wrapper or running a tunnel</td>
-</tr>
-<tr>
-<td>✅ <strong>Self-hosted, you own the data</strong></td>
-<td>✅ <strong>Self-hosted, you own the data</strong></td>
-<td>🟡 Depends on the provider</td>
-<td>SaaS</td>
-</tr>
-</tbody>
-</table>
+<section class="comparison-section" aria-labelledby="comparison-title">
+    <div class="comparison-heading">
+        <div>
+            <p class="comparison-eyebrow">At a glance</p>
+            <h2 id="comparison-title">How the access models compare</h2>
+        </div>
+        <p>Compare what users install, where access is enforced, what gets recorded and which infrastructure you operate.</p>
+    </div>
+
+    <div class="comparison-scroll" role="region" aria-label="Access gateway comparison" tabindex="0">
+        <table class="comparison-table">
+            <caption class="visually-hidden">Warpgate compared with an SSH jump host, a VPN, Teleport, StrongDM and HashiCorp Boundary.</caption>
+            <thead>
+                <tr>
+                    <th class="comparison-feature" scope="col">What changes</th>
+                    <th class="is-warpgate" scope="col">
+                        <span class="comparison-product">Warpgate</span>
+                        <span class="comparison-tag">You're here</span>
+                    </th>
+                    <th scope="col">
+                        <a class="comparison-product-link" href="/warpgate-vs-teleport/">
+                            <span class="comparison-product">Teleport</span>
+                            <span>Full comparison →</span>
+                        </a>
+                    </th>
+                    <th scope="col"><span class="comparison-product">SSH jump host</span></th>
+                    <th scope="col"><span class="comparison-product">VPN</span></th>
+                    <th scope="col">
+                        <a class="comparison-product-link" href="/warpgate-vs-strongdm/">
+                            <span class="comparison-product">StrongDM</span>
+                            <span>Full comparison →</span>
+                        </a>
+                    </th>
+                    <th scope="col">
+                        <a class="comparison-product-link" href="/warpgate-vs-boundary/">
+                            <span class="comparison-product">Boundary</span>
+                            <span>Full comparison →</span>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="comparison-feature" scope="row">Access boundary</th>
+                    <td class="is-warpgate is-positive"><strong>Per resource</strong><span>Assign individual services to users or roles.</span></td>
+                    <td class="is-positive"><strong>Per resource</strong><span>Role-based access to enrolled resources.</span></td>
+                    <td><strong>Usually per host<sup class="comparison-ref"><a href="#comparison-note-jump-host" aria-label="Clarification 1">[1]</a></sup></strong><span>Reach expands from the jump server.</span></td>
+                    <td><strong>Usually per network<sup class="comparison-ref"><a href="#comparison-note-vpn" aria-label="Clarification 2">[2]</a></sup></strong><span>Users enter a routed network segment.</span></td>
+                    <td class="is-positive"><strong>Per resource</strong><span>Role grants; Enterprise policies can refine access.</span></td>
+                    <td class="is-positive"><strong>Per target</strong><span>Role grants authorize sessions to targets.</span></td>
+                </tr>
+                <tr>
+                    <th class="comparison-feature" scope="row">Target provisioning</th>
+                    <td class="is-warpgate is-positive"><strong>Once per target</strong><span>Add it in Warpgate; SSH normally requires a Warpgate public key in <a href="/targets/ssh/#authentication-setup"><code>authorized_keys</code></a>.</span></td>
+                    <td><strong>Enroll each resource</strong><span>Usually install or configure a Teleport service or agent.</span></td>
+                    <td><strong>Usually per user and host<sup class="comparison-ref"><a href="#comparison-note-jump-host" aria-label="Clarification 1">[1]</a></sup></strong><span>Manage target credentials or SSH trust.</span></td>
+                    <td><strong>Once per network<sup class="comparison-ref"><a href="#comparison-note-vpn" aria-label="Clarification 2">[2]</a></sup></strong><span>Configure routing and policy; targets stay unchanged.</span></td>
+                    <td class="is-positive"><strong>Once per resource</strong><span>Add it to StrongDM; a gateway must be able to reach it.</span></td>
+                    <td><strong>Once per target or host set</strong><span>Define the endpoint and its worker path.</span></td>
+                </tr>
+                <tr>
+                    <th class="comparison-feature" scope="row">User setup</th>
+                    <td class="is-warpgate is-positive"><strong>Standard clients or browser</strong><span>No Warpgate client to install.</span></td>
+                    <td><strong>Teleport client or web</strong><span>Use <code>tsh</code>, Teleport Connect or the Web UI.</span></td>
+                    <td><strong>SSH client config</strong><span>Often a <code>ProxyJump</code> entry.</span></td>
+                    <td><strong>VPN software or profile</strong><span>Client, browser flow or OS setup varies by provider.</span></td>
+                    <td><strong>StrongDM app or CLI</strong><span>A StrongDM client is required.</span></td>
+                    <td><strong>Boundary client</strong><span>Use the CLI, Desktop app or Client Agent.</span></td>
+                </tr>
+                <tr>
+                    <th class="comparison-feature" scope="row">Identity</th>
+                    <td class="is-warpgate is-positive"><strong>Built in</strong><span>OIDC SSO, TOTP and SSH keys.</span></td>
+                    <td class="is-positive"><strong>Built-in MFA</strong><span>SSO availability depends on edition.</span></td>
+                    <td><strong>Assembled from components</strong><span>Usually SSH keys or certificates, PAM and external identity integrations.</span></td>
+                    <td><strong>Provider-dependent<sup class="comparison-ref"><a href="#comparison-note-vpn" aria-label="Clarification 2">[2]</a></sup></strong><span>Usually tied to the VPN appliance or IdP.</span></td>
+                    <td class="is-positive"><strong>SSO + MFA<sup class="comparison-ref"><a href="#comparison-note-strongdm" aria-label="Clarification 5">[5]</a></sup></strong><span>Native MFA is available; SSO MFA can come from the IdP.</span></td>
+                    <td class="is-positive"><strong>Password, OIDC or LDAP<sup class="comparison-ref"><a href="#comparison-note-boundary" aria-label="Clarification 6">[6]</a></sup></strong><span>MFA comes from the OIDC provider; LDAP depends on edition.</span></td>
+                </tr>
+                <tr>
+                    <th class="comparison-feature" scope="row">Audit detail</th>
+                    <td class="is-warpgate is-positive"><strong>Protocol-aware<sup class="comparison-ref"><a href="#comparison-note-warpgate-audit" aria-label="Clarification 4">[4]</a></sup></strong><span>Queries and API calls; SSH command detection is heuristic.</span></td>
+                    <td class="is-positive"><strong>Protocol-aware</strong><span>Detailed audit events across supported resources.</span></td>
+                    <td><strong>Connection-level<sup class="comparison-ref"><a href="#comparison-note-jump-host" aria-label="Clarification 1">[1]</a></sup></strong><span>Deeper logs need target-side tooling.</span></td>
+                    <td><strong>Network-level</strong><span>Connection metadata, not application activity.</span></td>
+                    <td class="is-positive"><strong>Protocol-aware</strong><span>Detailed logs across a broad resource catalog.</span></td>
+                    <td><strong>Mixed</strong><span>SSH and RDP aware; other targets use TCP tunnels.</span></td>
+                </tr>
+                <tr>
+                    <th class="comparison-feature" scope="row">Session recording</th>
+                    <td class="is-warpgate is-positive"><strong>SSH, Kubernetes, RDP + VNC<sup class="comparison-ref"><a href="#comparison-note-warpgate-audit" aria-label="Clarification 4">[4]</a></sup></strong><span>Replay in the admin UI; databases use query logs and HTTP is not replayed.</span></td>
+                    <td class="is-positive"><strong>SSH, Kubernetes and desktop</strong><span>Database and app activity is captured as events.</span></td>
+                    <td><strong>Not built in</strong><span>Requires separate target-side tooling.</span></td>
+                    <td><strong>Not application-aware</strong><span>A VPN does not record target sessions.</span></td>
+                    <td class="is-positive"><strong>SSH, RDP + Kubernetes<sup class="comparison-ref"><a href="#comparison-note-strongdm" aria-label="Clarification 5">[5]</a></sup></strong><span>Replayable sessions; databases use query logs.</span></td>
+                    <td><strong>SSH and RDP<sup class="comparison-ref"><a href="#comparison-note-boundary" aria-label="Clarification 6">[6]</a></sup></strong><span>Enterprise and HCP Plus only.</span></td>
+                </tr>
+                <tr>
+                    <th class="comparison-feature" scope="row">Infrastructure</th>
+                    <td class="is-warpgate is-positive"><strong>Single binary + database</strong><span>Runs entirely in your infrastructure.</span></td>
+                    <td><strong>Service cluster or cloud</strong><span>Multiple services and enrolled resources.</span></td>
+                    <td class="is-positive"><strong>SSH server</strong><span>Small footprint, operated by you.</span></td>
+                    <td><strong>Gateway or service</strong><span>Self-hosted and SaaS options exist.</span></td>
+                    <td><strong>SaaS control plane</strong><span>You operate gateways or relays.</span></td>
+                    <td><strong>Controllers and workers</strong><span>Self-hosted or managed through HCP.</span></td>
+                </tr>
+                <tr>
+                    <th class="comparison-feature" scope="row">License / model</th>
+                    <td class="is-warpgate is-positive"><strong>Apache-2.0</strong><span>Free, with every feature included.</span></td>
+                    <td><strong>Restricted Community binaries<sup class="comparison-ref"><a href="#comparison-note-teleport-license" aria-label="Clarification 3">[3]</a></sup></strong><span>Free only for companies with fewer than 100 employees and under US$10M in annual revenue.</span></td>
+                    <td class="is-positive"><strong>Usually open source<sup class="comparison-ref"><a href="#comparison-note-jump-host" aria-label="Clarification 1">[1]</a></sup></strong><span>Built from standard SSH components.</span></td>
+                    <td><strong>Varies<sup class="comparison-ref"><a href="#comparison-note-vpn" aria-label="Clarification 2">[2]</a></sup></strong><span>Open-source and commercial options.</span></td>
+                    <td><strong>Commercial</strong><span>Subscription service.</span></td>
+                    <td><strong>BUSL Community + commercial<sup class="comparison-ref"><a href="#comparison-note-boundary" aria-label="Clarification 6">[6]</a></sup></strong><span>Self-hosted Enterprise and HCP are commercial.</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="comparison-footnote">Products and edition boundaries change. Follow the linked comparisons for details and verification dates.</p>
+    <ol class="comparison-notes" aria-label="Comparison clarifications">
+        <li id="comparison-note-jump-host"><strong>SSH jump host:</strong> “Usually” describes a conventional shared bastion. Firewall rules, SSH restrictions, certificate authorities and additional tooling can centralize credentials, narrow access or add recording; those are deployment choices rather than built-in jump-host capabilities.</li>
+        <li id="comparison-note-vpn"><strong>VPN:</strong> Network-level access is common, but VPN and ZTNA products can enforce per-user or per-service policy. Identity, hosting and licensing depend on the selected implementation.</li>
+        <li id="comparison-note-teleport-license"><strong>Teleport:</strong> Teleport’s official Community binaries use a commercial license. Free company use requires both fewer than 100 employees and less than US$10M in annual revenue. The source code remains AGPL-3.0. <a href="https://goteleport.com/docs/feature-matrix/">Teleport feature matrix</a>.</li>
+        <li id="comparison-note-warpgate-audit"><strong>Warpgate:</strong> SSH command detection is a heuristic audit aid, not a security boundary. Replay is available for SSH, Kubernetes interactive streams, RDP and VNC; databases expose query logs, while HTTP sessions are not replayed. <a href="/targets/ssh/#shell-command-auditing">SSH auditing</a> and <a href="/protocol-support/">protocol support</a>.</li>
+        <li id="comparison-note-strongdm"><strong>StrongDM:</strong> Access policies are an Enterprise feature. StrongDM documents session replay for SSH, RDP and Kubernetes; database activity is captured as query logs. <a href="https://docs.strongdm.com/admin/access/policies">Access policies</a> and <a href="https://docs.strongdm.com/admin/audit/logs/view-adminui">audit logs</a>.</li>
+        <li id="comparison-note-boundary"><strong>Boundary:</strong> LDAP and session recording are edition-dependent; recording is available for SSH and RDP in Enterprise and HCP Plus. Community is source-available under the Business Source License, while Enterprise and HCP are commercial. <a href="https://developer.hashicorp.com/boundary/docs/what-is-boundary">Feature matrix</a>, <a href="https://developer.hashicorp.com/boundary/docs/session-recording">session recording</a> and <a href="https://developer.hashicorp.com/boundary/docs/enterprise/licensing">licensing</a>.</li>
+    </ol>
+</section>
+
 <div class="how-it-be">
     <h1> How does all this work?</h1>
     <p class="mt-5">You download and run a single binary or a Docker container:</p>
@@ -303,6 +370,290 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
         max-width: 100% !important;
     }
 
+    .comparison-section {
+        margin: clamp(5rem, 10vw, 8rem) 0 5rem;
+    }
+
+    .comparison-heading {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
+        gap: 2rem;
+        align-items: end;
+        margin-bottom: 1.75rem;
+    }
+
+    .comparison-heading h2 {
+        max-width: 680px;
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        line-height: 1.05;
+        letter-spacing: -0.035em;
+    }
+
+    .comparison-heading > p {
+        max-width: 440px;
+        margin: 0 0 0.2rem;
+        color: rgba(var(--bs-body-color-rgb), 0.72);
+        font-size: 1.05rem;
+        line-height: 1.55;
+    }
+
+    .comparison-eyebrow {
+        margin: 0 0 0.65rem;
+        color: var(--bs-success, #20c997);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .comparison-scroll {
+        overflow-x: auto;
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        border-radius: 1.2rem;
+        background: rgba(255, 255, 255, 0.025);
+        box-shadow: 0 22px 60px rgba(0, 0, 0, 0.2);
+        scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+        scrollbar-width: thin;
+    }
+
+    .comparison-scroll:focus-visible {
+        outline: 3px solid #7ce7c1;
+        outline-offset: 4px;
+    }
+
+    .comparison-table {
+        width: 100%;
+        min-width: 1360px;
+        margin: 0;
+        border: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+        table-layout: fixed;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+        width: 195px;
+        padding: 1.15rem 1.1rem;
+        border-right: 1px solid rgba(255, 255, 255, 0.09);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        vertical-align: top;
+    }
+
+    .comparison-table tr > :last-child {
+        border-right: 0;
+    }
+
+    .comparison-table tbody tr:last-child > * {
+        border-bottom: 0;
+    }
+
+    .comparison-table thead th {
+        height: 96px;
+        padding-top: 1.35rem;
+        background: #17171e;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .comparison-table .comparison-feature {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        width: 170px;
+        background: #17171e;
+    }
+
+    .comparison-table thead .comparison-feature {
+        z-index: 3;
+        color: rgba(var(--bs-body-color-rgb), 0.58);
+        font-family: "Work Sans", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .comparison-table tbody .comparison-feature {
+        color: var(--bs-body-color);
+        font-size: 0.9rem;
+        line-height: 1.35;
+    }
+
+    .comparison-table .is-warpgate {
+        background: rgba(34, 48, 16, 0.68);
+        box-shadow: inset 1px 0 rgba(195, 224, 160, 0.16), inset -1px 0 rgba(195, 224, 160, 0.16);
+    }
+
+    .comparison-table thead .is-warpgate {
+        color: #d9efbf;
+        box-shadow: inset 1px 0 rgba(195, 224, 160, 0.2), inset -1px 0 rgba(195, 224, 160, 0.2), inset 0 3px #86bd45;
+    }
+
+    .comparison-table tbody tr:hover > * {
+        background-color: rgba(255, 255, 255, 0.055);
+    }
+
+    .comparison-table tbody tr:hover > .comparison-feature {
+        background-color: #202029;
+    }
+
+    .comparison-table tbody tr:hover > .is-warpgate {
+        background-color: rgba(50, 68, 25, 0.84);
+    }
+
+    .comparison-product {
+        display: block;
+        color: inherit;
+        font-family: "Poppins", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.25;
+    }
+
+    .comparison-tag {
+        display: inline-flex;
+        margin-top: 0.45rem;
+        padding: 0.22rem 0.5rem;
+        border: 1px solid rgba(195, 224, 160, 0.26);
+        border-radius: 999px;
+        background: rgba(195, 224, 160, 0.08);
+        color: #c3e0a0;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .comparison-product-link {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .comparison-product-link > span:last-child {
+        display: block;
+        margin-top: 0.45rem;
+        color: rgba(var(--bs-body-color-rgb), 0.62);
+        font-size: 0.74rem;
+        font-weight: 600;
+    }
+
+    .comparison-product-link:hover > span:last-child,
+    .comparison-product-link:focus-visible > span:last-child {
+        color: var(--bs-body-color);
+    }
+
+    .comparison-product-link:focus-visible {
+        outline: 2px solid #7ce7c1;
+        outline-offset: 5px;
+        border-radius: 0.15rem;
+    }
+
+    .comparison-ref {
+        margin-left: 0.18em;
+        font-family: "Work Sans", sans-serif;
+        font-size: 0.7em;
+        font-weight: 700;
+        line-height: 1;
+        vertical-align: super;
+    }
+
+    .comparison-ref a {
+        color: #8dc9de;
+        text-decoration: none;
+    }
+
+    .comparison-ref a:hover,
+    .comparison-ref a:focus-visible {
+        color: #c7ebf7;
+        text-decoration: underline;
+    }
+
+    .comparison-table td strong,
+    .comparison-table td span {
+        display: block;
+    }
+
+    .comparison-table td strong {
+        margin-bottom: 0.38rem;
+        color: var(--bs-body-color);
+        font-size: 0.91rem;
+        line-height: 1.35;
+    }
+
+    .comparison-table td.is-positive > strong {
+        display: flex;
+        gap: 0.48rem;
+        align-items: flex-start;
+    }
+
+    .comparison-table td.is-positive > strong::before {
+        content: "✓";
+        display: inline-grid;
+        flex: 0 0 1.05rem;
+        width: 1.05rem;
+        height: 1.05rem;
+        margin-top: 0.08rem;
+        place-items: center;
+        border-radius: 50%;
+        background: #86bd45;
+        color: #10150a;
+        font-family: system-ui, sans-serif;
+        font-size: 0.68rem;
+        font-weight: 900;
+        line-height: 1;
+    }
+
+    .comparison-table td span {
+        color: rgba(var(--bs-body-color-rgb), 0.64);
+        font-size: 0.82rem;
+        line-height: 1.45;
+    }
+
+    .comparison-table td.is-warpgate span {
+        color: rgba(226, 241, 208, 0.74);
+    }
+
+    .comparison-table code {
+        padding: 0;
+        background: transparent;
+        color: inherit;
+        font-size: 0.9em;
+    }
+
+    .comparison-footnote {
+        margin: 0.85rem 0 0;
+        color: rgba(var(--bs-body-color-rgb), 0.52);
+        font-size: 0.78rem;
+    }
+
+    .comparison-notes {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.8rem 2rem;
+        margin: 1.25rem 0 0;
+        padding: 1.15rem 0 0 1.35rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.09);
+        color: rgba(var(--bs-body-color-rgb), 0.58);
+        font-size: 0.78rem;
+        line-height: 1.55;
+    }
+
+    .comparison-notes li {
+        padding-left: 0.2rem;
+        scroll-margin-top: 2rem;
+    }
+
+    .comparison-notes li::marker {
+        color: #8dc9de;
+        font-weight: 700;
+    }
+
+    .comparison-notes strong {
+        color: rgba(var(--bs-body-color-rgb), 0.82);
+    }
+
     .how-it-be {
         text-align: center;
         margin-top: 3rem;
@@ -318,12 +669,28 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
         margin: 0 auto 2rem;
     }
 
-    table {
-        td, th {
-            padding: 1rem 1rem;
+    @media (max-width: 767px) {
+        .comparison-heading {
+            grid-template-columns: 1fr;
+            gap: 1rem;
         }
 
-        margin-bottom: 2rem;
+        .comparison-scroll {
+            border-radius: 0.85rem;
+        }
+
+        .comparison-table {
+            min-width: 1300px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem 0.9rem;
+        }
+
+        .comparison-notes {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
       </article>
