@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Warpgate vs. StrongDM - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Warpgate vs. StrongDM">
+  <meta property="og:description" content="Securely expose your internal services to the internet">
+  <meta property="og:url" content="https://warpgate.null.page/warpgate-vs-strongdm/">
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Warpgate vs. StrongDM">
+  <meta name="twitter:description" content="Securely expose your internal services to the internet">
+  <link rel="canonical" href="https://warpgate.null.page/warpgate-vs-strongdm/">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+
+  <script>
+    window.op=window.op||function(){var n=[];return new Proxy(function(){arguments.length&&n.push([].slice.call(arguments))},{get:function(t,r){return"q"===r?n:function(){n.push([r].concat([].slice.call(arguments)))}} ,has:function(t,r){return"q"===r}}) }();
+    window.op('init', {
+      clientId: '5737fa73-0d53-42d4-baca-e67d0e445340',
+      trackScreenViews: true,
+      trackOutgoingLinks: true,
+      trackAttributes: true,
+    });
+  </script>
+  <script src="https://openpanel.dev/op1.js" defer async></script>
+  <script type="module" crossorigin src="/assets/app-BHU_zUbz.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-cFygfl72.css">
+</head>
+
+<body>
+  <header class="container text-nowrap">
+    <a href="/" class="me-auto" aria-label="Warpgate home">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" alt="Warpgate" />
+    </a>
+
+    
+      <form action="search.html" class="search-form d-none d-sm-inline-block">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank" rel="noopener noreferrer">GitHub</a>
+
+    
+
+    <a class="btn btn-link btn-sm" href="/for-business">Warpgate for Business &rarr;</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3 class="d-flex align-items-center">
+        <span class="nav-collapsible">Docs</span>
+        <!-- <button class="btn btn-link ms-auto nav-toggle">
+          <i class="fa-solid fa-list"></i>
+        </button> -->
+      </h3>
+      <ul class="nav-collapsible">
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>
+          <a class="" href="../for-business/">Warpgate for Business</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-helm/">Helm</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-kubernetes/">Kubernetes operator</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/kubernetes/">Kubernetes</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/rdp/">RDP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/vnc/">VNC</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth/">User authentication</a>
+            </li>
+            
+            <li>
+              <a class="" href="../roles/">User roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../ldap/">LDAP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../login-protection/">Login protection</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Operations
+          <ul>
+            
+            <li>
+              <a class="" href="../newsletter/">Staying in the loop</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+            <li>
+              <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../custom-ca/">Custom root CAs</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sni/">TLS SNI</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Compare
+          <ul>
+            
+            <li>
+              <a class="" href="../warpgate-vs-teleport/">Warpgate vs. Teleport</a>
+            </li>
+            
+            <li>
+              <a class="" href="../warpgate-vs-boundary/">Warpgate vs. Boundary</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">Warpgate vs. StrongDM</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <main class="page-content">
+      <article>
+        <h1 id="warpgate-vs-strongdm">Warpgate vs. StrongDM<a class="headerlink" href="#warpgate-vs-strongdm" title="Permanent link">§</a></h1>
+<p>Warpgate and <a href="https://www.strongdm.com/">StrongDM</a> both give you audited, authenticated access to internal infrastructure — but one you run yourself and one you rent. StrongDM is a polished <strong>commercial platform</strong> delivered as a SaaS control plane, with gateways you run and a <strong>client on every user's machine</strong>. Warpgate is a <strong>self-hosted, open-source bastion</strong> that runs entirely in your own infrastructure, with no client and no dependency on anyone else's cloud. If keeping the control plane in your own hands — and your costs flat — matters, that's the heart of the difference.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>StrongDM is a commercial product that evolves quickly; specific features, protocol coverage and pricing change over time. Treat the details below as a good-faith orientation, <strong>last verified July 2026</strong>, and check the <a href="https://docs.strongdm.com/">StrongDM documentation</a> for its current offering.</p>
+</div>
+<h2 id="at-a-glance">At a glance<a class="headerlink" href="#at-a-glance" title="Permanent link">§</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Warpgate</th>
+<th>StrongDM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Deployment</strong></td>
+<td>Self-hosted: a single Rust binary + a database</td>
+<td>SaaS control plane (StrongDM-hosted) + self-run gateways/relays</td>
+</tr>
+<tr>
+<td><strong>Where the control plane runs</strong></td>
+<td><strong>Your infrastructure</strong></td>
+<td><strong>StrongDM's cloud</strong> — the control plane is not self-hostable</td>
+</tr>
+<tr>
+<td><strong>Agents on targets</strong></td>
+<td><strong>None</strong></td>
+<td>None on the targets, but gateways/relays to run</td>
+</tr>
+<tr>
+<td><strong>Client software</strong></td>
+<td><strong>None</strong> — users keep their normal <code>ssh</code>, <code>mysql</code>, <code>psql</code>, <code>kubectl</code>, browser or RDP/VNC client</td>
+<td>The StrongDM desktop client / CLI is <strong>required</strong> on each user's machine</td>
+</tr>
+<tr>
+<td><strong>Protocols</strong></td>
+<td>SSH, HTTP(S), MySQL, PostgreSQL, Kubernetes, RDP, VNC</td>
+<td>Broad: SSH, RDP, Kubernetes, many databases, websites, and cloud APIs</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>Password, SSH public key, OTP (TOTP), SSO via OIDC, client certificates, in-browser approval</td>
+<td>SSO via your IdP (SAML/OIDC), with MFA delegated to the IdP</td>
+</tr>
+<tr>
+<td><strong>Session recording &amp; audit</strong></td>
+<td>Every protocol, replayable</td>
+<td>Broad and a core strength: SSH, RDP, Kubernetes and database sessions</td>
+</tr>
+<tr>
+<td><strong>In-browser access</strong></td>
+<td>SSH, RDP, VNC and HTTP</td>
+<td>None — sessions run through the StrongDM client</td>
+</tr>
+<tr>
+<td><strong>Self-service / JIT access</strong></td>
+<td>Tickets and self-service <strong>ticket requests</strong> with admin approval</td>
+<td>Access workflows (just-in-time requests with approval)</td>
+</tr>
+<tr>
+<td><strong>Language</strong></td>
+<td>Rust</td>
+<td>Go (proprietary)</td>
+</tr>
+<tr>
+<td><strong>Licensing &amp; cost</strong></td>
+<td><strong>Apache-2.0, free, fully self-hosted</strong></td>
+<td>Proprietary, commercial — per-user subscription, no free or open-source tier</td>
+</tr>
+</tbody>
+</table>
+<h2 id="philosophy">Philosophy<a class="headerlink" href="#philosophy" title="Permanent link">§</a></h2>
+<p><strong>Warpgate is a self-hosted, transparent proxy.</strong> Everything — the control plane, the data plane, your access logs and recordings — lives in your infrastructure. Users connect with the tools they already have, and every capability is in the open-source build. There is no third party in the path and no per-seat bill.</p>
+<p><strong>StrongDM is a managed access platform.</strong> It is genuinely polished and broad: a large catalogue of databases and cloud resources, strong audit and compliance tooling, and a smooth admin experience. The trade-offs are that the control plane runs in StrongDM's cloud (you can't host it yourself), every user needs the StrongDM client installed, and it's a proprietary, per-user subscription rather than something you own.</p>
+<h2 id="where-your-control-plane-and-data-live">Where your control plane and data live<a class="headerlink" href="#where-your-control-plane-and-data-live" title="Permanent link">§</a></h2>
+<p>This is the defining difference. With StrongDM, configuration and the coordination layer are hosted in <strong>StrongDM's SaaS</strong>; you run gateways in your network, and can optionally keep target credentials in your own secret store, but the control plane itself is not something you operate. With Warpgate, <strong>all of it is yours</strong> — one binary and a database inside your own perimeter — which is often the deciding factor for air-gapped, sovereignty-sensitive, or simply SaaS-averse environments.</p>
+<h2 id="session-recording">Session recording<a class="headerlink" href="#session-recording" title="Permanent link">§</a></h2>
+<p>Both record broadly — this is an area where StrongDM is strong, and Warpgate matches it for the protocols it proxies while keeping it all in the free, self-hosted build.</p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Warpgate</th>
+<th>StrongDM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SSH</td>
+<td>✅ terminal replay (+ per-command audit log)</td>
+<td>✅ terminal replay (+ per-command logs)</td>
+</tr>
+<tr>
+<td>RDP</td>
+<td>✅ video</td>
+<td>✅ video (MP4 export)</td>
+</tr>
+<tr>
+<td>Kubernetes</td>
+<td>✅ API calls + <code>exec</code>/<code>attach</code> replay</td>
+<td>✅ <code>exec</code> replay + <code>kubectl</code>/API logs</td>
+</tr>
+<tr>
+<td>MySQL / PostgreSQL</td>
+<td>✅ query log</td>
+<td>✅ query log</td>
+</tr>
+<tr>
+<td>HTTP / websites</td>
+<td>✅ session log</td>
+<td>✅ access logs</td>
+</tr>
+<tr>
+<td>VNC</td>
+<td>✅ video</td>
+<td>❌ (not supported)</td>
+</tr>
+</tbody>
+</table>
+<p>Both can also ship recordings/audit to external object storage (Warpgate to S3; StrongDM via its log stream to S3/GCS/Azure).</p>
+<h2 id="in-browser-access">In-browser access<a class="headerlink" href="#in-browser-access" title="Permanent link">§</a></h2>
+<p>Warpgate includes browser-based clients for SSH, RDP, VNC and HTTP, so a user can reach a target from a laptop with nothing installed. StrongDM does not offer clientless browser access — its desktop client must be installed on each machine, and connections are then made with native tools through the client's local tunnel.</p>
+<h2 id="when-warpgate-is-the-better-choice">When Warpgate is the better choice<a class="headerlink" href="#when-warpgate-is-the-better-choice" title="Permanent link">§</a></h2>
+<ul>
+<li>You want the <strong>control plane in your own infrastructure</strong> — air-gapped, sovereignty-sensitive, or simply not dependent on a third-party SaaS.</li>
+<li>You want <strong>open-source and free</strong> — every feature in the Apache-2.0 build, with no per-user subscription.</li>
+<li>You want users to connect with <strong>no client to install</strong>, and to reach targets <strong>from the browser</strong>.</li>
+<li>Your access needs are well covered by SSH, HTTP, MySQL, PostgreSQL, Kubernetes, RDP and VNC.</li>
+<li>Homelabs, small-to-medium teams, and self-hosting-first organisations.</li>
+</ul>
+<h2 id="when-to-reach-for-strongdm">When to reach for StrongDM<a class="headerlink" href="#when-to-reach-for-strongdm" title="Permanent link">§</a></h2>
+<ul>
+<li>You want a <strong>fully managed</strong> experience and are happy for the control plane to live in a vendor's cloud.</li>
+<li>You need its <strong>very broad catalogue</strong> (many database engines, cloud APIs) and turnkey compliance reporting out of the box.</li>
+<li>You have budget for <strong>per-user pricing</strong> and prefer a commercial product with vendor support.</li>
+</ul>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">§</a></h2>
+<p>StrongDM is a capable, broad, well-supported commercial platform — if you're comfortable with a SaaS control plane, a client on every machine, and per-seat pricing. Warpgate gives you a self-hosted, open-source, transparent gateway that records everything it proxies and keeps every part of the system — and every byte of audit data — inside your own infrastructure.</p>
+<p>Ready to try it?</p>
+<p><a class="btn btn-success" href="/getting-started-on-docker">Get started with Docker &rarr;</a></p>
+      </article>
+
+      
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../warpgate-vs-boundary/">
+            &larr;
+            Warpgate vs. Boundary
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+      </div>
+      
+    </main>
+  </div>
+
+  <hr class="mt-5" />
+
+  <div class="text-center">
+      <a href="/imprint">Imprint</a>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Warpgate vs. Boundary - Warpgate</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Warpgate vs. Boundary">
+  <meta property="og:description" content="Securely expose your internal services to the internet">
+  <meta property="og:url" content="https://warpgate.null.page/warpgate-vs-boundary/">
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Warpgate vs. Boundary">
+  <meta name="twitter:description" content="Securely expose your internal services to the internet">
+  <link rel="canonical" href="https://warpgate.null.page/warpgate-vs-boundary/">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+
+  <script>
+    window.op=window.op||function(){var n=[];return new Proxy(function(){arguments.length&&n.push([].slice.call(arguments))},{get:function(t,r){return"q"===r?n:function(){n.push([r].concat([].slice.call(arguments)))}} ,has:function(t,r){return"q"===r}}) }();
+    window.op('init', {
+      clientId: '5737fa73-0d53-42d4-baca-e67d0e445340',
+      trackScreenViews: true,
+      trackOutgoingLinks: true,
+      trackAttributes: true,
+    });
+  </script>
+  <script src="https://openpanel.dev/op1.js" defer async></script>
+  <script type="module" crossorigin src="/assets/app-BHU_zUbz.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-cFygfl72.css">
+</head>
+
+<body>
+  <header class="container text-nowrap">
+    <a href="/" class="me-auto" aria-label="Warpgate home">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" alt="Warpgate" />
+    </a>
+
+    
+      <form action="search.html" class="search-form d-none d-sm-inline-block">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank" rel="noopener noreferrer">GitHub</a>
+
+    
+
+    <a class="btn btn-link btn-sm" href="/for-business">Warpgate for Business &rarr;</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3 class="d-flex align-items-center">
+        <span class="nav-collapsible">Docs</span>
+        <!-- <button class="btn btn-link ms-auto nav-toggle">
+          <i class="fa-solid fa-list"></i>
+        </button> -->
+      </h3>
+      <ul class="nav-collapsible">
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>
+          <a class="" href="../for-business/">Warpgate for Business</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-helm/">Helm</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-kubernetes/">Kubernetes operator</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/kubernetes/">Kubernetes</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/rdp/">RDP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/vnc/">VNC</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth/">User authentication</a>
+            </li>
+            
+            <li>
+              <a class="" href="../roles/">User roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../ldap/">LDAP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../login-protection/">Login protection</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Operations
+          <ul>
+            
+            <li>
+              <a class="" href="../newsletter/">Staying in the loop</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+            <li>
+              <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../custom-ca/">Custom root CAs</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sni/">TLS SNI</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Compare
+          <ul>
+            
+            <li>
+              <a class="" href="../warpgate-vs-teleport/">Warpgate vs. Teleport</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">Warpgate vs. Boundary</a>
+            </li>
+            
+            <li>
+              <a class="" href="../warpgate-vs-strongdm/">Warpgate vs. StrongDM</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <main class="page-content">
+      <article>
+        <h1 id="warpgate-vs-boundary">Warpgate vs. Boundary<a class="headerlink" href="#warpgate-vs-boundary" title="Permanent link">§</a></h1>
+<p>Warpgate and <a href="https://www.boundaryproject.io/">HashiCorp Boundary</a> both broker audited access to internal infrastructure, but they take very different shapes. Boundary is an identity-based access system built around a controller/worker cluster and a <strong>required client</strong> that tunnels TCP to your targets; Warpgate is a <strong>transparent, protocol-aware bastion</strong> that needs no client and understands each protocol it proxies. If you want audited access to SSH, databases, Kubernetes, web and desktops without standing up a cluster, rolling out a client, and (often) running Vault alongside it, Warpgate is a much lighter path — and it's Apache-2.0, not Business Source Licensed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Boundary is actively developed and its capabilities and edition boundaries change over time. Treat the details below as a good-faith orientation, <strong>last verified July 2026</strong>, and check the <a href="https://developer.hashicorp.com/boundary">Boundary documentation</a> for its current feature set.</p>
+</div>
+<h2 id="at-a-glance">At a glance<a class="headerlink" href="#at-a-glance" title="Permanent link">§</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Warpgate</th>
+<th>Boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Footprint</strong></td>
+<td>A single Rust binary + a database (SQLite or PostgreSQL)</td>
+<td>Controller(s) + Worker(s) + a database, and often Vault for credentials</td>
+</tr>
+<tr>
+<td><strong>Agents on targets</strong></td>
+<td><strong>None</strong> — nothing is installed on your servers</td>
+<td>None on the targets, but a controller/worker plane to operate</td>
+</tr>
+<tr>
+<td><strong>Client software</strong></td>
+<td><strong>None</strong> — users keep their normal <code>ssh</code>, <code>mysql</code>, <code>psql</code>, <code>kubectl</code>, browser or RDP/VNC client</td>
+<td>The <code>boundary</code> CLI, Desktop app, or background Client-Agent is <strong>required</strong></td>
+</tr>
+<tr>
+<td><strong>How you reach a target</strong></td>
+<td>Connect your client straight to Warpgate with a <code>user:target</code> selector</td>
+<td>The <code>boundary</code> client authorises a session and opens a <strong>local proxy port</strong>; you then point your tool at <code>localhost</code></td>
+</tr>
+<tr>
+<td><strong>Protocol awareness</strong></td>
+<td>Protocol-aware for SSH, HTTP, MySQL, PostgreSQL, Kubernetes, RDP, VNC</td>
+<td>Primarily <strong>TCP tunnelling</strong>; SSH and RDP have deeper, protocol-aware features (e.g. session recording)</td>
+</tr>
+<tr>
+<td><strong>Credentials to targets</strong></td>
+<td>Stored per target (or brokered) — built in</td>
+<td>Static, or brokered/injected via <strong>Vault</strong></td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>Password, SSH public key, OTP (TOTP), SSO via OIDC, client certificates, in-browser approval</td>
+<td>Password, OIDC, LDAP (MFA delegated to your OIDC provider)</td>
+</tr>
+<tr>
+<td><strong>Session recording</strong></td>
+<td>Every protocol, replayable</td>
+<td>SSH and RDP (paid editions); other targets tunnelled at TCP</td>
+</tr>
+<tr>
+<td><strong>In-browser access</strong></td>
+<td>SSH, RDP, VNC and HTTP</td>
+<td>None — sessions run through the CLI / Desktop / Client-Agent</td>
+</tr>
+<tr>
+<td><strong>Self-service / JIT access</strong></td>
+<td>Tickets and self-service <strong>ticket requests</strong> with admin approval</td>
+<td>Grant-based; no built-in self-service request/approval workflow</td>
+</tr>
+<tr>
+<td><strong>Language</strong></td>
+<td>Rust</td>
+<td>Go</td>
+</tr>
+<tr>
+<td><strong>Licensing</strong></td>
+<td><strong>Apache-2.0, fully self-hosted</strong></td>
+<td>Business Source License (BSL, source-available); HCP Boundary is the managed option</td>
+</tr>
+</tbody>
+</table>
+<h2 id="philosophy">Philosophy<a class="headerlink" href="#philosophy" title="Permanent link">§</a></h2>
+<p><strong>Warpgate is a transparent, protocol-aware proxy.</strong> Users connect with the tools they already have; Warpgate authenticates them, applies access control, and records the full session. It understands SSH, HTTP, the database wire protocols, the Kubernetes API and the desktop protocols, so it can show you <em>what happened</em> — queries, commands, API calls, desktop video — not just that a connection occurred.</p>
+<p><strong>Boundary is an identity-based TCP broker.</strong> A controller authorises sessions and workers proxy the traffic, while a Boundary client on each machine opens the session. It's a solid fit if you're already invested in the HashiCorp stack and want Vault-brokered credentials — but it's a bigger system to run, it relies on a client on every machine, and for most protocols it moves bytes without interpreting them.</p>
+<h2 id="reaching-a-target">Reaching a target<a class="headerlink" href="#reaching-a-target" title="Permanent link">§</a></h2>
+<p>This is the most visible day-to-day difference:</p>
+<ul>
+<li><strong>Warpgate</strong> — point <code>ssh</code>, <code>psql</code>, <code>kubectl</code>, a browser or an RDP/VNC client straight at Warpgate, using <code>user#target</code> (or the web portal). Nothing to install.</li>
+<li><strong>Boundary</strong> — authorise a session with the <code>boundary</code> client; <code>boundary connect</code> opens a <code>localhost</code> port you then point your tool at. Boundary's "transparent sessions" smooth this over with a background Client-Agent that intercepts traffic — but that's an Enterprise/HCP feature and still requires the client. Either way, a Boundary client sits in the path.</li>
+</ul>
+<h2 id="session-recording">Session recording<a class="headerlink" href="#session-recording" title="Permanent link">§</a></h2>
+<p>Warpgate records the <strong>content</strong> of every protocol it proxies and replays it from the Admin UI. Boundary records SSH and RDP (in its paid editions); other targets are carried as TCP tunnels.</p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Warpgate</th>
+<th>Boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SSH</td>
+<td>✅ terminal replay (+ per-command audit log)</td>
+<td>✅ session replay</td>
+</tr>
+<tr>
+<td>RDP</td>
+<td>✅ video</td>
+<td>✅ session replay (added in Boundary 1.0)</td>
+</tr>
+<tr>
+<td>Kubernetes</td>
+<td>✅ API calls + <code>exec</code>/<code>attach</code> replay</td>
+<td>❌ (TCP tunnel; on Boundary's roadmap)</td>
+</tr>
+<tr>
+<td>VNC</td>
+<td>✅ video</td>
+<td>❌ (TCP tunnel)</td>
+</tr>
+<tr>
+<td>MySQL / PostgreSQL</td>
+<td>✅ query log</td>
+<td>❌ (TCP tunnel; on Boundary's roadmap)</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>✅ session log</td>
+<td>❌ (TCP tunnel; on Boundary's roadmap)</td>
+</tr>
+</tbody>
+</table>
+<p>Boundary can <em>carry</em> all of these — it tunnels arbitrary TCP — but only SSH and RDP are recorded as replayable sessions, and only in the paid Enterprise / HCP editions. Warpgate records every protocol it proxies, in the free build.</p>
+<h2 id="when-warpgate-is-the-better-choice">When Warpgate is the better choice<a class="headerlink" href="#when-warpgate-is-the-better-choice" title="Permanent link">§</a></h2>
+<ul>
+<li>You want audited access <strong>today</strong>, from a single binary, without a controller/worker cluster or a client on every machine.</li>
+<li>You want to see <strong>what happened inside</strong> each session — queries, commands, API calls, desktop video — across all your protocols, not just SSH and RDP.</li>
+<li>You'd rather not run <strong>Vault</strong> just to hand credentials to targets.</li>
+<li>You value a <strong>small, Apache-2.0 codebase</strong> with every feature in the free build.</li>
+<li>Homelabs, small-to-medium teams, and focused gateways.</li>
+</ul>
+<h2 id="when-to-reach-for-boundary">When to reach for Boundary<a class="headerlink" href="#when-to-reach-for-boundary" title="Permanent link">§</a></h2>
+<ul>
+<li>You're already standardised on <strong>HashiCorp</strong> tooling and want Vault-brokered, dynamic credentials as the centrepiece.</li>
+<li>You mainly need identity-based <strong>TCP access</strong> to many hosts and are comfortable running the controller/worker plane and distributing the client.</li>
+</ul>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">§</a></h2>
+<p>Boundary is a capable identity-based access broker, especially inside a HashiCorp/Vault estate — at the cost of a cluster, a required client, and per-protocol depth it's still building out. Warpgate is a self-hosted, open-source, transparent gateway that works with the clients you already use and records everything it proxies.</p>
+<p>Ready to try it?</p>
+<p><a class="btn btn-success" href="/getting-started-on-docker">Get started with Docker &rarr;</a></p>
+      </article>
+
+      
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../warpgate-vs-teleport/">
+            &larr;
+            Warpgate vs. Teleport
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../warpgate-vs-strongdm/">
+            Warpgate vs. StrongDM
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+      
+    </main>
+  </div>
+
+  <hr class="mt-5" />
+
+  <div class="text-center">
+      <a href="/imprint">Imprint</a>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>

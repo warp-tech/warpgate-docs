@@ -7,6 +7,17 @@
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="User authentication">
+  <meta property="og:description" content="Securely expose your internal services to the internet">
+  <meta property="og:url" content="https://warpgate.null.page/auth/">
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="User authentication">
+  <meta name="twitter:description" content="Securely expose your internal services to the internet">
+  <link rel="canonical" href="https://warpgate.null.page/auth/">
 
   <script>
     window.base_url = '/' // for search
@@ -22,14 +33,14 @@
     });
   </script>
   <script src="https://openpanel.dev/op1.js" defer async></script>
-  <script type="module" crossorigin src="/assets/app-B0UvMIkB.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-C_T3W5uz.css">
+  <script type="module" crossorigin src="/assets/app-BHU_zUbz.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-cFygfl72.css">
 </head>
 
 <body>
   <header class="container text-nowrap">
-    <a href="/" class="me-auto">
-      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    <a href="/" class="me-auto" aria-label="Warpgate home">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" alt="Warpgate" />
     </a>
 
     
@@ -38,11 +49,11 @@
       </form>
     
 
-    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank" rel="noopener noreferrer">GitHub</a>
 
     
 
-    <a class="btn btn-link btn-sm" href="/for-business" target="_blank">Warpgate for Business &rarr;</a>
+    <a class="btn btn-link btn-sm" href="/for-business">Warpgate for Business &rarr;</a>
   </header>
 
   <div id="mkdocs-search-results" class="container search-results"></div>
@@ -118,6 +129,14 @@
               <a class="" href="../targets/kubernetes/">Kubernetes</a>
             </li>
             
+            <li>
+              <a class="" href="../targets/rdp/">RDP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/vnc/">VNC</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -163,8 +182,20 @@
         
         
         
-        <li>Ops
+        <li>Operations
           <ul>
+            
+            <li>
+              <a class="" href="../newsletter/">Staying in the loop</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+            <li>
+              <a class="" href="../clustering/">Running a cluster</a>
+            </li>
             
             <li>
               <a class="" href="../systemd/">Installing as a systemd service</a>
@@ -172,10 +203,6 @@
             
             <li>
               <a class="" href="../log-forwarding/">Log forwarding</a>
-            </li>
-            
-            <li>
-              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
             </li>
             
             <li>
@@ -210,11 +237,31 @@
         </li>
         
         
+        
+        <li>Compare
+          <ul>
+            
+            <li>
+              <a class="" href="../warpgate-vs-teleport/">Warpgate vs. Teleport</a>
+            </li>
+            
+            <li>
+              <a class="" href="../warpgate-vs-boundary/">Warpgate vs. Boundary</a>
+            </li>
+            
+            <li>
+              <a class="" href="../warpgate-vs-strongdm/">Warpgate vs. StrongDM</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
       </ul>
     </div>
     
 
-    <div class="page-content">
+    <main class="page-content">
       <article>
         <h1 id="user-authentication">User authentication<a class="headerlink" href="#user-authentication" title="Permanent link">§</a></h1>
 <p>In the <a href="../targets/ssh/">previous example</a>, we've reused the Warpgate's <code>admin</code> user, which only had a password as its only way to authenticate. Warpgate supports passwords, public keys, authenticator apps, SSO (OIDC), API tokens and combinations thereof as authentication methods.</p>
@@ -292,11 +339,36 @@
 <p>SSH authentication methods configuration in Global Parameters</p>
 </figcaption>
 </figure>
-<h2 id="ssh-login-banner">SSH login banner<a class="headerlink" href="#ssh-login-banner" title="Permanent link">§</a></h2>
+<h2 id="login-banner">Login banner<a class="headerlink" href="#login-banner" title="Permanent link">§</a></h2>
 <div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
 
 <p>You can set a custom banner that Warpgate sends to SSH clients during authentication (e.g. a legal notice or login instructions). Set it under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>SSH banner</code>.</p>
-<p>The banner is delivered via the standard SSH authentication banner message, so it works with all SSH clients and doesn't interfere with the in-session terminal.</p>
+<div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
+
+<p>Banner now shows up over other protocols beyond SSH:</p>
+<ul>
+<li><strong>SSH</strong> — as the standard SSH authentication banner message.</li>
+<li><strong>HTTP</strong> — once as a dismissable dialog.</li>
+<li><strong>PostgreSQL</strong> — as a notice message.</li>
+<li><strong>RDP</strong> and <strong>VNC</strong> — as a banner screen the user acknowledges before the session starts.</li>
+</ul>
+<p>MySQL connections do not display the banner as MySQL protocol lacks the ability to push messages to the user.</p>
+<h2 id="in-browser-approval-out-of-band-authentication">In-browser approval (out-of-band authentication)<a class="headerlink" href="#in-browser-approval-out-of-band-authentication" title="Permanent link">§</a></h2>
+<p>Warpgate can require a login to be <strong>approved in the browser</strong>. This allows you to require OTP or SSO as a second factor over protocols that can't prompt it interactively.</p>
+<p>When a connection needs approval, Warpgate shows the user a login URL and a short <em>security key</em>. The user opens the URL in their browser session, logs in if they haven't already, checks that the security key matches, and approves (or rejects) the pending request.</p>
+<p>Over SSH the URL and key are printed in their terminal; on RDP and VNC they appear on the holding screen.</p>
+<figure>
+<p><img alt="Screenshot: approving a login request in the browser" src="../images/oob-request.png" /></p>
+<figcaption>
+<p>Approving a pending login in the browser</p>
+</figcaption>
+</figure>
+<h3 id="caching-approvals">Caching approvals<a class="headerlink" href="#caching-approvals" title="Permanent link">§</a></h3>
+<p>To avoid approving every single connection, set an approval grace period under <code>Config</code> &gt; <code>Global parameters</code>. Within this window, a matching connection (same user, source IP, protocol, target and the same credentials presented) is approved automatically. When approving, the user chooses the scope: just this once, this target only, or all targets.</p>
+<h2 id="requiring-re-authentication-for-sensitive-actions">Requiring re-authentication for sensitive actions<a class="headerlink" href="#requiring-re-authentication-for-sensitive-actions" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
+
+<p>You can require users to re-authenticate before starting an in-browser session. Set a maximum web session age under <code>Config</code> &gt; <code>Global parameters</code> - once it is exceeded, Warpgate asks the user to re-authenticate before opening a <strong>web SSH</strong> or a <strong>remote desktop</strong> session.</p>
 <h2 id="api-tokens">API Tokens<a class="headerlink" href="#api-tokens" title="Permanent link">§</a></h2>
 <div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
 
@@ -316,9 +388,9 @@ curl<span style="color: #6E7681"> </span>-H<span style="color: #6E7681"> </span>
       
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../targets/kubernetes/">
+          <a class="btn btn-secondary btn-prev" href="../targets/vnc/">
             &larr;
-            Kubernetes
+            VNC
             <br/>
             <small class="text-muted">
               Previous
@@ -337,7 +409,7 @@ curl<span style="color: #6E7681"> </span>-H<span style="color: #6E7681"> </span>
         
       </div>
       
-    </div>
+    </main>
   </div>
 
   <hr class="mt-5" />

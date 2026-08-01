@@ -3,21 +3,21 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Chaining Warpgates - Warpgate</title>
+  <title>Running a cluster - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Securely expose your internal services to the internet">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Chaining Warpgates">
+  <meta property="og:title" content="Running a cluster">
   <meta property="og:description" content="Securely expose your internal services to the internet">
-  <meta property="og:url" content="https://warpgate.null.page/chaining/">
+  <meta property="og:url" content="https://warpgate.null.page/clustering/">
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Chaining Warpgates">
+  <meta name="twitter:title" content="Running a cluster">
   <meta name="twitter:description" content="Securely expose your internal services to the internet">
-  <link rel="canonical" href="https://warpgate.null.page/chaining/">
+  <link rel="canonical" href="https://warpgate.null.page/clustering/">
 
   <script>
     window.base_url = '/' // for search
@@ -194,7 +194,7 @@
             </li>
             
             <li>
-              <a class="" href="../clustering/">Running a cluster</a>
+              <a class="text-success" href="./">Running a cluster</a>
             </li>
             
             <li>
@@ -226,7 +226,7 @@
             </li>
             
             <li>
-              <a class="text-success" href="./">Chaining Warpgates</a>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
             </li>
             
             <li>
@@ -263,50 +263,32 @@
 
     <main class="page-content">
       <article>
-        <h1 id="chaining-warpgates">Chaining Warpgates<a class="headerlink" href="#chaining-warpgates" title="Permanent link">§</a></h1>
-<p>Sometimes exposing a host on the network to the outside is not an option. In this case you can opt to forward connections from one Warpgate to another.</p>
-<p>NOTE: This is fully transparent to the client (except for the double "warpgate connected" message in interactive sessions) - there are no SSH "jump hosts" involved in this setup.</p>
-<h2 id="copy-outer-warpgates-public-key">Copy outer Warpgate's public key<a class="headerlink" href="#copy-outer-warpgates-public-key" title="Permanent link">§</a></h2>
-<ul>
-<li>Run <code>warpgate client-keys</code> and copy the Ed25519 public key:</li>
-</ul>
-<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>➜  ~ warpgate client-keys
-16:55:10  INFO Using config: &quot;/etc/warpgate.yaml&quot; (users: 1, targets: 6, roles: 1)
-Warpgate SSH client keys:
-(add these to your target&#39;s authorized_keys file)
+        <h1 id="running-a-cluster">Running a cluster<a class="headerlink" href="#running-a-cluster" title="Permanent link">§</a></h1>
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
 
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAxxxx+3RBsT5  # &lt;-- this line
-rsa-sha2-256 AAAADHJzYS1zaGEyLTI1Ngxxxx
-</code></pre></div>
-<h2 id="set-up-inner-warpgate">Set up inner Warpgate<a class="headerlink" href="#set-up-inner-warpgate" title="Permanent link">§</a></h2>
+<p>Warpgate can run as multiple nodes behind a load balancer for high availability and horizontal scaling.</p>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">§</a></h2>
+<ol>
+<li>Point every node at the <strong>same database</strong> by setting the same <code>database_url</code> in the config files.</li>
+<li>Point every node at the <strong>same S3 bucket</strong> or the <strong>same shared filesystem</strong> for session recordings under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Session recordings</code>.</li>
+<li>Put the nodes behind a TCP and HTTP load balancer. The TCP balancer should ideally implement the PROXY protocol so that Warpgate can see the real client IP address.</li>
+</ol>
+<p>That's all - nodes discover each other through the shared database.</p>
+<h2 id="peer-addressing">Peer addressing<a class="headerlink" href="#peer-addressing" title="Permanent link">§</a></h2>
+<p>Nodes need to reach each other directly for cross-node proxying. Warpgate determines each node's peer address automatically, but you can override it:</p>
 <ul>
-<li>Add your targets as usual (in this example: <code>inner-server</code>).</li>
-<li>Add a "jump user" (here we'll be using <code>wg-jump</code> as a username) and add the outer Warpgate's public key as a credential.</li>
-<li>Check connection to the target with <code>warpgate test-target inner-server</code></li>
+<li><code>WARPGATE_PEER_ADDRESS</code> — set to <code>host:port</code> explicitly if auto-detection picks the wrong interface.</li>
+<li>On Kubernetes, the pod IP (<code>POD_IP</code>) is used automatically.</li>
 </ul>
-<h2 id="set-up-outer-warpgate">Set up outer Warpgate<a class="headerlink" href="#set-up-outer-warpgate" title="Permanent link">§</a></h2>
-<ul>
-<li>Add the targets on the inner network again, using the inner Warpgate's address and port, as well as the Warpgate-style username:<ul>
-<li>Host: <code>&lt;inner Warpgate's IP&gt;</code></li>
-<li>Port: <code>&lt;inner Warpgate's SSH port&gt;</code></li>
-<li>Username: <code>wg-jump:inner-server</code></li>
-</ul>
-</li>
-<li>Check your config with <code>warpgate check</code>.</li>
-<li>Check connection to the target <em>through the inner Warpgate</em> on the outer Warpgate with <code>warpgate test-target inner-server</code></li>
-</ul>
-<h2 id="connect">Connect<a class="headerlink" href="#connect" title="Permanent link">§</a></h2>
-<p>You can now grab the connection command from the landing page (or the admin UI) as usual and test it on a client:</p>
-<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>ssh &lt;username&gt;:inner-server@&lt;outer-warpgate&gt; -p &lt;outer-wg-port&gt;
-</code></pre></div>
+<p>The peer port is the node's HTTP listener port, so nodes must be able to reach each other on it.</p>
       </article>
 
       
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../sni/">
+          <a class="btn btn-secondary btn-prev" href="../reverse-proxy/">
             &larr;
-            TLS SNI
+            Running behind a reverse proxy
             <br/>
             <small class="text-muted">
               Previous
@@ -316,8 +298,8 @@ rsa-sha2-256 AAAADHJzYS1zaGEyLTI1Ngxxxx
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../protocol-support/">
-            Protocol support
+          <a class="btn btn-success btn-next ms-auto" href="../systemd/">
+            Installing as a systemd service
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

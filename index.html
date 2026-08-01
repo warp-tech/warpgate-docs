@@ -7,6 +7,17 @@
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Home">
+  <meta property="og:description" content="Securely expose your internal services to the internet">
+  <meta property="og:url" content="https://warpgate.null.page/">
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Home">
+  <meta name="twitter:description" content="Securely expose your internal services to the internet">
+  <link rel="canonical" href="https://warpgate.null.page/">
 
   <script>
     window.base_url = '/' // for search
@@ -22,27 +33,27 @@
     });
   </script>
   <script src="https://openpanel.dev/op1.js" defer async></script>
-  <script type="module" crossorigin src="/assets/app-B0UvMIkB.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-C_T3W5uz.css">
+  <script type="module" crossorigin src="/assets/app-BHU_zUbz.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-cFygfl72.css">
 </head>
 
 <body>
   <header class="container text-nowrap">
-    <a href="/" class="me-auto">
-      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    <a href="/" class="me-auto" aria-label="Warpgate home">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" alt="Warpgate" />
     </a>
 
     
       <div class="m-auto"></div>
     
 
-    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank" rel="noopener noreferrer">GitHub</a>
 
     
     <a class="btn btn-link btn-sm d-none d-md-inline-block" href="/docs">Docs</a>
     
 
-    <a class="btn btn-link btn-sm" href="/for-business" target="_blank">Warpgate for Business &rarr;</a>
+    <a class="btn btn-link btn-sm" href="/for-business">Warpgate for Business &rarr;</a>
   </header>
 
   <div id="mkdocs-search-results" class="container search-results"></div>
@@ -50,16 +61,15 @@
   <div class="layout container">
     
 
-    <div class="page-content">
+    <main class="page-content">
       <article>
         <div class="homepage mb-5">
     <div class="row mt-5 jumbo-row">
         <div class="col-lg-6 jumbo">
             <h1>The last bastion.</h1>
-            <p class="lead title">Secure access / PAM for your internal SSH, HTTPS, MySQL, Postgres and Kubernetes servers with SSO and RBAC.</p>
-            <p class="lead subtitle">No client apps.</p>
+            <p class="lead title">Secure access to SSH, HTTPS, RDP, VNC, Kubernetes, PostgreSQL and MySQL targets with SSO and RBAC.</p>
+            <p class="lead subtitle">No client app.</p>
             <div class="buttons d-flex flex-column align-items-start">
-
                 <a class="btn btn-success d-block" href="/getting-started-on-docker">Get started with Docker &rarr;</a>
 
                 <a class="btn btn-secondary d-block" href="/getting-started">Get started (native) &rarr;</a>
@@ -80,7 +90,7 @@
                 Warpgate is a fully transparent proxy/bastion for your internal infrastructure that lets you skip manual <code>authorized_keys</code> management and both assign and audit access in a single place.
             </p>
             <p>
-                It is an alternative to Teleport-style PAMs or a VPN, minus the client apps and connection rituals for your users must learn.
+                It is an alternative to Teleport-style PAMs or a VPN, minus the client apps and connection rituals that your users must learn.
             </p>
             <p>
                 Get it running in 15 minutes:
@@ -104,6 +114,7 @@
                 <div>Connect your VSCode through it.</div>
                 <div>Use it in your <code>DATABASE_URL</code>.</div>
                 <div>Connect to your Kubernetes clusters.</div>
+                <div>Open RDP and VNC desktops with a native client or in your browser.</div>
                 <div>Or just open a terminal in your browser.</div>
             </p>
             <h2>Not a jump host</h2>
@@ -121,7 +132,7 @@
             <p>
                 Warpgate is a single binary (or a Docker image) that you download and run locally on your own infrastructure.
             </p>
-            <h2>No paid plan</h2>
+            <h2>No paywalls</h2>
             <p>
                 Warpgate is 100% open-source, free and will stay this way forever.
             </p>
@@ -253,7 +264,11 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
     }
 
     .jumbo h1 {
-        font-size: 4rem;
+        font-size: 7rem;
+        letter-spacing: -0.035em;
+        line-height: 6rem;
+        margin-bottom: 1rem;
+        text-indent: -1rem;
     }
 
     .jumbo .buttons {
@@ -314,7 +329,7 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
       </article>
 
       
-    </div>
+    </main>
   </div>
 
   <hr class="mt-5" />

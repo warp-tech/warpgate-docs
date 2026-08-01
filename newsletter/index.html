@@ -3,21 +3,21 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Chaining Warpgates - Warpgate</title>
+  <title>Staying in the loop - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Securely expose your internal services to the internet">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Chaining Warpgates">
+  <meta property="og:title" content="Staying in the loop">
   <meta property="og:description" content="Securely expose your internal services to the internet">
-  <meta property="og:url" content="https://warpgate.null.page/chaining/">
+  <meta property="og:url" content="https://warpgate.null.page/newsletter/">
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Chaining Warpgates">
+  <meta name="twitter:title" content="Staying in the loop">
   <meta name="twitter:description" content="Securely expose your internal services to the internet">
-  <link rel="canonical" href="https://warpgate.null.page/chaining/">
+  <link rel="canonical" href="https://warpgate.null.page/newsletter/">
 
   <script>
     window.base_url = '/' // for search
@@ -186,7 +186,7 @@
           <ul>
             
             <li>
-              <a class="" href="../newsletter/">Staying in the loop</a>
+              <a class="text-success" href="./">Staying in the loop</a>
             </li>
             
             <li>
@@ -226,7 +226,7 @@
             </li>
             
             <li>
-              <a class="text-success" href="./">Chaining Warpgates</a>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
             </li>
             
             <li>
@@ -263,50 +263,45 @@
 
     <main class="page-content">
       <article>
-        <h1 id="chaining-warpgates">Chaining Warpgates<a class="headerlink" href="#chaining-warpgates" title="Permanent link">§</a></h1>
-<p>Sometimes exposing a host on the network to the outside is not an option. In this case you can opt to forward connections from one Warpgate to another.</p>
-<p>NOTE: This is fully transparent to the client (except for the double "warpgate connected" message in interactive sessions) - there are no SSH "jump hosts" involved in this setup.</p>
-<h2 id="copy-outer-warpgates-public-key">Copy outer Warpgate's public key<a class="headerlink" href="#copy-outer-warpgates-public-key" title="Permanent link">§</a></h2>
-<ul>
-<li>Run <code>warpgate client-keys</code> and copy the Ed25519 public key:</li>
-</ul>
-<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>➜  ~ warpgate client-keys
-16:55:10  INFO Using config: &quot;/etc/warpgate.yaml&quot; (users: 1, targets: 6, roles: 1)
-Warpgate SSH client keys:
-(add these to your target&#39;s authorized_keys file)
-
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAxxxx+3RBsT5  # &lt;-- this line
-rsa-sha2-256 AAAADHJzYS1zaGEyLTI1Ngxxxx
-</code></pre></div>
-<h2 id="set-up-inner-warpgate">Set up inner Warpgate<a class="headerlink" href="#set-up-inner-warpgate" title="Permanent link">§</a></h2>
-<ul>
-<li>Add your targets as usual (in this example: <code>inner-server</code>).</li>
-<li>Add a "jump user" (here we'll be using <code>wg-jump</code> as a username) and add the outer Warpgate's public key as a credential.</li>
-<li>Check connection to the target with <code>warpgate test-target inner-server</code></li>
-</ul>
-<h2 id="set-up-outer-warpgate">Set up outer Warpgate<a class="headerlink" href="#set-up-outer-warpgate" title="Permanent link">§</a></h2>
-<ul>
-<li>Add the targets on the inner network again, using the inner Warpgate's address and port, as well as the Warpgate-style username:<ul>
-<li>Host: <code>&lt;inner Warpgate's IP&gt;</code></li>
-<li>Port: <code>&lt;inner Warpgate's SSH port&gt;</code></li>
-<li>Username: <code>wg-jump:inner-server</code></li>
-</ul>
-</li>
-<li>Check your config with <code>warpgate check</code>.</li>
-<li>Check connection to the target <em>through the inner Warpgate</em> on the outer Warpgate with <code>warpgate test-target inner-server</code></li>
-</ul>
-<h2 id="connect">Connect<a class="headerlink" href="#connect" title="Permanent link">§</a></h2>
-<p>You can now grab the connection command from the landing page (or the admin UI) as usual and test it on a client:</p>
-<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>ssh &lt;username&gt;:inner-server@&lt;outer-warpgate&gt; -p &lt;outer-wg-port&gt;
-</code></pre></div>
+        <h1 id="staying-in-the-loop">Staying in the loop<a class="headerlink" href="#staying-in-the-loop" title="Permanent link">§</a></h1>
+<p>Warpgate has an ops newsletter that includes major release updates, security and ops bulletins, and none of the marketing. You can subscribe to it below.</p>
+<p>You can also review <a href="https://github.com/warp-tech/warpgate/releases">every minor update's release notes</a> and the <a href="https://github.com/warp-tech/warpgate/security/advisories">public vulnerability advisories</a> on GitHub.</p>
+<form action="https://app.keila.io/forms/nfrm_zVqWka3q" class="contact-form container rounded py-4 pb-8" method="post" style="background-color:#14141a!important;color:#c1c9e4!important">
+  <div class="mb-3">
+    <label for="contact_email" class="form-label">
+      Email
+    </label>
+    <input class="form-control" id="contact_email" name="contact[email]" type="email" />
+  </div>
+  <div class="mb-3">
+    <label for="contact_data_name" class="form-label">
+      Name (optional)
+    </label>
+    <input class="form-control" id="contact_data_name" name="contact[data][name]"  type="text" />
+  </div>
+  <div class="mb-3">
+    <label for="contact_data_company" class="form-label">
+      Company (optional)
+    </label>
+    <input class="form-control" id="contact_data_company" name="contact[data][company]" type="text" />
+  </div>
+  <input aria-hidden="true" autocomplete="off" name="h[url]" novalidate="" style="display: none" />
+  <div class="mb-4">
+    <div class="h-captcha" data-sitekey="a1c5fab7-71df-4ea4-af75-87a3d07c61de" data-theme="dark"></div>
+    <script async defer src="https://hcaptcha.com/1/api.js"></script>
+  </div>
+  <button class="btn btn-primary btn-lg" style="background-color:#223010!important;color:#c3e0a0!important" type="submit">
+    Subscribe
+  </button>
+</form>
       </article>
 
       
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../sni/">
+          <a class="btn btn-secondary btn-prev" href="../recovering-access/">
             &larr;
-            TLS SNI
+            Recovering admin access
             <br/>
             <small class="text-muted">
               Previous
@@ -316,8 +311,8 @@ rsa-sha2-256 AAAADHJzYS1zaGEyLTI1Ngxxxx
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../protocol-support/">
-            Protocol support
+          <a class="btn btn-success btn-next ms-auto" href="../reverse-proxy/">
+            Running behind a reverse proxy
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

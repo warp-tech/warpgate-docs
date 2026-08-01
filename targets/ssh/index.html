@@ -7,6 +7,17 @@
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SSH">
+  <meta property="og:description" content="Securely expose your internal services to the internet">
+  <meta property="og:url" content="https://warpgate.null.page/targets/ssh/">
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="SSH">
+  <meta name="twitter:description" content="Securely expose your internal services to the internet">
+  <link rel="canonical" href="https://warpgate.null.page/targets/ssh/">
 
   <script>
     window.base_url = '/' // for search
@@ -22,14 +33,14 @@
     });
   </script>
   <script src="https://openpanel.dev/op1.js" defer async></script>
-  <script type="module" crossorigin src="/assets/app-B0UvMIkB.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-C_T3W5uz.css">
+  <script type="module" crossorigin src="/assets/app-BHU_zUbz.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-cFygfl72.css">
 </head>
 
 <body>
   <header class="container text-nowrap">
-    <a href="/" class="me-auto">
-      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    <a href="/" class="me-auto" aria-label="Warpgate home">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" alt="Warpgate" />
     </a>
 
     
@@ -38,11 +49,11 @@
       </form>
     
 
-    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank" rel="noopener noreferrer">GitHub</a>
 
     
 
-    <a class="btn btn-link btn-sm" href="/for-business" target="_blank">Warpgate for Business &rarr;</a>
+    <a class="btn btn-link btn-sm" href="/for-business">Warpgate for Business &rarr;</a>
   </header>
 
   <div id="mkdocs-search-results" class="container search-results"></div>
@@ -118,6 +129,14 @@
               <a class="" href="../kubernetes/">Kubernetes</a>
             </li>
             
+            <li>
+              <a class="" href="../rdp/">RDP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../vnc/">VNC</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -163,8 +182,20 @@
         
         
         
-        <li>Ops
+        <li>Operations
           <ul>
+            
+            <li>
+              <a class="" href="../../newsletter/">Staying in the loop</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../clustering/">Running a cluster</a>
+            </li>
             
             <li>
               <a class="" href="../../systemd/">Installing as a systemd service</a>
@@ -172,10 +203,6 @@
             
             <li>
               <a class="" href="../../log-forwarding/">Log forwarding</a>
-            </li>
-            
-            <li>
-              <a class="" href="../../reverse-proxy/">Running behind a reverse proxy</a>
             </li>
             
             <li>
@@ -210,34 +237,76 @@
         </li>
         
         
+        
+        <li>Compare
+          <ul>
+            
+            <li>
+              <a class="" href="../../warpgate-vs-teleport/">Warpgate vs. Teleport</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../warpgate-vs-boundary/">Warpgate vs. Boundary</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../warpgate-vs-strongdm/">Warpgate vs. StrongDM</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
       </ul>
     </div>
     
 
-    <div class="page-content">
+    <main class="page-content">
       <article>
         <h1 id="adding-ssh-targets">Adding SSH targets<a class="headerlink" href="#adding-ssh-targets" title="Permanent link">§</a></h1>
 <h2 id="authentication-setup">Authentication setup<a class="headerlink" href="#authentication-setup" title="Permanent link">§</a></h2>
 <h3 id="preferred-public-key-auth">Preferred: public-key auth<a class="headerlink" href="#preferred-public-key-auth" title="Permanent link">§</a></h3>
 <p>Warpgate has its own set of SSH keys which the target host must trust in order for connections to work.</p>
-<p>You can view these keys on the <code>Config</code> -&gt; <code>SSH keys</code> page of the Admin UI, or via the <code>warpgate client-keys</code> CLI command:</p>
+<p>The keys are stored in Warpgate's database and shared across all nodes of a cluster, so you never need to copy them between nodes by hand. On a fresh install Warpgate generates an Ed25519 and an RSA key automatically. Any keys found in the legacy on-disk location are imported into the database once, on first startup.</p>
+<p>Manage the keys on the <code>Config</code> -&gt; <code>SSH keys</code> page of the Admin UI:</p>
 <figure>
 <p><img alt="" src="../../images/ssh-keys.png" /></p>
 <figcaption>
 <p>Warpgate's public keys</p>
 </figcaption>
 </figure>
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
+
+<ul>
+<li><strong>Generate</strong> a new Ed25519 or RSA key,</li>
+<li><strong>Import</strong> an existing private key (OpenSSH or PKCS#8 PEM format, without a passphrase),</li>
+<li><strong>rename</strong> a key,</li>
+<li>mark one or more keys as <strong>default</strong>,</li>
+<li><strong>delete</strong> any key, except the last remaining one.</li>
+</ul>
+<p><em>Default</em> keys are the ones offered to a target that doesn't select a specific key (see <a href="#choosing-a-key-per-target">Choosing a key per target</a> below).</p>
+<p>You can also list the public keys with the <code>warpgate client-keys</code> CLI command:</p>
 <div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>$ warpgate client-keys
 13:59:41  INFO Using config: &quot;/etc/warpgate.yaml&quot; (users: 1, targets: 2, roles: 1)
 Warpgate SSH client keys:
 (add these to your target&#39;s authorized_keys file)
 
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE[...]aM+3RBsT5
-rsa-sha2-256 AAAADHJzYS[...]
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE[...]aM+3RBsT5 client-ed25519 (default)
+rsa-sha2-256 AAAADHJzYS[...] client-rsa (default)
 </code></pre></div>
-<p>The keys are listed in the order of preference. Copy one of them and paste it at the end of the <code>~/.ssh/authorized_keys</code> file on the other side (each target host OS' user has their own <code>authorized_keys</code> file and you will need to create it if it doesn't exist yet).</p>
+<p>Copy one of them and paste it at the end of the <code>~/.ssh/authorized_keys</code> file on the target host (each target host OS user has their own <code>authorized_keys</code> file and you will need to create it if it doesn't exist yet).</p>
+<h4 id="choosing-a-key-per-target">Choosing a key per target<a class="headerlink" href="#choosing-a-key-per-target" title="Permanent link">§</a></h4>
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
+
+<p>An SSH target using public-key authentication is offered every <em>default</em> key by default. When editing the target, you can instead pick a <strong>specific key</strong> from the drop-down — useful when a host trusts only one particular key. If that key is later deleted, the target falls back to the default keys.</p>
 <h3 id="alternative-password-authentication">Alternative: password authentication<a class="headerlink" href="#alternative-password-authentication" title="Permanent link">§</a></h3>
 <p>Although not recommended, you can use a password to authenticate against a target instead.</p>
+<h3 id="alternative-aws-ec2-instance-connect">Alternative: AWS EC2 Instance Connect<a class="headerlink" href="#alternative-aws-ec2-instance-connect" title="Permanent link">§</a></h3>
+<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
+
+<p>If Warpgate runs on an EC2 instance, it can authenticate to EC2 SSH targets using <strong>EC2 Instance Connect</strong> — no key or password is stored on the target. Select <strong>IAM Role</strong> as the target's authentication method (this option only appears when Warpgate detects it is running on EC2).</p>
+<p>When a user connects, Warpgate looks up the EC2 instance by its IP address, pushes its managed public key to the instance via EC2 Instance Connect, and authenticates with it. The target <code>username</code> is used as the instance OS user (e.g. <code>ec2-user</code>).</p>
+<p>Warpgate's IAM role needs <code>ec2:DescribeRegions</code>, <code>ec2:DescribeInstances</code> and <code>ec2-instance-connect:SendSSHPublicKey</code>.</p>
 <h2 id="connection-setup">Connection setup<a class="headerlink" href="#connection-setup" title="Permanent link">§</a></h2>
 <p>Log into the Warpgate admin UI and navigate to <code>Config</code> &gt; <code>Targets</code> &gt; <code>Add target</code> and give the new target a name:</p>
 <figure>
@@ -311,6 +380,13 @@ c.wilde:staging-env@warpgate.acme.inc&#39;s password:
 <p>SSH session recording</p>
 </figcaption>
 </figure>
+<h2 id="shell-command-auditing">Shell command auditing<a class="headerlink" href="#shell-command-auditing" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
+
+<p>For interactive shell sessions, Warpgate will try to record the commands a user types as separate log entries for auditing. Detected commands appear tagged with <code>Shell command</code> entries in the session log.</p>
+<p>This is a <strong>heuristic audit aid, not a security boundary</strong>: it is impossible to prevent a user from purposedly obscuring their inputs in an unlimited shell.</p>
+<h2 id="connecting-to-legacy-servers">Connecting to legacy servers<a class="headerlink" href="#connecting-to-legacy-servers" title="Permanent link">§</a></h2>
+<p>By default Warpgate only offers modern, secure key-exchange and encryption algorithms. To reach an older device that only supports legacy algorithms (DH groups 1/14, 3DES, HMAC-SHA1 or RSA-SHA1), enable <strong>Allow insecure algorithms</strong>.</p>
 <h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
 <ul>
 <li><a href="../../auth/">User authentication</a></li>
@@ -341,7 +417,7 @@ c.wilde:staging-env@warpgate.acme.inc&#39;s password:
         
       </div>
       
-    </div>
+    </main>
   </div>
 
   <hr class="mt-5" />

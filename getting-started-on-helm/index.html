@@ -7,6 +7,17 @@
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Helm">
+  <meta property="og:description" content="Securely expose your internal services to the internet">
+  <meta property="og:url" content="https://warpgate.null.page/getting-started-on-helm/">
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Helm">
+  <meta name="twitter:description" content="Securely expose your internal services to the internet">
+  <link rel="canonical" href="https://warpgate.null.page/getting-started-on-helm/">
 
   <script>
     window.base_url = '/' // for search
@@ -22,14 +33,14 @@
     });
   </script>
   <script src="https://openpanel.dev/op1.js" defer async></script>
-  <script type="module" crossorigin src="/assets/app-B0UvMIkB.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-C_T3W5uz.css">
+  <script type="module" crossorigin src="/assets/app-BHU_zUbz.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-cFygfl72.css">
 </head>
 
 <body>
   <header class="container text-nowrap">
-    <a href="/" class="me-auto">
-      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    <a href="/" class="me-auto" aria-label="Warpgate home">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" alt="Warpgate" />
     </a>
 
     
@@ -38,11 +49,11 @@
       </form>
     
 
-    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank" rel="noopener noreferrer">GitHub</a>
 
     
 
-    <a class="btn btn-link btn-sm" href="/for-business" target="_blank">Warpgate for Business &rarr;</a>
+    <a class="btn btn-link btn-sm" href="/for-business">Warpgate for Business &rarr;</a>
   </header>
 
   <div id="mkdocs-search-results" class="container search-results"></div>
@@ -118,6 +129,14 @@
               <a class="" href="../targets/kubernetes/">Kubernetes</a>
             </li>
             
+            <li>
+              <a class="" href="../targets/rdp/">RDP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/vnc/">VNC</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -163,8 +182,20 @@
         
         
         
-        <li>Ops
+        <li>Operations
           <ul>
+            
+            <li>
+              <a class="" href="../newsletter/">Staying in the loop</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+            <li>
+              <a class="" href="../clustering/">Running a cluster</a>
+            </li>
             
             <li>
               <a class="" href="../systemd/">Installing as a systemd service</a>
@@ -172,10 +203,6 @@
             
             <li>
               <a class="" href="../log-forwarding/">Log forwarding</a>
-            </li>
-            
-            <li>
-              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
             </li>
             
             <li>
@@ -210,11 +237,31 @@
         </li>
         
         
+        
+        <li>Compare
+          <ul>
+            
+            <li>
+              <a class="" href="../warpgate-vs-teleport/">Warpgate vs. Teleport</a>
+            </li>
+            
+            <li>
+              <a class="" href="../warpgate-vs-boundary/">Warpgate vs. Boundary</a>
+            </li>
+            
+            <li>
+              <a class="" href="../warpgate-vs-strongdm/">Warpgate vs. StrongDM</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
       </ul>
     </div>
     
 
-    <div class="page-content">
+    <main class="page-content">
       <article>
         <h1 id="getting-started-on-helm">Getting started on Helm<a class="headerlink" href="#getting-started-on-helm" title="Permanent link">§</a></h1>
 <div class="badge font-xs text-bg-warning mb-3">The Helm chart is community-maintained</div>
@@ -398,6 +445,10 @@ kubectl<span style="color: #6E7681"> </span>create<span style="color: #6E7681"> 
 <div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">ssh_keys_secret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-ssh-keys&quot;</span>
 <span style="color: #7EE787">tls_cert_secret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-tls&quot;</span>
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As of v0.27 the <code>client-*</code> keys live in Warpgate's database. Including them in the secret only seeds them on first startup and is optional — Warpgate generates its own if none are provided, and in a multi-replica deployment the client keys are shared through the database rather than mounted on every replica. The <code>host-*</code> keys are still read from the secret.</p>
+</div>
 <h3 id="custom-configuration">Custom Configuration<a class="headerlink" href="#custom-configuration" title="Permanent link">§</a></h3>
 <p>To provide a full custom Warpgate configuration:</p>
 <div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">overrides_config</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">|</span>
@@ -482,7 +533,7 @@ kubectl<span style="color: #6E7681"> </span>describe<span style="color: #6E7681"
         
       </div>
       
-    </div>
+    </main>
   </div>
 
   <hr class="mt-5" />

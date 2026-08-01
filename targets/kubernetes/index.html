@@ -7,6 +7,17 @@
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kubernetes">
+  <meta property="og:description" content="Securely expose your internal services to the internet">
+  <meta property="og:url" content="https://warpgate.null.page/targets/kubernetes/">
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Kubernetes">
+  <meta name="twitter:description" content="Securely expose your internal services to the internet">
+  <link rel="canonical" href="https://warpgate.null.page/targets/kubernetes/">
 
   <script>
     window.base_url = '/' // for search
@@ -22,14 +33,14 @@
     });
   </script>
   <script src="https://openpanel.dev/op1.js" defer async></script>
-  <script type="module" crossorigin src="/assets/app-B0UvMIkB.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-C_T3W5uz.css">
+  <script type="module" crossorigin src="/assets/app-BHU_zUbz.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-cFygfl72.css">
 </head>
 
 <body>
   <header class="container text-nowrap">
-    <a href="/" class="me-auto">
-      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" />
+    <a href="/" class="me-auto" aria-label="Warpgate home">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" alt="Warpgate" />
     </a>
 
     
@@ -38,11 +49,11 @@
       </form>
     
 
-    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank">GitHub</a>
+    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank" rel="noopener noreferrer">GitHub</a>
 
     
 
-    <a class="btn btn-link btn-sm" href="/for-business" target="_blank">Warpgate for Business &rarr;</a>
+    <a class="btn btn-link btn-sm" href="/for-business">Warpgate for Business &rarr;</a>
   </header>
 
   <div id="mkdocs-search-results" class="container search-results"></div>
@@ -118,6 +129,14 @@
               <a class="text-success" href="./">Kubernetes</a>
             </li>
             
+            <li>
+              <a class="" href="../rdp/">RDP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../vnc/">VNC</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -163,8 +182,20 @@
         
         
         
-        <li>Ops
+        <li>Operations
           <ul>
+            
+            <li>
+              <a class="" href="../../newsletter/">Staying in the loop</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../clustering/">Running a cluster</a>
+            </li>
             
             <li>
               <a class="" href="../../systemd/">Installing as a systemd service</a>
@@ -172,10 +203,6 @@
             
             <li>
               <a class="" href="../../log-forwarding/">Log forwarding</a>
-            </li>
-            
-            <li>
-              <a class="" href="../../reverse-proxy/">Running behind a reverse proxy</a>
             </li>
             
             <li>
@@ -210,18 +237,38 @@
         </li>
         
         
+        
+        <li>Compare
+          <ul>
+            
+            <li>
+              <a class="" href="../../warpgate-vs-teleport/">Warpgate vs. Teleport</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../warpgate-vs-boundary/">Warpgate vs. Boundary</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../warpgate-vs-strongdm/">Warpgate vs. StrongDM</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
       </ul>
     </div>
     
 
-    <div class="page-content">
+    <main class="page-content">
       <article>
         <h1 id="adding-a-kubernetes-target">Adding a Kubernetes target<a class="headerlink" href="#adding-a-kubernetes-target" title="Permanent link">§</a></h1>
 <div class="badge font-xs text-bg-warning mb-3">v0.21+</div>
 
 <p>Warpgate allows you to securely access Kubernetes clusters through a unified entry point, providing auditing and session recording for all API requests.</p>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">§</a></h2>
-<p>When you add a Kubernetes target, Warpgate acts as an authenticating proxy for the Kubernetes API. Users connect to Warpgate using their own credentials (either an API token or a client certificate), and Warpgate then connects to the upstream Kubernetes cluster using the authentication details you've configured.</p>
+<p>When you add a Kubernetes target, Warpgate acts as an authenticating proxy for the Kubernetes API. Users connect to Warpgate with their own credentials — a client certificate, a Warpgate API token, or <a href="#single-sign-on-with-kubelogin">single sign-on via kubelogin</a> — and Warpgate connects to the upstream cluster using the authentication you've configured (a client certificate, a bearer token, or an <a href="#aws-eks-iam-authentication">EKS IAM role</a>).</p>
 <p>All requests are recorded and can be audited later.</p>
 <h2 id="enabling-kubernetes-listener">Enabling Kubernetes listener<a class="headerlink" href="#enabling-kubernetes-listener" title="Permanent link">§</a></h2>
 <p>Enable the Kubernetes protocol in your config file (default: <code>/etc/warpgate.yaml</code>) if you didn't do so during the initial setup:</p>
@@ -273,6 +320,37 @@
 </figcaption>
 </figure>
 <p>Warpgate records API calls and can replay <code>exec</code>, <code>run</code> and <code>attach</code> sessions.</p>
+<h2 id="aws-eks-iam-authentication">AWS EKS IAM authentication<a class="headerlink" href="#aws-eks-iam-authentication" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
+
+<p>If Warpgate runs on AWS, it can authenticate to an EKS cluster using its IAM role instead of a stored certificate or token. Select <strong>IAM Role</strong> as the target's authentication method (shown only when Warpgate detects it is running on EC2). Warpgate resolves the EKS cluster from the cluster URL and generates a short-lived EKS token.</p>
+<p>Map Warpgate's IAM role to a Kubernetes user or group in the cluster's access configuration (<code>aws-auth</code> ConfigMap or access entries).</p>
+<h2 id="single-sign-on-with-kubelogin">Single sign-on with kubelogin<a class="headerlink" href="#single-sign-on-with-kubelogin" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
+
+<p>Instead of a Warpgate-issued client certificate, users can authenticate to Kubernetes targets over SSO, using the <a href="https://github.com/int128/kubelogin">kubelogin</a> (<code>oidc-login</code>) <code>kubectl</code> plugin to obtain an OIDC token directly from the OIDC provider.</p>
+<p>To enable it, add a <code>kubernetes</code> block to a <code>custom</code> (issuer-based) SSO provider in your config file:</p>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
+<span style="color: #6E7681"> </span>   - name: my-idp
+<span style="color: #6E7681"> </span>     label: Company SSO
+<span style="color: #6E7681"> </span>     provider:
+<span style="color: #6E7681"> </span>       type: custom
+<span style="color: #6E7681"> </span>       client_id: ...
+<span style="color: #6E7681"> </span>       client_secret: ...
+<span style="color: #6E7681"> </span>       issuer_url: https://sso.acme.inc
+<span style="color: #6E7681"> </span>       scopes: [&quot;email&quot;]
+<span style="color: #56D364; background-color: #0F5323">+       additional_trusted_audiences: [&quot;kubernetes&quot;]</span>
+<span style="color: #56D364; background-color: #0F5323">+   kubernetes:</span>
+<span style="color: #56D364; background-color: #0F5323">+     client_id: kubernetes                     # the OIDC client id kubectl will use</span>
+<span style="color: #56D364; background-color: #0F5323">+     # scopes: [&quot;openid&quot;, &quot;email&quot;, &quot;profile&quot;]  # optional</span>
+<span style="color: #56D364; background-color: #0F5323">+     # client_secret: ...                      # optional, for confidential clients</span>
+</code></pre></div>
+<ul>
+<li>Only <code>custom</code> (issuer-based) providers can be used for Kubernetes SSO.</li>
+<li>The <code>client_id</code> you set under <code>kubernetes</code> must also appear in the provider's <code>additional_trusted_audiences</code>, so that tokens <code>kubectl</code> obtains are accepted.</li>
+<li>Users need the <code>kubelogin</code> (<code>oidc-login</code>) <code>kubectl</code> plugin installed.</li>
+</ul>
+<p>Once configured, the target's <strong>Access instructions</strong> dialog offers an "OIDC with kubelogin" option that generates a ready-to-use <code>kubeconfig</code>, alongside the certificate option.</p>
       </article>
 
       
@@ -290,8 +368,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../../auth/">
-            User authentication
+          <a class="btn btn-success btn-next ms-auto" href="../rdp/">
+            RDP
             &rarr;
             <br/>
             <small class="text-muted">Next</small>
@@ -299,7 +377,7 @@
         
       </div>
       
-    </div>
+    </main>
   </div>
 
   <hr class="mt-5" />

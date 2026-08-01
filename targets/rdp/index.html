@@ -3,21 +3,21 @@
 
 <head>
   <meta charset="utf-8">
-  <title>MySQL - Warpgate</title>
+  <title>RDP - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Securely expose your internal services to the internet">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="MySQL">
+  <meta property="og:title" content="RDP">
   <meta property="og:description" content="Securely expose your internal services to the internet">
-  <meta property="og:url" content="https://warpgate.null.page/targets/mysql/">
+  <meta property="og:url" content="https://warpgate.null.page/targets/rdp/">
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="MySQL">
+  <meta name="twitter:title" content="RDP">
   <meta name="twitter:description" content="Securely expose your internal services to the internet">
-  <link rel="canonical" href="https://warpgate.null.page/targets/mysql/">
+  <link rel="canonical" href="https://warpgate.null.page/targets/rdp/">
 
   <script>
     window.base_url = '/' // for search
@@ -118,7 +118,7 @@
             </li>
             
             <li>
-              <a class="text-success" href="./">MySQL</a>
+              <a class="" href="../mysql/">MySQL</a>
             </li>
             
             <li>
@@ -130,7 +130,7 @@
             </li>
             
             <li>
-              <a class="" href="../rdp/">RDP</a>
+              <a class="text-success" href="./">RDP</a>
             </li>
             
             <li>
@@ -263,76 +263,71 @@
 
     <main class="page-content">
       <article>
-        <h1 id="adding-mysql-targets">Adding MySQL targets<a class="headerlink" href="#adding-mysql-targets" title="Permanent link">§</a></h1>
-<h2 id="authentication-setup">Authentication setup<a class="headerlink" href="#authentication-setup" title="Permanent link">§</a></h2>
-<p>Warpgate connects to MySQL and MariaDB servers with a username and password, negotiating whichever authentication plugin the server offers: <code>mysql_native_password</code>, <code>sha256_password</code> or <code>caching_sha2_password</code> (v0.27+).</p>
-<p>As a MySQL protocol server (towards clients), Warpgate only allows secure (TLS) connections and uses the <code>mysql_clear_password</code> auth mode.</p>
-<h2 id="enabling-mysql-listener">Enabling MySQL listener<a class="headerlink" href="#enabling-mysql-listener" title="Permanent link">§</a></h2>
-<p>Enable the MySQL protocol in your config file (default: <code>/etc/warpgate.yaml</code>) if you didn't do so during the initial setup:</p>
-<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #56D364; background-color: #0F5323">+ mysql:</span>
+        <h1 id="adding-rdp-targets">Adding RDP targets<a class="headerlink" href="#adding-rdp-targets" title="Permanent link">§</a></h1>
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
+
+<p>Warpgate can proxy Microsoft <strong>RDP</strong> (Remote Desktop) connections, giving them the same authentication, access control and session recording as the other protocols. Users connect with a standard RDP client (mstsc.exe, FreeRDP, Remmina, …) or open the desktop <strong>directly in their browser</strong>.</p>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">§</a></h2>
+<p>Warpgate terminates the viewer's RDP connection and authenticates the user with their Warpgate credentials, then opens a fresh connection to the upstream host over TLS + CredSSP (NLA), logging in with the credentials you configured on the target. The entire session is recorded, including user inputs.</p>
+<h2 id="enabling-the-rdp-listener">Enabling the RDP listener<a class="headerlink" href="#enabling-the-rdp-listener" title="Permanent link">§</a></h2>
+<p>Enable the RDP protocol in your config file (default: <code>/etc/warpgate.yaml</code>) if you didn't do so during the initial setup:</p>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #56D364; background-color: #0F5323">+ rdp:</span>
 <span style="color: #56D364; background-color: #0F5323">+   enable: true</span>
+<span style="color: #56D364; background-color: #0F5323">+   listen: &#39;[::]:3389&#39;</span>
 <span style="color: #56D364; background-color: #0F5323">+   certificate: /var/lib/warpgate/tls.certificate.pem</span>
 <span style="color: #56D364; background-color: #0F5323">+   key: /var/lib/warpgate/tls.key.pem</span>
 </code></pre></div>
 <p>You can reuse the same certificate and key that are used for the HTTP listener.</p>
 <h2 id="connection-setup">Connection setup<a class="headerlink" href="#connection-setup" title="Permanent link">§</a></h2>
-<p>Log into the Warpgate admin UI and navigate to <code>Config</code> &gt; <code>Targets</code> &gt; <code>Add target</code> and give the new MySQL target a name:</p>
+<p>Log into the Warpgate admin UI, navigate to <code>Config</code> &gt; <code>Targets</code> &gt; <code>Add target</code>, select <strong>RDP</strong> and give the new target a name.</p>
+<p>Fill out the connection and authentication info:</p>
 <figure>
-<p><img alt="" src="../../images/adding-mysql.png" /></p>
+<p><img alt="Screenshot: RDP target configuration" src="../../images/rdp-config.png" /></p>
 <figcaption>
-<p>Adding a MySQL target</p>
+<p>RDP target configuration</p>
 </figcaption>
 </figure>
-<p>Fill out the configuration:</p>
-<figure>
-<p><img alt="" src="../../images/mysql-config.png" /></p>
-<figcaption>
-<p>MySQL target configuration</p>
-</figcaption>
-</figure>
-<p>The target should show up on the Warpgate's homepage:</p>
-<figure>
-<p><img alt="" src="../../images/mysql-on-home.png" /></p>
-<figcaption>
-<p>MySQL target on the homepage</p>
-</figcaption>
-</figure>
-<p>Users will be able to click the entry to obtain connection instructions:</p>
-<figure>
-<p><img alt="" src="../../images/mysql-instructions.png" /></p>
-<figcaption>
-<p>MySQL target on the homepage</p>
-</figcaption>
-</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most RDP servers use a self-signed certificate, which is why verification is turned off by default.</p>
+</div>
+<p>The target shows up on the Warpgate homepage for users allowed to access it.</p>
 <h2 id="client-setup">Client setup<a class="headerlink" href="#client-setup" title="Permanent link">§</a></h2>
-<p>You can now use any MySQL/MariaDB client applications to connect through Warpgate with the following settings:</p>
+<p>Users can connect in two ways.</p>
+<h3 id="in-the-browser">In the browser<a class="headerlink" href="#in-the-browser" title="Permanent link">§</a></h3>
+<p>Clicking the target opens a web-based desktop client in a new tab — no local RDP client required:</p>
+<figure>
+<p><img alt="Screenshot: RDP web desktop client" src="../../images/web-desktop.png" /></p>
+<figcaption>
+<p>In-browser RDP desktop</p>
+</figcaption>
+</figure>
+<p>The in-browser desktop can be turned off globally under <code>Config</code> &gt; <code>Global parameters</code>, leaving users with connection instructions only.</p>
+<h3 id="with-a-native-rdp-client">With a native RDP client<a class="headerlink" href="#with-a-native-rdp-client" title="Permanent link">§</a></h3>
+<p>Point an RDP client (mstsc, FreeRDP, Remmina, …) at:</p>
 <ul>
 <li>Host: the Warpgate host</li>
-<li>Port: the Warpgate MySQL port (default: 33306)</li>
-<li>Username: <code>admin#&lt;target-name&gt;</code> or <code>admin:&lt;target-name&gt;</code>, in this example: <code>admin#db1</code></li>
-<li>Password: your Warpgate admin password</li>
-<li>TLS : enabled</li>
-<li>Cleartext password authentication: allowed</li>
+<li>Port: the Warpgate RDP port (default: 3389)</li>
+<li>Username: <code>&lt;user&gt;:&lt;target-name&gt;</code> (for example <code>admin:vm1</code>)</li>
+<li>Password: user's Warpgate password</li>
 </ul>
-<p>If your client uses a database URL, use: <code>mysql://&lt;username&gt;#&lt;target&gt;:&lt;password&gt;@&lt;warpgate host&gt;:&lt;warpgate mysql port&gt;?sslMode=required</code></p>
-<p>While your MySQL session is running, you'll be able to see its status in the Admin UI, including the query log:</p>
+<p>Warpgate authenticates the viewer over NLA/CredSSP. If the account requires a second factor, Warpgate shows a holding screen inside the RDP session:</p>
 <figure>
-<p><img alt="" src="../../images/mysql-log.png" /></p>
+<p><img alt="Screenshot: RDP hold screen collecting a second factor" src="../../images/hold-screen.png" /></p>
 <figcaption>
-<p>MySQL session log</p>
+<p>Collecting a second factor during RDP login</p>
 </figcaption>
 </figure>
-<h3 id="aws-rds-iam-authentication">AWS RDS IAM authentication<a class="headerlink" href="#aws-rds-iam-authentication" title="Permanent link">§</a></h3>
-<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
-
-<p>If Warpgate runs on AWS, it can connect to an RDS instance using a short-lived IAM authentication token instead of a stored password. Select <strong>IAM Role</strong> as the target's authentication method (shown only when Warpgate detects it is running on EC2) and set the target username to the RDS database user.</p>
-<ul>
-<li>The RDS instance must have IAM database authentication enabled.</li>
-<li>Warpgate's IAM role needs the <code>rds-db:connect</code> action for that database user.</li>
-<li>The AWS region is derived from the RDS endpoint hostname.</li>
-</ul>
+<p>Once authenticated, Warpgate connects to the target and the desktop appears.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The target connection always uses TLS + CredSSP/NLA. The target must therefore accept NLA logons over TLS 1.2 (Windows 8 / Server 2012 or newer, or any NLA/CredSSP server such as xrdp).</p>
+</div>
+<h2 id="session-recording">Session recording<a class="headerlink" href="#session-recording" title="Permanent link">§</a></h2>
+<p>When session recording is enabled, RDP sessions are recorded as video and can be replayed from the Admin UI.</p>
 <h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
 <ul>
+<li><a href="../vnc/">Adding VNC targets</a></li>
 <li><a href="../../auth/">User authentication</a></li>
 </ul>
       </article>
@@ -340,9 +335,9 @@
       
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../http/">
+          <a class="btn btn-secondary btn-prev" href="../kubernetes/">
             &larr;
-            HTTP
+            Kubernetes
             <br/>
             <small class="text-muted">
               Previous
@@ -352,8 +347,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../postgres/">
-            PostgreSQL
+          <a class="btn btn-success btn-next ms-auto" href="../vnc/">
+            VNC
             &rarr;
             <br/>
             <small class="text-muted">Next</small>
