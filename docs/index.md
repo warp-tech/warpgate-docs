@@ -1,5 +1,7 @@
 ---
 special: home
+title: Warpgate — Open-Source, Clientless Bastion and PAM
+description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/VNC with SSO, RBAC and session recording—without proprietary client software.
 ---
 
 <div class="homepage mb-5">
@@ -85,9 +87,31 @@ special: home
         </div>
     </div>
 
+    <section class="production-foundations" aria-labelledby="production-foundations-title">
+        <div class="production-foundations-copy">
+            <h2 id="production-foundations-title">Production operations</h2>
+            <p>Run multiple Warpgate nodes behind a load balancer, share state through the database, and store recordings in S3-compatible object storage. Warpgate 0.27 also adds audited <a href="/targets/rdp/">RDP</a> and <a href="/targets/vnc/">VNC</a> desktop access.</p>
+            <a class="production-foundations-cta" href="/for-business/">Need help validating a production deployment? Get maintainer support &rarr;</a>
+        </div>
+        <div class="production-foundations-links" aria-label="Warpgate 0.27 production capability documentation">
+            <a href="/clustering/"><span>Multi-node clustering</span></a>
+            <a href="/clustering/#setup"><span>Shared database state</span></a>
+            <a href="/clustering/#setup"><span>S3-compatible recording storage</span></a>
+            <a href="https://github.com/warp-tech/warpgate/releases/"><span>Release notes</span></a>
+        </div>
+    </section>
+
 </div>
 
-<section class="comparison-section" aria-labelledby="comparison-title">
+<section class="automation-section" aria-labelledby="automation-title">
+    <div>
+        <p class="comparison-eyebrow">Operations</p>
+        <h2 id="automation-title">From five targets to hundreds</h2>
+    </div>
+    <p>Start in the admin UI, then manage larger installations through the API, <a href="https://github.com/warp-tech/terraform-provider-warpgate">Terraform</a>, <a href="/getting-started-on-helm/">Helm</a> or the <a href="/getting-started-on-kubernetes/">community-maintained Kubernetes operator</a>. </p>
+</section>
+
+<section class="comparison-section" aria-labelledby="comparison-title" data-overflow="false">
     <div class="comparison-heading">
         <div>
             <p class="comparison-eyebrow">At a glance</p>
@@ -96,6 +120,7 @@ special: home
         <p>Compare what users install, where access is enforced, what gets recorded and which infrastructure you operate.</p>
     </div>
 
+    <p class="comparison-scroll-hint" aria-hidden="true">Scroll horizontally to compare &rarr;</p>
     <div class="comparison-scroll" role="region" aria-label="Access gateway comparison" tabindex="0">
         <table class="comparison-table">
             <caption class="visually-hidden">Warpgate compared with an SSH jump host, a VPN, Teleport, StrongDM and HashiCorp Boundary.</caption>
@@ -216,7 +241,7 @@ special: home
 </section>
 
 <div class="how-it-be">
-    <h1> How does all this work?</h1>
+    <h2>How does all this work?</h2>
     <p class="mt-5">You download and run a single binary or a Docker container:</p>
     <img src="images/login.png" />
 
@@ -305,12 +330,101 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
         margin-bottom: 5rem;
     }
 
+    .production-foundations {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+        gap: clamp(1.5rem, 4vw, 3.5rem);
+        align-items: center;
+        margin: -1rem 0 5rem;
+        padding: clamp(1.5rem, 4vw, 2.25rem) 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .production-foundations h2,
+    .automation-section h2 {
+        margin: 0;
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        line-height: 1.08;
+        letter-spacing: -0.035em;
+    }
+
+    .production-foundations-copy > p:last-of-type,
+    .automation-section > p {
+        color: rgba(var(--bs-body-color-rgb), 0.72);
+        font-size: 1.05rem;
+        line-height: 1.65;
+        margin: 1rem 0 0;
+    }
+
+    .production-foundations-cta {
+        display: inline-flex;
+        margin-top: 1rem;
+        color: #c3e0a0;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .production-foundations-cta:hover,
+    .production-foundations-cta:focus-visible {
+        color: var(--bs-body-color);
+        text-decoration: underline;
+    }
+
+    .production-foundations-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+    }
+
+    .production-foundations-links a {
+        min-height: 4.25rem;
+        display: flex;
+        align-items: center;
+        padding: 0.95rem 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.035);
+        color: inherit;
+        font-weight: 700;
+        line-height: 1.25;
+        text-decoration: none;
+    }
+
+    .production-foundations-links a:hover,
+    .production-foundations-links a:focus-visible {
+        border-color: rgba(195, 224, 160, 0.45);
+        color: #c3e0a0;
+    }
+
     article {
         max-width: 100% !important;
     }
 
+    .automation-section {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(280px, 1.2fr);
+        gap: 2rem;
+        align-items: start;
+        margin: clamp(4.5rem, 9vw, 7rem) 0 0;
+        padding: 0 0 clamp(3rem, 6vw, 4.5rem);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .automation-section a {
+        font-weight: 700;
+    }
+
+    .automation-section span {
+        display: block;
+        margin-top: 0.55rem;
+        color: rgba(var(--bs-body-color-rgb), 0.56);
+        font-size: 0.88rem;
+    }
+
     .comparison-section {
         margin: clamp(5rem, 10vw, 8rem) 0 5rem;
+        max-width: 100%;
     }
 
     .comparison-heading {
@@ -347,7 +461,9 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
     }
 
     .comparison-scroll {
+        max-width: 100%;
         overflow-x: auto;
+        overscroll-behavior-x: contain;
         border: 1px solid rgba(255, 255, 255, 0.13);
         border-radius: 1.2rem;
         background: rgba(255, 255, 255, 0.025);
@@ -359,6 +475,19 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
     .comparison-scroll:focus-visible {
         outline: 3px solid #7ce7c1;
         outline-offset: 4px;
+    }
+
+    .comparison-scroll-hint {
+        display: none;
+        margin: -0.65rem 0 0.75rem;
+        color: rgba(var(--bs-body-color-rgb), 0.64);
+        font-size: 0.82rem;
+        font-weight: 700;
+        text-align: right;
+    }
+
+    .comparison-section[data-overflow="true"] .comparison-scroll-hint {
+        display: block;
     }
 
     .comparison-table {
@@ -598,6 +727,10 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
         margin-top: 3rem;
     }
 
+    .how-it-be h2 {
+        font-size: calc(1.375rem + 1.5vw);
+    }
+
     .how-it-be p {
         font-size: 1.2rem;
     }
@@ -609,6 +742,15 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
     }
 
     @media (max-width: 767px) {
+        .production-foundations,
+        .automation-section {
+            grid-template-columns: 1fr;
+        }
+
+        .production-foundations-links {
+            grid-template-columns: 1fr;
+        }
+
         .comparison-heading {
             grid-template-columns: 1fr;
             gap: 1rem;

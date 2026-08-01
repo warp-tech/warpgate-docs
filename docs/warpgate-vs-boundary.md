@@ -16,7 +16,7 @@ Warpgate and [HashiCorp Boundary](https://www.boundaryproject.io/) both broker a
 | **Protocol awareness** | Protocol-aware for SSH, HTTP, MySQL, PostgreSQL, Kubernetes, RDP, VNC | Primarily **TCP tunnelling**; SSH and RDP have deeper, protocol-aware features (e.g. session recording) |
 | **Credentials to targets** | Stored per target (or brokered) — built in | Static, or brokered/injected via **Vault** |
 | **Authentication** | Password, SSH public key, OTP (TOTP), SSO via OIDC, client certificates, in-browser approval | Password, OIDC, LDAP (MFA delegated to your OIDC provider) |
-| **Session recording** | Every protocol, replayable | SSH and RDP (paid editions); other targets tunnelled at TCP |
+| **Session recording** | Replay for SSH, Kubernetes, RDP and VNC; query/activity logs for databases and HTTP | SSH and RDP (paid editions); other targets tunnelled at TCP |
 | **In-browser access** | SSH, RDP, VNC and HTTP | None — sessions run through the CLI / Desktop / Client-Agent |
 | **Self-service / JIT access** | Tickets and self-service **ticket requests** with admin approval | Grant-based; no built-in self-service request/approval workflow |
 | **Language** | Rust | Go |
@@ -24,7 +24,7 @@ Warpgate and [HashiCorp Boundary](https://www.boundaryproject.io/) both broker a
 
 ## Philosophy
 
-**Warpgate is a transparent, protocol-aware proxy.** Users connect with the tools they already have; Warpgate authenticates them, applies access control, and records the full session. It understands SSH, HTTP, the database wire protocols, the Kubernetes API and the desktop protocols, so it can show you *what happened* — queries, commands, API calls, desktop video — not just that a connection occurred.
+**Warpgate is a transparent, protocol-aware proxy.** Users connect with the tools they already have; Warpgate authenticates them, applies access control, and records or logs the session. It understands SSH, HTTP, the database wire protocols, the Kubernetes API and the desktop protocols, so it can show you *what happened* — queries, commands, API calls, desktop video — not just that a connection occurred.
 
 **Boundary is an identity-based TCP broker.** A controller authorises sessions and workers proxy the traffic, while a Boundary client on each machine opens the session. It's a solid fit if you're already invested in the HashiCorp stack and want Vault-brokered credentials — but it's a bigger system to run, it relies on a client on every machine, and for most protocols it moves bytes without interpreting them.
 
@@ -37,7 +37,7 @@ This is the most visible day-to-day difference:
 
 ## Session recording
 
-Warpgate records the **content** of every protocol it proxies and replays it from the Admin UI. Boundary records SSH and RDP (in its paid editions); other targets are carried as TCP tunnels.
+Warpgate records and replays interactive SSH, Kubernetes exec/attach, RDP and VNC sessions from the Admin UI. MySQL and PostgreSQL produce query logs, while HTTP produces session/activity logs. Boundary records SSH and RDP (in its paid editions); other targets are carried as TCP tunnels.
 
 | Protocol | Warpgate | Boundary |
 |---|---|---|
@@ -48,7 +48,7 @@ Warpgate records the **content** of every protocol it proxies and replays it fro
 | MySQL / PostgreSQL | ✅ query log | ❌ (TCP tunnel; on Boundary's roadmap) |
 | HTTP | ✅ session log | ❌ (TCP tunnel; on Boundary's roadmap) |
 
-Boundary can *carry* all of these — it tunnels arbitrary TCP — but only SSH and RDP are recorded as replayable sessions, and only in the paid Enterprise / HCP editions. Warpgate records every protocol it proxies, in the free build.
+Boundary can *carry* all of these — it tunnels arbitrary TCP — but only SSH and RDP are recorded as replayable sessions, and only in the paid Enterprise / HCP editions. Warpgate includes interactive session replay and protocol-aware logs in the free build.
 
 ## When Warpgate is the better choice
 
@@ -58,6 +58,16 @@ Boundary can *carry* all of these — it tunnels arbitrary TCP — but only SSH 
 * You value a **small, Apache-2.0 codebase** with every feature in the free build.
 * Homelabs, small-to-medium teams, and focused gateways.
 
+<section class="production-review-cta" aria-labelledby="production-review-boundary-title">
+    <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
+    <h2 id="production-review-boundary-title">Validate the architecture before rollout</h2>
+    <p>Ask Warpgate's maintainer to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <div class="production-review-actions">
+        <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
+        <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>
+    </div>
+</section>
+
 ## When to reach for Boundary
 
 * You're already standardised on **HashiCorp** tooling and want Vault-brokered, dynamic credentials as the centrepiece.
@@ -65,7 +75,7 @@ Boundary can *carry* all of these — it tunnels arbitrary TCP — but only SSH 
 
 ## Summary
 
-Boundary is a capable identity-based access broker, especially inside a HashiCorp/Vault estate — at the cost of a cluster, a required client, and per-protocol depth it's still building out. Warpgate is a self-hosted, open-source, transparent gateway that works with the clients you already use and records everything it proxies.
+Boundary is a capable identity-based access broker, especially inside a HashiCorp/Vault estate — at the cost of a cluster, a required client, and per-protocol depth it's still building out. Warpgate is a self-hosted, open-source, transparent gateway that works with the clients you already use and keeps audit data in your infrastructure.
 
 Ready to try it?
 

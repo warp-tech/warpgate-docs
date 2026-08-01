@@ -15,7 +15,7 @@ Warpgate and [StrongDM](https://www.strongdm.com/) both give you audited, authen
 | **Client software** | **None** — users keep their normal `ssh`, `mysql`, `psql`, `kubectl`, browser or RDP/VNC client | The StrongDM desktop client / CLI is **required** on each user's machine |
 | **Protocols** | SSH, HTTP(S), MySQL, PostgreSQL, Kubernetes, RDP, VNC | Broad: SSH, RDP, Kubernetes, many databases, websites, and cloud APIs |
 | **Authentication** | Password, SSH public key, OTP (TOTP), SSO via OIDC, client certificates, in-browser approval | SSO via your IdP (SAML/OIDC), with MFA delegated to the IdP |
-| **Session recording & audit** | Every protocol, replayable | Broad and a core strength: SSH, RDP, Kubernetes and database sessions |
+| **Session recording & audit** | Replay for SSH, Kubernetes, RDP and VNC; query/activity logs for databases and HTTP | Broad and a core strength: SSH, RDP, Kubernetes and database sessions |
 | **In-browser access** | SSH, RDP, VNC and HTTP | None — sessions run through the StrongDM client |
 | **Self-service / JIT access** | Tickets and self-service **ticket requests** with admin approval | Access workflows (just-in-time requests with approval) |
 | **Language** | Rust | Go (proprietary) |
@@ -33,7 +33,7 @@ This is the defining difference. With StrongDM, configuration and the coordinati
 
 ## Session recording
 
-Both record broadly — this is an area where StrongDM is strong, and Warpgate matches it for the protocols it proxies while keeping it all in the free, self-hosted build.
+Both audit broadly — this is an area where StrongDM is strong, and Warpgate provides replayable recordings for interactive sessions plus query/activity logs for databases and HTTP while keeping it all in the free, self-hosted build.
 
 | Protocol | Warpgate | StrongDM |
 |---|---|---|
@@ -58,6 +58,16 @@ Warpgate includes browser-based clients for SSH, RDP, VNC and HTTP, so a user ca
 * Your access needs are well covered by SSH, HTTP, MySQL, PostgreSQL, Kubernetes, RDP and VNC.
 * Homelabs, small-to-medium teams, and self-hosting-first organisations.
 
+<section class="production-review-cta" aria-labelledby="production-review-strongdm-title">
+    <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
+    <h2 id="production-review-strongdm-title">Validate the architecture before rollout</h2>
+    <p>Ask Warpgate's maintainer to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <div class="production-review-actions">
+        <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
+        <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>
+    </div>
+</section>
+
 ## When to reach for StrongDM
 
 * You want a **fully managed** experience and are happy for the control plane to live in a vendor's cloud.
@@ -66,7 +76,7 @@ Warpgate includes browser-based clients for SSH, RDP, VNC and HTTP, so a user ca
 
 ## Summary
 
-StrongDM is a capable, broad, well-supported commercial platform — if you're comfortable with a SaaS control plane, a client on every machine, and per-seat pricing. Warpgate gives you a self-hosted, open-source, transparent gateway that records everything it proxies and keeps every part of the system — and every byte of audit data — inside your own infrastructure.
+StrongDM is a capable, broad, well-supported commercial platform — if you're comfortable with a SaaS control plane, a client on every machine, and per-seat pricing. Warpgate gives you a self-hosted, open-source, transparent gateway that keeps every part of the system — and every byte of audit data — inside your own infrastructure.
 
 Ready to try it?
 

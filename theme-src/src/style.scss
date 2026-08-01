@@ -231,3 +231,51 @@ td {
   padding-right: 1rem;
   padding-bottom: .5rem;
 }
+
+.production-review-cta {
+  margin: 2.5rem 0;
+  padding: clamp(1.35rem, 3vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.035);
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.55rem, 3vw, 2.15rem);
+    line-height: 1.12;
+  }
+
+  > p:not(.production-review-eyebrow) {
+    max-width: 720px;
+    margin: 1rem 0 0;
+    color: rgba(var(--bs-body-color-rgb), 0.72);
+    line-height: 1.6;
+  }
+}
+
+.production-review-eyebrow {
+  margin: 0 0 0.7rem;
+  color: var(--bs-success, #20c997);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.production-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.35rem;
+}
+
+@media (max-width: 480px) {
+  .production-review-actions,
+  .production-review-actions .btn {
+    width: 100%;
+  }
+
+  .production-review-actions .btn {
+    white-space: normal;
+  }
+}
