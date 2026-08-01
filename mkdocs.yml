@@ -40,11 +40,12 @@ nav:
       - ldap.md
       - login-protection.md
       - recovering-access.md
-  - Ops:
-      - systemd.md
-      - clustering.md
-      - log-forwarding.md
+  - Operations:
+      - newsletter.md
       - reverse-proxy.md
+      - clustering.md
+      - systemd.md
+      - log-forwarding.md
       - custom-ca.md
   - Advanced topics:
       - http-domain-binding.md

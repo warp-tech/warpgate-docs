@@ -14,6 +14,7 @@ Welcome to the Warpgate docs.
 * [One-time passwords](./otp.md)
 * [Tickets](./tickets.md)
 * [Single sign-on](./sso.md)
+* [Staying up to date](./newsletter.md)
 
 ## Need professional support?
 

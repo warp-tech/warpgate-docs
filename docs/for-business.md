@@ -164,12 +164,13 @@ description: Direct maintainer support, production-readiness reviews and custom 
     <section class="business-section production-section" aria-labelledby="production-title">
         <div class="production-copy">
             <p class="business-eyebrow">Public resources</p>
-            <h2 id="production-title">Production documentation</h2>
-            <p>Deployment, high availability, releases and private vulnerability reporting are documented publicly.</p>
+            <h2 id="production-title">Production resources</h2>
+            <p>Deployment, high availability, release updates, operations bulletins and private vulnerability reporting are public.</p>
         </div>
         <nav class="resource-list" aria-label="Production and security resources">
             <a href="/getting-started-on-docker/"><span>Production deployment</span><strong>Docker guidance →</strong></a>
             <a href="/clustering/"><span>Resilience</span><strong>High-availability guidance →</strong></a>
+            <a href="/newsletter/"><span>Release and operations updates</span><strong>Ops newsletter →</strong></a>
             <a href="https://github.com/warp-tech/warpgate/security/advisories/new" target="_blank" rel="noopener noreferrer"><span>Private reporting</span><strong>Report a vulnerability ↗</strong></a>
             <a href="https://github.com/warp-tech/warpgate/releases" target="_blank" rel="noopener noreferrer"><span>Published changes</span><strong>Releases and advisories ↗</strong></a>
         </nav>

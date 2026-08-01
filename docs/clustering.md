@@ -8,7 +8,7 @@ Warpgate can run as multiple nodes behind a load balancer for high availability 
 
 1. Point every node at the **same database** by setting the same `database_url` in the config files.
 2. Point every node at the **same S3 bucket** or the **same shared filesystem** for session recordings under `Config` > `Global parameters` > `Session recordings`.
-3. Put the nodes behind a TCP and HTTP load balancer. The HTTP balancer should have sticky sessions enabled, and the TCP balancer should ideally support the PROXY protocol so that Warpgate can see the real client IP address.
+3. Put the nodes behind a TCP and HTTP load balancer. The TCP balancer should ideally implement the PROXY protocol so that Warpgate can see the real client IP address.
 
 That's all - nodes discover each other through the shared database.
 
