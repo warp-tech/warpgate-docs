@@ -3,20 +3,20 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Warpgate vs. Teleport - Warpgate</title>
+  <title>Warpgate vs. Teleport</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta name="description" content="Compare Warpgate and Teleport for SSH, Kubernetes, databases, web apps, RDP/VNC, SSO, session recording, self-hosting and licensing.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Warpgate vs. Teleport">
-  <meta property="og:description" content="Securely expose your internal services to the internet">
+  <meta property="og:description" content="Compare Warpgate and Teleport for SSH, Kubernetes, databases, web apps, RDP/VNC, SSO, session recording, self-hosting and licensing.">
   <meta property="og:url" content="https://warpgate.null.page/warpgate-vs-teleport/">
   
   <meta name="twitter:card" content="summary">
   
   <meta name="twitter:title" content="Warpgate vs. Teleport">
-  <meta name="twitter:description" content="Securely expose your internal services to the internet">
+  <meta name="twitter:description" content="Compare Warpgate and Teleport for SSH, Kubernetes, databases, web apps, RDP/VNC, SSO, session recording, self-hosting and licensing.">
   <link rel="canonical" href="https://warpgate.null.page/warpgate-vs-teleport/">
 
   <script>
@@ -33,8 +33,8 @@
     });
   </script>
   <script src="https://openpanel.dev/op1.js" defer async></script>
-  <script type="module" crossorigin src="/assets/app-BHU_zUbz.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-cFygfl72.css">
+  <script type="module" crossorigin src="/assets/app-DQrW1DwS.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-BmuCqt61.css">
 </head>
 
 <body>
@@ -267,7 +267,7 @@
 <p>Warpgate and <a href="https://goteleport.com/">Teleport</a> both give you audited, authenticated access to internal infrastructure — but they sit at very different points on the spectrum. Teleport is a large, agent-based <strong>identity platform</strong>; Warpgate is a <strong>lightweight, transparent bastion</strong> that runs from a single binary and works with the clients you already have. For most teams that simply need secure, audited access to their servers, databases and desktops, Warpgate gets you there with a fraction of the moving parts — and none of it behind a paywall.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Teleport is an actively developed product and its capabilities and edition boundaries change over time. Treat the details below as a good-faith orientation, <strong>last verified July 2026</strong>, and check the <a href="https://goteleport.com/docs/">Teleport documentation</a> for its current feature set.</p>
+<p>Teleport is an actively developed product and its capabilities and edition boundaries change over time. Treat the details below as a good-faith orientation, <strong>last verified August 2026</strong>, and check the <a href="https://goteleport.com/docs/">Teleport documentation</a> for its current feature set.</p>
 </div>
 <h2 id="at-a-glance">At a glance<a class="headerlink" href="#at-a-glance" title="Permanent link">§</a></h2>
 <table>
@@ -281,7 +281,7 @@
 <tbody>
 <tr>
 <td><strong>Footprint</strong></td>
-<td>A single Rust binary + a database (SQLite or PostgreSQL)</td>
+<td>A Rust binary plus SQLite, MySQL or PostgreSQL; multiple nodes can share a database for clustering.</td>
 <td>A cluster of services (Auth, Proxy) plus a backend</td>
 </tr>
 <tr>
@@ -316,7 +316,7 @@
 </tr>
 <tr>
 <td><strong>Session recording</strong></td>
-<td>Every protocol (see <a href="#session-recording">below</a>)</td>
+<td>Replay for SSH, Kubernetes, RDP and VNC; query/activity logs for databases and HTTP</td>
 <td>SSH, Kubernetes and Windows desktop; databases/apps as audit events (see <a href="#session-recording">below</a>)</td>
 </tr>
 <tr>
@@ -337,10 +337,10 @@
 </tbody>
 </table>
 <h2 id="philosophy">Philosophy<a class="headerlink" href="#philosophy" title="Permanent link">§</a></h2>
-<p><strong>Warpgate is a transparent proxy.</strong> Users connect with the tools they already have — Warpgate sits in the middle, authenticates them, applies access control and records the session. Nothing is installed on the targets and there's no dedicated client to distribute. The whole thing is one binary and one database, and every feature is in the open-source build.</p>
+<p><strong>Warpgate is a transparent proxy.</strong> Users connect with the tools they already have — Warpgate sits in the middle, authenticates them, applies access control and records or logs the session. Nothing is installed on the targets and there's no dedicated client to distribute. The whole thing is one binary and one database, and every feature is in the open-source build.</p>
 <p><strong>Teleport is a platform.</strong> It brings its own cluster, certificate authority, per-resource agents, CLI and a broad surface of features (identity governance, device trust, machine identity and more). That reach is genuinely powerful for large organisations — at the cost of more infrastructure to run, a client to roll out, and an Enterprise licence for much of the governance tooling. There's also a hard commercial line: since v16, Teleport's Community Edition is licensed for free use only by companies with <strong>fewer than 100 employees and less than $10M in annual revenue</strong> — cross either threshold and even the base product requires a paid edition. Warpgate has no such boundary: every feature is free at any size, forever.</p>
 <h2 id="session-recording">Session recording<a class="headerlink" href="#session-recording" title="Permanent link">§</a></h2>
-<p>Warpgate records <strong>every</strong> protocol it proxies and replays them from the Admin UI. Teleport records its interactive protocols and captures database/app activity as structured audit events.</p>
+<p>Warpgate records and replays interactive SSH, Kubernetes exec/attach, RDP and VNC sessions. MySQL and PostgreSQL produce query logs, while HTTP produces session/activity logs rather than replayable recordings. Teleport records its interactive protocols and captures database/app activity as structured audit events.</p>
 <table>
 <thead>
 <tr>
@@ -439,13 +439,23 @@
 <li>You value a <strong>small, auditable, Apache-2.0 codebase</strong> where every feature — SSO, MFA, session recording, ticket requests, clustering — is in the free build.</li>
 <li>Your access needs are well covered by SSH, HTTP, MySQL, PostgreSQL, Kubernetes, RDP and VNC.</li>
 </ul>
+<section class="production-review-cta" aria-labelledby="production-review-teleport-title">
+    <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
+    <h2 id="production-review-teleport-title">Validate the architecture before rollout</h2>
+    <p>Ask Warpgate's maintainer to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <div class="production-review-actions">
+        <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
+        <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>
+    </div>
+</section>
+
 <h2 id="when-to-reach-for-teleport">When to reach for Teleport<a class="headerlink" href="#when-to-reach-for-teleport" title="Permanent link">§</a></h2>
 <ul>
 <li>You need the full breadth of an identity platform: many database engines, application access, device trust and identity governance.</li>
 <li>You're standardising a <strong>large or heavily regulated</strong> organisation on a single certificate-based identity fabric, and are prepared to run its agent/cluster architecture and pay for the Enterprise features.</li>
 </ul>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">§</a></h2>
-<p>If you want a comprehensive, agent-based identity platform and the budget and operations team to match, Teleport is built for that. If you want a compact, self-hosted, transparent gateway that works with the clients you already use, records everything it proxies, and doesn't ask you to call sales — that's Warpgate.</p>
+<p>If you want a comprehensive, agent-based identity platform and the budget and operations team to match, Teleport is built for that. If you want a compact, self-hosted, transparent gateway that works with the clients you already use, gives you replayable recordings for interactive sessions, and doesn't ask you to call sales — that's Warpgate.</p>
 <p>Ready to try it?</p>
 <p><a class="btn btn-success" href="/getting-started-on-docker">Get started with Docker &rarr;</a></p>
       </article>
