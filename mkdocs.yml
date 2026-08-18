@@ -44,6 +44,7 @@ nav:
       - newsletter.md
       - reverse-proxy.md
       - clustering.md
+      - encryption.md
       - systemd.md
       - log-forwarding.md
       - custom-ca.md

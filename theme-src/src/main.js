@@ -7,6 +7,7 @@ import './animations'
 
 const classRemapping = [
     { from: '.admonition.note', to: ['alert', 'alert-info'] },
+    { from: '.admonition.warning', to: ['alert', 'alert-warning'] },
 ]
 
 for (const item of classRemapping) {
