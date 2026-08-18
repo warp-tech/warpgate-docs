@@ -1,11 +1,11 @@
 ---
-title: Warpgate vs. Teleport
-description: Compare Warpgate and Teleport for SSH, Kubernetes, databases, web apps, RDP/VNC, SSO, session recording, self-hosting and licensing.
+title: Warpgate vs. Teleport — an open-source, self-hosted Teleport alternative
+description: Looking for a Teleport alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no agents and no client app — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording, all free at any company size.
 ---
 
 # Warpgate vs. Teleport
 
-Warpgate and [Teleport](https://goteleport.com/) both give you audited, authenticated access to internal infrastructure — but they sit at very different points on the spectrum. Teleport is a large, agent-based **identity platform**; Warpgate is a **lightweight, transparent bastion** that runs from a single binary and works with the clients you already have. For most teams that simply need secure, audited access to their servers, databases and desktops, Warpgate gets you there with a fraction of the moving parts — and none of it behind a paywall.
+Warpgate is an **open-source, self-hosted Teleport alternative**. It and [Teleport](https://goteleport.com/) both give you audited, authenticated access to internal infrastructure — but they sit at very different points on the spectrum. Teleport is a large, agent-based **identity platform**; Warpgate is a **lightweight, transparent bastion** that runs from a single binary and works with the clients you already have. For most teams that simply need secure, audited access to their servers, databases and desktops, Warpgate gets you there with a fraction of the moving parts — and none of it behind a paywall.
 
 !!! note
     Teleport is an actively developed product and its capabilities and edition boundaries change over time. Treat the details below as a good-faith orientation, **last verified August 2026**, and check the [Teleport documentation](https://goteleport.com/docs/) for its current feature set.
@@ -77,7 +77,7 @@ Teleport's equivalent, **Access Requests** (just-in-time role elevation with app
 <section class="production-review-cta" aria-labelledby="production-review-teleport-title">
     <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
     <h2 id="production-review-teleport-title">Validate the architecture before rollout</h2>
-    <p>Ask Warpgate's maintainer to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
     <div class="production-review-actions">
         <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
         <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>
@@ -93,6 +93,7 @@ Teleport's equivalent, **Access Requests** (just-in-time role elevation with app
 
 If you want a comprehensive, agent-based identity platform and the budget and operations team to match, Teleport is built for that. If you want a compact, self-hosted, transparent gateway that works with the clients you already use, gives you replayable recordings for interactive sessions, and doesn't ask you to call sales — that's Warpgate.
 
+Also compare Warpgate with [HashiCorp Boundary](./warpgate-vs-boundary.md) and [StrongDM](./warpgate-vs-strongdm.md).
 
 Ready to try it?
 

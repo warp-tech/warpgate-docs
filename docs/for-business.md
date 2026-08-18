@@ -8,7 +8,7 @@ description: Direct maintainer support, production-readiness reviews and custom 
     <section class="business-hero" aria-labelledby="business-title">
         <div class="business-hero-copy">
             <h1 id="business-title">Run Warpgate confidently in production.</h1>
-            <p class="business-lead">Get help directly from Warpgate’s maintainer with deployment, upgrades and production problems. Warpgate stays fully open source and self-hosted; paid plans buy support, not features.</p>
+            <p class="business-lead">Get help directly from Warpgate’s maintainers with deployment, upgrades and production problems. Warpgate stays fully open source and self-hosted; paid plans buy support, not features.</p>
             <div class="business-actions">
                 <a class="btn btn-success btn-lg" href="mailto:business@null.page?subject=Production%20Readiness%20Review&amp;body=Company%3A%0AEnvironment%3A%0AIdentity%20provider%3A%0ATimeline%3A%0AQuestions%3A" data-track="business_readiness_cta_click" data-offer-name="production_readiness_review" data-cta-location="hero" data-analytics-id="business-readiness-hero">
                     Request a readiness review
@@ -42,7 +42,7 @@ description: Direct maintainer support, production-readiness reviews and custom 
     <section class="business-section" id="support-options" aria-labelledby="support-options-title">
         <div class="section-heading">
             <p class="business-eyebrow">Service options</p>
-            <h2 id="support-options-title">Ways to work with the maintainer</h2>
+            <h2 id="support-options-title">Ways to work with the maintainers</h2>
             <p>Choose a pre-launch review, a monthly email support plan, or faster responses for production issues. Support covers SSH, HTTPS, MySQL, PostgreSQL, Kubernetes, RDP and VNC deployments.</p>
         </div>
 
@@ -76,7 +76,7 @@ description: Direct maintainer support, production-readiness reviews and custom 
                     <span class="offer-label">Ongoing advisory</span>
                     <h3>Maintainer Access</h3>
                     <p class="offer-price"><span>Monthly support</span> €650 <small>/ month</small></p>
-                    <p>Email the maintainer when you need help with configuration, upgrades or routine troubleshooting.</p>
+                    <p>Email the maintainers when you need help with configuration, upgrades or routine troubleshooting.</p>
                 </div>
                 <ul class="offer-features">
                     <li>Two hours of email-based maintainer assistance per month</li>

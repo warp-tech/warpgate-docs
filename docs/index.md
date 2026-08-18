@@ -31,7 +31,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
                 Warpgate is a fully transparent proxy/bastion for your internal infrastructure that lets you skip manual <code>authorized_keys</code> management and both assign and audit access in a single place.
             </p>
             <p>
-                It is an alternative to Teleport-style PAMs or a VPN, minus the client apps and connection rituals that your users must learn.
+                It is an open-source alternative to <a href="/warpgate-vs-teleport/">Teleport</a>, <a href="/warpgate-vs-strongdm/">StrongDM</a> or <a href="/warpgate-vs-boundary/">Boundary</a> — or to a VPN — minus the client apps and connection rituals that your users must learn.
             </p>
             <p>
                 Get it running in 15 minutes:

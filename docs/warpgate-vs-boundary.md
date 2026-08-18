@@ -1,6 +1,11 @@
+---
+title: Warpgate vs. HashiCorp Boundary — an open-source, self-hosted Boundary alternative
+description: Looking for a HashiCorp Boundary alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no client app and no controller/worker cluster — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording, all free.
+---
+
 # Warpgate vs. Boundary
 
-Warpgate and [HashiCorp Boundary](https://www.boundaryproject.io/) both broker audited access to internal infrastructure, but they take very different shapes. Boundary is an identity-based access system built around a controller/worker cluster and a **required client** that tunnels TCP to your targets; Warpgate is a **transparent, protocol-aware bastion** that needs no client and understands each protocol it proxies. If you want audited access to SSH, databases, Kubernetes, web and desktops without standing up a cluster, rolling out a client, and (often) running Vault alongside it, Warpgate is a much lighter path — and it's Apache-2.0, not Business Source Licensed.
+Warpgate is an **open-source, self-hosted alternative to HashiCorp Boundary**. Both [Boundary](https://www.boundaryproject.io/) and Warpgate broker audited access to internal infrastructure, but they take very different shapes. Boundary is an identity-based access system built around a controller/worker cluster and a **required client** that tunnels TCP to your targets; Warpgate is a **transparent, protocol-aware bastion** that needs no client and understands each protocol it proxies. If you want audited access to SSH, databases, Kubernetes, web and desktops without standing up a cluster, rolling out a client, and (often) running Vault alongside it, Warpgate is a much lighter path — and it's Apache-2.0, not Business Source Licensed.
 
 !!! note
     Boundary is actively developed and its capabilities and edition boundaries change over time. Treat the details below as a good-faith orientation, **last verified July 2026**, and check the [Boundary documentation](https://developer.hashicorp.com/boundary) for its current feature set.
@@ -61,7 +66,7 @@ Boundary can *carry* all of these — it tunnels arbitrary TCP — but only SSH 
 <section class="production-review-cta" aria-labelledby="production-review-boundary-title">
     <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
     <h2 id="production-review-boundary-title">Validate the architecture before rollout</h2>
-    <p>Ask Warpgate's maintainer to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
     <div class="production-review-actions">
         <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
         <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>
@@ -76,6 +81,8 @@ Boundary can *carry* all of these — it tunnels arbitrary TCP — but only SSH 
 ## Summary
 
 Boundary is a capable identity-based access broker, especially inside a HashiCorp/Vault estate — at the cost of a cluster, a required client, and per-protocol depth it's still building out. Warpgate is a self-hosted, open-source, transparent gateway that works with the clients you already use and keeps audit data in your infrastructure.
+
+Also compare Warpgate with [Teleport](./warpgate-vs-teleport.md) and [StrongDM](./warpgate-vs-strongdm.md).
 
 Ready to try it?
 

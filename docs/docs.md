@@ -10,11 +10,15 @@ Welcome to the Warpgate docs.
 
 * [Adding an SSH target](./targets/ssh.md)
 * [User authentication](./auth.md)
-* [Roles](./roles.md)
-* [One-time passwords](./otp.md)
-* [Tickets](./tickets.md)
 * [Single sign-on](./sso.md)
+* [Clustering](./clustering.md)
 * [Staying up to date](./newsletter.md)
+
+## Comparing options?
+
+* [Warpgate vs. Teleport](./warpgate-vs-teleport.md)
+* [Warpgate vs. HashiCorp Boundary](./warpgate-vs-boundary.md)
+* [Warpgate vs. StrongDM](./warpgate-vs-strongdm.md)
 
 ## Need professional support?
 
