@@ -83,7 +83,7 @@ Warpgate includes browser-based clients for SSH, RDP, VNC and HTTP, so a user ca
 
 StrongDM is a capable, broad, well-supported commercial platform — if you're comfortable with a SaaS control plane, a client on every machine, and per-seat pricing. Warpgate gives you a self-hosted, open-source, transparent gateway that keeps every part of the system — and every byte of audit data — inside your own infrastructure.
 
-Also compare Warpgate with [Teleport](./warpgate-vs-teleport.md) and [HashiCorp Boundary](./warpgate-vs-boundary.md).
+Also compare Warpgate with [Teleport](./warpgate-vs-teleport.md), [HashiCorp Boundary](./warpgate-vs-boundary.md) and [WALLIX](./warpgate-vs-wallix.md).
 
 Ready to try it?
 

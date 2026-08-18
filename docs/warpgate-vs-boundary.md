@@ -82,7 +82,7 @@ Boundary can *carry* all of these — it tunnels arbitrary TCP — but only SSH 
 
 Boundary is a capable identity-based access broker, especially inside a HashiCorp/Vault estate — at the cost of a cluster, a required client, and per-protocol depth it's still building out. Warpgate is a self-hosted, open-source, transparent gateway that works with the clients you already use and keeps audit data in your infrastructure.
 
-Also compare Warpgate with [Teleport](./warpgate-vs-teleport.md) and [StrongDM](./warpgate-vs-strongdm.md).
+Also compare Warpgate with [Teleport](./warpgate-vs-teleport.md), [StrongDM](./warpgate-vs-strongdm.md) and [WALLIX](./warpgate-vs-wallix.md).
 
 Ready to try it?
 

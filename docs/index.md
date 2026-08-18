@@ -123,7 +123,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
     <p class="comparison-scroll-hint" aria-hidden="true">Scroll horizontally to compare &rarr;</p>
     <div class="comparison-scroll" role="region" aria-label="Access gateway comparison" tabindex="0">
         <table class="comparison-table">
-            <caption class="visually-hidden">Warpgate compared with an SSH jump host, a VPN, Teleport, StrongDM and HashiCorp Boundary.</caption>
+            <caption class="visually-hidden">Warpgate compared with an SSH jump host, a VPN, Teleport, StrongDM, HashiCorp Boundary and WALLIX.</caption>
             <thead>
                 <tr>
                     <th class="comparison-feature" scope="col">What changes</th>
@@ -151,6 +151,12 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
                             <span>Full comparison →</span>
                         </a>
                     </th>
+                    <th scope="col">
+                        <a class="comparison-product-link" href="/warpgate-vs-wallix/">
+                            <span class="comparison-product">WALLIX</span>
+                            <span>Full comparison →</span>
+                        </a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -162,6 +168,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
                     <td><strong>Usually per network<sup class="comparison-ref"><a href="#comparison-note-vpn" aria-label="Clarification 2">[2]</a></sup></strong><span>Users enter a routed network segment.</span></td>
                     <td class="is-positive"><strong>Per resource</strong><span>Role grants; Enterprise policies can refine access.</span></td>
                     <td class="is-positive"><strong>Per target</strong><span>Role grants authorize sessions to targets.</span></td>
+                    <td class="is-positive"><strong>Per resource</strong><span>Authorizations bind user groups to target groups.</span></td>
                 </tr>
                 <tr>
                     <th class="comparison-feature" scope="row">Target provisioning</th>
@@ -171,6 +178,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
                     <td><strong>Once per network<sup class="comparison-ref"><a href="#comparison-note-vpn" aria-label="Clarification 2">[2]</a></sup></strong><span>Configure routing and policy; targets stay unchanged.</span></td>
                     <td class="is-positive"><strong>Once per resource</strong><span>Add it to StrongDM; a gateway must be able to reach it.</span></td>
                     <td><strong>Once per target or host set</strong><span>Define the endpoint and its worker path.</span></td>
+                    <td class="is-positive"><strong>Once per target</strong><span>Declare the device and account; nothing is installed on targets.</span></td>
                 </tr>
                 <tr>
                     <th class="comparison-feature" scope="row">User setup</th>
@@ -180,6 +188,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
                     <td><strong>VPN software or profile</strong><span>Client, browser flow or OS setup varies by provider.</span></td>
                     <td><strong>StrongDM app or CLI</strong><span>A StrongDM client is required.</span></td>
                     <td><strong>Boundary client</strong><span>Use the CLI, Desktop app or Client Agent.</span></td>
+                    <td class="is-positive"><strong>Standard clients or browser<sup class="comparison-ref"><a href="#comparison-note-wallix" aria-label="Clarification 7">[7]</a></sup></strong><span>A tunnelling client is needed for databases and other raw-TCP targets.</span></td>
                 </tr>
                 <tr>
                     <th class="comparison-feature" scope="row">Identity</th>
@@ -189,6 +198,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
                     <td><strong>Provider-dependent<sup class="comparison-ref"><a href="#comparison-note-vpn" aria-label="Clarification 2">[2]</a></sup></strong><span>Usually tied to the VPN appliance or IdP.</span></td>
                     <td class="is-positive"><strong>SSO + MFA<sup class="comparison-ref"><a href="#comparison-note-strongdm" aria-label="Clarification 5">[5]</a></sup></strong><span>Native MFA is available; SSO MFA can come from the IdP.</span></td>
                     <td class="is-positive"><strong>Password, OIDC or LDAP<sup class="comparison-ref"><a href="#comparison-note-boundary" aria-label="Clarification 6">[6]</a></sup></strong><span>MFA comes from the OIDC provider; LDAP depends on edition.</span></td>
+                    <td class="is-positive"><strong>SSO + MFA</strong><span>SAML, OIDC, LDAP/AD, RADIUS, Kerberos and X.509.</span></td>
                 </tr>
                 <tr>
                     <th class="comparison-feature" scope="row">Audit detail</th>
@@ -198,6 +208,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
                     <td><strong>Network-level</strong><span>Connection metadata, not application activity.</span></td>
                     <td class="is-positive"><strong>Protocol-aware</strong><span>Detailed logs across a broad resource catalog.</span></td>
                     <td><strong>Mixed</strong><span>SSH and RDP aware; other targets use TCP tunnels.</span></td>
+                    <td><strong>Mixed<sup class="comparison-ref"><a href="#comparison-note-wallix" aria-label="Clarification 7">[7]</a></sup></strong><span>Aware of its session protocols; raw TCP is captured as packets.</span></td>
                 </tr>
                 <tr>
                     <th class="comparison-feature" scope="row">Session recording</th>
@@ -207,6 +218,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
                     <td><strong>Not application-aware</strong><span>A VPN does not record target sessions.</span></td>
                     <td class="is-positive"><strong>SSH, RDP + Kubernetes<sup class="comparison-ref"><a href="#comparison-note-strongdm" aria-label="Clarification 5">[5]</a></sup></strong><span>Replayable sessions; databases use query logs.</span></td>
                     <td><strong>SSH and RDP<sup class="comparison-ref"><a href="#comparison-note-boundary" aria-label="Clarification 6">[6]</a></sup></strong><span>Enterprise and HCP Plus only.</span></td>
+                    <td class="is-positive"><strong>SSH, RDP, VNC + web</strong><span>Video and terminal replay with real-time monitoring.</span></td>
                 </tr>
                 <tr>
                     <th class="comparison-feature" scope="row">Infrastructure</th>
@@ -216,6 +228,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
                     <td><strong>Gateway or service</strong><span>Self-hosted and SaaS options exist.</span></td>
                     <td><strong>SaaS control plane</strong><span>You operate gateways or relays.</span></td>
                     <td><strong>Controllers and workers</strong><span>Self-hosted or managed through HCP.</span></td>
+                    <td><strong>Appliance or SaaS</strong><span>Self-hosted appliance, cloud image, or WALLIX-hosted.</span></td>
                 </tr>
                 <tr>
                     <th class="comparison-feature" scope="row">License / model</th>
@@ -225,6 +238,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
                     <td><strong>Varies<sup class="comparison-ref"><a href="#comparison-note-vpn" aria-label="Clarification 2">[2]</a></sup></strong><span>Open-source and commercial options.</span></td>
                     <td><strong>Commercial</strong><span>Subscription service.</span></td>
                     <td><strong>BUSL Community + commercial<sup class="comparison-ref"><a href="#comparison-note-boundary" aria-label="Clarification 6">[6]</a></sup></strong><span>Self-hosted Enterprise and HCP are commercial.</span></td>
+                    <td><strong>Commercial</strong><span>Proprietary; subscription per asset or per user.</span></td>
                 </tr>
             </tbody>
         </table>
@@ -237,6 +251,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
         <li id="comparison-note-warpgate-audit"><strong>Warpgate:</strong> SSH command detection is a heuristic audit aid, not a security boundary. Replay is available for SSH, Kubernetes interactive streams, RDP and VNC; databases expose query logs, while HTTP sessions are not replayed. <a href="/targets/ssh/#shell-command-auditing">SSH auditing</a> and <a href="/protocol-support/">protocol support</a>.</li>
         <li id="comparison-note-strongdm"><strong>StrongDM:</strong> Access policies are an Enterprise feature. StrongDM documents session replay for SSH, RDP and Kubernetes; database activity is captured as query logs. <a href="https://docs.strongdm.com/admin/access/policies">Access policies</a> and <a href="https://docs.strongdm.com/admin/audit/logs/view-adminui">audit logs</a>.</li>
         <li id="comparison-note-boundary"><strong>Boundary:</strong> LDAP and session recording are edition-dependent; recording is available for SSH and RDP in Enterprise and HCP Plus. Community is source-available under the Business Source License, while Enterprise and HCP are commercial. <a href="https://developer.hashicorp.com/boundary/docs/what-is-boundary">Feature matrix</a>, <a href="https://developer.hashicorp.com/boundary/docs/session-recording">session recording</a> and <a href="https://developer.hashicorp.com/boundary/docs/enterprise/licensing">licensing</a>.</li>
+        <li id="comparison-note-wallix"><strong>WALLIX:</strong> Bastion is agentless, and clientless for SSH, RDP, VNC and telnet. Databases and other raw-TCP targets use Universal Tunneling, which requires the WAMUT client on the workstation and is captured as a PCAP file rather than an interpreted session; Kubernetes is not a supported target type. Verified against the <a href="https://pam.wallix.one/documentation/admin-doc/bastion_en_administration_guide.pdf">Bastion 12.3.2 administration guide</a>.</li>
     </ol>
 </section>
 
@@ -492,7 +507,7 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
 
     .comparison-table {
         width: 100%;
-        min-width: 1360px;
+        min-width: 1555px;
         margin: 0;
         border: 0;
         border-collapse: separate;
@@ -549,11 +564,15 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
     }
 
     .comparison-table .is-warpgate {
-        background: rgba(34, 48, 16, 0.68);
+        position: sticky;
+        left: 170px;
+        z-index: 1;
+        background: #19230d;
         box-shadow: inset 1px 0 rgba(195, 224, 160, 0.16), inset -1px 0 rgba(195, 224, 160, 0.16);
     }
 
     .comparison-table thead .is-warpgate {
+        z-index: 2;
         color: #d9efbf;
         box-shadow: inset 1px 0 rgba(195, 224, 160, 0.2), inset -1px 0 rgba(195, 224, 160, 0.2), inset 0 3px #86bd45;
     }
@@ -567,7 +586,7 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
     }
 
     .comparison-table tbody tr:hover > .is-warpgate {
-        background-color: rgba(50, 68, 25, 0.84);
+        background-color: #2b3a16;
     }
 
     .comparison-product {
@@ -761,7 +780,11 @@ $ ssh c.wilde:staging-env@warpgate.acme.inc
         }
 
         .comparison-table {
-            min-width: 1300px;
+            min-width: 1495px;
+        }
+
+        .comparison-table .is-warpgate {
+            position: static;
         }
 
         .comparison-table th,

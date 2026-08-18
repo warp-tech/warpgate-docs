@@ -19,6 +19,7 @@ Welcome to the Warpgate docs.
 * [Warpgate vs. Teleport](./warpgate-vs-teleport.md)
 * [Warpgate vs. HashiCorp Boundary](./warpgate-vs-boundary.md)
 * [Warpgate vs. StrongDM](./warpgate-vs-strongdm.md)
+* [Warpgate vs. WALLIX](./warpgate-vs-wallix.md)
 
 ## Need professional support?
 

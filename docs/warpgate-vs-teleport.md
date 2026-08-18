@@ -93,7 +93,7 @@ Teleport's equivalent, **Access Requests** (just-in-time role elevation with app
 
 If you want a comprehensive, agent-based identity platform and the budget and operations team to match, Teleport is built for that. If you want a compact, self-hosted, transparent gateway that works with the clients you already use, gives you replayable recordings for interactive sessions, and doesn't ask you to call sales — that's Warpgate.
 
-Also compare Warpgate with [HashiCorp Boundary](./warpgate-vs-boundary.md) and [StrongDM](./warpgate-vs-strongdm.md).
+Also compare Warpgate with [HashiCorp Boundary](./warpgate-vs-boundary.md), [StrongDM](./warpgate-vs-strongdm.md) and [WALLIX](./warpgate-vs-wallix.md).
 
 Ready to try it?
 
