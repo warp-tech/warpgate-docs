@@ -14,6 +14,10 @@ Welcome to the Warpgate docs.
 * [Clustering](./clustering.md)
 * [Staying up to date](./newsletter.md)
 
+## Going live
+
+<a class="btn btn-info" href="/production-checklist">Production deployment checklist &rarr;</a>
+
 ## Comparing options?
 
 * [Warpgate vs. Teleport](./warpgate-vs-teleport.md)

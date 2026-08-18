@@ -41,6 +41,7 @@ nav:
       - login-protection.md
       - recovering-access.md
   - Operations:
+      - Production checklist: production-checklist.md
       - newsletter.md
       - reverse-proxy.md
       - clustering.md
@@ -75,6 +76,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.tasklist:
+        clickable_checkbox: true
   - admonition
   - toc:
       permalink: §

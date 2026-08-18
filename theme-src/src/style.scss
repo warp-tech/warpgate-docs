@@ -181,6 +181,16 @@ article {
   margin-bottom: 2rem;
 }
 
+.task-list {
+  list-style: none;
+  padding-left: 0.25rem;
+
+  input[type="checkbox"] {
+    margin-right: 0.5rem;
+    accent-color: var(--bs-success);
+  }
+}
+
 .admonition {
   p {
     margin: 0;
