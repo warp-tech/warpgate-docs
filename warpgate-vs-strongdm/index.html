@@ -3,20 +3,20 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Warpgate vs. StrongDM - Warpgate</title>
+  <title>Warpgate vs. StrongDM — a self-hosted, open-source StrongDM alternative</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta name="description" content="Looking for a StrongDM alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no client app and no SaaS control plane — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording, with no per-seat pricing.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Warpgate vs. StrongDM">
-  <meta property="og:description" content="Securely expose your internal services to the internet">
+  <meta property="og:title" content="Warpgate vs. StrongDM — a self-hosted, open-source StrongDM alternative">
+  <meta property="og:description" content="Looking for a StrongDM alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no client app and no SaaS control plane — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording, with no per-seat pricing.">
   <meta property="og:url" content="https://warpgate.null.page/warpgate-vs-strongdm/">
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Warpgate vs. StrongDM">
-  <meta name="twitter:description" content="Securely expose your internal services to the internet">
+  <meta name="twitter:title" content="Warpgate vs. StrongDM — a self-hosted, open-source StrongDM alternative">
+  <meta name="twitter:description" content="Looking for a StrongDM alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no client app and no SaaS control plane — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording, with no per-seat pricing.">
   <link rel="canonical" href="https://warpgate.null.page/warpgate-vs-strongdm/">
 
   <script>
@@ -33,8 +33,8 @@
     });
   </script>
   <script src="https://openpanel.dev/op1.js" defer async></script>
-  <script type="module" crossorigin src="/assets/app-DQrW1DwS.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-BmuCqt61.css">
+  <script type="module" crossorigin src="/assets/app-DXxmH9tT.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CC1J8EMQ.css">
 </head>
 
 <body>
@@ -186,6 +186,10 @@
           <ul>
             
             <li>
+              <a class="" href="../production-checklist/">Production checklist</a>
+            </li>
+            
+            <li>
               <a class="" href="../newsletter/">Staying in the loop</a>
             </li>
             
@@ -195,6 +199,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../encryption/">Encrypting credentials at rest</a>
             </li>
             
             <li>
@@ -253,6 +261,10 @@
               <a class="text-success" href="./">Warpgate vs. StrongDM</a>
             </li>
             
+            <li>
+              <a class="" href="../warpgate-vs-wallix/">Warpgate vs. WALLIX</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -264,7 +276,7 @@
     <main class="page-content">
       <article>
         <h1 id="warpgate-vs-strongdm">Warpgate vs. StrongDM<a class="headerlink" href="#warpgate-vs-strongdm" title="Permanent link">§</a></h1>
-<p>Warpgate and <a href="https://www.strongdm.com/">StrongDM</a> both give you audited, authenticated access to internal infrastructure — but one you run yourself and one you rent. StrongDM is a polished <strong>commercial platform</strong> delivered as a SaaS control plane, with gateways you run and a <strong>client on every user's machine</strong>. Warpgate is a <strong>self-hosted, open-source bastion</strong> that runs entirely in your own infrastructure, with no client and no dependency on anyone else's cloud. If keeping the control plane in your own hands — and your costs flat — matters, that's the heart of the difference.</p>
+<p>Warpgate is a <strong>self-hosted, open-source StrongDM alternative</strong>. Both <a href="https://www.strongdm.com/">StrongDM</a> and Warpgate give you audited, authenticated access to internal infrastructure — but one you run yourself and one you rent. StrongDM is a polished <strong>commercial platform</strong> delivered as a SaaS control plane, with gateways you run and a <strong>client on every user's machine</strong>. Warpgate is a <strong>self-hosted, open-source bastion</strong> that runs entirely in your own infrastructure, with no client and no dependency on anyone else's cloud. If keeping the control plane in your own hands — and your costs flat — matters, that's the heart of the difference.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>StrongDM is a commercial product that evolves quickly; specific features, protocol coverage and pricing change over time. Treat the details below as a good-faith orientation, <strong>last verified July 2026</strong>, and check the <a href="https://docs.strongdm.com/">StrongDM documentation</a> for its current offering.</p>
@@ -398,7 +410,7 @@
 <section class="production-review-cta" aria-labelledby="production-review-strongdm-title">
     <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
     <h2 id="production-review-strongdm-title">Validate the architecture before rollout</h2>
-    <p>Ask Warpgate's maintainer to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
     <div class="production-review-actions">
         <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
         <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>
@@ -413,6 +425,7 @@
 </ul>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">§</a></h2>
 <p>StrongDM is a capable, broad, well-supported commercial platform — if you're comfortable with a SaaS control plane, a client on every machine, and per-seat pricing. Warpgate gives you a self-hosted, open-source, transparent gateway that keeps every part of the system — and every byte of audit data — inside your own infrastructure.</p>
+<p>Also compare Warpgate with <a href="../warpgate-vs-teleport/">Teleport</a>, <a href="../warpgate-vs-boundary/">HashiCorp Boundary</a> and <a href="../warpgate-vs-wallix/">WALLIX</a>.</p>
 <p>Ready to try it?</p>
 <p><a class="btn btn-success" href="/getting-started-on-docker">Get started with Docker &rarr;</a></p>
       </article>
@@ -431,6 +444,13 @@
         
 
         <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../warpgate-vs-wallix/">
+            Warpgate vs. WALLIX
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
         
       </div>
       

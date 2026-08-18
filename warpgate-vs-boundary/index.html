@@ -3,20 +3,20 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Warpgate vs. Boundary - Warpgate</title>
+  <title>Warpgate vs. HashiCorp Boundary — an open-source, self-hosted Boundary alternative</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta name="description" content="Looking for a HashiCorp Boundary alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no client app and no controller/worker cluster — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording, all free.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Warpgate vs. Boundary">
-  <meta property="og:description" content="Securely expose your internal services to the internet">
+  <meta property="og:title" content="Warpgate vs. HashiCorp Boundary — an open-source, self-hosted Boundary alternative">
+  <meta property="og:description" content="Looking for a HashiCorp Boundary alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no client app and no controller/worker cluster — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording, all free.">
   <meta property="og:url" content="https://warpgate.null.page/warpgate-vs-boundary/">
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Warpgate vs. Boundary">
-  <meta name="twitter:description" content="Securely expose your internal services to the internet">
+  <meta name="twitter:title" content="Warpgate vs. HashiCorp Boundary — an open-source, self-hosted Boundary alternative">
+  <meta name="twitter:description" content="Looking for a HashiCorp Boundary alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no client app and no controller/worker cluster — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording, all free.">
   <link rel="canonical" href="https://warpgate.null.page/warpgate-vs-boundary/">
 
   <script>
@@ -33,8 +33,8 @@
     });
   </script>
   <script src="https://openpanel.dev/op1.js" defer async></script>
-  <script type="module" crossorigin src="/assets/app-DQrW1DwS.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-BmuCqt61.css">
+  <script type="module" crossorigin src="/assets/app-DXxmH9tT.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CC1J8EMQ.css">
 </head>
 
 <body>
@@ -186,6 +186,10 @@
           <ul>
             
             <li>
+              <a class="" href="../production-checklist/">Production checklist</a>
+            </li>
+            
+            <li>
               <a class="" href="../newsletter/">Staying in the loop</a>
             </li>
             
@@ -195,6 +199,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../encryption/">Encrypting credentials at rest</a>
             </li>
             
             <li>
@@ -253,6 +261,10 @@
               <a class="" href="../warpgate-vs-strongdm/">Warpgate vs. StrongDM</a>
             </li>
             
+            <li>
+              <a class="" href="../warpgate-vs-wallix/">Warpgate vs. WALLIX</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -264,7 +276,7 @@
     <main class="page-content">
       <article>
         <h1 id="warpgate-vs-boundary">Warpgate vs. Boundary<a class="headerlink" href="#warpgate-vs-boundary" title="Permanent link">§</a></h1>
-<p>Warpgate and <a href="https://www.boundaryproject.io/">HashiCorp Boundary</a> both broker audited access to internal infrastructure, but they take very different shapes. Boundary is an identity-based access system built around a controller/worker cluster and a <strong>required client</strong> that tunnels TCP to your targets; Warpgate is a <strong>transparent, protocol-aware bastion</strong> that needs no client and understands each protocol it proxies. If you want audited access to SSH, databases, Kubernetes, web and desktops without standing up a cluster, rolling out a client, and (often) running Vault alongside it, Warpgate is a much lighter path — and it's Apache-2.0, not Business Source Licensed.</p>
+<p>Warpgate is an <strong>open-source, self-hosted alternative to HashiCorp Boundary</strong>. Both <a href="https://www.boundaryproject.io/">Boundary</a> and Warpgate broker audited access to internal infrastructure, but they take very different shapes. Boundary is an identity-based access system built around a controller/worker cluster and a <strong>required client</strong> that tunnels TCP to your targets; Warpgate is a <strong>transparent, protocol-aware bastion</strong> that needs no client and understands each protocol it proxies. If you want audited access to SSH, databases, Kubernetes, web and desktops without standing up a cluster, rolling out a client, and (often) running Vault alongside it, Warpgate is a much lighter path — and it's Apache-2.0, not Business Source Licensed.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Boundary is actively developed and its capabilities and edition boundaries change over time. Treat the details below as a good-faith orientation, <strong>last verified July 2026</strong>, and check the <a href="https://developer.hashicorp.com/boundary">Boundary documentation</a> for its current feature set.</p>
@@ -405,7 +417,7 @@
 <section class="production-review-cta" aria-labelledby="production-review-boundary-title">
     <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
     <h2 id="production-review-boundary-title">Validate the architecture before rollout</h2>
-    <p>Ask Warpgate's maintainer to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
     <div class="production-review-actions">
         <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
         <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>
@@ -419,6 +431,7 @@
 </ul>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">§</a></h2>
 <p>Boundary is a capable identity-based access broker, especially inside a HashiCorp/Vault estate — at the cost of a cluster, a required client, and per-protocol depth it's still building out. Warpgate is a self-hosted, open-source, transparent gateway that works with the clients you already use and keeps audit data in your infrastructure.</p>
+<p>Also compare Warpgate with <a href="../warpgate-vs-teleport/">Teleport</a>, <a href="../warpgate-vs-strongdm/">StrongDM</a> and <a href="../warpgate-vs-wallix/">WALLIX</a>.</p>
 <p>Ready to try it?</p>
 <p><a class="btn btn-success" href="/getting-started-on-docker">Get started with Docker &rarr;</a></p>
       </article>

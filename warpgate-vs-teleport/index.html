@@ -3,20 +3,20 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Warpgate vs. Teleport</title>
+  <title>Warpgate vs. Teleport — an open-source, self-hosted Teleport alternative</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Compare Warpgate and Teleport for SSH, Kubernetes, databases, web apps, RDP/VNC, SSO, session recording, self-hosting and licensing.">
+  <meta name="description" content="Looking for a Teleport alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no agents and no client app — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording, all free at any company size.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Warpgate vs. Teleport">
-  <meta property="og:description" content="Compare Warpgate and Teleport for SSH, Kubernetes, databases, web apps, RDP/VNC, SSO, session recording, self-hosting and licensing.">
+  <meta property="og:title" content="Warpgate vs. Teleport — an open-source, self-hosted Teleport alternative">
+  <meta property="og:description" content="Looking for a Teleport alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no agents and no client app — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording, all free at any company size.">
   <meta property="og:url" content="https://warpgate.null.page/warpgate-vs-teleport/">
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Warpgate vs. Teleport">
-  <meta name="twitter:description" content="Compare Warpgate and Teleport for SSH, Kubernetes, databases, web apps, RDP/VNC, SSO, session recording, self-hosting and licensing.">
+  <meta name="twitter:title" content="Warpgate vs. Teleport — an open-source, self-hosted Teleport alternative">
+  <meta name="twitter:description" content="Looking for a Teleport alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no agents and no client app — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording, all free at any company size.">
   <link rel="canonical" href="https://warpgate.null.page/warpgate-vs-teleport/">
 
   <script>
@@ -33,8 +33,8 @@
     });
   </script>
   <script src="https://openpanel.dev/op1.js" defer async></script>
-  <script type="module" crossorigin src="/assets/app-DQrW1DwS.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/app-BmuCqt61.css">
+  <script type="module" crossorigin src="/assets/app-DXxmH9tT.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CC1J8EMQ.css">
 </head>
 
 <body>
@@ -186,6 +186,10 @@
           <ul>
             
             <li>
+              <a class="" href="../production-checklist/">Production checklist</a>
+            </li>
+            
+            <li>
               <a class="" href="../newsletter/">Staying in the loop</a>
             </li>
             
@@ -195,6 +199,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../encryption/">Encrypting credentials at rest</a>
             </li>
             
             <li>
@@ -253,6 +261,10 @@
               <a class="" href="../warpgate-vs-strongdm/">Warpgate vs. StrongDM</a>
             </li>
             
+            <li>
+              <a class="" href="../warpgate-vs-wallix/">Warpgate vs. WALLIX</a>
+            </li>
+            
           </ul>
         </li>
         
@@ -264,7 +276,7 @@
     <main class="page-content">
       <article>
         <h1 id="warpgate-vs-teleport">Warpgate vs. Teleport<a class="headerlink" href="#warpgate-vs-teleport" title="Permanent link">§</a></h1>
-<p>Warpgate and <a href="https://goteleport.com/">Teleport</a> both give you audited, authenticated access to internal infrastructure — but they sit at very different points on the spectrum. Teleport is a large, agent-based <strong>identity platform</strong>; Warpgate is a <strong>lightweight, transparent bastion</strong> that runs from a single binary and works with the clients you already have. For most teams that simply need secure, audited access to their servers, databases and desktops, Warpgate gets you there with a fraction of the moving parts — and none of it behind a paywall.</p>
+<p>Warpgate is an <strong>open-source, self-hosted Teleport alternative</strong>. It and <a href="https://goteleport.com/">Teleport</a> both give you audited, authenticated access to internal infrastructure — but they sit at very different points on the spectrum. Teleport is a large, agent-based <strong>identity platform</strong>; Warpgate is a <strong>lightweight, transparent bastion</strong> that runs from a single binary and works with the clients you already have. For most teams that simply need secure, audited access to their servers, databases and desktops, Warpgate gets you there with a fraction of the moving parts — and none of it behind a paywall.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Teleport is an actively developed product and its capabilities and edition boundaries change over time. Treat the details below as a good-faith orientation, <strong>last verified August 2026</strong>, and check the <a href="https://goteleport.com/docs/">Teleport documentation</a> for its current feature set.</p>
@@ -442,7 +454,7 @@
 <section class="production-review-cta" aria-labelledby="production-review-teleport-title">
     <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
     <h2 id="production-review-teleport-title">Validate the architecture before rollout</h2>
-    <p>Ask Warpgate's maintainer to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
     <div class="production-review-actions">
         <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
         <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>
@@ -456,6 +468,7 @@
 </ul>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">§</a></h2>
 <p>If you want a comprehensive, agent-based identity platform and the budget and operations team to match, Teleport is built for that. If you want a compact, self-hosted, transparent gateway that works with the clients you already use, gives you replayable recordings for interactive sessions, and doesn't ask you to call sales — that's Warpgate.</p>
+<p>Also compare Warpgate with <a href="../warpgate-vs-boundary/">HashiCorp Boundary</a>, <a href="../warpgate-vs-strongdm/">StrongDM</a> and <a href="../warpgate-vs-wallix/">WALLIX</a>.</p>
 <p>Ready to try it?</p>
 <p><a class="btn btn-success" href="/getting-started-on-docker">Get started with Docker &rarr;</a></p>
       </article>

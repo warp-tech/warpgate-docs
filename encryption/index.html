@@ -3,21 +3,21 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Running behind a reverse proxy - Warpgate</title>
+  <title>Encrypting credentials at rest - Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Securely expose your internal services to the internet">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Running behind a reverse proxy">
+  <meta property="og:title" content="Encrypting credentials at rest">
   <meta property="og:description" content="Securely expose your internal services to the internet">
-  <meta property="og:url" content="https://warpgate.null.page/reverse-proxy/">
+  <meta property="og:url" content="https://warpgate.null.page/encryption/">
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Running behind a reverse proxy">
+  <meta name="twitter:title" content="Encrypting credentials at rest">
   <meta name="twitter:description" content="Securely expose your internal services to the internet">
-  <link rel="canonical" href="https://warpgate.null.page/reverse-proxy/">
+  <link rel="canonical" href="https://warpgate.null.page/encryption/">
 
   <script>
     window.base_url = '/' // for search
@@ -194,7 +194,7 @@
             </li>
             
             <li>
-              <a class="text-success" href="./">Running behind a reverse proxy</a>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
             </li>
             
             <li>
@@ -202,7 +202,7 @@
             </li>
             
             <li>
-              <a class="" href="../encryption/">Encrypting credentials at rest</a>
+              <a class="text-success" href="./">Encrypting credentials at rest</a>
             </li>
             
             <li>
@@ -275,44 +275,55 @@
 
     <main class="page-content">
       <article>
-        <h1 id="running-behind-a-reverse-proxy">Running behind a reverse proxy<a class="headerlink" href="#running-behind-a-reverse-proxy" title="Permanent link">§</a></h1>
-<p>Warpgate doesn't need any specific configuration except in the following case:</p>
-<ul>
-<li>When using <strong>single sign-on</strong>, make sure your reverse proxy supplies the correct <code>Host</code> (or <code>X-Forwarded-Host</code>) and <code>X-Forwarded-Proto</code> headers - this allows Warpgate to construct correct redirect URLs.</li>
-<li>Set <code>http.trust_x_forwarded_headers</code> to <code>true</code> in the config file.</li>
-</ul>
-<p>Example for NGINX:</p>
-<div class="language-toml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">server</span><span style="color: #6E7681"> </span><span style="color: #F85149">{</span>
-<span style="color: #6E7681">    </span><span style="color: #E6EDF3">server_name</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">warpgate.acme.inc</span><span style="color: #F85149">;</span>
-<span style="color: #6E7681">    </span><span style="color: #E6EDF3">listen</span><span style="color: #6E7681"> </span><span style="color: #F85149">*:</span><span style="color: #E6EDF3">443</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">http2</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">ssl</span><span style="color: #F85149">;</span>
-<span style="color: #6E7681">    </span><span style="color: #E6EDF3">ssl_certificate</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">...</span><span style="color: #F85149">;</span>
-<span style="color: #6E7681">    </span><span style="color: #E6EDF3">ssl_certificate_key</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">...</span><span style="color: #F85149">;</span>
+        <h1 id="encrypting-credentials-at-rest">Encrypting credentials at rest<a class="headerlink" href="#encrypting-credentials-at-rest" title="Permanent link">§</a></h1>
+<div class="badge font-xs text-bg-warning mb-3">v0.28+</div>
 
-<span style="color: #6E7681">    </span><span style="color: #E6EDF3">location</span><span style="color: #6E7681"> </span><span style="color: #F85149">/</span><span style="color: #6E7681">  </span><span style="color: #F85149">{</span>
-<span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_pass</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">https</span><span style="color: #F85149">://</span><span style="color: #E6EDF3">192.168.10.1</span><span style="color: #F85149">:</span><span style="color: #E6EDF3">8888</span><span style="color: #F85149">;</span>
-<span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_set_header</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">Host</span><span style="color: #6E7681"> </span><span style="color: #F85149">$</span><span style="color: #E6EDF3">http_host</span><span style="color: #F85149">;</span>
-<span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_set_header</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">X-Forwarded-Proto</span><span style="color: #6E7681"> </span><span style="color: #F85149">$</span><span style="color: #E6EDF3">scheme</span><span style="color: #F85149">;</span>
-<span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_http_version</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">1.1</span><span style="color: #F85149">;</span>
-<span style="color: #6E7681">    </span><span style="color: #F85149">}</span>
-<span style="color: #F85149">}</span>
+<p>Warpgate has to store the credentials it uses to authenticate <em>to your targets</em> in its database. By default they are stored as-is, so if someone is able to obtain a copy of the database - a backup, a read replica, will hold every target credential.</p>
+<p>With encryption enabled, credentials will be decrypted on demand only whenever Warpgate connects to a target. They stay encrypted in the database, in the API, and in the UI — once encryption is on, even an admin can no longer read a target's password back out of Warpgate.</p>
+<div class="admonition note">
+<p class="admonition-title">What this protects against</p>
+<p>Encryption at rest protects leaked database dumps, backups, replicas and misplaced database files. It does <strong>not</strong> protect against a compromised Warpgate node itself - the key is in that process's environment, so anything that can control the process can read the key.</p>
+</div>
+<h2 id="enabling-encryption">Enabling encryption<a class="headerlink" href="#enabling-encryption" title="Permanent link">§</a></h2>
+<p>Generate a key:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>openssl<span style="color: #6E7681"> </span>rand<span style="color: #6E7681"> </span>-base64<span style="color: #6E7681"> </span><span style="color: #A5D6FF">32</span>
 </code></pre></div>
-<h2 id="tcp-proxy-protocol">TCP PROXY protocol<a class="headerlink" href="#tcp-proxy-protocol" title="Permanent link">§</a></h2>
-<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
-
-<p>When Warpgate sits behind a TCP (layer-4) load balancer such as HAProxy or an AWS Network Load Balancer, the client's real IP address would otherwise be lost. Warpgate can read it from a HAProxy <strong>PROXY protocol</strong> (v1/v2) header on any listener. Enable it per listener with <code>proxy_protocol: true</code>:</p>
-<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> ssh:
-<span style="color: #6E7681"> </span>   listen: &#39;[::]:2222&#39;
-<span style="color: #56D364; background-color: #0F5323">+   proxy_protocol: true</span>
+<p>Set it as <code>WARPGATE_ENCRYPTION_KEY</code> on every node and restart Warpgate. Once all nodes have started, Warpgate will encrypt all credentials in the database.</p>
+<p>The key must be exactly 32 bytes, base64-encoded. Warpgate will refuse to start if the value is malformed.</p>
+<div class="admonition warning">
+<p class="admonition-title">Back up the key</p>
+<p>The key is not stored anywhere. If you lose it, the stored credentials cannot be recovered and you will have to re-enter every target's credentials by hand.</p>
+</div>
+<h2 id="helm">Helm<a class="headerlink" href="#helm" title="Permanent link">§</a></h2>
+<p>Put the key in a secret and reference it from <code>values.yaml</code>:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">envFromSecret</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">WARPGATE_ENCRYPTION_KEY</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-secret/encryptionKey&quot;</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">WARPGATE_ENCRYPTION_KEY_OLD</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-secret/encryptionKeyOld&quot;</span>
 </code></pre></div>
-<p>Only enable this when the upstream load balancer actually prepends a PROXY header.</p>
+<p>The format is <code>&lt;secret-name&gt;/&lt;key&gt;</code>.</p>
+<h2 id="losing-or-changing-the-key">Losing or changing the key<a class="headerlink" href="#losing-or-changing-the-key" title="Permanent link">§</a></h2>
+<p>Warpgate will never refuse to start because of a key-related problem, so a lost key won't take it down. A node <strong>without</strong> the key still starts and works, but will not be able to connect to the affected targets.</p>
+<h2 id="rotating-the-key">Rotating the key<a class="headerlink" href="#rotating-the-key" title="Permanent link">§</a></h2>
+<p>A key can be rotated fully online without stoping the cluster.</p>
+<ol>
+<li>Generate a new key.</li>
+<li>On every node, set <code>WARPGATE_ENCRYPTION_KEY</code> to the <strong>new</strong> key and <code>WARPGATE_ENCRYPTION_KEY_OLD</code> to the <strong>previous</strong> value.</li>
+<li>Roll out the change.</li>
+<li>Once every running node reports the new key, Warpgate will re-encrypt all stored credentials with it.</li>
+<li>When the log reports the re-encryption is complete, remove <code>WARPGATE_ENCRYPTION_KEY_OLD</code> and roll out once more.</li>
+</ol>
+<p><code>WARPGATE_ENCRYPTION_KEY_OLD</code> supports a comma-separated list, in case multiple old keys are needed to decrypt existing values (e.g. a rotation was interrupted):</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #79C0FF">WARPGATE_ENCRYPTION_KEY_OLD</span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #A5D6FF">&quot;&lt;previous-key&gt;,&lt;key-before-that&gt;&quot;</span>
+</code></pre></div>
+<p>Keys are only ever used to <em>read</em> with; the key in <code>WARPGATE_ENCRYPTION_KEY</code> is the one everything is written with.</p>
       </article>
 
       
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../newsletter/">
+          <a class="btn btn-secondary btn-prev" href="../clustering/">
             &larr;
-            Staying in the loop
+            Running a cluster
             <br/>
             <small class="text-muted">
               Previous
@@ -322,8 +333,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../clustering/">
-            Running a cluster
+          <a class="btn btn-success btn-next ms-auto" href="../systemd/">
+            Installing as a systemd service
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

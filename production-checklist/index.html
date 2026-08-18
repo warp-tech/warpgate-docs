@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Warpgate production deployment checklist</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A pre-launch checklist for self-hosting Warpgate - TLS, SSO, roles, credential encryption, clustering, backups, logging and go-live testing.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Warpgate production deployment checklist">
+  <meta property="og:description" content="A pre-launch checklist for self-hosting Warpgate - TLS, SSO, roles, credential encryption, clustering, backups, logging and go-live testing.">
+  <meta property="og:url" content="https://warpgate.null.page/production-checklist/">
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Warpgate production deployment checklist">
+  <meta name="twitter:description" content="A pre-launch checklist for self-hosting Warpgate - TLS, SSO, roles, credential encryption, clustering, backups, logging and go-live testing.">
+  <link rel="canonical" href="https://warpgate.null.page/production-checklist/">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+
+  <script>
+    window.op=window.op||function(){var n=[];return new Proxy(function(){arguments.length&&n.push([].slice.call(arguments))},{get:function(t,r){return"q"===r?n:function(){n.push([r].concat([].slice.call(arguments)))}} ,has:function(t,r){return"q"===r}}) }();
+    window.op('init', {
+      clientId: '5737fa73-0d53-42d4-baca-e67d0e445340',
+      trackScreenViews: true,
+      trackOutgoingLinks: true,
+      trackAttributes: true,
+    });
+  </script>
+  <script src="https://openpanel.dev/op1.js" defer async></script>
+  <script type="module" crossorigin src="/assets/app-DXxmH9tT.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CC1J8EMQ.css">
+</head>
+
+<body>
+  <header class="container text-nowrap">
+    <a href="/" class="me-auto" aria-label="Warpgate home">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" alt="Warpgate" />
+    </a>
+
+    
+      <form action="search.html" class="search-form d-none d-sm-inline-block">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank" rel="noopener noreferrer">GitHub</a>
+
+    
+
+    <a class="btn btn-link btn-sm" href="/for-business">Warpgate for Business &rarr;</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3 class="d-flex align-items-center">
+        <span class="nav-collapsible">Docs</span>
+        <!-- <button class="btn btn-link ms-auto nav-toggle">
+          <i class="fa-solid fa-list"></i>
+        </button> -->
+      </h3>
+      <ul class="nav-collapsible">
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>
+          <a class="" href="../for-business/">Warpgate for Business</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-helm/">Helm</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-kubernetes/">Kubernetes operator</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/kubernetes/">Kubernetes</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/rdp/">RDP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/vnc/">VNC</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth/">User authentication</a>
+            </li>
+            
+            <li>
+              <a class="" href="../roles/">User roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../ldap/">LDAP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../login-protection/">Login protection</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Operations
+          <ul>
+            
+            <li>
+              <a class="text-success" href="./">Production checklist</a>
+            </li>
+            
+            <li>
+              <a class="" href="../newsletter/">Staying in the loop</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+            <li>
+              <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../encryption/">Encrypting credentials at rest</a>
+            </li>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../custom-ca/">Custom root CAs</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sni/">TLS SNI</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Compare
+          <ul>
+            
+            <li>
+              <a class="" href="../warpgate-vs-teleport/">Warpgate vs. Teleport</a>
+            </li>
+            
+            <li>
+              <a class="" href="../warpgate-vs-boundary/">Warpgate vs. Boundary</a>
+            </li>
+            
+            <li>
+              <a class="" href="../warpgate-vs-strongdm/">Warpgate vs. StrongDM</a>
+            </li>
+            
+            <li>
+              <a class="" href="../warpgate-vs-wallix/">Warpgate vs. WALLIX</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <main class="page-content">
+      <article>
+        <h1 id="production-deployment-checklist">Production deployment checklist<a class="headerlink" href="#production-deployment-checklist" title="Permanent link">§</a></h1>
+<h2 id="install-and-configuration">Install and configuration<a class="headerlink" href="#install-and-configuration" title="Permanent link">§</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> Pick a deployment method: <a href="../getting-started/">native binary</a>, <a href="../getting-started-on-docker/">Docker</a>, <a href="../getting-started-on-helm/">Helm</a> or the community <a href="../getting-started-on-kubernetes/">Kubernetes operator</a>.</li>
+<li class="task-list-item"><input type="checkbox"/> Run Warpgate under a supervisor that restarts it (a <a href="../systemd/">systemd unit</a> for native installs)</li>
+<li class="task-list-item"><input type="checkbox"/> Move off the built-in SQLite to an external MySQL or PostgreSQL (<code>database_url</code> in the config file) if you want clustering or expect the estate to grow.</li>
+</ul>
+<h2 id="tls-and-networking">TLS and networking<a class="headerlink" href="#tls-and-networking" title="Permanent link">§</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> Replace the self-signed certificate generated during setup with a real one for your domain.</li>
+<li class="task-list-item"><input type="checkbox"/> Add <a href="../sni/">SNI certificates</a> for target subdomains not covered by that certificate.</li>
+<li class="task-list-item"><input type="checkbox"/> Behind a reverse proxy: forward <code>Host</code> and <code>X-Forwarded-Proto</code>, and set <code>http.trust_x_forwarded_headers</code> (see <a href="../reverse-proxy/">running behind a reverse proxy</a>)</li>
+<li class="task-list-item"><input type="checkbox"/> Behind a TCP load balancer: enable the <a href="../reverse-proxy/#tcp-proxy-protocol">PROXY protocol</a> per listener</li>
+<li class="task-list-item"><input type="checkbox"/> Mount your internal <a href="../custom-ca/">root CAs</a> if target certificates use a private CA</li>
+</ul>
+<h2 id="identity-and-access">Identity and access<a class="headerlink" href="#identity-and-access" title="Permanent link">§</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> Connect your identity provider: <a href="../sso/">SSO via OIDC</a>.</li>
+<li class="task-list-item"><input type="checkbox"/> Give each admin their own account instead of sharing the one created at setup.</li>
+<li class="task-list-item"><input type="checkbox"/> Give each team the narrowest <a href="../roles/">role</a> that works, and keep the admin role a short list.</li>
+</ul>
+<h2 id="hardening">Hardening<a class="headerlink" href="#hardening" title="Permanent link">§</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> Require <a href="../otp/">OTP</a> or <a href="../auth/#requiring-multiple-authentication-factors">multiple factors</a> for admins and for sensitive targets.</li>
+<li class="task-list-item"><input type="checkbox"/> Enable <a href="../login-protection/">login protection</a> - IP blocking and user lockout thresholds - for your traffic.</li>
+<li class="task-list-item"><input type="checkbox"/> Turn off password SSH logins under <code>Config</code> &gt; <code>Global parameters</code> if you are not using password credentials.</li>
+<li class="task-list-item"><input type="checkbox"/> Turn off web SSH or the web remote desktop client under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>SSH</code> if your policy doesn't allow them.</li>
+<li class="task-list-item"><input type="checkbox"/> Set up password complexity rules under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Password policy</code>.</li>
+<li class="task-list-item"><input type="checkbox"/> Decide your policy on <a href="../tickets/">tickets</a> and self-service ticket requests before users start asking.</li>
+<li class="task-list-item"><input type="checkbox"/> Enable <a href="../encryption/">credential encryption at rest</a> - particularly with an external database, replicas or off-host backups.</li>
+<li class="task-list-item"><input type="checkbox"/> Store the encryption key where you can recover it.</li>
+</ul>
+<h2 id="scaling-and-ha">Scaling and HA<a class="headerlink" href="#scaling-and-ha" title="Permanent link">§</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> Set up additional nodes: shared database, S3 recordings storage and the at-rest encryption key everywhere - see <a href="../clustering/">running a cluster</a></li>
+<li class="task-list-item"><input type="checkbox"/> Confirm nodes can reach each other on their HTTP listener port (for cross-node proxying)</li>
+<li class="task-list-item"><input type="checkbox"/> Check that taking one node out of the load balancer doesn't disturb sessions on the others.</li>
+</ul>
+<h2 id="backups">Backups<a class="headerlink" href="#backups" title="Permanent link">§</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> The config file (<code>/etc/warpgate.yaml</code>)</li>
+<li class="task-list-item"><input type="checkbox"/> The data directory (on Docker that's the <code>/data</code> volume)</li>
+<li class="task-list-item"><input type="checkbox"/> The database</li>
+</ul>
+<h2 id="observability">Observability<a class="headerlink" href="#observability" title="Permanent link">§</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> Forward logs to your aggregator: <a href="../log-forwarding/">log forwarding</a>.</li>
+<li class="task-list-item"><input type="checkbox"/> Subscribe to <a href="../newsletter/">release and security announcements</a> so upgrades and advisories don't arrive by surprise.</li>
+</ul>
+<h2 id="before-you-go-live">Before you go live<a class="headerlink" href="#before-you-go-live" title="Permanent link">§</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> Test connections to each target as an end user</li>
+<li class="task-list-item"><input type="checkbox"/> Play back a session recording and confirm it lands in the storage you configured</li>
+<li class="task-list-item"><input type="checkbox"/> Test admin access recovery with <code>warpgate recover-access</code> - see <a href="../recovering-access/">recovering admin access</a>.</li>
+<li class="task-list-item"><input type="checkbox"/> Restore your backup onto a temporary deployment and test it</li>
+<li class="task-list-item"><input type="checkbox"/> Always upgrade that temporary deployment host to the next version before you do it in production</li>
+</ul>
+      </article>
+
+      
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../recovering-access/">
+            &larr;
+            Recovering admin access
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+          <a class="btn btn-success btn-next ms-auto" href="../newsletter/">
+            Staying in the loop
+            &rarr;
+            <br/>
+            <small class="text-muted">Next</small>
+          </a>
+        
+      </div>
+      
+    </main>
+  </div>
+
+  <hr class="mt-5" />
+
+  <div class="text-center">
+      <a href="/imprint">Imprint</a>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>

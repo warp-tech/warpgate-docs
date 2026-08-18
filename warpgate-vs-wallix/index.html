@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Warpgate vs. WALLIX — an open-source, self-hosted WALLIX Bastion alternative</title>
+  <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Looking for a WALLIX Bastion alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no agents, no client app and no per-asset licence — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Warpgate vs. WALLIX — an open-source, self-hosted WALLIX Bastion alternative">
+  <meta property="og:description" content="Looking for a WALLIX Bastion alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no agents, no client app and no per-asset licence — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording.">
+  <meta property="og:url" content="https://warpgate.null.page/warpgate-vs-wallix/">
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Warpgate vs. WALLIX — an open-source, self-hosted WALLIX Bastion alternative">
+  <meta name="twitter:description" content="Looking for a WALLIX Bastion alternative? Warpgate is a self-hosted, Apache-2.0 bastion with no agents, no client app and no per-asset licence — SSH, Kubernetes, databases, web apps, RDP/VNC, SSO and session recording.">
+  <link rel="canonical" href="https://warpgate.null.page/warpgate-vs-wallix/">
+
+  <script>
+    window.base_url = '/' // for search
+  </script>
+
+  <script>
+    window.op=window.op||function(){var n=[];return new Proxy(function(){arguments.length&&n.push([].slice.call(arguments))},{get:function(t,r){return"q"===r?n:function(){n.push([r].concat([].slice.call(arguments)))}} ,has:function(t,r){return"q"===r}}) }();
+    window.op('init', {
+      clientId: '5737fa73-0d53-42d4-baca-e67d0e445340',
+      trackScreenViews: true,
+      trackOutgoingLinks: true,
+      trackAttributes: true,
+    });
+  </script>
+  <script src="https://openpanel.dev/op1.js" defer async></script>
+  <script type="module" crossorigin src="/assets/app-DXxmH9tT.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-CC1J8EMQ.css">
+</head>
+
+<body>
+  <header class="container text-nowrap">
+    <a href="/" class="me-auto" aria-label="Warpgate home">
+      <img class="logo" src="/assets/brand-dark-BgjQA_wK.svg" alt="Warpgate" />
+    </a>
+
+    
+      <form action="search.html" class="search-form d-none d-sm-inline-block">
+        <input class="form-control" name="q" id="mkdocs-search-query" type="text" placeholder="Search docs..." />
+      </form>
+    
+
+    <a class="btn btn-link btn-sm ms-auto d-none d-md-inline-block" href="https://github.com/warp-tech/warpgate" target="_blank" rel="noopener noreferrer">GitHub</a>
+
+    
+
+    <a class="btn btn-link btn-sm" href="/for-business">Warpgate for Business &rarr;</a>
+  </header>
+
+  <div id="mkdocs-search-results" class="container search-results"></div>
+
+  <div class="layout container">
+    
+    <div class="nav">
+      <h3 class="d-flex align-items-center">
+        <span class="nav-collapsible">Docs</span>
+        <!-- <button class="btn btn-link ms-auto nav-toggle">
+          <i class="fa-solid fa-list"></i>
+        </button> -->
+      </h3>
+      <ul class="nav-collapsible">
+        
+        
+        <li>
+          <a class="" href="../docs/">Home</a>
+        </li>
+        
+        
+        
+        <li>
+          <a class="" href="../for-business/">Warpgate for Business</a>
+        </li>
+        
+        
+        
+        <li>Getting started
+          <ul>
+            
+            <li>
+              <a class="" href="../getting-started/">Native</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-docker/">Docker</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-helm/">Helm</a>
+            </li>
+            
+            <li>
+              <a class="" href="../getting-started-on-kubernetes/">Kubernetes operator</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Adding targets
+          <ul>
+            
+            <li>
+              <a class="" href="../targets/ssh/">SSH</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/http/">HTTP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/mysql/">MySQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/postgres/">PostgreSQL</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/kubernetes/">Kubernetes</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/rdp/">RDP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../targets/vnc/">VNC</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Access control
+          <ul>
+            
+            <li>
+              <a class="" href="../auth/">User authentication</a>
+            </li>
+            
+            <li>
+              <a class="" href="../roles/">User roles</a>
+            </li>
+            
+            <li>
+              <a class="" href="../tickets/">Access tickets</a>
+            </li>
+            
+            <li>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sso/">Single sign-on</a>
+            </li>
+            
+            <li>
+              <a class="" href="../ldap/">LDAP</a>
+            </li>
+            
+            <li>
+              <a class="" href="../login-protection/">Login protection</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Operations
+          <ul>
+            
+            <li>
+              <a class="" href="../production-checklist/">Production checklist</a>
+            </li>
+            
+            <li>
+              <a class="" href="../newsletter/">Staying in the loop</a>
+            </li>
+            
+            <li>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
+            </li>
+            
+            <li>
+              <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../encryption/">Encrypting credentials at rest</a>
+            </li>
+            
+            <li>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
+            </li>
+            
+            <li>
+              <a class="" href="../log-forwarding/">Log forwarding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../custom-ca/">Custom root CAs</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Advanced topics
+          <ul>
+            
+            <li>
+              <a class="" href="../http-domain-binding/">HTTP domain binding</a>
+            </li>
+            
+            <li>
+              <a class="" href="../sni/">TLS SNI</a>
+            </li>
+            
+            <li>
+              <a class="" href="../chaining/">Chaining Warpgates</a>
+            </li>
+            
+            <li>
+              <a class="" href="../protocol-support/">Protocol support</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+        
+        <li>Compare
+          <ul>
+            
+            <li>
+              <a class="" href="../warpgate-vs-teleport/">Warpgate vs. Teleport</a>
+            </li>
+            
+            <li>
+              <a class="" href="../warpgate-vs-boundary/">Warpgate vs. Boundary</a>
+            </li>
+            
+            <li>
+              <a class="" href="../warpgate-vs-strongdm/">Warpgate vs. StrongDM</a>
+            </li>
+            
+            <li>
+              <a class="text-success" href="./">Warpgate vs. WALLIX</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+
+    <main class="page-content">
+      <article>
+        <h1 id="warpgate-vs-wallix">Warpgate vs. WALLIX<a class="headerlink" href="#warpgate-vs-wallix" title="Permanent link">§</a></h1>
+<p>Warpgate is an <strong>open-source, self-hosted alternative to WALLIX Bastion</strong>. Of the commercial products Warpgate is usually compared with, <a href="https://www.wallix.com/">WALLIX</a> is the closest in shape: it is genuinely <strong>agentless</strong>, it lets users connect with the clients they already have, and you can run the whole thing in your own infrastructure. The differences are not architectural religion — they are <strong>scope, protocol coverage and price</strong>. WALLIX is a full commercial PAM suite with a credential vault, endpoint privilege management and national security certifications; Warpgate is a compact, Apache-2.0 access gateway that does the proxying part and gives it away.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>WALLIX is an actively developed commercial product and its capabilities change over time. The details below were <strong>verified in August 2026</strong> against the <a href="https://pam.wallix.one/documentation/admin-doc/bastion_en_administration_guide.pdf">WALLIX Bastion 12.3.2 Administration Guide</a>, the <a href="https://www.wallix.com/wp-content/uploads/2024/09/DATASHEET_2025_WALLIX_PAM_EN.pdf">WALLIX PAM datasheet</a> and the <a href="https://pam.wallix.one/documentation/deployment/getting-started/architecture.html">WALLIX One PAM architecture documentation</a>. Check the <a href="https://pam.wallix.one/documentation/">WALLIX documentation</a> for its current feature set.</p>
+</div>
+<h2 id="at-a-glance">At a glance<a class="headerlink" href="#at-a-glance" title="Permanent link">§</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Warpgate</th>
+<th>WALLIX Bastion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Footprint</strong></td>
+<td>A Rust binary plus SQLite, MySQL or PostgreSQL; multiple nodes can share a database for clustering</td>
+<td>A Linux appliance (virtual or hardware), cloud image or SaaS; add <strong>Access Manager</strong> for remote/browser access and a Windows <strong>RDS farm</strong> to publish web applications</td>
+</tr>
+<tr>
+<td><strong>Agents on targets</strong></td>
+<td><strong>None</strong> — nothing is installed on your servers</td>
+<td><strong>None</strong> — WALLIX is agentless too</td>
+</tr>
+<tr>
+<td><strong>Client software</strong></td>
+<td><strong>None</strong> — users keep their normal <code>ssh</code>, <code>mysql</code>, <code>psql</code>, <code>kubectl</code>, browser or RDP/VNC client</td>
+<td><strong>None</strong> for SSH, RDP, VNC and telnet; the <strong>WAMUT tunnelling client</strong> is required for databases, fat clients and other raw-TCP targets</td>
+</tr>
+<tr>
+<td><strong>Selecting a target</strong></td>
+<td>A special username (<code>user:target</code>) / the web UI</td>
+<td>A special username (<code>Machine:Service:Username@Bastion</code>) / the web portal</td>
+</tr>
+<tr>
+<td><strong>Protocols</strong></td>
+<td>SSH, HTTP(S), MySQL, PostgreSQL, Kubernetes, RDP, VNC</td>
+<td>SSH (incl. SCP/SFTP/X11), RDP, VNC, telnet, RLOGIN, plus <strong>raw TCP</strong> (<code>RAWTCPIP</code>) for anything else, including OT/industrial protocols</td>
+</tr>
+<tr>
+<td><strong>Kubernetes</strong></td>
+<td>✅ protocol-aware: RBAC on the API, <code>exec</code>/<code>attach</code> replay</td>
+<td>❌ not a supported target type</td>
+</tr>
+<tr>
+<td><strong>Databases</strong></td>
+<td>✅ protocol-aware MySQL and PostgreSQL proxy with <strong>query logs</strong></td>
+<td>Reached as a <strong>raw TCP tunnel</strong> via Universal Tunneling; captured as a PCAP file</td>
+</tr>
+<tr>
+<td><strong>Web / HTTP targets</strong></td>
+<td>✅ native — Warpgate <em>is</em> an HTTP reverse proxy</td>
+<td><strong>Web Session Manager</strong> drives a real browser (an embedded Chrome engine) on the gateway side</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>Password, SSH public key, OTP (TOTP), <strong>SSO via OIDC</strong>, client certificates, in-browser approval</td>
+<td>Password, SSH keys, Kerberos, LDAP/AD, NLA, RADIUS, PKI (X.509), <strong>SAML 2.0 and OIDC</strong></td>
+</tr>
+<tr>
+<td><strong>Self-service / JIT access</strong></td>
+<td>Tickets and self-service <strong>ticket requests</strong> with admin approval — included</td>
+<td><strong>Approval workflow</strong> with a dedicated approver role and e-mail notification; integrates with ITSM ticketing</td>
+</tr>
+<tr>
+<td><strong>Secrets management</strong></td>
+<td>Per-target credentials, stored or brokered</td>
+<td>Full <strong>vault</strong> with automated password and SSH-key rotation, plus application-to-application password management</td>
+</tr>
+<tr>
+<td><strong>Beyond the gateway</strong></td>
+<td>Gateway only</td>
+<td>A <strong>suite</strong>: PEDM endpoint privilege management, IDaaS, identity governance</td>
+</tr>
+<tr>
+<td><strong>Security certification</strong></td>
+<td>None</td>
+<td><strong>ANSSI CSPN</strong> and <strong>BSI BSZ</strong> (see <a href="#certification-and-compliance">below</a>)</td>
+</tr>
+<tr>
+<td><strong>Licensing</strong></td>
+<td><strong>Apache-2.0, fully self-hosted, no paid tier</strong></td>
+<td>Proprietary and commercial — subscription <strong>per asset or per user</strong>; free trial available</td>
+</tr>
+</tbody>
+</table>
+<h2 id="philosophy">Philosophy<a class="headerlink" href="#philosophy" title="Permanent link">§</a></h2>
+<p><strong>Warpgate is a transparent, protocol-aware proxy.</strong> One binary and one database, sitting between your users and your targets. It understands SSH, HTTP, the database wire protocols, the Kubernetes API and the desktop protocols, so it can tell you <em>what happened</em> inside a session. Every feature is in the Apache-2.0 build, and there is no licence to count.</p>
+<p><strong>WALLIX Bastion is a certified commercial PAM platform.</strong> It covers the same proxying ground and then keeps going: a credential vault with rotation, application-to-application secrets, endpoint privilege management, identity governance, and the compliance paperwork that regulated buyers ask for. WALLIX Group has been doing this since 2003, is listed on Euronext, and sells into exactly the sectors where a purchase order needs a certificate attached to it.</p>
+<p>Notably, WALLIX does <strong>not</strong> ask you to install an agent on your servers or a client on every laptop for its main protocols — so the usual "no agents, no client" argument that separates Warpgate from Teleport, StrongDM and Boundary does <em>not</em> separate it from WALLIX. The honest differences are elsewhere.</p>
+<h2 id="reaching-a-target">Reaching a target<a class="headerlink" href="#reaching-a-target" title="Permanent link">§</a></h2>
+<p>The two products feel remarkably similar day to day:</p>
+<ul>
+<li><strong>Warpgate</strong> — point <code>ssh</code>, <code>psql</code>, <code>kubectl</code>, a browser or an RDP/VNC client at Warpgate using <code>user:target</code>, or use the web portal.</li>
+<li><strong>WALLIX</strong> — point your SSH or RDP client at the Bastion using <code>Machine:Service:Username@Bastion</code>, or use the web portal. WALLIX Access Manager additionally brokers browser-based sessions for remote users.</li>
+</ul>
+<p>The exception is anything that isn't SSH, RDP, VNC or telnet. WALLIX carries those over <strong>Universal Tunneling</strong>: raw TCP inside an SSH tunnel, driven by the WAMUT client on the user's workstation. Depending on the mode, the user's application must either be reconfigured to talk to <code>127.0.0.1</code>, or a temporary network interface is created on the workstation (which needs local privileges). That is the path a MySQL or PostgreSQL client takes. Warpgate speaks those protocols directly, so the client connects to Warpgate the same way it connects to anything else.</p>
+<h2 id="session-recording">Session recording<a class="headerlink" href="#session-recording" title="Permanent link">§</a></h2>
+<p>Both products record. The difference is how much of the session each one <em>understands</em> — WALLIX interprets its four interactive protocols and captures the rest as packets, while Warpgate additionally interprets the database, Kubernetes and HTTP traffic it proxies.</p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Warpgate</th>
+<th>WALLIX Bastion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SSH / telnet</td>
+<td>✅ terminal replay (+ per-command audit log, v0.27)</td>
+<td>✅ terminal replay with searchable metadata</td>
+</tr>
+<tr>
+<td>RDP</td>
+<td>✅ video</td>
+<td>✅ video</td>
+</tr>
+<tr>
+<td>VNC</td>
+<td>✅ video</td>
+<td>✅ video</td>
+</tr>
+<tr>
+<td>Kubernetes</td>
+<td>✅ API calls + <code>exec</code>/<code>attach</code> replay</td>
+<td>❌ not a supported target type</td>
+</tr>
+<tr>
+<td>MySQL / PostgreSQL</td>
+<td>✅ query log</td>
+<td>PCAP capture of the tunnel</td>
+</tr>
+<tr>
+<td>HTTP / web apps</td>
+<td>✅ session log</td>
+<td>✅ video of the browser session</td>
+</tr>
+</tbody>
+</table>
+<p>WALLIX also offers real-time session monitoring, live session sharing with an invited guest (view-only or shared control), and the ability to terminate a session in progress.</p>
+<h2 id="scope-a-gateway-not-a-suite">Scope: a gateway, not a suite<a class="headerlink" href="#scope-a-gateway-not-a-suite" title="Permanent link">§</a></h2>
+<p>This is the difference that decides most evaluations. WALLIX sells a <strong>PAM programme</strong>; Warpgate is one component of one.</p>
+<p>If your requirement is written as "audited, access-controlled connections to our infrastructure", Warpgate covers it. If it is written as "discover privileged accounts, vault and rotate their credentials, remove local admin rights from workstations, broker secrets to applications, and produce a compliance report", that is a suite-shaped requirement and WALLIX is built for it. Warpgate has per-target credentials and access control, not a rotation engine, not endpoint privilege management, and not identity governance.</p>
+<h2 id="certification-and-compliance">Certification and compliance<a class="headerlink" href="#certification-and-compliance" title="Permanent link">§</a></h2>
+<p>WALLIX Bastion holds ANSSI's <strong>CSPN</strong> certification (awarded to Bastion 6.0.102) and, in October 2025, WALLIX PAM obtained the German BSI's <strong>BSZ</strong> certification — recognised by ANSSI under the Franco-German mutual-recognition agreement in place since March 2022.</p>
+<p>Warpgate has no such certification, and this page will not pretend otherwise. If your procurement requires a nationally certified product — common in French and German public sector, defence, energy and finance — that requirement is not something an Apache-2.0 project can satisfy, and WALLIX is a well-founded answer. What Warpgate offers instead is a small, auditable codebase you can read, build and verify yourself, and deployment entirely inside your own perimeter.</p>
+<h2 id="when-warpgate-is-the-better-choice">When Warpgate is the better choice<a class="headerlink" href="#when-warpgate-is-the-better-choice" title="Permanent link">§</a></h2>
+<ul>
+<li>You want audited access <strong>today</strong>, from a single binary, without an appliance, an Access Manager, or an RDS farm to publish web apps.</li>
+<li>Your estate is <strong>Kubernetes, databases and web applications</strong> as much as it is SSH and RDP — and you want those proxied and logged protocol-aware, not tunnelled as raw TCP.</li>
+<li>You want <strong>no licence to count</strong> — no per-asset or per-user subscription, no renewal, no true-up when the estate grows.</li>
+<li>You value a <strong>small, auditable, Apache-2.0 codebase</strong> where every feature — SSO, MFA, session recording, ticket requests, clustering — is in the free build.</li>
+<li>Homelabs, small-to-medium teams, and organisations that would rather own the gateway than licence it.</li>
+</ul>
+<section class="production-review-cta" aria-labelledby="production-review-wallix-title">
+    <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
+    <h2 id="production-review-wallix-title">Validate the architecture before rollout</h2>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <div class="production-review-actions">
+        <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
+        <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>
+    </div>
+</section>
+
+<h2 id="when-to-reach-for-wallix">When to reach for WALLIX<a class="headerlink" href="#when-to-reach-for-wallix" title="Permanent link">§</a></h2>
+<ul>
+<li>You need a <strong>nationally certified</strong> product — ANSSI CSPN or BSI BSZ — because your sector or your auditor requires one.</li>
+<li>You need the <strong>full PAM suite</strong>: credential vaulting and rotation, application-to-application secrets, endpoint privilege management and identity governance under one contract.</li>
+<li>You have <strong>OT/industrial</strong> targets, or legacy telnet and RLOGIN estates, and want them brokered through the same gateway.</li>
+<li>You want a <strong>commercial vendor</strong> with European support, a partner network and two decades of PAM deployments behind it.</li>
+</ul>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">§</a></h2>
+<p>WALLIX is the most Warpgate-like of the commercial gateways: agentless, clientless for the common protocols, and yours to host. Choose it when you need the surrounding PAM suite or a certificate from ANSSI or BSI. Choose Warpgate when the gateway <em>is</em> the requirement — when you want Kubernetes, databases and web apps proxied with protocol awareness, an auditable Apache-2.0 codebase, and no per-asset licence between you and your own infrastructure.</p>
+<p>Also compare Warpgate with <a href="../warpgate-vs-teleport/">Teleport</a>, <a href="../warpgate-vs-boundary/">HashiCorp Boundary</a> and <a href="../warpgate-vs-strongdm/">StrongDM</a>.</p>
+<p>Ready to try it?</p>
+<p><a class="btn btn-success" href="/getting-started-on-docker">Get started with Docker &rarr;</a></p>
+      </article>
+
+      
+      <div class="d-flex">
+        
+          <a class="btn btn-secondary btn-prev" href="../warpgate-vs-strongdm/">
+            &larr;
+            Warpgate vs. StrongDM
+            <br/>
+            <small class="text-muted">
+              Previous
+            </small>
+          </a>
+        
+
+        <!-- Next page -->
+        
+      </div>
+      
+    </main>
+  </div>
+
+  <hr class="mt-5" />
+
+  <div class="text-center">
+      <a href="/imprint">Imprint</a>
+  </div>
+  <script src="../search/main.js"></script>
+
+</body>
+
+</html>
