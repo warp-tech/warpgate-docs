@@ -44,9 +44,12 @@ description: A pre-launch checklist for self-hosting Warpgate - TLS, SSO, roles,
 
 ## Backups
 
+See the [backup and restore guide](backup.md).
+
 - [ ] The config file (`/etc/warpgate.yaml`)
 - [ ] The data directory (on Docker that's the `/data` volume)
 - [ ] The database
+- [ ] The at-rest encryption key
 
 ## Observability
 
