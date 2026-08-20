@@ -42,6 +42,7 @@ nav:
       - recovering-access.md
   - Operations:
       - Production checklist: production-checklist.md
+      - upgrading.md
       - newsletter.md
       - reverse-proxy.md
       - clustering.md
