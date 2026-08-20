@@ -4,6 +4,8 @@ Warpgate has an ops newsletter that includes major release updates, security and
 
 You can also review [every minor update's release notes](https://github.com/warp-tech/warpgate/releases) and the [public vulnerability advisories](https://github.com/warp-tech/warpgate/security/advisories) on GitHub.
 
+Check out the [project roadmap](https://github.com/orgs/warp-tech/projects/1/views/2).
+
 <form action="https://app.keila.io/forms/nfrm_zVqWka3q" class="contact-form container rounded py-4 pb-8" method="post" style="background-color:#14141a!important;color:#c1c9e4!important">
   <div class="mb-3">
     <label for="contact_email" class="form-label">

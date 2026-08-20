@@ -13,6 +13,7 @@ Welcome to the Warpgate docs.
 * [Single sign-on](./sso.md)
 * [Clustering](./clustering.md)
 * [Staying up to date](./newsletter.md)
+* [Project roadmap](https://github.com/orgs/warp-tech/projects/1/views/2)
 
 ## Going live
 
