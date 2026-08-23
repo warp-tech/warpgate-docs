@@ -6,7 +6,21 @@ Warpgate can run as multiple nodes behind a load balancer to provide both high a
 
 ## Database
 
-A Warpgate needs a shared MySQL or PostgreSQL database. Set `database_url` in every node's config file to point to the same database instance.
+A Warpgate needs a shared MySQL or PostgreSQL database.
+
+To migrate off the built-in SQLite, use the built-in `warpgate copy-database` command. It copies the schema and contents of the currently active database into a new one - also between different database engines.
+
+<div class="badge font-xs text-bg-warning mb-3">v0.28.3+</div>
+
+Run the `warpgate` command below the way you normally run Warpgate - on Docker, you can run it within the active container. Note that any changes made after the copy will only live in the original database, so get the users off the system first.
+
+Point `copy-database` at an **empty** new database. It creates the schema and copies everything over:
+
+```bash
+warpgate copy-database postgres://user:password@dbhost/warpgate
+```
+
+Then update `database_url` in the config file to point to the new database URL, then (re)start Warpgate. Log in and verify that everything is working as expected.
 
 ## Encryption
 

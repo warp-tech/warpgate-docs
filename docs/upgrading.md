@@ -1,5 +1,5 @@
 ---
-title: Upgrading Warpgate
+title: Upgrading
 description: How to upgrade a Warpgate deployment safely - backups, automatic database migrations, native/Docker/Helm steps, cluster upgrades and rolling back.
 ---
 
@@ -14,7 +14,7 @@ There is no required upgrade path at this time; you can directly upgrade to the 
 ## Before you upgrade
 
 * Read the release notes for the version you're moving to - breaking changes and manual steps are called out there.
-* Back up the config file (`/etc/warpgate.yaml`), the data directory (the `/data` volume on Docker) and most importantly, the database. Restoring those is the only supported way of rolling back an upgrade.
+* Back up the config file (`/etc/warpgate.yaml`), the data directory (the `/data` volume on Docker) and most importantly, the database - see [backup and restore](backup.md). Restoring those is the only supported way of rolling back an upgrade.
 * A staging environment is recommended. Having one allows you to test target connections and familiarize yourself with any new features first.
 
 ## Native binary

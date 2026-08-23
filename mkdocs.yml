@@ -47,6 +47,7 @@ nav:
       - reverse-proxy.md
       - clustering.md
       - encryption.md
+      - backup.md
       - systemd.md
       - log-forwarding.md
       - custom-ca.md
