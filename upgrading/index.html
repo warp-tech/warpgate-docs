@@ -3,21 +3,21 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Login protection - Warpgate</title>
+  <title>Upgrading</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta name="description" content="How to upgrade a Warpgate deployment safely - backups, automatic database migrations, native/Docker/Helm steps, cluster upgrades and rolling back.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Login protection">
-  <meta property="og:description" content="Securely expose your internal services to the internet">
-  <meta property="og:url" content="https://warpgate.null.page/login-protection/">
+  <meta property="og:title" content="Upgrading">
+  <meta property="og:description" content="How to upgrade a Warpgate deployment safely - backups, automatic database migrations, native/Docker/Helm steps, cluster upgrades and rolling back.">
+  <meta property="og:url" content="https://warpgate.null.page/upgrading/">
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Login protection">
-  <meta name="twitter:description" content="Securely expose your internal services to the internet">
-  <link rel="canonical" href="https://warpgate.null.page/login-protection/">
+  <meta name="twitter:title" content="Upgrading">
+  <meta name="twitter:description" content="How to upgrade a Warpgate deployment safely - backups, automatic database migrations, native/Docker/Helm steps, cluster upgrades and rolling back.">
+  <link rel="canonical" href="https://warpgate.null.page/upgrading/">
 
   <script>
     window.base_url = '/' // for search
@@ -170,7 +170,7 @@
             </li>
             
             <li>
-              <a class="text-success" href="./">Login protection</a>
+              <a class="" href="../login-protection/">Login protection</a>
             </li>
             
             <li>
@@ -190,7 +190,7 @@
             </li>
             
             <li>
-              <a class="" href="../upgrading/">Upgrading</a>
+              <a class="text-success" href="./">Upgrading</a>
             </li>
             
             <li>
@@ -283,47 +283,45 @@
 
     <main class="page-content">
       <article>
-        <h1 id="login-protection">Login protection<a class="headerlink" href="#login-protection" title="Permanent link">§</a></h1>
-<div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
-
-<p>Warpgate has built-in, fail2ban-like protection against brute-force login attempts. It can automatically block offending IP addresses and lock out user accounts after repeated failures.</p>
-<p>Failed login attempts are counted across all protocols.</p>
-<p>You can configure login protection under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Login protection</code>:</p>
-<figure>
-<p><img alt="" src="../images/login-protection.png" /></p>
-<figcaption>
-<p>Login protection configuration in Global Parameters</p>
-</figcaption>
-</figure>
-<h2 id="ip-blocking">IP blocking<a class="headerlink" href="#ip-blocking" title="Permanent link">§</a></h2>
-<p>When an IP address exceeds the allowed number of failed attempts within the time window, it is temporarily blocked from logging in. Each subsequent block for the same IP lasts longer (exponential backoff), up to a configurable maximum.</p>
+        <h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">§</a></h1>
+<p>A Warpgate upgrade is a binary (or image) swap: when the new version starts, it applies any pending database migrations automatically and picks up where the old one left off. Everything carries over.</p>
+<p>Release announcements go out via the <a href="../newsletter/">newsletter</a>, and every release has notes on the <a href="https://github.com/warp-tech/warpgate/releases">Releases</a> page.</p>
+<p>There is no required upgrade path at this time; you can directly upgrade to the latest version from any previous version.</p>
+<h2 id="before-you-upgrade">Before you upgrade<a class="headerlink" href="#before-you-upgrade" title="Permanent link">§</a></h2>
 <ul>
-<li><strong>Max attempts</strong> - failed attempts allowed before the IP is blocked.</li>
-<li><strong>Time window</strong> - the period (in minutes) over which attempts are counted.</li>
-<li><strong>Base block duration</strong> - duration of the first block.</li>
-<li><strong>Block duration multiplier</strong> - each repeated block is multiplied by this factor (e.g. <code>2.0</code> → 30min, 1h, 2h, …).</li>
-<li><strong>Max block duration</strong> - the cap on a single block's duration.</li>
-<li><strong>Cooldown reset</strong> - how long an IP must stay clean before its backoff counter resets.</li>
+<li>Read the release notes for the version you're moving to - breaking changes and manual steps are called out there.</li>
+<li>Back up the config file (<code>/etc/warpgate.yaml</code>), the data directory (the <code>/data</code> volume on Docker) and most importantly, the database - see <a href="../backup/">backup and restore</a>. Restoring those is the only supported way of rolling back an upgrade.</li>
+<li>A staging environment is recommended. Having one allows you to test target connections and familiarize yourself with any new features first.</li>
 </ul>
-<h2 id="user-lockout">User lockout<a class="headerlink" href="#user-lockout" title="Permanent link">§</a></h2>
-<p>In addition to IP blocking, Warpgate can lock individual user accounts after repeated failed attempts against them.</p>
+<h2 id="native-binary">Native binary<a class="headerlink" href="#native-binary" title="Permanent link">§</a></h2>
 <ul>
-<li><strong>Max attempts</strong> - failed attempts allowed before the account is locked.</li>
-<li><strong>Time window</strong> - the period (in minutes) over which attempts are counted.</li>
-<li><strong>Auto-unlock</strong> - if enabled, locked accounts are released after the lockout duration; otherwise they stay locked until an admin unlocks them.</li>
-<li><strong>Lockout duration</strong> - how long an account stays locked when auto-unlock is enabled.</li>
+<li>Replace <code>/usr/bin/warpgate</code> with the new binary from the <a href="https://github.com/warp-tech/warpgate/releases">Releases</a> page and <code>chmod +x</code> it</li>
+<li>Restart the service: <code>systemctl restart warpgate</code> (see <a href="../systemd/">systemd</a>)</li>
+<li>Check the logs - the startup banner prints the new version, and any migrations run before the listeners come up</li>
 </ul>
-<h2 id="managing-blocks-and-lockouts">Managing blocks and lockouts<a class="headerlink" href="#managing-blocks-and-lockouts" title="Permanent link">§</a></h2>
-<p>Admins can review currently blocked IPs and locked users, and clear them manually, from the Admin UI.</p>
-<p>Blocked IPs and lockout records are retained for a configurable number of days (<strong>Retention</strong>) for auditing, after which they are pruned.</p>
+<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">§</a></h2>
+<p>Point the container at the new image tag and recreate it.</p>
+<p>With Docker Compose, bump the image tag in <code>docker-compose.yml</code> and run <code>docker compose up -d</code>.</p>
+<p>Pin a specific <code>X.Y</code> or <code>X.Y.Z</code> tag rather than <code>latest</code> so that you control the version.</p>
+<h2 id="helm">Helm<a class="headerlink" href="#helm" title="Permanent link">§</a></h2>
+<p>See <a href="../getting-started-on-helm/#upgrading">upgrading a Helm deployment</a>.</p>
+<h2 id="clusters">Clusters<a class="headerlink" href="#clusters" title="Permanent link">§</a></h2>
+<p>All nodes share one database schema, so upgrade the whole <a href="../clustering/">cluster</a> at once. You do not need to sequence node upgrades.</p>
+<ul>
+<li>The first upgraded node migrates the shared database on startup (race-free).</li>
+<li>Nodes still running the old version will keep serving open sessions, but opening new sessions might fail.</li>
+<li>Don't run mixed versions longer than strictly necessary.</li>
+</ul>
+<h2 id="rolling-back">Rolling back<a class="headerlink" href="#rolling-back" title="Permanent link">§</a></h2>
+<p>The supported way back is restoring the database backup you made before the upgrade, then redeploying the old binary or image tag. An older Warpgate will not start against a database that a newer version has migrated.</p>
       </article>
 
       
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../ldap/">
+          <a class="btn btn-secondary btn-prev" href="../production-checklist/">
             &larr;
-            LDAP
+            Production checklist
             <br/>
             <small class="text-muted">
               Previous
@@ -333,8 +331,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../recovering-access/">
-            Recovering admin access
+          <a class="btn btn-success btn-next ms-auto" href="../newsletter/">
+            Staying in the loop
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

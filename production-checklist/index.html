@@ -190,6 +190,10 @@
             </li>
             
             <li>
+              <a class="" href="../upgrading/">Upgrading</a>
+            </li>
+            
+            <li>
               <a class="" href="../newsletter/">Staying in the loop</a>
             </li>
             
@@ -203,6 +207,10 @@
             
             <li>
               <a class="" href="../encryption/">Encrypting credentials at rest</a>
+            </li>
+            
+            <li>
+              <a class="" href="../backup/">Backup and restore</a>
             </li>
             
             <li>
@@ -314,10 +322,12 @@
 <li class="task-list-item"><input type="checkbox"/> Check that taking one node out of the load balancer doesn't disturb sessions on the others.</li>
 </ul>
 <h2 id="backups">Backups<a class="headerlink" href="#backups" title="Permanent link">§</a></h2>
+<p>See the <a href="../backup/">backup and restore guide</a>.</p>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox"/> The config file (<code>/etc/warpgate.yaml</code>)</li>
 <li class="task-list-item"><input type="checkbox"/> The data directory (on Docker that's the <code>/data</code> volume)</li>
 <li class="task-list-item"><input type="checkbox"/> The database</li>
+<li class="task-list-item"><input type="checkbox"/> The at-rest encryption key</li>
 </ul>
 <h2 id="observability">Observability<a class="headerlink" href="#observability" title="Permanent link">§</a></h2>
 <ul class="task-list">
@@ -349,8 +359,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../newsletter/">
-            Staying in the loop
+          <a class="btn btn-success btn-next ms-auto" href="../upgrading/">
+            Upgrading
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

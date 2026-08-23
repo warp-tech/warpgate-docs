@@ -3,21 +3,21 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Login protection - Warpgate</title>
+  <title>Backup and restore</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Securely expose your internal services to the internet">
+  <meta name="description" content="What to back up in a Warpgate deployment - config, data directory, database, encryption key and recordings - and how to restore it.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Login protection">
-  <meta property="og:description" content="Securely expose your internal services to the internet">
-  <meta property="og:url" content="https://warpgate.null.page/login-protection/">
+  <meta property="og:title" content="Backup and restore">
+  <meta property="og:description" content="What to back up in a Warpgate deployment - config, data directory, database, encryption key and recordings - and how to restore it.">
+  <meta property="og:url" content="https://warpgate.null.page/backup/">
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Login protection">
-  <meta name="twitter:description" content="Securely expose your internal services to the internet">
-  <link rel="canonical" href="https://warpgate.null.page/login-protection/">
+  <meta name="twitter:title" content="Backup and restore">
+  <meta name="twitter:description" content="What to back up in a Warpgate deployment - config, data directory, database, encryption key and recordings - and how to restore it.">
+  <link rel="canonical" href="https://warpgate.null.page/backup/">
 
   <script>
     window.base_url = '/' // for search
@@ -170,7 +170,7 @@
             </li>
             
             <li>
-              <a class="text-success" href="./">Login protection</a>
+              <a class="" href="../login-protection/">Login protection</a>
             </li>
             
             <li>
@@ -210,7 +210,7 @@
             </li>
             
             <li>
-              <a class="" href="../backup/">Backup and restore</a>
+              <a class="text-success" href="./">Backup and restore</a>
             </li>
             
             <li>
@@ -283,47 +283,62 @@
 
     <main class="page-content">
       <article>
-        <h1 id="login-protection">Login protection<a class="headerlink" href="#login-protection" title="Permanent link">§</a></h1>
-<div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
-
-<p>Warpgate has built-in, fail2ban-like protection against brute-force login attempts. It can automatically block offending IP addresses and lock out user accounts after repeated failures.</p>
-<p>Failed login attempts are counted across all protocols.</p>
-<p>You can configure login protection under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Login protection</code>:</p>
-<figure>
-<p><img alt="" src="../images/login-protection.png" /></p>
-<figcaption>
-<p>Login protection configuration in Global Parameters</p>
-</figcaption>
-</figure>
-<h2 id="ip-blocking">IP blocking<a class="headerlink" href="#ip-blocking" title="Permanent link">§</a></h2>
-<p>When an IP address exceeds the allowed number of failed attempts within the time window, it is temporarily blocked from logging in. Each subsequent block for the same IP lasts longer (exponential backoff), up to a configurable maximum.</p>
+        <h1 id="backup-and-restore">Backup and restore<a class="headerlink" href="#backup-and-restore" title="Permanent link">§</a></h1>
+<p>A complete Warpgate backup is 5 things: the config file, the data directory, the database and (if used) the at-rest encryption key and recording files.</p>
+<h2 id="what-to-back-up">What to back up<a class="headerlink" href="#what-to-back-up" title="Permanent link">§</a></h2>
+<h3 id="the-config-file">The config file<a class="headerlink" href="#the-config-file" title="Permanent link">§</a></h3>
+<p><code>/etc/warpgate.yaml</code> on a native install. On Docker it's inside the data volume.</p>
+<h3 id="the-data-directory">The data directory<a class="headerlink" href="#the-data-directory" title="Permanent link">§</a></h3>
+<p><code>/var/lib/warpgate</code> on a native install. On Docker it's the <code>/data</code> volume itself. It contains:</p>
 <ul>
-<li><strong>Max attempts</strong> - failed attempts allowed before the IP is blocked.</li>
-<li><strong>Time window</strong> - the period (in minutes) over which attempts are counted.</li>
-<li><strong>Base block duration</strong> - duration of the first block.</li>
-<li><strong>Block duration multiplier</strong> - each repeated block is multiplied by this factor (e.g. <code>2.0</code> → 30min, 1h, 2h, …).</li>
-<li><strong>Max block duration</strong> - the cap on a single block's duration.</li>
-<li><strong>Cooldown reset</strong> - how long an IP must stay clean before its backoff counter resets.</li>
+<li>TLS certificates</li>
+<li>SSH host keys</li>
+<li>SQLite database (if using SQLite - see below)</li>
+<li>Recordings if using the default on-disk recording storage</li>
 </ul>
-<h2 id="user-lockout">User lockout<a class="headerlink" href="#user-lockout" title="Permanent link">§</a></h2>
-<p>In addition to IP blocking, Warpgate can lock individual user accounts after repeated failed attempts against them.</p>
-<ul>
-<li><strong>Max attempts</strong> - failed attempts allowed before the account is locked.</li>
-<li><strong>Time window</strong> - the period (in minutes) over which attempts are counted.</li>
-<li><strong>Auto-unlock</strong> - if enabled, locked accounts are released after the lockout duration; otherwise they stay locked until an admin unlocks them.</li>
-<li><strong>Lockout duration</strong> - how long an account stays locked when auto-unlock is enabled.</li>
-</ul>
-<h2 id="managing-blocks-and-lockouts">Managing blocks and lockouts<a class="headerlink" href="#managing-blocks-and-lockouts" title="Permanent link">§</a></h2>
-<p>Admins can review currently blocked IPs and locked users, and clear them manually, from the Admin UI.</p>
-<p>Blocked IPs and lockout records are retained for a configurable number of days (<strong>Retention</strong>) for auditing, after which they are pruned.</p>
+<h3 id="the-database">The database<a class="headerlink" href="#the-database" title="Permanent link">§</a></h3>
+<p>The database holds the entire Warpgate configuration - everything that is not in the config file itself.</p>
+<h4 id="built-in-sqlite">Built-in SQLite<a class="headerlink" href="#built-in-sqlite" title="Permanent link">§</a></h4>
+<p>The database is at <code>&lt;data dir&gt;/db/db.sqlite3</code> and runs in WAL mode. To make a live backup of a hot database, use the <code>sqlite3</code> CLI itself:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>sqlite3<span style="color: #6E7681"> </span>/var/lib/warpgate/db/db.sqlite3<span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;.backup &#39;/backups/warpgate-db.sqlite3&#39;&quot;</span>
+</code></pre></div>
+<p>This is safe to run while Warpgate itself is running.</p>
+<p>When Warpgate is stopped, a cold copy is also possible: just copy the entire <code>db/</code> directory, including the <code>-wal</code> and <code>-shm</code> files.</p>
+<h4 id="external-mysql-or-postgresql">External MySQL or PostgreSQL<a class="headerlink" href="#external-mysql-or-postgresql" title="Permanent link">§</a></h4>
+<p>Use your regular database backup tools, e.g.:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>pg_dump<span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;</span><span style="color: #79C0FF">$DATABASE_URL</span><span style="color: #A5D6FF">&quot;</span><span style="color: #6E7681"> </span>&gt;<span style="color: #6E7681"> </span>warpgate.sql
+</code></pre></div>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>mysqldump<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>&gt;<span style="color: #6E7681"> </span>warpgate.sql
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Credentials are in the dump</p>
+<p>Unless you've enabled <a href="../encryption/">encryption at rest</a>, the database backup will contain target credentials in plaintext - secure the backups accordingly. With encryption enabled, encrypted credentials are useless without the key.</p>
+</div>
+<h3 id="the-encryption-key">The encryption key<a class="headerlink" href="#the-encryption-key" title="Permanent link">§</a></h3>
+<p>If you use <a href="../encryption/">credential encryption at rest</a>, <code>WARPGATE_ENCRYPTION_KEY</code> is not stored anywhere except your environment configuration. A database backup restored without the key will work but all target credentials will be unusable.</p>
+<p>Store the encryption key in your secret manager or other secure location separately from the backups.</p>
+<h3 id="recordings">Recordings<a class="headerlink" href="#recordings" title="Permanent link">§</a></h3>
+<p>If recordings are stored on S3, you can rely on the bucket's own versioning/replication. If they're on a shared filesystem or in the default <code>&lt;data&gt;/recordings</code> directory, include that path in your backup - recordings are append-only files and can be <code>rsync</code>'ed.</p>
+<h2 id="restoring">Restoring<a class="headerlink" href="#restoring" title="Permanent link">§</a></h2>
+<ol>
+<li>Install the <strong>same Warpgate version</strong> the backup was taken from.</li>
+<li>Restore the config file and the data directory.</li>
+<li>Restore the database (for external databases, restore the dump and check <code>database_url</code> in the config points at it).</li>
+<li>Restore the <code>WARPGATE_ENCRYPTION_KEY</code> environment variable, if you use encryption.</li>
+<li>Start Warpgate and test everything.</li>
+</ol>
+<p>If you've lost the admin login specifically, use <code>warpgate recover-access</code> to reset it - see <a href="../recovering-access/">recovering admin access</a>.</p>
+<h2 id="test-it">Test it<a class="headerlink" href="#test-it" title="Permanent link">§</a></h2>
+<p>Restore your backup onto a staging host or container, log in, and test target connection connections. Do it before you need it in production.</p>
+<p>In a <a href="../clustering/">cluster</a>, the database, recordings storage and encryption key are shared - it's enough back them up once centrally.</p>
       </article>
 
       
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../ldap/">
+          <a class="btn btn-secondary btn-prev" href="../encryption/">
             &larr;
-            LDAP
+            Encrypting credentials at rest
             <br/>
             <small class="text-muted">
               Previous
@@ -333,8 +348,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../recovering-access/">
-            Recovering admin access
+          <a class="btn btn-success btn-next ms-auto" href="../systemd/">
+            Installing as a systemd service
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

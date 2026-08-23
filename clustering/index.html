@@ -190,6 +190,10 @@
             </li>
             
             <li>
+              <a class="" href="../upgrading/">Upgrading</a>
+            </li>
+            
+            <li>
               <a class="" href="../newsletter/">Staying in the loop</a>
             </li>
             
@@ -203,6 +207,10 @@
             
             <li>
               <a class="" href="../encryption/">Encrypting credentials at rest</a>
+            </li>
+            
+            <li>
+              <a class="" href="../backup/">Backup and restore</a>
             </li>
             
             <li>
@@ -280,7 +288,15 @@
 
 <p>Warpgate can run as multiple nodes behind a load balancer to provide both high availability and horizontal scaling.</p>
 <h2 id="database">Database<a class="headerlink" href="#database" title="Permanent link">§</a></h2>
-<p>A Warpgate needs a shared MySQL or PostgreSQL database. Set <code>database_url</code> in every node's config file to point to the same database instance.</p>
+<p>A Warpgate needs a shared MySQL or PostgreSQL database.</p>
+<p>To migrate off the built-in SQLite, use the built-in <code>warpgate copy-database</code> command. It copies the schema and contents of the currently active database into a new one - also between different database engines.</p>
+<div class="badge font-xs text-bg-warning mb-3">v0.28.3+</div>
+
+<p>Run the <code>warpgate</code> command below the way you normally run Warpgate - on Docker, you can run it within the active container. Note that any changes made after the copy will only live in the original database, so get the users off the system first.</p>
+<p>Point <code>copy-database</code> at an <strong>empty</strong> new database. It creates the schema and copies everything over:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>warpgate<span style="color: #6E7681"> </span>copy-database<span style="color: #6E7681"> </span>postgres://user:password@dbhost/warpgate
+</code></pre></div>
+<p>Then update <code>database_url</code> in the config file to point to the new database URL, then (re)start Warpgate. Log in and verify that everything is working as expected.</p>
 <h2 id="encryption">Encryption<a class="headerlink" href="#encryption" title="Permanent link">§</a></h2>
 <div class="badge font-xs text-bg-warning mb-3">v0.28+</div>
 
