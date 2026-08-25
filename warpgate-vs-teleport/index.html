@@ -326,7 +326,7 @@
 </tr>
 <tr>
 <td><strong>Authentication</strong></td>
-<td>Password, SSH public key, OTP (TOTP), <strong>SSO via OIDC</strong> (Google, Microsoft, Apple or any custom provider), client certificates, in-browser approval</td>
+<td>Password, SSH public key, OTP (TOTP), <strong>SSO via OIDC</strong> (Google, Microsoft, Apple or any custom provider; Kubernetes targets can use it via the <code>kubelogin</code> plugin), client certificates, in-browser approval</td>
 <td>Short-lived certificates, MFA (TOTP / WebAuthn), SSO (GitHub in the open-source edition; <strong>SAML/OIDC require Enterprise</strong>)</td>
 </tr>
 <tr>
@@ -445,6 +445,7 @@
 </tr>
 </tbody>
 </table>
+<p>In RDP and VNC sessions Warpgate carries the text clipboard both ways, and a native RDP client can resize the session live; clipboard file transfer and gateway-enforced clipboard policy are not implemented.</p>
 <h2 id="self-service-and-just-in-time-access">Self-service and just-in-time access<a class="headerlink" href="#self-service-and-just-in-time-access" title="Permanent link">§</a></h2>
 <p>Warpgate ships just-in-time access in the open-source build:</p>
 <ul>
@@ -456,13 +457,13 @@
 <ul>
 <li>You want a bastion running <strong>in the next hour</strong>, from a single binary, with no agents and no cluster to operate.</li>
 <li>You want users to keep using <strong>standard clients</strong> (OpenSSH, <code>psql</code>, <code>kubectl</code>, mstsc, a browser) with nothing extra to install.</li>
-<li>You value a <strong>small, auditable, Apache-2.0 codebase</strong> where every feature — SSO, MFA, session recording, ticket requests, clustering — is in the free build.</li>
+<li>You value a <strong>small, auditable, Apache-2.0 codebase</strong> where every feature — SSO, MFA, session recording, ticket requests, clustering, credential encryption at rest — is in the free build.</li>
 <li>Your access needs are well covered by SSH, HTTP, MySQL, PostgreSQL, Kubernetes, RDP and VNC.</li>
 </ul>
 <section class="production-review-cta" aria-labelledby="production-review-teleport-title">
     <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
     <h2 id="production-review-teleport-title">Validate the architecture before rollout</h2>
-    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan - or deploy it yourself using the public documentation.</p>
     <div class="production-review-actions">
         <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
         <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>

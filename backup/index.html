@@ -308,7 +308,7 @@
 <p>Use your regular database backup tools, e.g.:</p>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>pg_dump<span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;</span><span style="color: #79C0FF">$DATABASE_URL</span><span style="color: #A5D6FF">&quot;</span><span style="color: #6E7681"> </span>&gt;<span style="color: #6E7681"> </span>warpgate.sql
 </code></pre></div>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>mysqldump<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>&gt;<span style="color: #6E7681"> </span>warpgate.sql
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>mysqldump<span style="color: #6E7681"> </span>--single-transaction<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>&gt;<span style="color: #6E7681"> </span>warpgate.sql
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Credentials are in the dump</p>
@@ -319,6 +319,8 @@
 <p>Store the encryption key in your secret manager or other secure location separately from the backups.</p>
 <h3 id="recordings">Recordings<a class="headerlink" href="#recordings" title="Permanent link">§</a></h3>
 <p>If recordings are stored on S3, you can rely on the bucket's own versioning/replication. If they're on a shared filesystem or in the default <code>&lt;data&gt;/recordings</code> directory, include that path in your backup - recordings are append-only files and can be <code>rsync</code>'ed.</p>
+<h3 id="warpgate-version">Warpgate version<a class="headerlink" href="#warpgate-version" title="Permanent link">§</a></h3>
+<p>You'll need to know which Warpgate version the backup is from, so it's a good idea to note it down, or simply include the output of <code>warpgate --version</code> in the backup itself.</p>
 <h2 id="restoring">Restoring<a class="headerlink" href="#restoring" title="Permanent link">§</a></h2>
 <ol>
 <li>Install the <strong>same Warpgate version</strong> the backup was taken from.</li>
@@ -329,8 +331,16 @@
 </ol>
 <p>If you've lost the admin login specifically, use <code>warpgate recover-access</code> to reset it - see <a href="../recovering-access/">recovering admin access</a>.</p>
 <h2 id="test-it">Test it<a class="headerlink" href="#test-it" title="Permanent link">§</a></h2>
-<p>Restore your backup onto a staging host or container, log in, and test target connection connections. Do it before you need it in production.</p>
-<p>In a <a href="../clustering/">cluster</a>, the database, recordings storage and encryption key are shared - it's enough back them up once centrally.</p>
+<p>Restore your backup onto a staging host or container, log in, and test target connections. Do it before you need it in production.</p>
+<p>In a <a href="../clustering/">cluster</a>, the database, recordings storage and encryption key are shared - it's enough to back them up once centrally.</p>
+<section class="production-review-cta" aria-labelledby="production-review-teleport-title">
+    <p class="production-review-eyebrow">Validate the backup plan before rollout</p>
+    <h2 id="production-review-teleport-title">Want this verified against your setup?</h2>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan - or deploy it yourself using the public documentation.</p>
+    <div class="production-review-actions">
+        <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
+    </div>
+</section>
       </article>
 
       

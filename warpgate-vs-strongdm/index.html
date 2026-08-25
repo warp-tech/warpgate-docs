@@ -301,7 +301,7 @@
 <tbody>
 <tr>
 <td><strong>Deployment</strong></td>
-<td>Self-hosted: a single Rust binary + a database</td>
+<td>Self-hosted: a single Rust binary plus SQLite, MySQL or PostgreSQL; multiple nodes can share a database for clustering</td>
 <td>SaaS control plane (StrongDM-hosted) + self-run gateways/relays</td>
 </tr>
 <tr>
@@ -360,7 +360,7 @@
 <p><strong>Warpgate is a self-hosted, transparent proxy.</strong> Everything — the control plane, the data plane, your access logs and recordings — lives in your infrastructure. Users connect with the tools they already have, and every capability is in the open-source build. There is no third party in the path and no per-seat bill.</p>
 <p><strong>StrongDM is a managed access platform.</strong> It is genuinely polished and broad: a large catalogue of databases and cloud resources, strong audit and compliance tooling, and a smooth admin experience. The trade-offs are that the control plane runs in StrongDM's cloud (you can't host it yourself), every user needs the StrongDM client installed, and it's a proprietary, per-user subscription rather than something you own.</p>
 <h2 id="where-your-control-plane-and-data-live">Where your control plane and data live<a class="headerlink" href="#where-your-control-plane-and-data-live" title="Permanent link">§</a></h2>
-<p>This is the defining difference. With StrongDM, configuration and the coordination layer are hosted in <strong>StrongDM's SaaS</strong>; you run gateways in your network, and can optionally keep target credentials in your own secret store, but the control plane itself is not something you operate. With Warpgate, <strong>all of it is yours</strong> — one binary and a database inside your own perimeter — which is often the deciding factor for air-gapped, sovereignty-sensitive, or simply SaaS-averse environments.</p>
+<p>This is the defining difference. With StrongDM, configuration and the coordination layer are hosted in <strong>StrongDM's SaaS</strong>; you run gateways in your network, and can optionally keep target credentials in your own secret store, but the control plane itself is not something you operate. With Warpgate, <strong>all of it is yours</strong> — one binary and a database inside your own perimeter — which is often the deciding factor for air-gapped, sovereignty-sensitive, or simply SaaS-averse environments. Target credentials live in that database, and can be <a href="../encryption/">encrypted at rest</a> under a master key you hold, so the credentials stay unreadable in backups, replicas and dumps.</p>
 <h2 id="session-recording">Session recording<a class="headerlink" href="#session-recording" title="Permanent link">§</a></h2>
 <p>Both audit broadly — this is an area where StrongDM is strong, and Warpgate provides replayable recordings for interactive sessions plus query/activity logs for databases and HTTP while keeping it all in the free, self-hosted build.</p>
 <table>
@@ -418,7 +418,7 @@
 <section class="production-review-cta" aria-labelledby="production-review-strongdm-title">
     <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
     <h2 id="production-review-strongdm-title">Validate the architecture before rollout</h2>
-    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan - or deploy it yourself using the public documentation.</p>
     <div class="production-review-actions">
         <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
         <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>

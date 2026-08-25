@@ -301,7 +301,7 @@
 <tbody>
 <tr>
 <td><strong>Footprint</strong></td>
-<td>A single Rust binary + a database (SQLite or PostgreSQL)</td>
+<td>A single Rust binary plus SQLite, MySQL or PostgreSQL; multiple nodes can share a database for clustering</td>
 <td>Controller(s) + Worker(s) + a database, and often Vault for credentials</td>
 </tr>
 <tr>
@@ -326,7 +326,7 @@
 </tr>
 <tr>
 <td><strong>Credentials to targets</strong></td>
-<td>Stored per target (or brokered) — built in</td>
+<td>Stored per target — built in, and optionally <strong>encrypted at rest</strong> under a master key; no rotation engine</td>
 <td>Static, or brokered/injected via <strong>Vault</strong></td>
 </tr>
 <tr>
@@ -418,14 +418,14 @@
 <ul>
 <li>You want audited access <strong>today</strong>, from a single binary, without a controller/worker cluster or a client on every machine.</li>
 <li>You want to see <strong>what happened inside</strong> each session — queries, commands, API calls, desktop video — across all your protocols, not just SSH and RDP.</li>
-<li>You'd rather not run <strong>Vault</strong> just to hand credentials to targets.</li>
+<li>You'd rather not run <strong>Vault</strong> just to hand credentials to targets — Warpgate stores them itself, and can <a href="../encryption/">encrypt them at rest</a> under a master key so a database dump yields nothing usable.</li>
 <li>You value a <strong>small, Apache-2.0 codebase</strong> with every feature in the free build.</li>
 <li>Homelabs, small-to-medium teams, and focused gateways.</li>
 </ul>
 <section class="production-review-cta" aria-labelledby="production-review-boundary-title">
     <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
     <h2 id="production-review-boundary-title">Validate the architecture before rollout</h2>
-    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan - or deploy it yourself using the public documentation.</p>
     <div class="production-review-actions">
         <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
         <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>
