@@ -10,7 +10,7 @@ description: Direct maintainer support, production-readiness reviews and custom 
             <h1 id="business-title">Run Warpgate confidently in production.</h1>
             <p class="business-lead">Get help directly from Warpgate’s maintainers with deployment, upgrades and production problems. Warpgate stays fully open source and self-hosted; paid plans buy support, not features.</p>
             <div class="business-actions">
-                <a class="btn btn-success btn-lg" href="mailto:business@null.page?subject=Production%20Readiness%20Review&amp;body=Company%3A%0AEnvironment%3A%0AIdentity%20provider%3A%0ATimeline%3A%0AQuestions%3A" data-track="business_readiness_cta_click" data-offer-name="production_readiness_review" data-cta-location="hero" data-analytics-id="business-readiness-hero">
+                <a class="btn btn-success btn-lg" href="#contact" data-track="business_readiness_cta_click" data-offer-name="production_readiness_review" data-cta-location="hero" data-analytics-id="business-readiness-hero">
                     Request a readiness review
                 </a>
                 <a class="btn btn-outline-light btn-lg" href="#support-options" data-analytics-id="business-view-support-options">
@@ -65,8 +65,8 @@ description: Direct maintainer support, production-readiness reviews and custom 
                     <li>Written findings and prioritized fixes</li>
                     <li>Administrator handover session</li>
                 </ul>
-                <p class="offer-boundary"><strong>Standard scope:</strong> one production environment, one identity provider and up to three protocol families. We agree the final scope before work starts.</p>
-                <a class="btn btn-success mt-auto" href="mailto:business@null.page?subject=Production%20Readiness%20Review&amp;body=Company%3A%0AEnvironment%3A%0AIdentity%20provider%3A%0AProtocol%20families%3A%0ATimeline%3A" data-track="business_readiness_cta_click" data-offer-name="production_readiness_review" data-cta-location="service_card" data-analytics-id="business-readiness-card">
+                <p class="offer-boundary mt-auto"><strong>Standard scope:</strong> one production environment, one identity provider and up to three protocol families. We agree the final scope before work starts.</p>
+                <a class="btn btn-success mt-3" href="#contact" data-track="business_readiness_cta_click" data-offer-name="production_readiness_review" data-cta-location="service_card" data-analytics-id="business-readiness-card">
                     Request a readiness review
                 </a>
             </article>
@@ -85,9 +85,13 @@ description: Direct maintainer support, production-readiness reviews and custom 
                     <li>Maintainer review of relevant GitHub requests</li>
                     <li>Custom development quoted separately</li>
                 </ul>
-                <p class="offer-boundary">For advisory questions and routine troubleshooting. Emergency incident coverage is not included.</p>
-                <a class="btn btn-info mt-auto" href="https://buy.stripe.com/14A14m2Lm2YeeOW3ri6J200" target="_blank" rel="noopener noreferrer" data-track="business_maintainer_checkout_click" data-offer-name="maintainer_access" data-cta-location="service_card" data-analytics-id="business-maintainer-checkout">
+                <p class="offer-boundary mt-auto">For advisory questions and routine troubleshooting. Emergency incident coverage is not included.</p>
+
+                <a class="btn btn-info" href="https://buy.stripe.com/14A14m2Lm2YeeOW3ri6J200" target="_blank" rel="noopener noreferrer" data-track="business_maintainer_checkout_click" data-offer-name="maintainer_access" data-cta-location="service_card" data-analytics-id="business-maintainer-checkout">
                     Subscribe via Stripe <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens external checkout)</span>
+                </a>
+                <a class="btn btn-primary mt-3" href="#contact" data-track="maintainer_access_support_click" data-offer-name="maintainer_access" data-cta-location="service_card" data-analytics-id="maintainer-access-support">
+                    Request a quote
                 </a>
             </article>
 
@@ -106,8 +110,8 @@ description: Direct maintainer support, production-readiness reviews and custom 
                     <li>Quarterly environment review</li>
                     <li>Custom development quoted separately</li>
                 </ul>
-                <p class="offer-boundary">Coverage hours, severity definitions and support capacity are agreed in the support order. Response targets are not resolution guarantees.</p>
-                <a class="btn btn-primary mt-auto" href="mailto:business@null.page?subject=Warpgate%20Priority%20Support&amp;body=Company%3A%0AEnvironment%3A%0ACoverage%20requirements%3A%0ATimeline%3A" data-track="business_production_support_click" data-offer-name="production_support" data-cta-location="service_card" data-analytics-id="business-production-support">
+                <p class="offer-boundary mt-auto">Coverage hours, severity definitions and support capacity are agreed in the support order. Response targets are not resolution guarantees.</p>
+                <a class="btn btn-primary mt-3" href="#contact" data-track="business_production_support_click" data-offer-name="production_support" data-cta-location="service_card" data-analytics-id="business-production-support">
                     Request a quote
                 </a>
             </article>
@@ -121,7 +125,7 @@ description: Direct maintainer support, production-readiness reviews and custom 
             <p>Tell us if you need more support capacity, deployment-specific coverage, an integration, a migration or a new Warpgate feature.</p>
             <p>Changes to the core product are normally contributed upstream.</p>
         </div>
-        <a class="btn btn-success btn-lg" href="mailto:business@null.page?subject=Custom%20Warpgate%20support&amp;body=Company%3A%0ARequirement%3A%0ADesired%20coverage%20window%3A%0ATimeline%3A" data-track="business_custom_support_click" data-offer-name="custom_support" data-cta-location="custom_callout" data-analytics-id="business-custom-support">
+        <a class="btn btn-success btn-lg" href="#contact" data-track="business_custom_support_click" data-offer-name="custom_support" data-cta-location="custom_callout" data-analytics-id="business-custom-support">
             Describe your requirements
         </a>
     </section>
@@ -215,13 +219,52 @@ description: Direct maintainer support, production-readiness reviews and custom 
         <h2 id="final-cta-title">Planning to run Warpgate in production?</h2>
         <p>Tell us what you’re running, which identity provider you use and when you plan to go live.</p>
         <div class="business-actions business-actions-centered">
-            <a class="btn btn-success btn-lg" href="mailto:business@null.page?subject=Production%20Readiness%20Review&amp;body=Company%3A%0AEnvironment%3A%0AIdentity%20provider%3A%0ATimeline%3A%0AQuestions%3A" data-track="business_readiness_cta_click" data-offer-name="production_readiness_review" data-cta-location="final_cta" data-analytics-id="business-readiness-final">
+            <a class="btn btn-success btn-lg" href="#contact" data-track="business_readiness_cta_click" data-offer-name="production_readiness_review" data-cta-location="final_cta" data-analytics-id="business-readiness-final">
                 Request a readiness review
             </a>
             <a class="btn btn-link btn-lg" href="mailto:business@null.page?subject=Warpgate%20for%20Business" data-track="business_email_click" data-offer-name="general_business_inquiry" data-cta-location="final_cta" data-analytics-id="business-email-final">
                 Email business@null.page
             </a>
         </div>
+    </section>
+
+    <section class="final-cta lead-form-section" id="contact" aria-labelledby="lead-form-title">
+        <p class="business-eyebrow">Get in touch</p>
+        <h2 id="lead-form-title">Tell us about your deployment</h2>
+        <p>We reply within one business day. Your message goes straight to the maintainers and is not shared with any third party.</p>
+
+        <form id="lead-form" class="lead-form" novalidate
+              data-endpoint="https://forms.warpgate.null.page/api/contact"
+              data-offer="general_business_inquiry"
+              data-cta-location="contact_form">
+            <div class="mb-3">
+                <label class="form-label" for="lead-name">Name</label>
+                <input class="form-control" id="lead-name" name="name" type="text"
+                       maxlength="200" autocomplete="name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="lead-email">Email</label>
+                <input class="form-control" id="lead-email" name="email" type="email"
+                       maxlength="320" autocomplete="email" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="lead-message">How can we help?</label>
+                <textarea class="form-control" id="lead-message" name="message" rows="8"
+                          maxlength="5000" required></textarea>
+            </div>
+
+            <div class="lead-form-hp" aria-hidden="true">
+                <label for="lead-website">Leave this field empty</label>
+                <input id="lead-website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button class="btn btn-success btn-lg" id="lead-submit" type="submit">Send</button>
+            <p class="lead-form-status" id="lead-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <p class="lead-form-alt">Prefer email? <a href="mailto:business@null.page">business@null.page</a></p>
     </section>
 </div>
 
@@ -736,4 +779,128 @@ description: Direct maintainer support, production-readiness reviews and custom 
             scroll-behavior: auto !important;
         }
     }
+
+    /* Lead form
+       .form-control, .form-label and .mb-3 already ship in the theme bundle and are
+       already dark-themed, so only the layout and the honeypot need saying. */
+    .lead-form {
+        margin: 2rem auto 0;
+        max-width: 40rem;
+        text-align: left;
+    }
+
+    /* A real text input parked off-screen catches more bots than type="hidden". */
+    .lead-form-hp {
+        height: 1px;
+        left: -9999px;
+        overflow: hidden;
+        position: absolute;
+        width: 1px;
+    }
+
+    .lead-form-status {
+        margin: 1rem 0 0;
+    }
+
+    .lead-form-status:empty {
+        display: none;
+    }
+
+    .lead-form-error {
+        color: #ff8a80;
+    }
+
+    .lead-form-alt {
+        font-size: 0.9rem;
+    }
 </style>
+
+
+<script>
+    (function () {
+        var LEAD_INBOX = 'business@null.page';
+        var form = document.getElementById('lead-form');
+        if (!form) return;
+
+        var fields = form.elements;
+        var statusEl = document.getElementById('lead-status');
+        var submit = document.getElementById('lead-submit');
+        var renderedAt = Date.now();
+
+        var PREFILL = {
+            'business-readiness-hero': ['Company', 'Environment', 'Identity provider', 'Timeline', 'Questions'],
+            'business-readiness-card': ['Company', 'Environment', 'Identity provider', 'Protocol families', 'Timeline'],
+            'business-maintainer-checkout': ['Company', 'Environment', 'Coverage requirements', 'Timeline'],
+            'business-production-support': ['Company', 'Environment', 'Coverage requirements', 'Timeline'],
+            'business-custom-support': ['Company', 'Requirement', 'Desired coverage window', 'Timeline'],
+            'business-readiness-final': ['Company', 'Environment', 'Identity provider', 'Timeline', 'Questions']
+        };
+
+        function scaffold(analyticsId) {
+            var prompts = PREFILL[analyticsId];
+            return prompts ? prompts.join(':\n') + ':\n' : '';
+        }
+
+        // The CTAs keep their data-track attributes, so their existing OpenPanel click
+        // events still fire; all this does is hand the form the clicked CTA's identity.
+        document.addEventListener('click', function (ev) {
+            if (!ev.target || !ev.target.closest) return;
+            var cta = ev.target.closest('a[data-offer-name][href="#contact"]');
+            if (!cta) return;
+
+            form.dataset.offer = cta.dataset.offerName;
+            form.dataset.ctaLocation = cta.dataset.ctaLocation || 'contact_form';
+
+            // Never overwrite what the visitor has already typed.
+            if (!fields.message.value.trim()) {
+                fields.message.value = scaffold(cta.dataset.analyticsId);
+            }
+
+            // The anchor does the scrolling; put the keyboard where the eye lands.
+            setTimeout(function () {
+                fields.name.focus({ preventScroll: true });
+            }, 0);
+        });
+
+        form.addEventListener('submit', function (ev) {
+            ev.preventDefault();
+            if (!form.reportValidity()) return;
+
+            var offerName = form.dataset.offer;
+            var ctaLocation = form.dataset.ctaLocation;
+
+            submit.disabled = true;
+            statusEl.className = 'lead-form-status';
+            statusEl.textContent = 'Sending…';
+
+            fetch(form.dataset.endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: fields.name.value,
+                    email: fields.email.value,
+                    message: fields.message.value,
+                    offer: offerName,
+                    cta_location: ctaLocation,
+                    website: fields.website.value,
+                    elapsed_ms: Date.now() - renderedAt
+                })
+            }).then(function (res) {
+                if (!res.ok) throw new Error('http ' + res.status);
+                // Property names mirror the existing click events exactly.
+                if (window.op) {
+                    window.op('track', 'business_form_submit', {
+                        offerName: offerName,
+                        ctaLocation: ctaLocation
+                    });
+                }
+                form.outerHTML = '<p class="business-lead">Thanks — your form has been submitted.</p>';
+            }).catch(function () {
+                submit.disabled = false;
+                statusEl.className = 'lead-form-status lead-form-error';
+                statusEl.innerHTML = 'Something went wrong and your message was not sent. ' +
+                    'Please email <a href="mailto:' + LEAD_INBOX + '">' + LEAD_INBOX + '</a> directly.';
+            });
+        });
+    })();
+</script>
