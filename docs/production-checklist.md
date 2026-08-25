@@ -50,6 +50,7 @@ See the [backup and restore guide](backup.md).
 - [ ] The data directory (on Docker that's the `/data` volume)
 - [ ] The database
 - [ ] The at-rest encryption key
+- [ ] Session recordings
 
 ## Observability
 
@@ -63,3 +64,12 @@ See the [backup and restore guide](backup.md).
 - [ ] Test admin access recovery with `warpgate recover-access` - see [recovering admin access](recovering-access.md).
 - [ ] Restore your backup onto a temporary deployment and test it
 - [ ] Always upgrade that temporary deployment host to the next version before you do it in production
+
+<section class="production-review-cta" aria-labelledby="production-review-teleport-title">
+    <p class="production-review-eyebrow">Validate the deployment plan before rollout</p>
+    <h2 id="production-review-teleport-title">Want this verified against your setup?</h2>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan - or deploy it yourself using the public documentation.</p>
+    <div class="production-review-actions">
+        <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
+    </div>
+</section>

@@ -14,7 +14,7 @@ Warpgate is a **self-hosted, open-source StrongDM alternative**. Both [StrongDM]
 
 | | Warpgate | StrongDM |
 |---|---|---|
-| **Deployment** | Self-hosted: a single Rust binary + a database | SaaS control plane (StrongDM-hosted) + self-run gateways/relays |
+| **Deployment** | Self-hosted: a single Rust binary plus SQLite, MySQL or PostgreSQL; multiple nodes can share a database for clustering | SaaS control plane (StrongDM-hosted) + self-run gateways/relays |
 | **Where the control plane runs** | **Your infrastructure** | **StrongDM's cloud** — the control plane is not self-hostable |
 | **Agents on targets** | **None** | None on the targets, but gateways/relays to run |
 | **Client software** | **None** — users keep their normal `ssh`, `mysql`, `psql`, `kubectl`, browser or RDP/VNC client | The StrongDM desktop client / CLI is **required** on each user's machine |
@@ -34,7 +34,7 @@ Warpgate is a **self-hosted, open-source StrongDM alternative**. Both [StrongDM]
 
 ## Where your control plane and data live
 
-This is the defining difference. With StrongDM, configuration and the coordination layer are hosted in **StrongDM's SaaS**; you run gateways in your network, and can optionally keep target credentials in your own secret store, but the control plane itself is not something you operate. With Warpgate, **all of it is yours** — one binary and a database inside your own perimeter — which is often the deciding factor for air-gapped, sovereignty-sensitive, or simply SaaS-averse environments.
+This is the defining difference. With StrongDM, configuration and the coordination layer are hosted in **StrongDM's SaaS**; you run gateways in your network, and can optionally keep target credentials in your own secret store, but the control plane itself is not something you operate. With Warpgate, **all of it is yours** — one binary and a database inside your own perimeter — which is often the deciding factor for air-gapped, sovereignty-sensitive, or simply SaaS-averse environments. Target credentials live in that database, and can be [encrypted at rest](./encryption.md) under a master key you hold, so the credentials stay unreadable in backups, replicas and dumps.
 
 ## Session recording
 
@@ -66,7 +66,7 @@ Warpgate includes browser-based clients for SSH, RDP, VNC and HTTP, so a user ca
 <section class="production-review-cta" aria-labelledby="production-review-strongdm-title">
     <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
     <h2 id="production-review-strongdm-title">Validate the architecture before rollout</h2>
-    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan - or deploy it yourself using the public documentation.</p>
     <div class="production-review-actions">
         <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
         <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>

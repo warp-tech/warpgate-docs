@@ -14,12 +14,12 @@ Warpgate is an **open-source, self-hosted alternative to HashiCorp Boundary**. B
 
 | | Warpgate | Boundary |
 |---|---|---|
-| **Footprint** | A single Rust binary + a database (SQLite or PostgreSQL) | Controller(s) + Worker(s) + a database, and often Vault for credentials |
+| **Footprint** | A single Rust binary plus SQLite, MySQL or PostgreSQL; multiple nodes can share a database for clustering | Controller(s) + Worker(s) + a database, and often Vault for credentials |
 | **Agents on targets** | **None** — nothing is installed on your servers | None on the targets, but a controller/worker plane to operate |
 | **Client software** | **None** — users keep their normal `ssh`, `mysql`, `psql`, `kubectl`, browser or RDP/VNC client | The `boundary` CLI, Desktop app, or background Client-Agent is **required** |
 | **How you reach a target** | Connect your client straight to Warpgate with a `user:target` selector | The `boundary` client authorises a session and opens a **local proxy port**; you then point your tool at `localhost` |
 | **Protocol awareness** | Protocol-aware for SSH, HTTP, MySQL, PostgreSQL, Kubernetes, RDP, VNC | Primarily **TCP tunnelling**; SSH and RDP have deeper, protocol-aware features (e.g. session recording) |
-| **Credentials to targets** | Stored per target (or brokered) — built in | Static, or brokered/injected via **Vault** |
+| **Credentials to targets** | Stored per target — built in, and optionally **encrypted at rest** under a master key; no rotation engine | Static, or brokered/injected via **Vault** |
 | **Authentication** | Password, SSH public key, OTP (TOTP), SSO via OIDC, client certificates, in-browser approval | Password, OIDC, LDAP (MFA delegated to your OIDC provider) |
 | **Session recording** | Replay for SSH, Kubernetes, RDP and VNC; query/activity logs for databases and HTTP | SSH and RDP (paid editions); other targets tunnelled at TCP |
 | **In-browser access** | SSH, RDP, VNC and HTTP | None — sessions run through the CLI / Desktop / Client-Agent |
@@ -59,14 +59,14 @@ Boundary can *carry* all of these — it tunnels arbitrary TCP — but only SSH 
 
 * You want audited access **today**, from a single binary, without a controller/worker cluster or a client on every machine.
 * You want to see **what happened inside** each session — queries, commands, API calls, desktop video — across all your protocols, not just SSH and RDP.
-* You'd rather not run **Vault** just to hand credentials to targets.
+* You'd rather not run **Vault** just to hand credentials to targets — Warpgate stores them itself, and can [encrypt them at rest](./encryption.md) under a master key so a database dump yields nothing usable.
 * You value a **small, Apache-2.0 codebase** with every feature in the free build.
 * Homelabs, small-to-medium teams, and focused gateways.
 
 <section class="production-review-cta" aria-labelledby="production-review-boundary-title">
     <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
     <h2 id="production-review-boundary-title">Validate the architecture before rollout</h2>
-    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan - or deploy it yourself using the public documentation.</p>
     <div class="production-review-actions">
         <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
         <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>

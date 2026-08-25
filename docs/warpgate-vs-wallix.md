@@ -24,7 +24,7 @@ Warpgate is an **open-source, self-hosted alternative to WALLIX Bastion**. Of th
 | **Web / HTTP targets** | ✅ native — Warpgate *is* an HTTP reverse proxy | **Web Session Manager** drives a real browser (an embedded Chrome engine) on the gateway side |
 | **Authentication** | Password, SSH public key, OTP (TOTP), **SSO via OIDC**, client certificates, in-browser approval | Password, SSH keys, Kerberos, LDAP/AD, NLA, RADIUS, PKI (X.509), **SAML 2.0 and OIDC** |
 | **Self-service / JIT access** | Tickets and self-service **ticket requests** with admin approval — included | **Approval workflow** with a dedicated approver role and e-mail notification; integrates with ITSM ticketing |
-| **Secrets management** | Per-target credentials, stored or brokered | Full **vault** with automated password and SSH-key rotation, plus application-to-application password management |
+| **Secrets management** | Per-target credentials, optionally **encrypted at rest** under a master key — but no rotation | Full **vault** with automated password and SSH-key rotation, plus application-to-application password management |
 | **Beyond the gateway** | Gateway only | A **suite**: PEDM endpoint privilege management, IDaaS, identity governance |
 | **Security certification** | None | **ANSSI CSPN** and **BSI BSZ** (see [below](#certification-and-compliance)) |
 | **Licensing** | **Apache-2.0, fully self-hosted, no paid tier** | Proprietary and commercial — subscription **per asset or per user**; free trial available |
@@ -61,11 +61,13 @@ Both products record. The difference is how much of the session each one *unders
 
 WALLIX also offers real-time session monitoring, live session sharing with an invited guest (view-only or shared control), and the ability to terminate a session in progress.
 
+On the desktop protocols themselves, Warpgate carries the **text clipboard** in both directions for RDP and VNC, and a native RDP client can resize the session live. Clipboard file transfer is not implemented, and Warpgate has no gateway-enforced clipboard policy at all — if your rules require the gateway to restrict clipboard use per direction, that counts against Warpgate here; check the current WALLIX session-policy options for its side.
+
 ## Scope: a gateway, not a suite
 
 This is the difference that decides most evaluations. WALLIX sells a **PAM programme**; Warpgate is one component of one.
 
-If your requirement is written as "audited, access-controlled connections to our infrastructure", Warpgate covers it. If it is written as "discover privileged accounts, vault and rotate their credentials, remove local admin rights from workstations, broker secrets to applications, and produce a compliance report", that is a suite-shaped requirement and WALLIX is built for it. Warpgate has per-target credentials and access control, not a rotation engine, not endpoint privilege management, and not identity governance.
+If your requirement is written as "audited, access-controlled connections to our infrastructure", Warpgate covers it. If it is written as "discover privileged accounts, vault and rotate their credentials, remove local admin rights from workstations, broker secrets to applications, and produce a compliance report", that is a suite-shaped requirement and WALLIX is built for it. Warpgate has per-target credentials and access control — [encrypted at rest](./encryption.md) under a master key if you set one — but not a rotation engine, not endpoint privilege management, and not identity governance.
 
 ## Certification and compliance
 
@@ -78,13 +80,13 @@ Warpgate has no such certification, and this page will not pretend otherwise. If
 * You want audited access **today**, from a single binary, without an appliance, an Access Manager, or an RDS farm to publish web apps.
 * Your estate is **Kubernetes, databases and web applications** as much as it is SSH and RDP — and you want those proxied and logged protocol-aware, not tunnelled as raw TCP.
 * You want **no licence to count** — no per-asset or per-user subscription, no renewal, no true-up when the estate grows.
-* You value a **small, auditable, Apache-2.0 codebase** where every feature — SSO, MFA, session recording, ticket requests, clustering — is in the free build.
+* You value a **small, auditable, Apache-2.0 codebase** where every feature — SSO, MFA, session recording, ticket requests, clustering, credential encryption — is in the free build.
 * Homelabs, small-to-medium teams, and organisations that would rather own the gateway than licence it.
 
 <section class="production-review-cta" aria-labelledby="production-review-wallix-title">
     <p class="production-review-eyebrow">Evaluating Warpgate for production?</p>
     <h2 id="production-review-wallix-title">Validate the architecture before rollout</h2>
-    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan—or deploy it yourself using the public documentation.</p>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan - or deploy it yourself using the public documentation.</p>
     <div class="production-review-actions">
         <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
         <a class="btn btn-outline-light" href="/getting-started-on-docker/">Deploy Warpgate yourself</a>

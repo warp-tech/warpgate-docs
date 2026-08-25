@@ -11,6 +11,8 @@ Release announcements go out via the [newsletter](newsletter.md), and every rele
 
 There is no required upgrade path at this time; you can directly upgrade to the latest version from any previous version.
 
+Warpgate makes no availability guarantees during a rolling upgrade - meaning you'll need a short maintenance window.
+
 ## Before you upgrade
 
 * Read the release notes for the version you're moving to - breaking changes and manual steps are called out there.

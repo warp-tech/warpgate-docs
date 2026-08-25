@@ -47,7 +47,7 @@ pg_dump "$DATABASE_URL" > warpgate.sql
 ```
 
 ```bash
-mysqldump warpgate > warpgate.sql
+mysqldump --single-transaction warpgate > warpgate.sql
 ```
 
 !!! WARNING "Credentials are in the dump"
@@ -63,6 +63,11 @@ Store the encryption key in your secret manager or other secure location separat
 
 If recordings are stored on S3, you can rely on the bucket's own versioning/replication. If they're on a shared filesystem or in the default `<data>/recordings` directory, include that path in your backup - recordings are append-only files and can be `rsync`'ed.
 
+### Warpgate version
+
+You'll need to know which Warpgate version the backup is from, so it's a good idea to note it down, or simply include the output of `warpgate --version` in the backup itself.
+
+
 ## Restoring
 
 1. Install the **same Warpgate version** the backup was taken from.
@@ -75,6 +80,15 @@ If you've lost the admin login specifically, use `warpgate recover-access` to re
 
 ## Test it
 
-Restore your backup onto a staging host or container, log in, and test target connection connections. Do it before you need it in production.
+Restore your backup onto a staging host or container, log in, and test target connections. Do it before you need it in production.
 
-In a [cluster](clustering.md), the database, recordings storage and encryption key are shared - it's enough back them up once centrally.
+In a [cluster](clustering.md), the database, recordings storage and encryption key are shared - it's enough to back them up once centrally.
+
+<section class="production-review-cta" aria-labelledby="production-review-teleport-title">
+    <p class="production-review-eyebrow">Validate the backup plan before rollout</p>
+    <h2 id="production-review-teleport-title">Want this verified against your setup?</h2>
+    <p>Ask Warpgate's maintainers to review your target inventory, identity setup, HA design, recording retention and rollout plan - or deploy it yourself using the public documentation.</p>
+    <div class="production-review-actions">
+        <a class="btn btn-success" href="/for-business/#support-options">Request a production-readiness review</a>
+    </div>
+</section>
