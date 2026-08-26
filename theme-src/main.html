@@ -26,6 +26,16 @@
   <meta name="twitter:description" content="{{ page.meta.description or config.site_description }}">
   <link rel="canonical" href="{{ page.canonical_url }}">
 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "{{ config.site_name }}",
+      "alternateName": "Warpgate",
+      "url": "{{ config.site_url }}"
+    }
+  </script>
+
   {%- for path in config.extra_js %}
   <script src="{{ path | url }}"></script>
   {%- endfor %}
