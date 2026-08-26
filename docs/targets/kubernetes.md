@@ -1,3 +1,7 @@
+---
+title: Adding a Kubernetes target
+---
+
 # Adding a Kubernetes target
 
 <div class="badge font-xs text-bg-warning mb-3">v0.21+</div>

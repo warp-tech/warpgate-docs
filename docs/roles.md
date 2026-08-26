@@ -1,3 +1,7 @@
+---
+title: User roles
+---
+
 # User roles
 
 Warpgate comes with two kinds of roles:

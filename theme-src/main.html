@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <title>{% if page.meta.title %}{{ page.meta.title }}{% elif page.title %}{{ page.title }} - {{ config.site_name }}{% else %}{{ config.site_name }}{% endif %}</title>
+  {%- set page_title = page.meta.title or page.title or config.site_name %}
+  <title>{{ page_title }}{% if config.site_name not in page_title %} — {{ config.site_name }}{% endif %}</title>
   <link rel="icon" type="image/svg" href="./assets/favicon.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />

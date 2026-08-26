@@ -1,3 +1,7 @@
+---
+title: Staying in the loop
+---
+
 # Staying in the loop
 
 Warpgate has an ops newsletter that includes major release updates, security and ops bulletins, and none of the marketing. You can subscribe to it below.

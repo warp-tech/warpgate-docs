@@ -1,3 +1,7 @@
+---
+title: Encrypting credentials at rest
+---
+
 # Encrypting credentials at rest
 
 <div class="badge font-xs text-bg-warning mb-3">v0.28+</div>

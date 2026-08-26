@@ -1,3 +1,7 @@
+---
+title: Imprint
+---
+
 # Imprint
 
 warpgate.null.page is owned by

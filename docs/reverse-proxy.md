@@ -1,3 +1,7 @@
+---
+title: Running behind a reverse proxy
+---
+
 # Running behind a reverse proxy
 Warpgate doesn't need any specific configuration except in the following case:
 

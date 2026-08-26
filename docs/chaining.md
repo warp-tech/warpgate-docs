@@ -1,3 +1,7 @@
+---
+title: Chaining Warpgate instances
+---
+
 # Chaining Warpgates
 
 Sometimes exposing a host on the network to the outside is not an option. In this case you can opt to forward connections from one Warpgate to another.

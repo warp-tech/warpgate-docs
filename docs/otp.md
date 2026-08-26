@@ -1,3 +1,7 @@
+---
+title: One-time passwords (OTP)
+---
+
 # One-time passwords (OTP)
 
 ## Configuration

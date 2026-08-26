@@ -1,3 +1,7 @@
+---
+title: Getting started on Helm
+---
+
 # Getting started on Helm
 
 <div class="badge font-xs text-bg-warning mb-3">The Helm chart is community-maintained</div>

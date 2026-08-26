@@ -1,3 +1,7 @@
+---
+title: Adding HTTP targets
+---
+
 # Adding HTTP targets
 
 ## Connection setup

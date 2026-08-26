@@ -1,3 +1,7 @@
+---
+title: Login protection
+---
+
 # Login protection
 
 <div class="badge font-xs text-bg-warning mb-3">v0.26+</div>

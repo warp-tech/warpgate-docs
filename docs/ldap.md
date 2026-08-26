@@ -1,3 +1,7 @@
+---
+title: LDAP authentication
+---
+
 # LDAP
 
 Warpgate can sync users' SSH public keys from LDAP.

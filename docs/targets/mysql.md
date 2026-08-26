@@ -1,3 +1,7 @@
+---
+title: Adding MySQL targets
+---
+
 
 # Adding MySQL targets
 

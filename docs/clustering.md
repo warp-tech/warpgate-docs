@@ -1,3 +1,7 @@
+---
+title: Running a cluster
+---
+
 # Running a cluster
 
 <div class="badge font-xs text-bg-warning mb-3">v0.27+</div>

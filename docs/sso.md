@@ -1,3 +1,7 @@
+---
+title: Single sign-on (SSO)
+---
+
 # Single sign-on
 
 ## Intro

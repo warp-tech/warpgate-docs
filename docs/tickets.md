@@ -1,3 +1,7 @@
+---
+title: Access tickets
+---
+
 # Access tickets
 
 You can issue tickets that grant a specific user access to a specific target, bypassing authorization. This is especially useful for non-interactive sessions where 2FA flows aren't possible, e.g. when connecting an application to a database or an API through Warpgate.

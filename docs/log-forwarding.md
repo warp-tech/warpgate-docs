@@ -1,3 +1,7 @@
+---
+title: Log forwarding
+---
+
 # Log forwarding
 
 <div class="badge font-xs text-bg-warning mb-3">v0.2+</div>

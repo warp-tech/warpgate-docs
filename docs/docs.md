@@ -1,3 +1,7 @@
+---
+title: Warpgate documentation
+---
+
 # Start here
 
 Welcome to the Warpgate docs.

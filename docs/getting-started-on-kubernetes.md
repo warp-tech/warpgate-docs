@@ -1,3 +1,7 @@
+---
+title: Kubernetes Operator
+---
+
 # Kubernetes Operator
 
 <div class="badge font-xs text-bg-warning mb-3">The Kubernetes operator is community-maintained</div>

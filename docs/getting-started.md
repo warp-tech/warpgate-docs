@@ -1,3 +1,7 @@
+---
+title: Getting started (binary)
+---
+
 # Getting started (binary)
 
 NOTE: For Docker / k8s, see [Getting started on Docker](./getting-started-on-docker.md).

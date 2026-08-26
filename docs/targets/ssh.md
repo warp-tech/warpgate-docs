@@ -1,3 +1,7 @@
+---
+title: Adding SSH targets
+---
+
 # Adding SSH targets
 
 ## Authentication setup

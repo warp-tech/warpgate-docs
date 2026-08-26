@@ -1,3 +1,7 @@
+---
+title: User authentication
+---
+
 # User authentication
 
 In the [previous example](./targets/ssh.md), we've reused the Warpgate's `admin` user, which only had a password as its only way to authenticate. Warpgate supports passwords, public keys, authenticator apps, SSO (OIDC), API tokens and combinations thereof as authentication methods.

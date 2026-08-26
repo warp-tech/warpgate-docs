@@ -1,3 +1,7 @@
+---
+title: HTTP domain binding
+---
+
 # HTTP domain binding
 
 Instead of using `?warpgate-target=` in the URL, you can use multiple domains/hostnames and link each to a specific target.

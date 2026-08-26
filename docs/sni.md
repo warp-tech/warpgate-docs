@@ -1,3 +1,7 @@
+---
+title: TLS SNI
+---
+
 # TLS SNI
 
 <div class="badge font-xs text-bg-warning mb-3">v0.15+</div>

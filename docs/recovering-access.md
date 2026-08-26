@@ -1,3 +1,7 @@
+---
+title: Recovering admin access
+---
+
 # Recovering admin access
 
 Forgot your password and your dog ate the OTP dongle?

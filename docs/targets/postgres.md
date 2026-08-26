@@ -1,3 +1,7 @@
+---
+title: Adding PostgreSQL targets
+---
+
 # Adding PostgreSQL targets
 
 ## Authentication setup

@@ -1,3 +1,7 @@
+---
+title: Installing as a systemd service
+---
+
 # Installing as a systemd service
 
 To add Warpgate to systemd and have it start automatically, run:
