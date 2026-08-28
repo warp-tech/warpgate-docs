@@ -15,7 +15,8 @@ OIDC providers include, but are not limited to:
 * GitLab
 * Microsoft Azure
 * Okta
-*
+* Authentik
+
 ## Configuration
 
 ### External host
@@ -119,6 +120,8 @@ external_host: warpgate.acme.inc:8888
 +     issuer_url: https://sso.acme.inc
 +     scopes: ["email"]
 ```
+
+> **Authentik**: assign a _Signing Key_ (RSA or ECDSA) to the provider. Without one, Authentik falls back to signing ID tokens with `HS256` and serves an empty `{}` document at its JWKS endpoint, omitting the mandatory `keys` member. Warpgate rejects that document and login fails before the user is ever redirected, with `provider discovery error: Failed to parse server response`.
 
 ### Domain handling
 
