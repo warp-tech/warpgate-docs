@@ -168,15 +168,15 @@
             </li>
             
             <li>
-              <a class="" href="../otp/">One-time passwords</a>
+              <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
             <li>
-              <a class="text-success" href="./">Single sign-on</a>
+              <a class="text-success" href="./">Single sign-on (SSO)</a>
             </li>
             
             <li>
-              <a class="" href="../ldap/">LDAP</a>
+              <a class="" href="../ldap/">LDAP authentication</a>
             </li>
             
             <li>
@@ -184,7 +184,7 @@
             </li>
             
             <li>
-              <a class="" href="../recovering-access/">Recovering access</a>
+              <a class="" href="../recovering-access/">Recovering admin access</a>
             </li>
             
           </ul>
@@ -208,15 +208,15 @@
             </li>
             
             <li>
-              <a class="" href="../reverse-proxy/">Reverse proxy</a>
+              <a class="" href="../reverse-proxy/">Running behind a reverse proxy</a>
             </li>
             
             <li>
-              <a class="" href="../clustering/">Clustering</a>
+              <a class="" href="../clustering/">Running a cluster</a>
             </li>
             
             <li>
-              <a class="" href="../encryption/">Encryption at rest</a>
+              <a class="" href="../encryption/">Encrypting credentials at rest</a>
             </li>
             
             <li>
@@ -224,7 +224,7 @@
             </li>
             
             <li>
-              <a class="" href="../systemd/">systemd service</a>
+              <a class="" href="../systemd/">Installing as a systemd service</a>
             </li>
             
             <li>
@@ -252,7 +252,7 @@
             </li>
             
             <li>
-              <a class="" href="../chaining/">Chaining</a>
+              <a class="" href="../chaining/">Chaining Warpgate instances</a>
             </li>
             
             <li>
@@ -302,8 +302,8 @@
 <li>Sign in with Apple</li>
 <li>GitLab</li>
 <li>Microsoft Azure</li>
-<li>Okta
-*</li>
+<li>Okta</li>
+<li>Authentik</li>
 </ul>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">§</a></h2>
 <h3 id="external-host">External host<a class="headerlink" href="#external-host" title="Permanent link">§</a></h3>
@@ -382,6 +382,9 @@
 <span style="color: #56D364; background-color: #0F5323">+     issuer_url: https://sso.acme.inc</span>
 <span style="color: #56D364; background-color: #0F5323">+     scopes: [&quot;email&quot;]</span>
 </code></pre></div>
+<blockquote>
+<p><strong>Authentik</strong>: assign a <em>Signing Key</em> (RSA or ECDSA) to the provider. Without one, Authentik falls back to signing ID tokens with <code>HS256</code> and serves an empty <code>{}</code> document at its JWKS endpoint, omitting the mandatory <code>keys</code> member. Warpgate rejects that document and login fails before the user is ever redirected, with <code>provider discovery error: Failed to parse server response</code>.</p>
+</blockquote>
 <h3 id="domain-handling">Domain handling<a class="headerlink" href="#domain-handling" title="Permanent link">§</a></h3>
 <p>There are two possible ways Warpgate can handle SSO when it's servicing multiple domains. Consider the following setup:</p>
 <ul>
@@ -560,7 +563,7 @@ Make sure you&#39;re seeing this security key: E E 0 5
         
           <a class="btn btn-secondary btn-prev" href="../otp/">
             &larr;
-            One-time passwords
+            One-time passwords (OTP)
             <br/>
             <small class="text-muted">
               Previous
@@ -571,7 +574,7 @@ Make sure you&#39;re seeing this security key: E E 0 5
         <!-- Next page -->
         
           <a class="btn btn-success btn-next ms-auto" href="../ldap/">
-            LDAP
+            LDAP authentication
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

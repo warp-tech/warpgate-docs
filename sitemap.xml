@@ -2,166 +2,166 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://warpgate.null.page/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/auth/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/backup/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/chaining/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/clustering/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/custom-ca/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/docs/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/encryption/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/for-business/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/getting-started-on-docker/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/getting-started-on-helm/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/getting-started-on-kubernetes/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/getting-started/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/http-domain-binding/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/imprint/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/ldap/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/log-forwarding/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/login-protection/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/newsletter/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/otp/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/production-checklist/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/protocol-support/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/recovering-access/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/reverse-proxy/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/roles/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/sni/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/sso/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/systemd/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/tickets/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/upgrading/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/warpgate-vs-boundary/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/warpgate-vs-strongdm/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/warpgate-vs-teleport/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/warpgate-vs-wallix/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/targets/http/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/targets/kubernetes/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/targets/mysql/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/targets/postgres/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/targets/rdp/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/targets/ssh/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
     <url>
          <loc>https://warpgate.null.page/targets/vnc/</loc>
-         <lastmod>2026-08-26</lastmod>
+         <lastmod>2026-08-28</lastmod>
     </url>
 </urlset>
