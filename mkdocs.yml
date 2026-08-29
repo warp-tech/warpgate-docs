@@ -51,6 +51,7 @@ nav:
       - systemd.md
       - log-forwarding.md
       - custom-ca.md
+      - secrets-vault.md
   - Advanced topics:
       - http-domain-binding.md
       - sni.md
