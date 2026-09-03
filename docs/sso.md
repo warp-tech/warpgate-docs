@@ -27,7 +27,14 @@ Set the primary external domain explicitly via the top-level `external_host` con
 + external_host: warpgate.acme.inc
 ```
 
-> `external_host` can include a port as well
+`external_host` must be a bare hostname without a port. You can set the external HTTP port via `http.external_port` (and for other protocols as well - these are used to generate connection instructions in the UI):
+
+```diff
+  external_host: warpgate.acme.inc
+  http:
+    listen: 0.0.0.0:8888
++   external_port: 81
+```
 
 ### Obtaining app credentials from a provider
 
@@ -60,7 +67,7 @@ With a _Client ID_ and a _Client Secret_ in hand, you can add these to the Warpg
 #### Google
 
 ```diff
-external_host: warpgate.acme.inc:8888
+  external_host: warpgate.acme.inc
 
 + sso_providers:
 + - name: google
@@ -74,7 +81,7 @@ external_host: warpgate.acme.inc:8888
 #### Microsoft Azure
 
 ```diff
-external_host: warpgate.acme.inc:8888
+  external_host: warpgate.acme.inc
 
 + sso_providers:
 + - name: azure
@@ -90,7 +97,7 @@ external_host: warpgate.acme.inc:8888
 #### Apple
 
 ```diff
-external_host: warpgate.acme.inc:8888
+  external_host: warpgate.acme.inc
 
 + sso_providers:
 + - name: apple
@@ -108,7 +115,7 @@ external_host: warpgate.acme.inc:8888
 
 
 ```diff
-external_host: warpgate.acme.inc:8888
+  external_host: warpgate.acme.inc
 
 + sso_providers:
 + - name: custom
@@ -142,6 +149,19 @@ When a user logs in at `target.warpgate.acme.inc`, they will be redirected to SS
 
 This has briefly been the default in Warpgate 0.24.
 
+In this mode, you can restrict which hosts are accepted as the return URL domain with `return_domain_whitelist`. Requests for any other hostname will be rejected:
+
+```diff
+  sso_providers:
+  - name: custom
+    return_url_domain: host_header
++   return_domain_whitelist:
++   - warpgate.acme.inc
++   - target.warpgate.acme.inc
+    provider:
+    ...
+```
+
 #### Choosing the option
 
 Set `return_url_domain` to either `external_host` or `host_header`:
@@ -157,7 +177,7 @@ Set `return_url_domain` to either `external_host` or `host_header`:
 
 ### OIDC audience verification
 
-Normally, the OIDC provider should issue a token that is only valid for Warpgate itself. If this is not possible, you have two options:
+Normally, the OIDC provider should issue a token that is only valid for Warpgate itself. If this is not possible, you have two options (for `custom` providers only):
 
 * Explicitly whitelist additional trusted audiences:
 
@@ -165,11 +185,13 @@ Normally, the OIDC provider should issue a token that is only valid for Warpgate
   sso_providers:
   - name: custom
     label: ACME SSO
-+   additional_trusted_audiences:
-+   - one
-+   - two
     provider:
-    ...
+      type: custom
+      ...
++     additional_trusted_audiences:
++     - one
++     - two
+      ...
 ```
 
 * Fully ignore any additional audiences in the token (v0.13.1+):
@@ -178,16 +200,18 @@ Normally, the OIDC provider should issue a token that is only valid for Warpgate
   sso_providers:
   - name: custom
     label: ACME SSO
-+   trust_unknown_audiences: true
     provider:
-    ...
+      type: custom
+      ...
++     trust_unknown_audiences: true
+      ...
 ```
 
 ### Automatically creating users
 
 <div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
 
-Warpgate can automatically create users for new SSO logins. The SSO server has to provide the `preferred_username` OIDC claim for this to work.
+Warpgate can automatically create users for new SSO logins. The username is taken from the `preferred_username` OIDC claim, falling back to the `email` claim if missing. Existing users with a matching username need to be linked to their SSO accounts manually (by adding an SSO credential to their credential list). 
 
 ```diff
   sso_providers:
@@ -243,7 +267,7 @@ For that, your provider must set a `warpgate_roles` OIDC claim (a JSON array of 
 
 The corresponding optional `warpgate_admin_roles` claim is interpreted as a list of admin roles to apply.
 
-You can also set `role_mappings`/`admin_role_mappings` in the provider's configuration to explicitly map claim values to role names. In this case, only the roles mentioned here will be synced from SSO, and the memberships in other roles won't be affected. For example:
+You can also set `role_mappings`/`admin_role_mappings` in the provider's configuration to explicitly map claim values to role names. In this case, only the roles mentioned here will be synced from SSO, and the memberships in other roles won't be affected. A mapping value can be a single role name or a list of them (v0.22+). In `role_mappings`, the special `*` key grants roles to any user who has at least one group in the claim, regardless of whether it's mapped (v0.22+). For example:
 
 ```yaml
 - name: oidc-custom
@@ -256,6 +280,9 @@ You can also set `role_mappings`/`admin_role_mappings` in the provider's configu
     scopes: []
     role_mappings:
       'QA group': 'qa'
+      Developers: ['dev', 'staging']
+      '*': 'everyone'
+    admin_role_mappings:
       Admins: 'warpgate:admin'
 ```
 
@@ -320,6 +347,10 @@ For that you'll need to:
 
 * Enable [domain-wide delegation](https://admin.google.com/u/4/ac/owl/domainwidedelegation), using your service account's *Client ID* (visible in the [service accounts list](https://console.cloud.google.com/iam-admin/serviceaccounts)) and `https://www.googleapis.com/auth/admin.directory.group.readonly` scope value.
 
+
+### Kubernetes (kubectl) login via SSO
+
+SSO providers can also issue tokens for `kubectl` via the `kubernetes` section of the provider config. See [Kubernetes targets](targets/kubernetes.md) for details.
 
 ### Hiding password login
 
