@@ -320,9 +320,9 @@
 </code></pre></div>
 <p>The format is <code>&lt;secret-name&gt;/&lt;key&gt;</code>.</p>
 <h2 id="losing-or-changing-the-key">Losing or changing the key<a class="headerlink" href="#losing-or-changing-the-key" title="Permanent link">§</a></h2>
-<p>Warpgate will never refuse to start because of a key-related problem, so a lost key won't take it down. A node <strong>without</strong> the key still starts and works, but will not be able to connect to the affected targets.</p>
+<p>Warpgate will never refuse to start because of a missing key, so a lost key won't take it down. A node <strong>without</strong> the key still starts and works, but will not be able to connect to the affected targets.</p>
 <h2 id="rotating-the-key">Rotating the key<a class="headerlink" href="#rotating-the-key" title="Permanent link">§</a></h2>
-<p>A key can be rotated fully online without stoping the cluster.</p>
+<p>A key can be rotated fully online without stopping the cluster.</p>
 <ol>
 <li>Generate a new key.</li>
 <li>On every node, set <code>WARPGATE_ENCRYPTION_KEY</code> to the <strong>new</strong> key and <code>WARPGATE_ENCRYPTION_KEY_OLD</code> to the <strong>previous</strong> value.</li>

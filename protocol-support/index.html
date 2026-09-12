@@ -297,10 +297,10 @@
 <h2 id="ssh">SSH<a class="headerlink" href="#ssh" title="Permanent link">§</a></h2>
 <ul>
 <li>Ciphers: <code>chacha20-poly1305</code>, AES256-GCM, AES256-CTR, AES192-CTR, AES128-CTR.</li>
-<li>Key exchanges: Curve25519, DH GEX SHA-256, DH groups 14-18.</li>
+<li>Key exchanges: ML-KEM-768 + X25519 (post-quantum hybrid), Curve25519, DH GEX SHA-256, DH groups 14-18.</li>
 <li>Keys: <code>ssh-ed25519</code>, <code>ssh-rsa</code>, <code>rsa-sha2-512</code>, <code>rsa-sha2-256</code></li>
-<li>MACs: HMAC-SHA-1/256/512 with optional ETM.</li>
-<li>Compression: Zlib.</li>
+<li>MACs: HMAC-SHA-256/512 with optional ETM (HMAC-SHA-1 only when "Allow insecure algorithms" is enabled on the target).</li>
+<li>Compression: none.</li>
 <li>✅ Tickets</li>
 <li>✅ 2FA</li>
 </ul>
@@ -308,7 +308,7 @@
 <ul>
 <li>MySQL text protocol only (prepared statements are not supported)</li>
 <li>As server:<ul>
-<li>Identifies itself as MySQL 8.0.3 (configurable; means you can use the MySQL Workbench even if the target is a MariaDB)</li>
+<li>Identifies itself as MySQL 8.0.3 (configurable; means you can use MySQL Workbench even if the target is a MariaDB)</li>
 <li>✅ TLS (forced)</li>
 <li><code>mysql_clear_password</code> auth over TLS</li>
 </ul>
@@ -318,7 +318,7 @@
 <li>✅ <code>mysql_native_password</code> auth</li>
 <li>✅ <code>sha256_password</code> auth</li>
 <li>✅ <code>caching_sha2_password</code> auth (incl. MySQL 8.4) <div class="badge font-xs text-bg-warning">v0.27+</div></li>
-<li>✅ AWS RDS IAM auth <div class="badge font-xs text-bg-warning">v0.27+</div></li>
+<li>✅ AWS RDS IAM auth <div class="badge font-xs text-bg-warning">v0.22+</div></li>
 </ul>
 </li>
 <li>✅ Tickets</li>
@@ -352,7 +352,7 @@
 <li>✅ 2FA</li>
 </ul>
 <h2 id="kubernetes">Kubernetes<a class="headerlink" href="#kubernetes" title="Permanent link">§</a></h2>
-<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
+<div class="badge font-xs text-bg-warning mb-3">v0.21+</div>
 
 <ul>
 <li>✅ API proxy</li>
@@ -361,7 +361,7 @@
 <li>✅ Client certificate authentication</li>
 <li>✅ Bearer token authentication</li>
 <li>✅ SSO / OIDC authentication via <code>kubelogin</code> <div class="badge font-xs text-bg-warning">v0.27+</div></li>
-<li>✅ AWS EKS IAM authentication <div class="badge font-xs text-bg-warning">v0.27+</div></li>
+<li>✅ AWS EKS IAM authentication <div class="badge font-xs text-bg-warning">v0.22+</div></li>
 <li>✅ Session recording (including <code>kubectl exec</code>)</li>
 <li>✅ 2FA</li>
 <li>✅ WebSocket streaming (<code>exec</code> / <code>attach</code> / <code>logs</code>)</li>

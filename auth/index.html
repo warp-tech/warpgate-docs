@@ -294,7 +294,7 @@
     <main class="page-content">
       <article>
         <h1 id="user-authentication">User authentication<a class="headerlink" href="#user-authentication" title="Permanent link">§</a></h1>
-<p>In the <a href="../targets/ssh/">previous example</a>, we've reused the Warpgate's <code>admin</code> user, which only had a password as its only way to authenticate. Warpgate supports passwords, public keys, authenticator apps, SSO (OIDC), API tokens and combinations thereof as authentication methods.</p>
+<p>In the <a href="../targets/ssh/">previous example</a>, we've reused Warpgate's <code>admin</code> user, which only had a password as its only way to authenticate. Warpgate supports passwords, public keys, authenticator apps, SSO (OIDC), API tokens and combinations thereof as authentication methods.</p>
 <h2 id="changing-a-users-password">Changing a user's password<a class="headerlink" href="#changing-a-users-password" title="Permanent link">§</a></h2>
 <p>Log into the Warpgate admin UI and navigate to <code>Config</code> &gt; <code>Users</code> &gt; <code>admin</code>, delete the old password and click <code>Add password</code> to add a new one.</p>
 <figure>
@@ -303,7 +303,7 @@
 <p>Adding a password</p>
 </figcaption>
 </figure>
-<p>Users can also manage their own password by clicking their username in the top right corner. This can be globally disabled via <code>Config</code> &gt; <code>Global parameter</code>.</p>
+<p>Users can also manage their own password by clicking their username in the top right corner. This can be globally disabled via <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Credentials</code>.</p>
 <h2 id="adding-a-public-key-for-a-user">Adding a public key for a user<a class="headerlink" href="#adding-a-public-key-for-a-user" title="Permanent link">§</a></h2>
 <ul>
 <li>Grab the user's public key in OpenSSH format (normally, you can just copy the <code>~/.ssh/id_&lt;type&gt;.pub</code> file contents), e.g.:</li>
@@ -362,7 +362,7 @@
 <div class="badge font-xs text-bg-warning mb-3">v0.20+</div>
 
 <p>Warpgate allows you to globally block SSH authentication methods. This can be useful if you exclusively use public key authentication and would like to prevent network scanners from hammering password authentication on a public port. By default, all methods are enabled.</p>
-<p>You can disable them individually under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>SSH authentication methods</code>:</p>
+<p>You can disable them individually under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>SSH</code> &gt; <code>Allowed authentication methods</code>:</p>
 <figure>
 <p><img alt="" src="../images/ssh-methods.png" /></p>
 <figcaption>
@@ -372,8 +372,8 @@
 <h2 id="login-banner">Login banner<a class="headerlink" href="#login-banner" title="Permanent link">§</a></h2>
 <div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
 
-<p>You can set a custom banner that Warpgate sends to SSH clients during authentication (e.g. a legal notice or login instructions). Set it under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>SSH banner</code>.</p>
-<div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
+<p>You can set a custom banner that Warpgate sends to SSH clients during authentication (e.g. a legal notice or login instructions). Set it under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Login</code> &gt; <code>Login banner</code>.</p>
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
 
 <p>Banner now shows up over other protocols beyond SSH:</p>
 <ul>
@@ -382,7 +382,7 @@
 <li><strong>PostgreSQL</strong> — as a notice message.</li>
 <li><strong>RDP</strong> and <strong>VNC</strong> — as a banner screen the user acknowledges before the session starts.</li>
 </ul>
-<p>MySQL connections do not display the banner as MySQL protocol lacks the ability to push messages to the user.</p>
+<p>MySQL connections do not display the banner as the MySQL protocol lacks the ability to push messages to the user.</p>
 <h2 id="in-browser-approval-out-of-band-authentication">In-browser approval (out-of-band authentication)<a class="headerlink" href="#in-browser-approval-out-of-band-authentication" title="Permanent link">§</a></h2>
 <p>Warpgate can require a login to be <strong>approved in the browser</strong>. This allows you to require OTP or SSO as a second factor over protocols that can't prompt it interactively.</p>
 <p>When a connection needs approval, Warpgate shows the user a login URL and a short <em>security key</em>. The user opens the URL in their browser session, logs in if they haven't already, checks that the security key matches, and approves (or rejects) the pending request.</p>
@@ -394,16 +394,18 @@
 </figcaption>
 </figure>
 <h3 id="caching-approvals">Caching approvals<a class="headerlink" href="#caching-approvals" title="Permanent link">§</a></h3>
-<p>To avoid approving every single connection, set an approval grace period under <code>Config</code> &gt; <code>Global parameters</code>. Within this window, a matching connection (same user, source IP, protocol, target and the same credentials presented) is approved automatically. When approving, the user chooses the scope: just this once, this target only, or all targets.</p>
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
+
+<p>To avoid approving every single connection, set a <code>Web approval cache period</code> under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Login</code>. Within this window, a matching connection (same user, source IP, protocol, target and the same credentials presented) is approved automatically. When approving, the user chooses the scope: just this once, this target only, or all targets.</p>
 <h2 id="requiring-re-authentication-for-sensitive-actions">Requiring re-authentication for sensitive actions<a class="headerlink" href="#requiring-re-authentication-for-sensitive-actions" title="Permanent link">§</a></h2>
 <div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
 
-<p>You can require users to re-authenticate before starting an in-browser session. Set a maximum web session age under <code>Config</code> &gt; <code>Global parameters</code> - once it is exceeded, Warpgate asks the user to re-authenticate before opening a <strong>web SSH</strong> or a <strong>remote desktop</strong> session.</p>
+<p>You can require users to re-authenticate before starting an in-browser session. Set <code>Require re-authentication after</code> under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Login</code> - once it is exceeded, Warpgate asks the user to re-authenticate before opening a <strong>web SSH</strong> or a <strong>remote desktop</strong> session, or creating a ticket.</p>
 <h2 id="api-tokens">API Tokens<a class="headerlink" href="#api-tokens" title="Permanent link">§</a></h2>
 <div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
 
-<p>Warpgate supports API tokens for programmatic access. Users can create and manage their own API tokens through the web interface by clicking their username in the top right corner and navigating to the "API Tokens" section.</p>
-<p>Requests made with an API token are considered authenticated in the same way as if the user would have logged in normally.</p>
+<p>Warpgate supports API tokens for programmatic access. Users can create and manage their own API tokens through the web interface by clicking their username in the top right corner and navigating to the "API tokens" section.</p>
+<p>Requests made with an API token are considered authenticated in the same way as if the user had logged in normally.</p>
 <h3 id="using-api-tokens">Using API Tokens<a class="headerlink" href="#using-api-tokens" title="Permanent link">§</a></h3>
 <p>Pass the token in the <code>x-warpgate-token</code> header when making API requests:</p>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #8B949E; font-style: italic"># Example: Get server info</span>

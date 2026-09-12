@@ -377,7 +377,7 @@
 <h2 id="reaching-a-target">Reaching a target<a class="headerlink" href="#reaching-a-target" title="Permanent link">§</a></h2>
 <p>This is the most visible day-to-day difference:</p>
 <ul>
-<li><strong>Warpgate</strong> — point <code>ssh</code>, <code>psql</code>, <code>kubectl</code>, a browser or an RDP/VNC client straight at Warpgate, using <code>user#target</code> (or the web portal). Nothing to install.</li>
+<li><strong>Warpgate</strong> — point <code>ssh</code>, <code>psql</code>, <code>kubectl</code>, a browser or an RDP/VNC client straight at Warpgate, using <code>user:target</code> (or the web portal). Nothing to install.</li>
 <li><strong>Boundary</strong> — authorise a session with the <code>boundary</code> client; <code>boundary connect</code> opens a <code>localhost</code> port you then point your tool at. Boundary's "transparent sessions" smooth this over with a background Client-Agent that intercepts traffic — but that's an Enterprise/HCP feature and still requires the client. Either way, a Boundary client sits in the path.</li>
 </ul>
 <h2 id="session-recording">Session recording<a class="headerlink" href="#session-recording" title="Permanent link">§</a></h2>

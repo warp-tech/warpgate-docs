@@ -372,7 +372,7 @@ rsa-sha2-256 AAAADHJzYS[...] client-rsa (default)
 <p>SSH connection instructions</p>
 </figcaption>
 </figure>
-<p>The web-based terminal can be turned off globally (v0.26+) under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Web SSH</code>, leaving users with connection instructions only.</p>
+<p>The web-based terminal can be turned off globally (v0.26+) under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>UI</code> &gt; <code>Enable in-browser clients</code>, leaving users with connection instructions only.</p>
 <h2 id="client-setup">Client setup<a class="headerlink" href="#client-setup" title="Permanent link">§</a></h2>
 <p>Now, fire up your favorite SSH client and try connecting to Warpgate:</p>
 <ul>
@@ -414,9 +414,9 @@ c.wilde:staging-env@warpgate.acme.inc&#39;s password:
 <div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
 
 <p>For interactive shell sessions, Warpgate will try to record the commands a user types as separate log entries for auditing. Detected commands appear tagged with <code>Shell command</code> entries in the session log.</p>
-<p>This is a <strong>heuristic audit aid, not a security boundary</strong>: it is impossible to prevent a user from purposedly obscuring their inputs in an unlimited shell.</p>
+<p>This is a <strong>heuristic audit aid, not a security boundary</strong>: it is impossible to prevent a user from purposely obscuring their inputs in an unlimited shell.</p>
 <h2 id="connecting-to-legacy-servers">Connecting to legacy servers<a class="headerlink" href="#connecting-to-legacy-servers" title="Permanent link">§</a></h2>
-<p>By default Warpgate only offers modern, secure key-exchange and encryption algorithms. To reach an older device that only supports legacy algorithms (DH groups 1/14, 3DES, HMAC-SHA1 or RSA-SHA1), enable <strong>Allow insecure algorithms</strong>.</p>
+<p>By default Warpgate only offers modern, secure key-exchange and encryption algorithms. To reach an older device that only supports legacy algorithms (DH group 1, AES-CBC/3DES, HMAC-SHA1, RSA-SHA1 or DSA), enable <strong>Allow insecure algorithms</strong>.</p>
 <h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
 <ul>
 <li><a href="../../auth/">User authentication</a></li>

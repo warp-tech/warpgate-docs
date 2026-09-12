@@ -310,11 +310,14 @@
 <p>Set the primary external domain explicitly via the top-level <code>external_host</code> config option:</p>
 <div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #56D364; background-color: #0F5323">+ external_host: warpgate.acme.inc</span>
 </code></pre></div>
-<blockquote>
-<p><code>external_host</code> can include a port as well</p>
-</blockquote>
+<p><code>external_host</code> must be a bare hostname without a port. You can set the external HTTP port via <code>http.external_port</code> (and for other protocols as well - these are used to generate connection instructions in the UI):</p>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> external_host: warpgate.acme.inc
+<span style="color: #6E7681"> </span> http:
+<span style="color: #6E7681"> </span>   listen: 0.0.0.0:8888
+<span style="color: #56D364; background-color: #0F5323">+   external_port: 81</span>
+</code></pre></div>
 <h3 id="obtaining-app-credentials-from-a-provider">Obtaining app credentials from a provider<a class="headerlink" href="#obtaining-app-credentials-from-a-provider" title="Permanent link">§</a></h3>
-<p>You'll need to register your Warpgate instance as an "app" (terminology varies per provider) at the provider and obtain a <em>Client ID</em> and a <em>Client secret</em>. You'll need to provide a <em>Redirect URL</em> which - which will be verified by the SSO provider.</p>
+<p>You'll need to register your Warpgate instance as an "app" (terminology varies per provider) at the provider and obtain a <em>Client ID</em> and a <em>Client secret</em>. You'll need to provide a <em>Redirect URL</em>, which will be verified by the SSO provider.</p>
 <p>The <em>redirect URL</em> (aka <em>return URL</em>) for Warpgate is <code>https://&lt;warpgate-external-host&gt;/@warpgate/api/sso/return</code>.</p>
 <p>For providers that do not allow the @ sign in the URL (Azure), you can use an underscore instead: <code>https://&lt;warpgate-external-host&gt;/_warpgate/api/sso/return</code> (v0.22+ only):</p>
 <div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
@@ -334,7 +337,7 @@
 <h3 id="adding-credentials-to-the-config-file">Adding credentials to the config file<a class="headerlink" href="#adding-credentials-to-the-config-file" title="Permanent link">§</a></h3>
 <p>With a <em>Client ID</em> and a <em>Client Secret</em> in hand, you can add these to the Warpgate config file:</p>
 <h4 id="google">Google<a class="headerlink" href="#google" title="Permanent link">§</a></h4>
-<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>external_host: warpgate.acme.inc:8888
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> external_host: warpgate.acme.inc
 
 <span style="color: #56D364; background-color: #0F5323">+ sso_providers:</span>
 <span style="color: #56D364; background-color: #0F5323">+ - name: google</span>
@@ -345,7 +348,7 @@
 <span style="color: #56D364; background-color: #0F5323">+     client_secret: ABC...</span>
 </code></pre></div>
 <h4 id="microsoft-azure">Microsoft Azure<a class="headerlink" href="#microsoft-azure" title="Permanent link">§</a></h4>
-<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>external_host: warpgate.acme.inc:8888
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> external_host: warpgate.acme.inc
 
 <span style="color: #56D364; background-color: #0F5323">+ sso_providers:</span>
 <span style="color: #56D364; background-color: #0F5323">+ - name: azure</span>
@@ -357,7 +360,7 @@
 <span style="color: #56D364; background-color: #0F5323">+     tenant: XYZ...</span>
 </code></pre></div>
 <h4 id="apple">Apple<a class="headerlink" href="#apple" title="Permanent link">§</a></h4>
-<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>external_host: warpgate.acme.inc:8888
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> external_host: warpgate.acme.inc
 
 <span style="color: #56D364; background-color: #0F5323">+ sso_providers:</span>
 <span style="color: #56D364; background-color: #0F5323">+ - name: apple</span>
@@ -370,7 +373,7 @@
 <span style="color: #56D364; background-color: #0F5323">+     client_secret: ABC...  # Base64 encoded contents of the .p8 private key file you&#39;ve got from Apple</span>
 </code></pre></div>
 <h4 id="custom">Custom<a class="headerlink" href="#custom" title="Permanent link">§</a></h4>
-<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>external_host: warpgate.acme.inc:8888
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> external_host: warpgate.acme.inc
 
 <span style="color: #56D364; background-color: #0F5323">+ sso_providers:</span>
 <span style="color: #56D364; background-color: #0F5323">+ - name: custom</span>
@@ -397,6 +400,16 @@
 <h4 id="option-b-stay-on-the-same-domain">Option B: stay on the same domain<a class="headerlink" href="#option-b-stay-on-the-same-domain" title="Permanent link">§</a></h4>
 <p>When a user logs in at <code>target.warpgate.acme.inc</code>, they will be redirected to SSO with a redirect URL that retains <code>target.warpgate.acme.inc</code> as domain name. This means that the user will remain within the same domain throughout, but every target subdomain needs to be explicitly added to the SSO provider's redirect URL list.</p>
 <p>This has briefly been the default in Warpgate 0.24.</p>
+<p>In this mode, you can restrict which hosts are accepted as the return URL domain with <code>return_domain_whitelist</code>. Requests for any other hostname will be rejected:</p>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
+<span style="color: #6E7681"> </span> - name: custom
+<span style="color: #6E7681"> </span>   return_url_domain: host_header
+<span style="color: #56D364; background-color: #0F5323">+   return_domain_whitelist:</span>
+<span style="color: #56D364; background-color: #0F5323">+   - warpgate.acme.inc</span>
+<span style="color: #56D364; background-color: #0F5323">+   - target.warpgate.acme.inc</span>
+<span style="color: #6E7681"> </span>   provider:
+<span style="color: #6E7681"> </span>   ...
+</code></pre></div>
 <h4 id="choosing-the-option">Choosing the option<a class="headerlink" href="#choosing-the-option" title="Permanent link">§</a></h4>
 <p>Set <code>return_url_domain</code> to either <code>external_host</code> or <code>host_header</code>:</p>
 <div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
@@ -407,18 +420,20 @@
 <span style="color: #6E7681"> </span>   ...
 </code></pre></div>
 <h3 id="oidc-audience-verification">OIDC audience verification<a class="headerlink" href="#oidc-audience-verification" title="Permanent link">§</a></h3>
-<p>Normally, the OIDC provider should issue a token that is only valid for Warpgate itself. If this is not possible, you have two options:</p>
+<p>Normally, the OIDC provider should issue a token that is only valid for Warpgate itself. If this is not possible, you have two options (for <code>custom</code> providers only):</p>
 <ul>
 <li>Explicitly whitelist additional trusted audiences:</li>
 </ul>
 <div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
 <span style="color: #6E7681"> </span> - name: custom
 <span style="color: #6E7681"> </span>   label: ACME SSO
-<span style="color: #56D364; background-color: #0F5323">+   additional_trusted_audiences:</span>
-<span style="color: #56D364; background-color: #0F5323">+   - one</span>
-<span style="color: #56D364; background-color: #0F5323">+   - two</span>
 <span style="color: #6E7681"> </span>   provider:
-<span style="color: #6E7681"> </span>   ...
+<span style="color: #6E7681"> </span>     type: custom
+<span style="color: #6E7681"> </span>     ...
+<span style="color: #56D364; background-color: #0F5323">+     additional_trusted_audiences:</span>
+<span style="color: #56D364; background-color: #0F5323">+     - one</span>
+<span style="color: #56D364; background-color: #0F5323">+     - two</span>
+<span style="color: #6E7681"> </span>     ...
 </code></pre></div>
 <ul>
 <li>Fully ignore any additional audiences in the token (v0.13.1+):</li>
@@ -426,14 +441,16 @@
 <div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
 <span style="color: #6E7681"> </span> - name: custom
 <span style="color: #6E7681"> </span>   label: ACME SSO
-<span style="color: #56D364; background-color: #0F5323">+   trust_unknown_audiences: true</span>
 <span style="color: #6E7681"> </span>   provider:
-<span style="color: #6E7681"> </span>   ...
+<span style="color: #6E7681"> </span>     type: custom
+<span style="color: #6E7681"> </span>     ...
+<span style="color: #56D364; background-color: #0F5323">+     trust_unknown_audiences: true</span>
+<span style="color: #6E7681"> </span>     ...
 </code></pre></div>
 <h3 id="automatically-creating-users">Automatically creating users<a class="headerlink" href="#automatically-creating-users" title="Permanent link">§</a></h3>
 <div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
 
-<p>Warpgate can automatically create users for new SSO logins. The SSO server has to provide the <code>preferred_username</code> OIDC claim for this to work.</p>
+<p>Warpgate can automatically create users for new SSO logins. The username is taken from the <code>preferred_username</code> OIDC claim, falling back to the <code>email</code> claim if missing. Existing users with a matching username need to be linked to their SSO accounts manually (by adding an SSO credential to their credential list). </p>
 <div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
 <span style="color: #6E7681"> </span> - name: custom
 <span style="color: #6E7681"> </span>   label: ACME SSO
@@ -479,7 +496,7 @@ Make sure you&#39;re seeing this security key: E E 0 5
 <p>With <code>custom</code> type OIDC providers, Warpgate can also sync the user's role memberships when they log in.</p>
 <p>For that, your provider must set a <code>warpgate_roles</code> OIDC claim (a JSON array of role names) either in the ID Token or the UserInfo response. By default, Warpgate will use these names as-is and completely overwrite the user's memberships.</p>
 <p>The corresponding optional <code>warpgate_admin_roles</code> claim is interpreted as a list of admin roles to apply.</p>
-<p>You can also set <code>role_mappings</code>/<code>admin_role_mappings</code> in the provider's configuration to explicitly map claim values to role names. In this case, only the roles mentioned here will be synced from SSO, and the memberships in other roles won't be affected. For example:</p>
+<p>You can also set <code>role_mappings</code>/<code>admin_role_mappings</code> in the provider's configuration to explicitly map claim values to role names. In this case, only the roles mentioned here will be synced from SSO, and the memberships in other roles won't be affected. A mapping value can be a single role name or a list of them (v0.22+). In <code>role_mappings</code>, the special <code>*</code> key grants roles to any user who has at least one group in the claim, regardless of whether it's mapped (v0.22+). For example:</p>
 <div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">-</span><span style="color: #6E7681"> </span><span style="color: #7EE787">name</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">oidc-custom</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">label</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">Custom SSO</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">provider</span><span style="color: #E6EDF3">:</span>
@@ -490,6 +507,9 @@ Make sure you&#39;re seeing this security key: E E 0 5
 <span style="color: #6E7681">    </span><span style="color: #7EE787">scopes</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">[]</span>
 <span style="color: #6E7681">    </span><span style="color: #7EE787">role_mappings</span><span style="color: #E6EDF3">:</span>
 <span style="color: #6E7681">      </span><span style="color: #A5D6FF">&#39;QA</span><span style="color: #79C0FF"> </span><span style="color: #A5D6FF">group&#39;</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;qa&#39;</span>
+<span style="color: #6E7681">      </span><span style="color: #7EE787">Developers</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">[</span><span style="color: #A5D6FF">&#39;dev&#39;</span><span style="color: #E6EDF3">,</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;staging&#39;</span><span style="color: #E6EDF3">]</span>
+<span style="color: #6E7681">      </span><span style="color: #A5D6FF">&#39;*&#39;</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;everyone&#39;</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">admin_role_mappings</span><span style="color: #E6EDF3">:</span>
 <span style="color: #6E7681">      </span><span style="color: #7EE787">Admins</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;warpgate:admin&#39;</span>
 </code></pre></div>
 <h4 id="mapping-from-a-groups-claim">Mapping from a <code>groups</code> claim<a class="headerlink" href="#mapping-from-a-groups-claim" title="Permanent link">§</a></h4>
@@ -504,7 +524,7 @@ Make sure you&#39;re seeing this security key: E E 0 5
 <span style="color: #6E7681">    </span><span style="color: #7EE787">client_secret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">...</span>
 <span style="color: #6E7681">    </span><span style="color: #7EE787">issuer_url</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">...</span>
 <span style="color: #6E7681">    </span><span style="color: #7EE787">scopes</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">[</span><span style="color: #A5D6FF">&quot;openid&quot;</span><span style="color: #E6EDF3">,</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;groups&quot;</span><span style="color: #E6EDF3">]</span>
-<span style="color: #6E7681">    </span><span style="color: #7EE787">groups_claim</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">groups</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">roles_claim</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">groups</span>
 <span style="color: #6E7681">    </span><span style="color: #7EE787">role_mappings</span><span style="color: #E6EDF3">:</span>
 <span style="color: #6E7681">      </span><span style="color: #A5D6FF">&#39;QA</span><span style="color: #79C0FF"> </span><span style="color: #A5D6FF">group&#39;</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;qa&#39;</span>
 <span style="color: #6E7681">      </span><span style="color: #7EE787">Admins</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&#39;warpgate:admin&#39;</span>
@@ -554,6 +574,8 @@ Make sure you&#39;re seeing this security key: E E 0 5
 <p>Enable <a href="https://admin.google.com/u/4/ac/owl/domainwidedelegation">domain-wide delegation</a>, using your service account's <em>Client ID</em> (visible in the <a href="https://console.cloud.google.com/iam-admin/serviceaccounts">service accounts list</a>) and <code>https://www.googleapis.com/auth/admin.directory.group.readonly</code> scope value.</p>
 </li>
 </ul>
+<h3 id="kubernetes-kubectl-login-via-sso">Kubernetes (kubectl) login via SSO<a class="headerlink" href="#kubernetes-kubectl-login-via-sso" title="Permanent link">§</a></h3>
+<p>SSO providers can also issue tokens for <code>kubectl</code> via the <code>kubernetes</code> section of the provider config. See <a href="../targets/kubernetes/">Kubernetes targets</a> for details.</p>
 <h3 id="hiding-password-login">Hiding password login<a class="headerlink" href="#hiding-password-login" title="Permanent link">§</a></h3>
 <p>If your users primarily use SSO, you can hide the password login form via <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Minimize password login UI</code>.</p>
       </article>

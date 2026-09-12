@@ -298,10 +298,10 @@
 <p>NOTE: This is fully transparent to the client (except for the double "warpgate connected" message in interactive sessions) - there are no SSH "jump hosts" involved in this setup.</p>
 <h2 id="copy-outer-warpgates-public-key">Copy outer Warpgate's public key<a class="headerlink" href="#copy-outer-warpgates-public-key" title="Permanent link">§</a></h2>
 <ul>
-<li>Run <code>warpgate client-keys</code> and copy the Ed25519 public key:</li>
+<li>Run <code>warpgate client-keys</code> (or open <code>Config</code> &gt; <code>SSH keys</code> in the admin UI) and copy the Ed25519 public key:</li>
 </ul>
 <div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>➜  ~ warpgate client-keys
-16:55:10  INFO Using config: &quot;/etc/warpgate.yaml&quot; (users: 1, targets: 6, roles: 1)
+16:55:10  INFO Using config: &quot;/etc/warpgate.yaml&quot;
 Warpgate SSH client keys:
 (add these to your target&#39;s authorized_keys file)
 
@@ -312,7 +312,6 @@ rsa-sha2-256 AAAADHJzYS1zaGEyLTI1Ngxxxx
 <ul>
 <li>Add your targets as usual (in this example: <code>inner-server</code>).</li>
 <li>Add a "jump user" (here we'll be using <code>wg-jump</code> as a username) and add the outer Warpgate's public key as a credential.</li>
-<li>Check connection to the target with <code>warpgate test-target inner-server</code></li>
 </ul>
 <h2 id="set-up-outer-warpgate">Set up outer Warpgate<a class="headerlink" href="#set-up-outer-warpgate" title="Permanent link">§</a></h2>
 <ul>
@@ -323,7 +322,6 @@ rsa-sha2-256 AAAADHJzYS1zaGEyLTI1Ngxxxx
 </ul>
 </li>
 <li>Check your config with <code>warpgate check</code>.</li>
-<li>Check connection to the target <em>through the inner Warpgate</em> on the outer Warpgate with <code>warpgate test-target inner-server</code></li>
 </ul>
 <h2 id="connect">Connect<a class="headerlink" href="#connect" title="Permanent link">§</a></h2>
 <p>You can now grab the connection command from the landing page (or the admin UI) as usual and test it on a client:</p>

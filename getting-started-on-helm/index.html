@@ -337,7 +337,7 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 <span style="color: #6E7681">  </span>--create-namespace<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>setup.enabled<span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #E6EDF3">true</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>data.pvc.enabled<span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #E6EDF3">true</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
-<span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>setup.envFromSecret.WARPGATE_ADMIN_PASSWORD<span style="color: #FF7B72; font-weight: bold">=</span>warpgate-secret/adminPassword
+<span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>setup.envFromSecret.WARPGATE_ADMIN_PASSWORD<span style="color: #FF7B72; font-weight: bold">=</span>warpgate-secret/adminPassword<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--values<span style="color: #6E7681"> </span>values.yaml
 </code></pre></div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">§</a></h2>
@@ -477,7 +477,7 @@ kubectl<span style="color: #6E7681"> </span>create<span style="color: #6E7681"> 
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>As of v0.27 the <code>client-*</code> keys live in Warpgate's database. Including them in the secret only seeds them on first startup and is optional — Warpgate generates its own if none are provided, and in a multi-replica deployment the client keys are shared through the database rather than mounted on every replica. The <code>host-*</code> keys are still read from the secret.</p>
+<p>As of v0.27 the <code>client-*</code> keys live in Warpgate's database. The chart still copies all four files from the secret, but the <code>client-*</code> ones only seed the database on first startup — Warpgate generates its own if the database has none, and in a multi-replica deployment the client keys are shared through the database rather than mounted on every replica. The <code>host-*</code> keys are still read from the secret.</p>
 </div>
 <h3 id="custom-configuration">Custom Configuration<a class="headerlink" href="#custom-configuration" title="Permanent link">§</a></h3>
 <p>To provide a full custom Warpgate configuration:</p>
@@ -512,7 +512,7 @@ kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </
 <h3 id="check-setup-job">Check Setup Job<a class="headerlink" href="#check-setup-job" title="Permanent link">§</a></h3>
 <p>If using automatic setup with Job mode:</p>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>get<span style="color: #6E7681"> </span><span style="color: #E6EDF3">jobs</span><span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
-kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </span>job/warpgate-setup<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </span>job/warpgate-setup-job<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
 <h3 id="access-warpgate-admin-ui">Access Warpgate Admin UI<a class="headerlink" href="#access-warpgate-admin-ui" title="Permanent link">§</a></h3>
 <p>Get the service endpoint:</p>
@@ -522,7 +522,7 @@ kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </
 <p>For ClusterIP, use port-forwarding:</p>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>port-forward<span style="color: #6E7681"> </span>svc/warpgate<span style="color: #6E7681"> </span><span style="color: #A5D6FF">8888</span>:8888<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
-<p>Then access <code>http://localhost:8888</code> in your browser.</p>
+<p>Then access <code>https://localhost:8888</code> in your browser.</p>
 <h3 id="verify-persistent-volume">Verify Persistent Volume<a class="headerlink" href="#verify-persistent-volume" title="Permanent link">§</a></h3>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>get<span style="color: #6E7681"> </span>pvc<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 kubectl<span style="color: #6E7681"> </span>describe<span style="color: #6E7681"> </span>pvc<span style="color: #6E7681"> </span>&lt;pvc-name&gt;<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate

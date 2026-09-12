@@ -324,7 +324,7 @@
 <p>Kubernetes target configuration</p>
 </figcaption>
 </figure>
-<p>The target should show up on the Warpgate's homepage:</p>
+<p>The target should show up on Warpgate's homepage:</p>
 <figure>
 <p><img alt="" src="../../images/kubernetes-on-home.png" /></p>
 <figcaption>
@@ -370,10 +370,10 @@
 <span style="color: #6E7681"> </span>       issuer_url: https://sso.acme.inc
 <span style="color: #6E7681"> </span>       scopes: [&quot;email&quot;]
 <span style="color: #56D364; background-color: #0F5323">+       additional_trusted_audiences: [&quot;kubernetes&quot;]</span>
-<span style="color: #56D364; background-color: #0F5323">+   kubernetes:</span>
-<span style="color: #56D364; background-color: #0F5323">+     client_id: kubernetes                     # the OIDC client id kubectl will use</span>
-<span style="color: #56D364; background-color: #0F5323">+     # scopes: [&quot;openid&quot;, &quot;email&quot;, &quot;profile&quot;]  # optional</span>
-<span style="color: #56D364; background-color: #0F5323">+     # client_secret: ...                      # optional, for confidential clients</span>
+<span style="color: #56D364; background-color: #0F5323">+     kubernetes:</span>
+<span style="color: #56D364; background-color: #0F5323">+       client_id: kubernetes                     # the OIDC client id kubectl will use</span>
+<span style="color: #56D364; background-color: #0F5323">+       # scopes: [&quot;openid&quot;, &quot;email&quot;, &quot;profile&quot;]  # optional</span>
+<span style="color: #56D364; background-color: #0F5323">+       # client_secret: ...                      # optional, for confidential clients</span>
 </code></pre></div>
 <ul>
 <li>Only <code>custom</code> (issuer-based) providers can be used for Kubernetes SSO.</li>

@@ -325,12 +325,12 @@
 <p>Unless you've enabled <a href="../encryption/">encryption at rest</a>, the database backup will contain target credentials in plaintext - secure the backups accordingly. With encryption enabled, encrypted credentials are useless without the key.</p>
 </div>
 <h3 id="the-encryption-key">The encryption key<a class="headerlink" href="#the-encryption-key" title="Permanent link">§</a></h3>
-<p>If you use <a href="../encryption/">credential encryption at rest</a>, <code>WARPGATE_ENCRYPTION_KEY</code> is not stored anywhere except your environment configuration. A database backup restored without the key will work but all target credentials will be unusable.</p>
+<p>If you use <a href="../encryption/">credential encryption at rest</a>, <code>WARPGATE_ENCRYPTION_KEY</code> is not stored anywhere except your environment configuration. A database backup restored without the key will work, but all target credentials will be unusable.</p>
 <p>Store the encryption key in your secret manager or other secure location separately from the backups.</p>
 <h3 id="recordings">Recordings<a class="headerlink" href="#recordings" title="Permanent link">§</a></h3>
 <p>If recordings are stored on S3, you can rely on the bucket's own versioning/replication. If they're on a shared filesystem or in the default <code>&lt;data&gt;/recordings</code> directory, include that path in your backup - recordings are append-only files and can be <code>rsync</code>'ed.</p>
 <h3 id="warpgate-version">Warpgate version<a class="headerlink" href="#warpgate-version" title="Permanent link">§</a></h3>
-<p>You'll need to know which Warpgate version the backup is from, so it's a good idea to note it down, or simply include the output of <code>warpgate --version</code> in the backup itself.</p>
+<p>You'll need to know which Warpgate version the backup is from, so it's a good idea to note it down, or simply include the output of <code>warpgate version</code> in the backup itself.</p>
 <h2 id="restoring">Restoring<a class="headerlink" href="#restoring" title="Permanent link">§</a></h2>
 <ol>
 <li>Install the <strong>same Warpgate version</strong> the backup was taken from.</li>
