@@ -30,7 +30,7 @@ description: A pre-launch checklist for self-hosting Warpgate - TLS, SSO, roles,
 - [ ] Require [OTP](otp.md) or [multiple factors](auth.md#requiring-multiple-authentication-factors) for admins and for sensitive targets.
 - [ ] Enable [login protection](login-protection.md) - IP blocking and user lockout thresholds - for your traffic.
 - [ ] Turn off password SSH logins under `Config` > `Global parameters` if you are not using password credentials.
-- [ ] Turn off web SSH or the web remote desktop client under `Config` > `Global parameters` > `SSH` if your policy doesn't allow them.
+- [ ] Turn off web SSH or the web remote desktop client under `Config` > `Global parameters` > `UI` if your policy doesn't allow them.
 - [ ] Set up password complexity rules under `Config` > `Global parameters` > `Password policy`.
 - [ ] Decide your policy on [tickets](tickets.md) and self-service ticket requests before users start asking.
 - [ ] Enable [credential encryption at rest](encryption.md) - particularly with an external database, replicas or off-host backups.

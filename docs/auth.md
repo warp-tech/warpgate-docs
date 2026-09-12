@@ -4,7 +4,7 @@ title: User authentication
 
 # User authentication
 
-In the [previous example](./targets/ssh.md), we've reused the Warpgate's `admin` user, which only had a password as its only way to authenticate. Warpgate supports passwords, public keys, authenticator apps, SSO (OIDC), API tokens and combinations thereof as authentication methods.
+In the [previous example](./targets/ssh.md), we've reused Warpgate's `admin` user, which only had a password as its only way to authenticate. Warpgate supports passwords, public keys, authenticator apps, SSO (OIDC), API tokens and combinations thereof as authentication methods.
 
 ## Changing a user's password
 
@@ -15,7 +15,7 @@ Log into the Warpgate admin UI and navigate to `Config` > `Users` > `admin`, del
 Adding a password
 ///
 
-Users can also manage their own password by clicking their username in the top right corner. This can be globally disabled via `Config` > `Global parameter`.
+Users can also manage their own password by clicking their username in the top right corner. This can be globally disabled via `Config` > `Global parameters` > `Credentials`.
 
 ## Adding a public key for a user
 
@@ -76,7 +76,7 @@ Setting up a multifactor auth policy
 
 Warpgate allows you to globally block SSH authentication methods. This can be useful if you exclusively use public key authentication and would like to prevent network scanners from hammering password authentication on a public port. By default, all methods are enabled.
 
-You can disable them individually under `Config` > `Global parameters` > `SSH authentication methods`:
+You can disable them individually under `Config` > `Global parameters` > `SSH` > `Allowed authentication methods`:
 
 ![](images/ssh-methods.png)
 /// caption
@@ -87,9 +87,9 @@ SSH authentication methods configuration in Global Parameters
 
 <div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
 
-You can set a custom banner that Warpgate sends to SSH clients during authentication (e.g. a legal notice or login instructions). Set it under `Config` > `Global parameters` > `SSH banner`.
+You can set a custom banner that Warpgate sends to SSH clients during authentication (e.g. a legal notice or login instructions). Set it under `Config` > `Global parameters` > `Login` > `Login banner`.
 
-<div class="badge font-xs text-bg-warning mb-3">v0.26+</div>
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
 
 Banner now shows up over other protocols beyond SSH:
 
@@ -98,7 +98,7 @@ Banner now shows up over other protocols beyond SSH:
 * **PostgreSQL** — as a notice message.
 * **RDP** and **VNC** — as a banner screen the user acknowledges before the session starts.
 
-MySQL connections do not display the banner as MySQL protocol lacks the ability to push messages to the user.
+MySQL connections do not display the banner as the MySQL protocol lacks the ability to push messages to the user.
 
 ## In-browser approval (out-of-band authentication)
 
@@ -115,21 +115,23 @@ Approving a pending login in the browser
 
 ### Caching approvals
 
-To avoid approving every single connection, set an approval grace period under `Config` > `Global parameters`. Within this window, a matching connection (same user, source IP, protocol, target and the same credentials presented) is approved automatically. When approving, the user chooses the scope: just this once, this target only, or all targets.
+<div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
+
+To avoid approving every single connection, set a `Web approval cache period` under `Config` > `Global parameters` > `Login`. Within this window, a matching connection (same user, source IP, protocol, target and the same credentials presented) is approved automatically. When approving, the user chooses the scope: just this once, this target only, or all targets.
 
 ## Requiring re-authentication for sensitive actions
 
 <div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
 
-You can require users to re-authenticate before starting an in-browser session. Set a maximum web session age under `Config` > `Global parameters` - once it is exceeded, Warpgate asks the user to re-authenticate before opening a **web SSH** or a **remote desktop** session.
+You can require users to re-authenticate before starting an in-browser session. Set `Require re-authentication after` under `Config` > `Global parameters` > `Login` - once it is exceeded, Warpgate asks the user to re-authenticate before opening a **web SSH** or a **remote desktop** session, or creating a ticket.
 
 ## API Tokens
 
 <div class="badge font-xs text-bg-warning mb-3">v0.13+</div>
 
-Warpgate supports API tokens for programmatic access. Users can create and manage their own API tokens through the web interface by clicking their username in the top right corner and navigating to the "API Tokens" section.
+Warpgate supports API tokens for programmatic access. Users can create and manage their own API tokens through the web interface by clicking their username in the top right corner and navigating to the "API tokens" section.
 
-Requests made with an API token are considered authenticated in the same way as if the user would have logged in normally.
+Requests made with an API token are considered authenticated in the same way as if the user had logged in normally.
 
 ### Using API Tokens
 

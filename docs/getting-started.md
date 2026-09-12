@@ -34,15 +34,24 @@ $ warpgate setup
 13:43:10  INFO The new config will be written in /etc/warpgate.yaml.
 13:43:10  INFO * Paths can be either absolute or relative to /etc.
 ✔ Directory to store app data (up to a few MB) in · /var/lib/warpgate
-✔ Endpoint to listen for SSH connections on · 0.0.0.0:2222
-✔ Endpoint to expose admin web interface on · 0.0.0.0:8888
+✔ Endpoint to listen for HTTP connections on · [::]:8888
+✔ Accept SSH connections? · yes
+✔ Endpoint to listen for SSH connections on · [::]:2222
+✔ Accept MySQL connections? · yes
+✔ Endpoint to listen for MySQL connections on · [::]:33306
+✔ Accept PostgreSQL connections? · yes
+✔ Endpoint to listen for PostgreSQL connections on · [::]:55432
+✔ Accept Kubernetes connections? · yes
+✔ Endpoint to listen for Kubernetes connections on · [::]:8443
+✔ Accept VNC connections? · no
+✔ Accept RDP connections? · no
 ✔ Do you want to record user sessions? · yes
 ✔ Set a password for the Warpgate admin user · ********
 13:43:28  INFO Generated configuration:
 [...]
 13:43:28  INFO Saved into /etc/warpgate.yaml
 13:43:28  INFO Using config: "/etc/warpgate.yaml" (users: 1, targets: 1, roles: 1)
-13:43:28  INFO Generating HTTPS certificate
+13:43:28  INFO Generating a TLS certificate
 13:43:28  INFO
 13:43:28  INFO Admin user credentials:
 13:43:28  INFO   * Username: admin
@@ -63,11 +72,9 @@ $ warpgate run
 13:44:13  INFO Using config: "/etc/warpgate.yaml" (users: 1, targets: 1, roles: 1)
 13:44:13  INFO --------------------------------------------
 13:44:13  INFO Warpgate is now running.
-13:44:13  INFO Accepting SSH connections on 0.0.0.0:2222
-13:44:13  INFO Access admin UI on https://0.0.0.0:8888
 13:44:13  INFO --------------------------------------------
-13:44:13  INFO Listening address=0.0.0.0:2222
-13:44:13  INFO Listening address=0.0.0.0:8888
+13:44:13  INFO Binding listener name="HTTP" endpoint=[::]:8888
+13:44:13  INFO Binding listener name="SSH" endpoint=[::]:2222
 ```
 
 Try accessing `https://<host>:8888/@warpgate/admin` (note the `https://`) via a browser to confirm that the Admin UI is functional.

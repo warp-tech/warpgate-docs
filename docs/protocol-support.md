@@ -7,10 +7,10 @@ title: Protocol support
 ## SSH
 
 * Ciphers: `chacha20-poly1305`, AES256-GCM, AES256-CTR, AES192-CTR, AES128-CTR.
-* Key exchanges: Curve25519, DH GEX SHA-256, DH groups 14-18.
+* Key exchanges: ML-KEM-768 + X25519 (post-quantum hybrid), Curve25519, DH GEX SHA-256, DH groups 14-18.
 * Keys: `ssh-ed25519`, `ssh-rsa`, `rsa-sha2-512`, `rsa-sha2-256`
-* MACs: HMAC-SHA-1/256/512 with optional ETM.
-* Compression: Zlib.
+* MACs: HMAC-SHA-256/512 with optional ETM (HMAC-SHA-1 only when "Allow insecure algorithms" is enabled on the target).
+* Compression: none.
 * ✅ Tickets
 * ✅ 2FA
 
@@ -18,7 +18,7 @@ title: Protocol support
 
 * MySQL text protocol only (prepared statements are not supported)
 * As server:
-    * Identifies itself as MySQL 8.0.3 (configurable; means you can use the MySQL Workbench even if the target is a MariaDB)
+    * Identifies itself as MySQL 8.0.3 (configurable; means you can use MySQL Workbench even if the target is a MariaDB)
     * ✅ TLS (forced)
     * `mysql_clear_password` auth over TLS
 * As client:
@@ -26,7 +26,7 @@ title: Protocol support
     * ✅ `mysql_native_password` auth
     * ✅ `sha256_password` auth
     * ✅ `caching_sha2_password` auth (incl. MySQL 8.4) <div class="badge font-xs text-bg-warning">v0.27+</div>
-    * ✅ AWS RDS IAM auth <div class="badge font-xs text-bg-warning">v0.27+</div>
+    * ✅ AWS RDS IAM auth <div class="badge font-xs text-bg-warning">v0.22+</div>
 * ✅ Tickets
 * ❌ 2FA
 * ❌ MariaDB protocol extensions (such as query progress bars)
@@ -55,7 +55,7 @@ title: Protocol support
 
 ## Kubernetes
 
-<div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
+<div class="badge font-xs text-bg-warning mb-3">v0.21+</div>
 
 * ✅ API proxy
 * ✅ `kubectl` support
@@ -63,7 +63,7 @@ title: Protocol support
 * ✅ Client certificate authentication
 * ✅ Bearer token authentication
 * ✅ SSO / OIDC authentication via `kubelogin` <div class="badge font-xs text-bg-warning">v0.27+</div>
-* ✅ AWS EKS IAM authentication <div class="badge font-xs text-bg-warning">v0.27+</div>
+* ✅ AWS EKS IAM authentication <div class="badge font-xs text-bg-warning">v0.22+</div>
 * ✅ Session recording (including `kubectl exec`)
 * ✅ 2FA
 * ✅ WebSocket streaming (`exec` / `attach` / `logs`)

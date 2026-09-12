@@ -76,7 +76,7 @@ Collecting a second factor during RDP login
 Once authenticated, Warpgate connects to the target and the desktop appears.
 
 !!! note
-    The target connection always uses TLS + CredSSP/NLA. The target must therefore accept NLA logons over TLS 1.2 (Windows 8 / Server 2012 or newer, or any NLA/CredSSP server such as xrdp).
+    The target connection always uses TLS + CredSSP/NLA. By default Warpgate requires TLS 1.2 (Windows 10 / Server 2016 or newer, or any NLA/CredSSP server such as xrdp); for older hosts, pick a different **Security level** in the target's TLS settings (TLS 1.2 with legacy ciphers for Windows 8 / Server 2012, or TLS 1.0 for Windows Server 2008 R2 and older).
 
 ## Session recording
 

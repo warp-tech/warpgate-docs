@@ -55,7 +55,7 @@ mysqldump --single-transaction warpgate > warpgate.sql
 
 ### The encryption key
 
-If you use [credential encryption at rest](encryption.md), `WARPGATE_ENCRYPTION_KEY` is not stored anywhere except your environment configuration. A database backup restored without the key will work but all target credentials will be unusable.
+If you use [credential encryption at rest](encryption.md), `WARPGATE_ENCRYPTION_KEY` is not stored anywhere except your environment configuration. A database backup restored without the key will work, but all target credentials will be unusable.
 
 Store the encryption key in your secret manager or other secure location separately from the backups.
 
@@ -65,7 +65,7 @@ If recordings are stored on S3, you can rely on the bucket's own versioning/repl
 
 ### Warpgate version
 
-You'll need to know which Warpgate version the backup is from, so it's a good idea to note it down, or simply include the output of `warpgate --version` in the backup itself.
+You'll need to know which Warpgate version the backup is from, so it's a good idea to note it down, or simply include the output of `warpgate version` in the backup itself.
 
 
 ## Restoring

@@ -6,7 +6,7 @@ title: LDAP authentication
 
 Warpgate can sync users' SSH public keys from LDAP.
 
-You can manage LDAP servers under `Config` > `LDAP Servers`.
+You can manage LDAP servers under `Config` > `LDAP servers`.
 
 Once an LDAP server is added, you can import users by browsing the LDAP server (from the `Config` > `Users` page, click `Add from LDAP`) or link existing users to their LDAP entries by clicking `LDAP` > `Auto-link to LDAP` on the user configuration page.
 

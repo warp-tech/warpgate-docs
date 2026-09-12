@@ -102,10 +102,10 @@ To enable it, add a `kubernetes` block to a `custom` (issuer-based) SSO provider
         issuer_url: https://sso.acme.inc
         scopes: ["email"]
 +       additional_trusted_audiences: ["kubernetes"]
-+   kubernetes:
-+     client_id: kubernetes                     # the OIDC client id kubectl will use
-+     # scopes: ["openid", "email", "profile"]  # optional
-+     # client_secret: ...                      # optional, for confidential clients
++     kubernetes:
++       client_id: kubernetes                     # the OIDC client id kubectl will use
++       # scopes: ["openid", "email", "profile"]  # optional
++       # client_secret: ...                      # optional, for confidential clients
 ```
 
 * Only `custom` (issuer-based) providers can be used for Kubernetes SSO.

@@ -98,7 +98,7 @@ Web-based SSH terminal
 SSH connection instructions
 ///
 
-The web-based terminal can be turned off globally (v0.26+) under `Config` > `Global parameters` > `Web SSH`, leaving users with connection instructions only.
+The web-based terminal can be turned off globally (v0.26+) under `Config` > `Global parameters` > `UI` > `Enable in-browser clients`, leaving users with connection instructions only.
 
 ## Client setup
 
@@ -149,11 +149,11 @@ SSH session recording
 
 For interactive shell sessions, Warpgate will try to record the commands a user types as separate log entries for auditing. Detected commands appear tagged with `Shell command` entries in the session log.
 
-This is a **heuristic audit aid, not a security boundary**: it is impossible to prevent a user from purposedly obscuring their inputs in an unlimited shell.
+This is a **heuristic audit aid, not a security boundary**: it is impossible to prevent a user from purposely obscuring their inputs in an unlimited shell.
 
 ## Connecting to legacy servers
 
-By default Warpgate only offers modern, secure key-exchange and encryption algorithms. To reach an older device that only supports legacy algorithms (DH groups 1/14, 3DES, HMAC-SHA1 or RSA-SHA1), enable **Allow insecure algorithms**.
+By default Warpgate only offers modern, secure key-exchange and encryption algorithms. To reach an older device that only supports legacy algorithms (DH group 1, AES-CBC/3DES, HMAC-SHA1, RSA-SHA1 or DSA), enable **Allow insecure algorithms**.
 
 ### Up next
 

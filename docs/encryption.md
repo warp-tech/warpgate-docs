@@ -42,11 +42,11 @@ The format is `<secret-name>/<key>`.
 
 ## Losing or changing the key
 
-Warpgate will never refuse to start because of a key-related problem, so a lost key won't take it down. A node **without** the key still starts and works, but will not be able to connect to the affected targets.
+Warpgate will never refuse to start because of a missing key, so a lost key won't take it down. A node **without** the key still starts and works, but will not be able to connect to the affected targets.
 
 ## Rotating the key
 
-A key can be rotated fully online without stoping the cluster.
+A key can be rotated fully online without stopping the cluster.
 
 1. Generate a new key.
 2. On every node, set `WARPGATE_ENCRYPTION_KEY` to the **new** key and `WARPGATE_ENCRYPTION_KEY_OLD` to the **previous** value.

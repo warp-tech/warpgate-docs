@@ -10,11 +10,11 @@ NOTE: This is fully transparent to the client (except for the double "warpgate c
 
 ## Copy outer Warpgate's public key
 
-* Run `warpgate client-keys` and copy the Ed25519 public key:
+* Run `warpgate client-keys` (or open `Config` > `SSH keys` in the admin UI) and copy the Ed25519 public key:
 
 ```
 ➜  ~ warpgate client-keys
-16:55:10  INFO Using config: "/etc/warpgate.yaml" (users: 1, targets: 6, roles: 1)
+16:55:10  INFO Using config: "/etc/warpgate.yaml"
 Warpgate SSH client keys:
 (add these to your target's authorized_keys file)
 
@@ -26,7 +26,6 @@ rsa-sha2-256 AAAADHJzYS1zaGEyLTI1Ngxxxx
 
 * Add your targets as usual (in this example: `inner-server`).
 * Add a "jump user" (here we'll be using `wg-jump` as a username) and add the outer Warpgate's public key as a credential.
-* Check connection to the target with `warpgate test-target inner-server`
 
 ## Set up outer Warpgate
 
@@ -35,7 +34,6 @@ rsa-sha2-256 AAAADHJzYS1zaGEyLTI1Ngxxxx
     * Port: `<inner Warpgate's SSH port>`
     * Username: `wg-jump:inner-server`
 * Check your config with `warpgate check`.
-* Check connection to the target _through the inner Warpgate_ on the outer Warpgate with `warpgate test-target inner-server`
 
 ## Connect
 

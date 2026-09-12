@@ -37,7 +37,7 @@ Warpgate is an **open-source, self-hosted alternative to HashiCorp Boundary**. B
 
 This is the most visible day-to-day difference:
 
-* **Warpgate** — point `ssh`, `psql`, `kubectl`, a browser or an RDP/VNC client straight at Warpgate, using `user#target` (or the web portal). Nothing to install.
+* **Warpgate** — point `ssh`, `psql`, `kubectl`, a browser or an RDP/VNC client straight at Warpgate, using `user:target` (or the web portal). Nothing to install.
 * **Boundary** — authorise a session with the `boundary` client; `boundary connect` opens a `localhost` port you then point your tool at. Boundary's "transparent sessions" smooth this over with a background Client-Agent that intercepts traffic — but that's an Enterprise/HCP feature and still requires the client. Either way, a Boundary client sits in the path.
 
 ## Session recording

@@ -61,7 +61,7 @@ helm install warpgate oci://ghcr.io/warp-tech/helm-charts/warpgate \
   --create-namespace \
   --set setup.enabled=true \
   --set data.pvc.enabled=true \
-  --set setup.envFromSecret.WARPGATE_ADMIN_PASSWORD=warpgate-secret/adminPassword
+  --set setup.envFromSecret.WARPGATE_ADMIN_PASSWORD=warpgate-secret/adminPassword \
   --values values.yaml
 ```
 
@@ -232,7 +232,7 @@ tls_cert_secret: "warpgate-tls"
 ```
 
 !!! note
-    As of v0.27 the `client-*` keys live in Warpgate's database. Including them in the secret only seeds them on first startup and is optional — Warpgate generates its own if none are provided, and in a multi-replica deployment the client keys are shared through the database rather than mounted on every replica. The `host-*` keys are still read from the secret.
+    As of v0.27 the `client-*` keys live in Warpgate's database. The chart still copies all four files from the secret, but the `client-*` ones only seed the database on first startup — Warpgate generates its own if the database has none, and in a multi-replica deployment the client keys are shared through the database rather than mounted on every replica. The `host-*` keys are still read from the secret.
 
 ### Custom Configuration
 
@@ -287,7 +287,7 @@ If using automatic setup with Job mode:
 
 ```bash
 kubectl get jobs -n warpgate
-kubectl logs job/warpgate-setup -n warpgate
+kubectl logs job/warpgate-setup-job -n warpgate
 ```
 
 ### Access Warpgate Admin UI
@@ -306,7 +306,7 @@ For ClusterIP, use port-forwarding:
 kubectl port-forward svc/warpgate 8888:8888 -n warpgate
 ```
 
-Then access `http://localhost:8888` in your browser.
+Then access `https://localhost:8888` in your browser.
 
 ### Verify Persistent Volume
 
