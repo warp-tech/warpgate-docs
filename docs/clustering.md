@@ -10,7 +10,7 @@ Warpgate can run as multiple nodes behind a load balancer to provide both high a
 
 ## Database
 
-A Warpgate needs a shared MySQL or PostgreSQL database.
+Warpgate needs a shared MySQL or PostgreSQL database.
 
 To migrate off the built-in SQLite, use the built-in `warpgate copy-database` command. It copies the schema and contents of the currently active database into a new one - also between different database engines.
 

@@ -40,7 +40,7 @@ Fill out the configuration:
 MySQL target configuration
 ///
 
-The target should show up on the Warpgate's homepage:
+The target should show up on Warpgate's homepage:
 
 ![](../images/mysql-on-home.png)
 /// caption

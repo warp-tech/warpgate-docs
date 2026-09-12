@@ -27,7 +27,7 @@ Example:
 HTTP target configuration
 ///
 
-The target should show up on the Warpgate's homepage:
+The target should show up on Warpgate's homepage:
 
 ![](../images/http-on-home.png)
 /// caption
@@ -36,7 +36,7 @@ HTTP target on the home page
 
 # Accessing the target
 
-Users can either access the target by selecting it on the Warpgate's homepage, with a direct URL:
+Users can either access the target by selecting it on Warpgate's homepage, with a direct URL:
 
 ```
 https://<warpgate host>:<port>/?warpgate-target=<name>

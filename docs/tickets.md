@@ -15,7 +15,7 @@ In the admin UI, create a ticket in the `Config` -> `Tickets` section, selecting
 Creating a ticket
 ///
 
-Once the ticket is created, you'll see the protocol-specific connection instructions. In this example, for an MySQL database, the ticket is passed as a part of the connection string / `DATABASE_URL`:
+Once the ticket is created, you'll see the protocol-specific connection instructions. In this example, for a MySQL database, the ticket is passed as a part of the connection string / `DATABASE_URL`:
 
 ![](images/ticket-instructions.png)
 /// caption

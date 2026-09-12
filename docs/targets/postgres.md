@@ -39,7 +39,7 @@ Fill out the configuration:
 PostgreSQL target configuration
 ///
 
-The target should show up on the Warpgate's homepage:
+The target should show up on Warpgate's homepage:
 
 ![](../images/postgres-on-home.png)
 /// caption

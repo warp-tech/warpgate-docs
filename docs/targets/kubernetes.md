@@ -44,7 +44,7 @@ Fill out the configuration:
 Kubernetes target configuration
 ///
 
-The target should show up on the Warpgate's homepage:
+The target should show up on Warpgate's homepage:
 
 ![](../images/kubernetes-on-home.png)
 /// caption

@@ -38,7 +38,7 @@ Set the primary external domain explicitly via the top-level `external_host` con
 
 ### Obtaining app credentials from a provider
 
-You'll need to register your Warpgate instance as an "app" (terminology varies per provider) at the provider and obtain a _Client ID_ and a _Client secret_. You'll need to provide a _Redirect URL_ which - which will be verified by the SSO provider.
+You'll need to register your Warpgate instance as an "app" (terminology varies per provider) at the provider and obtain a _Client ID_ and a _Client secret_. You'll need to provide a _Redirect URL_, which will be verified by the SSO provider.
 
 The _redirect URL_ (aka _return URL_) for Warpgate is `https://<warpgate-external-host>/@warpgate/api/sso/return`.
 

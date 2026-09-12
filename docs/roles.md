@@ -28,7 +28,7 @@ Admin roles grant granular permissions to the admin UI. Having _any_ single admi
 
 ![](images/admin-role.png)
 /// caption
-Example admin role permisisons
+Example admin role permissions
 ///
 
 
