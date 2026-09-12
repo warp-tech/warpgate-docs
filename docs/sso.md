@@ -274,7 +274,7 @@ Some providers (e.g. Okta with an org authorization server) can only emit a stan
     client_secret: ...
     issuer_url: ...
     scopes: ["openid", "groups"]
-    groups_claim: groups
+    roles_claim: groups
     role_mappings:
       'QA group': 'qa'
       Admins: 'warpgate:admin'
