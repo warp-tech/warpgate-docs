@@ -19,8 +19,8 @@ Warpgate is an **open-source, self-hosted Teleport alternative**. It and [Telepo
 | **Client software** | **None** — users keep their normal `ssh`, `mysql`, `psql`, `kubectl`, browser or RDP/VNC client | `tsh` CLI, the Teleport Connect desktop app, and the web UI (standard clients work through a local proxy) |
 | **Selecting a target** | A special username / the web UI | `tsh` / resource labels / the web UI |
 | **Protocols** | SSH, HTTP(S), MySQL, PostgreSQL, Kubernetes, RDP, VNC | SSH, Kubernetes, databases, web & TCP apps, Windows desktop (RDP) |
-| **Authentication** | Password, SSH public key, OTP (TOTP), **SSO via OIDC** (Google, Microsoft, Apple or any custom provider; Kubernetes targets can use it via the `kubelogin` plugin), client certificates, in-browser approval | Short-lived certificates, MFA (TOTP / WebAuthn), SSO (GitHub in the open-source edition; **SAML/OIDC require Enterprise**) |
-| **Self-service / JIT access** | Tickets and self-service **ticket requests** with admin approval — included | Access Requests with approval workflows — Enterprise |
+| **Authentication** | Password, SSH public key, OTP (TOTP, with optional enforced enrollment), **SSO via OIDC** (Google, Microsoft, Apple or any custom provider; Kubernetes targets can use it via the `kubelogin` plugin), client certificates, in-browser approval, LDAP key sync | Short-lived certificates, MFA (TOTP / WebAuthn), SSO (GitHub in the open-source edition; **SAML/OIDC require Enterprise**) |
+| **Self-service / JIT access** | Tickets, self-service **ticket requests** and per-connection **administrator approval** — included | Access Requests with approval workflows — Enterprise |
 | **Session recording** | Replay for SSH, Kubernetes, RDP and VNC; query/activity logs for databases and HTTP | SSH, Kubernetes and Windows desktop; databases/apps as audit events (see [below](#session-recording)) |
 | **In-browser access** | SSH, RDP, VNC and HTTP (see [below](#browser-based-access)) | SSH, Windows desktop, web apps and Kubernetes (see [below](#browser-based-access)) |
 | **Language** | Rust | Go |
@@ -58,7 +58,7 @@ Both offer a browser client for some protocols. Warpgate additionally proxies HT
 | Kubernetes | ❌ (CLI via generated `kubeconfig`) | ✅ web `exec` terminal |
 | MySQL / PostgreSQL | ❌ (native DB client) | ❌ (CLI / Teleport Connect) |
 
-In RDP and VNC sessions Warpgate carries the text clipboard both ways, and a native RDP client can resize the session live; clipboard file transfer and gateway-enforced clipboard policy are not implemented.
+In RDP and VNC sessions Warpgate carries the text clipboard both ways, and both native RDP clients and the web desktop can resize the session live; clipboard file transfer and gateway-enforced clipboard policy are not implemented.
 
 ## Self-service and just-in-time access
 
@@ -66,6 +66,7 @@ Warpgate ships just-in-time access in the open-source build:
 
 * **Tickets** — scoped, single- or limited-use access secrets for a specific target.
 * **Ticket requests** — users request access to a target from the portal; an admin approves it (or you allow it automatically), with per-target limits on duration and number of uses.
+* **Session approvals** — mark a target as requiring administrator approval, and every connection to it is held after authentication until an admin lets it through from the admin UI, with approvals optionally remembered per user, target and source IP.
 
 Teleport's equivalent, **Access Requests** (just-in-time role elevation with approval workflows), lives in its Enterprise tier.
 
@@ -73,7 +74,7 @@ Teleport's equivalent, **Access Requests** (just-in-time role elevation with app
 
 * You want a bastion running **in the next hour**, from a single binary, with no agents and no cluster to operate.
 * You want users to keep using **standard clients** (OpenSSH, `psql`, `kubectl`, mstsc, a browser) with nothing extra to install.
-* You value a **small, auditable, Apache-2.0 codebase** where every feature — SSO, MFA, session recording, ticket requests, clustering, credential encryption at rest — is in the free build.
+* You value a **small, auditable, Apache-2.0 codebase** where every feature — SSO, MFA enforcement, session recording, ticket requests, just-in-time approvals, clustering, credential encryption at rest — is in the free build.
 * Your access needs are well covered by SSH, HTTP, MySQL, PostgreSQL, Kubernetes, RDP and VNC.
 
 <section class="production-review-cta" aria-labelledby="production-review-teleport-title">

@@ -4,7 +4,7 @@ title: LDAP authentication
 
 # LDAP
 
-Warpgate can sync users' SSH public keys from LDAP.
+Warpgate can import users from LDAP and sync their SSH public keys from it.
 
 You can manage LDAP servers under `Config` > `LDAP servers`.
 

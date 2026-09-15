@@ -27,7 +27,10 @@ description: A pre-launch checklist for self-hosting Warpgate - TLS, SSO, roles,
 
 ## Hardening
 
-- [ ] Require [OTP](otp.md) or [multiple factors](auth.md#requiring-multiple-authentication-factors) for admins and for sensitive targets.
+- [ ] Require [OTP](otp.md) or [multiple factors](auth.md#requiring-multiple-authentication-factors) for admins.
+- [ ] Optionally, turn on [MFA enforcement](auth.md#enforcing-mfa-for-everyone) globally.
+- [ ] Set the [default auth policy](auth.md#default-auth-policy-for-new-users) for users created later.
+- [ ] Require an [administrator approval](approvals.md) for your most sensitive targets.
 - [ ] Enable [login protection](login-protection.md) - IP blocking and user lockout thresholds - for your traffic.
 - [ ] Turn off password SSH logins under `Config` > `Global parameters` if you are not using password credentials.
 - [ ] Turn off web SSH or the web remote desktop client under `Config` > `Global parameters` > `UI` if your policy doesn't allow them.
@@ -60,7 +63,7 @@ See the [backup and restore guide](backup.md).
 ## Before you go live
 
 - [ ] Test connections to each target as an end user
-- [ ] Play back a session recording and confirm it lands in the storage you configured
+- [ ] Play back a session recording and confirm it lands in the [storage you configured](recordings.md)
 - [ ] Test admin access recovery with `warpgate recover-access` - see [recovering admin access](recovering-access.md).
 - [ ] Restore your backup onto a temporary deployment and test it
 - [ ] Always upgrade that temporary deployment host to the next version before you do it in production

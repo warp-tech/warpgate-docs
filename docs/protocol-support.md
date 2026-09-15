@@ -68,6 +68,7 @@ title: Protocol support
 * ✅ 2FA
 * ✅ WebSocket streaming (`exec` / `attach` / `logs`)
 * ✅ `port-forward` (SPDY and WebSocket) <div class="badge font-xs text-bg-warning">v0.27+</div>
+* ✅ Tickets <div class="badge font-xs text-bg-warning">v0.29+</div>
 * ❌ Protobuf transfer encoding
 
 ## RDP
@@ -80,6 +81,9 @@ title: Protocol support
 * ✅ Session recording
 * ✅ Tickets
 * ✅ 2FA (collected on an in-session holding screen)
+* ✅ Clipboard redirection <div class="badge font-xs text-bg-warning">v0.28+</div>
+* ✅ Dynamic resolution / live resize (mstsc and the in-browser client) <div class="badge font-xs text-bg-warning">v0.28+</div>
+* ✅ Interactive (non-NLA) logon screen on the target <div class="badge font-xs text-bg-warning">v0.29+</div>
 * ❌ Legacy Standard RDP Security
 
 ## VNC

@@ -60,7 +60,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
             </p>
             <h2>Not a jump host</h2>
             <p>Warpgate handles authentication, and then transparently hands off the connection to the target server, while saving a live session record for audit.</p>
-            <p>Built-in 2FA, SSO and brute-force protection keep the front door locked.</p>
+            <p>Built-in 2FA, SSO, brute-force protection and JIT session approvals keep the front door locked.</p>
         </div>
     </div>
 
@@ -90,13 +90,13 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
     <section class="production-foundations" aria-labelledby="production-foundations-title">
         <div class="production-foundations-copy">
             <h2 id="production-foundations-title">Production operations</h2>
-            <p>Run multiple Warpgate nodes behind a load balancer, share state through the database, and store recordings in S3-compatible object storage. Warpgate 0.27 also adds audited <a href="/targets/rdp/">RDP</a> and <a href="/targets/vnc/">VNC</a> desktop access.</p>
+            <p>Run multiple Warpgate nodes behind a load balancer, share state through the database, store recordings in S3-compatible object storage and keep target credentials encrypted at rest. Audited <a href="/targets/rdp/">RDP</a> and <a href="/targets/vnc/">VNC</a> desktop access, MFA enforcement and <a href="/approvals/">just-in-time session approvals</a> are all in the free build.</p>
             <a class="production-foundations-cta" href="/for-business/">Need help validating a production deployment? Get maintainer support &rarr;</a>
         </div>
-        <div class="production-foundations-links" aria-label="Warpgate 0.27 production capability documentation">
+        <div class="production-foundations-links" aria-label="Warpgate production capability documentation">
             <a href="/clustering/"><span>Multi-node clustering</span></a>
-            <a href="/clustering/#setup"><span>Shared database state</span></a>
-            <a href="/clustering/#setup"><span>S3-compatible recording storage</span></a>
+            <a href="/encryption/"><span>Credential encryption at rest</span></a>
+            <a href="/approvals/"><span>Just-in-time approvals</span></a>
             <a href="https://github.com/warp-tech/warpgate/releases/"><span>Release notes</span></a>
         </div>
     </section>
@@ -192,7 +192,7 @@ description: Self-hosted access to SSH, Kubernetes, databases, web apps and RDP/
                 </tr>
                 <tr>
                     <th class="comparison-feature" scope="row">Identity</th>
-                    <td class="is-warpgate is-positive"><strong>Built in</strong><span>OIDC SSO, TOTP and SSH keys.</span></td>
+                    <td class="is-warpgate is-positive"><strong>Built in</strong><span>OIDC SSO, TOTP with enforced enrollment, SSH keys and LDAP key sync.</span></td>
                     <td class="is-positive"><strong>Built-in MFA</strong><span>SSO availability depends on edition.</span></td>
                     <td><strong>Assembled from components</strong><span>Usually SSH keys or certificates, PAM and external identity integrations.</span></td>
                     <td><strong>Provider-dependent<sup class="comparison-ref"><a href="#comparison-note-vpn" aria-label="Clarification 2">[2]</a></sup></strong><span>Usually tied to the VPN appliance or IdP.</span></td>

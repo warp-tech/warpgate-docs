@@ -49,4 +49,4 @@ If you enable the PROXY protocol at the LB, you must set `proxy_protocol` for ea
 
 ## Recordings storage
 
-All nodes must share the same storage for session recordings. Point every node at either the **same S3 bucket** or the **same shared filesystem** under `Config` > `Global parameters` > `Session recordings`.
+All nodes must share the same storage for session recordings. Point every node at either the **same S3 bucket** or the **same shared filesystem** under `Config` > `Global parameters` > `Session recordings` - see [session recordings](recordings.md#storage), including the [bucket CORS rule](recordings.md#s3-bucket-cors-policy) that playback from S3 needs.

@@ -18,9 +18,9 @@ A complete Warpgate backup is 5 things: the config file, the data directory, the
 `/var/lib/warpgate` on a native install. On Docker it's the `/data` volume itself. It contains:
 
 * TLS certificates
-* SSH host keys
 * SQLite database (if using SQLite - see below)
 * Recordings if using the default on-disk recording storage
+* SSH host keys (until v0.29)
 
 ### The database
 

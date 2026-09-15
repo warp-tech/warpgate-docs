@@ -354,4 +354,4 @@ SSO providers can also issue tokens for `kubectl` via the `kubernetes` section o
 
 ### Hiding password login
 
-If your users primarily use SSO, you can hide the password login form via `Config` > `Global parameters` > `Minimize password login UI`.
+If your users primarily use SSO, you can hide or disable password login form via `Config` > `Global parameters` > `Login`.

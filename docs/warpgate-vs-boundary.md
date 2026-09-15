@@ -20,10 +20,10 @@ Warpgate is an **open-source, self-hosted alternative to HashiCorp Boundary**. B
 | **How you reach a target** | Connect your client straight to Warpgate with a `user:target` selector | The `boundary` client authorises a session and opens a **local proxy port**; you then point your tool at `localhost` |
 | **Protocol awareness** | Protocol-aware for SSH, HTTP, MySQL, PostgreSQL, Kubernetes, RDP, VNC | Primarily **TCP tunnelling**; SSH and RDP have deeper, protocol-aware features (e.g. session recording) |
 | **Credentials to targets** | Stored per target — built in, and optionally **encrypted at rest** under a master key; no rotation engine | Static, or brokered/injected via **Vault** |
-| **Authentication** | Password, SSH public key, OTP (TOTP), SSO via OIDC, client certificates, in-browser approval | Password, OIDC, LDAP (MFA delegated to your OIDC provider) |
+| **Authentication** | Password, SSH public key, OTP (TOTP, with optional enforced enrollment), SSO via OIDC, client certificates, in-browser approval, LDAP key sync | Password, OIDC, LDAP (MFA delegated to your OIDC provider) |
 | **Session recording** | Replay for SSH, Kubernetes, RDP and VNC; query/activity logs for databases and HTTP | SSH and RDP (paid editions); other targets tunnelled at TCP |
 | **In-browser access** | SSH, RDP, VNC and HTTP | None — sessions run through the CLI / Desktop / Client-Agent |
-| **Self-service / JIT access** | Tickets and self-service **ticket requests** with admin approval | Grant-based; no built-in self-service request/approval workflow |
+| **Self-service / JIT access** | Tickets, self-service **ticket requests** and per-connection **administrator approval** | Grant-based; no built-in self-service request/approval workflow |
 | **Language** | Rust | Go |
 | **Licensing** | **Apache-2.0, fully self-hosted** | Business Source License (BSL, source-available); HCP Boundary is the managed option |
 

@@ -22,8 +22,8 @@ Warpgate is an **open-source, self-hosted alternative to WALLIX Bastion**. Of th
 | **Kubernetes** | ✅ protocol-aware: RBAC on the API, `exec`/`attach` replay | ❌ not a supported target type |
 | **Databases** | ✅ protocol-aware MySQL and PostgreSQL proxy with **query logs** | Reached as a **raw TCP tunnel** via Universal Tunneling; captured as a PCAP file |
 | **Web / HTTP targets** | ✅ native — Warpgate *is* an HTTP reverse proxy | **Web Session Manager** drives a real browser (an embedded Chrome engine) on the gateway side |
-| **Authentication** | Password, SSH public key, OTP (TOTP), **SSO via OIDC**, client certificates, in-browser approval | Password, SSH keys, Kerberos, LDAP/AD, NLA, RADIUS, PKI (X.509), **SAML 2.0 and OIDC** |
-| **Self-service / JIT access** | Tickets and self-service **ticket requests** with admin approval — included | **Approval workflow** with a dedicated approver role and e-mail notification; integrates with ITSM ticketing |
+| **Authentication** | Password, SSH public key, OTP (TOTP, with optional enforced enrollment), **SSO via OIDC**, client certificates, in-browser approval, LDAP key sync | Password, SSH keys, Kerberos, LDAP/AD, NLA, RADIUS, PKI (X.509), **SAML 2.0 and OIDC** |
+| **Self-service / JIT access** | Tickets, self-service **ticket requests** and per-connection **administrator approval** (a dedicated admin permission, no e-mail notification) — included | **Approval workflow** with a dedicated approver role and e-mail notification; integrates with ITSM ticketing |
 | **Secrets management** | Per-target credentials, optionally **encrypted at rest** under a master key — but no rotation | Full **vault** with automated password and SSH-key rotation, plus application-to-application password management |
 | **Beyond the gateway** | Gateway only | A **suite**: PEDM endpoint privilege management, IDaaS, identity governance |
 | **Security certification** | None | **ANSSI CSPN** and **BSI BSZ** (see [below](#certification-and-compliance)) |
@@ -61,7 +61,7 @@ Both products record. The difference is how much of the session each one *unders
 
 WALLIX also offers real-time session monitoring, live session sharing with an invited guest (view-only or shared control), and the ability to terminate a session in progress.
 
-On the desktop protocols themselves, Warpgate carries the **text clipboard** in both directions for RDP and VNC, and a native RDP client can resize the session live. Clipboard file transfer is not implemented, and Warpgate has no gateway-enforced clipboard policy at all — if your rules require the gateway to restrict clipboard use per direction, that counts against Warpgate here; check the current WALLIX session-policy options for its side.
+On the desktop protocols themselves, Warpgate carries the **text clipboard** in both directions for RDP and VNC, and both native RDP clients and the web desktop can resize the session live. Clipboard file transfer is not implemented, and Warpgate has no gateway-enforced clipboard policy at all — if your rules require the gateway to restrict clipboard use per direction, that counts against Warpgate here; check the current WALLIX session-policy options for its side.
 
 ## Scope: a gateway, not a suite
 

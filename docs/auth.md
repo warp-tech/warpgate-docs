@@ -70,6 +70,24 @@ Warpgate can require a client to present both a public key and a password.
 Setting up a multifactor auth policy
 ///
 
+## Enforcing MFA for everyone
+
+<div class="badge font-xs text-bg-warning mb-3">v0.29+</div>
+
+Instead of editing every user's auth policy, you can require a second factor globally under `Config` > `Global parameters` > `Login` > `MFA enforcement`:
+
+* **Off** - default, per-user auth policies apply as-is.
+* **Enroll** - users who log in on the web and do not have an OTP yet are forced to set one up. Once enrolled, their web logins require the OTP. Other protocols are not affected.
+* **Require** - above plus every protocol requires a second factor now. SSH, RDP and VNC prompt for the OTP; MySQL, PostgreSQL and Kubernetes use [in-browser approval](#in-browser-approval-out-of-band-authentication) instead, where OTP is asked in-browser. Users who haven't enrolled yet get in-browser approval on every protocol until they log in on the web and set up an OTP.
+
+Enable `Exempt SSO users from MFA enforcement` if you already enforce MFA at your SSO provider - to avoid users having to set up a second OTP at Warpgate.
+
+## Default auth policy for new users
+
+<div class="badge font-xs text-bg-warning mb-3">v0.29+</div>
+
+You can change the default credential policy under `Config` > `Policies`.
+
 ## SSH client authentication methods
 
 <div class="badge font-xs text-bg-warning mb-3">v0.20+</div>
@@ -145,3 +163,4 @@ curl -H "x-warpgate-token: xyz" https://warpgate.acme.inc/@warpgate/api/info
 ### Up next
 
 * [Roles](./roles.md)
+* [Session approvals](./approvals.md)

@@ -13,7 +13,7 @@ title: Getting started on Helm
 * Image name: `ghcr.io/warp-tech/warpgate`
 * Image in the GHCR: [https://github.com/warp-tech/warpgate/pkgs/container/warpgate](https://github.com/warp-tech/warpgate/pkgs/container/warpgate)
 * Persistent volume required: `/data` (when using SQLite)
-* Ports: `2222` (SSH), `8888` (HTTP), `33306` (MySQL), `55432` (PostgreSQL)
+* Ports: `2222` (SSH), `8888` (HTTP), `33306` (MySQL), `55432` (PostgreSQL), optionally Kubernetes (`setup.kubernetes` / `service.ports.kubernetes`)
 * Tags: `latest` (stable), `X.Y`, `X.Y.Z`
 
 ## Prerequisites
@@ -30,8 +30,10 @@ The official Helm chart is available in the Warpgate repository and as an OCI im
 
 ```yaml
 image:
-  tag: "0.21.0"
+  tag: "0.28.6"
 ```
+
+The chart's default tag is the release it was published with; pin a specific tag so that you control the version.
 
 Then install:
 
@@ -76,7 +78,7 @@ Create a `values.yaml` file to customize your deployment:
 ```yaml
 image:
   repository: ghcr.io/warp-tech/warpgate
-  tag: "0.16.0"
+  tag: "0.28.6"
   pullPolicy: IfNotPresent
 
 # Automatic setup configuration
@@ -86,11 +88,12 @@ setup:
   envFromSecret:
     WARPGATE_ADMIN_PASSWORD: "warpgate-secret/adminPassword"
 
-  # Ports to expose
+  # Ports to expose (0 = protocol disabled)
   ssh: 2222
   http: 8888
   mysql: 33306
   pgsql: 55432
+  kubernetes: 0
 
   # Optional: External database
   # databaseUrl: "postgres://user:password@postgres-service:5432/warpgate"
@@ -204,35 +207,36 @@ ingress:
         - warpgate.example.com
 ```
 
-### SSH Keys and TLS Certificates
+### TLS Certificates
 
-Provide SSH keys and TLS certificates via Kubernetes secrets:
+Provide the TLS certificate via a Kubernetes secret:
 
 ```bash
-# Create secret with SSH keys
-kubectl create secret generic warpgate-ssh-keys \
-  --from-file=host-ed25519=./host-ed25519 \
-  --from-file=host-rsa=./host-rsa \
-  --from-file=client-ed25519=./client-ed25519 \
-  --from-file=client-rsa=./client-rsa \
-  --namespace warpgate
-
-# Create secret with TLS certificate
 kubectl create secret tls warpgate-tls \
   --cert=./tls.crt \
   --key=./tls.key \
   --namespace warpgate
 ```
 
-Reference in values.yaml:
+Reference it in values.yaml:
 
 ```yaml
-ssh_keys_secret: "warpgate-ssh-keys"
 tls_cert_secret: "warpgate-tls"
 ```
 
-!!! note
-    As of v0.27 the `client-*` keys live in Warpgate's database. The chart still copies all four files from the secret, but the `client-*` ones only seed the database on first startup — Warpgate generates its own if the database has none, and in a multi-replica deployment the client keys are shared through the database rather than mounted on every replica. The `host-*` keys are still read from the secret.
+### Recordings on S3
+
+For more than one replica, recordings must be stored on S3 (`Config` > `Global parameters` > `Session recordings`, see [session recordings](recordings.md#storage) - the bucket needs a CORS rule for playback). To use the `Automatic` credentials mode with a cloud IAM role, annotate the pod's service account:
+
+```yaml
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/warpgate-recordings
+```
+
+### Encryption at rest
+
+See [Encrypting credentials at rest](encryption.md#helm) for the `envFromSecret` keys.
 
 ### Custom Configuration
 
@@ -246,15 +250,15 @@ overrides_config: |
 
 ## Upgrading
 
-To upgrade Warpgate to a new version, pull the latest chart and upgrade:
+To upgrade Warpgate to a new version, bump `image.tag` in your `values.yaml` and upgrade:
 
 ```bash
-cd warpgate/helm/warpgate
-git pull origin main
-helm upgrade warpgate . \
+helm upgrade warpgate oci://ghcr.io/warp-tech/helm-charts/warpgate \
   --namespace warpgate \
-  --set image.tag=0.17.0
+  --values values.yaml
 ```
+
+Read [Upgrading](upgrading.md) first - back up the database, and with several replicas expect a short window of mixed versions.
 
 ## Uninstalling
 

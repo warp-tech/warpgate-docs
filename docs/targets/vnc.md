@@ -68,7 +68,7 @@ A second factor (one-time password or in-browser approval) is collected on a hol
 
 ## Session recording
 
-When session recording is enabled, VNC sessions are recorded and can be replayed from the Admin UI.
+When session recording is enabled, VNC sessions are recorded and can be replayed from the Admin UI. Keyboard input recording can be disabled under `Config` > `Global parameters` > `Session recordings` (v0.29+) if capturing passwords is a concern.
 
 ### Up next
 

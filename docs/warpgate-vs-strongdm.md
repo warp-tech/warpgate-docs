@@ -19,10 +19,10 @@ Warpgate is a **self-hosted, open-source StrongDM alternative**. Both [StrongDM]
 | **Agents on targets** | **None** | None on the targets, but gateways/relays to run |
 | **Client software** | **None** — users keep their normal `ssh`, `mysql`, `psql`, `kubectl`, browser or RDP/VNC client | The StrongDM desktop client / CLI is **required** on each user's machine |
 | **Protocols** | SSH, HTTP(S), MySQL, PostgreSQL, Kubernetes, RDP, VNC | Broad: SSH, RDP, Kubernetes, many databases, websites, and cloud APIs |
-| **Authentication** | Password, SSH public key, OTP (TOTP), SSO via OIDC, client certificates, in-browser approval | SSO via your IdP (SAML/OIDC), with MFA delegated to the IdP |
+| **Authentication** | Password, SSH public key, OTP (TOTP, with optional enforced enrollment), SSO via OIDC, client certificates, in-browser approval, LDAP key sync | SSO via your IdP (SAML/OIDC), with MFA delegated to the IdP |
 | **Session recording & audit** | Replay for SSH, Kubernetes, RDP and VNC; query/activity logs for databases and HTTP | Broad and a core strength: SSH, RDP, Kubernetes and database sessions |
 | **In-browser access** | SSH, RDP, VNC and HTTP | None — sessions run through the StrongDM client |
-| **Self-service / JIT access** | Tickets and self-service **ticket requests** with admin approval | Access workflows (just-in-time requests with approval) |
+| **Self-service / JIT access** | Tickets, self-service **ticket requests** and per-connection **administrator approval** | Access workflows (just-in-time requests with approval) |
 | **Language** | Rust | Go (proprietary) |
 | **Licensing & cost** | **Apache-2.0, free, fully self-hosted** | Proprietary, commercial — per-user subscription, no free or open-source tier |
 

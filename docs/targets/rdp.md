@@ -10,7 +10,7 @@ Warpgate can proxy Microsoft **RDP** (Remote Desktop) connections, giving them t
 
 ## How it works
 
-Warpgate terminates the viewer's RDP connection and authenticates the user with their Warpgate credentials, then opens a fresh connection to the upstream host over TLS + CredSSP (NLA), logging in with the credentials you configured on the target. The entire session is recorded, including user inputs.
+Warpgate terminates the viewer's RDP connection and authenticates the user with their Warpgate credentials, then opens a fresh connection to the upstream host over TLS + CredSSP (NLA), logging in with the credentials you configured on the target. The entire session can be recorded, including user inputs.
 
 ## Enabling the RDP listener
 
@@ -39,6 +39,11 @@ RDP target configuration
 
 !!! note
     Most RDP servers use a self-signed certificate, which is why verification is turned off by default.
+
+### Additional options
+
+* **Interactive logon** (v0.29+) - Warpgate will ask the remote OS to display a login screen, forcing the user to log in again. The credentials you've previously specified are then only used for the connection itself.
+* **Compression between Warpgate and target** (v0.28.5+) - `RemoteFX` (default) or `Lossless`. If Warpgate has fast connection to the target, you should choose `Lossless` to avoid image quality loss through double compression.
 
 The target shows up on the Warpgate homepage for users allowed to access it.
 
@@ -80,7 +85,7 @@ Once authenticated, Warpgate connects to the target and the desktop appears.
 
 ## Session recording
 
-When session recording is enabled, RDP sessions are recorded as video and can be replayed from the Admin UI.
+When session recording is enabled, RDP sessions are recorded as video and can be replayed from the Admin UI. Keyboard input recording can be disabled under `Config` > `Global parameters` > `Session recordings` (v0.29+) if capturing passwords is a concern.
 
 ### Up next
 

@@ -9,7 +9,7 @@ title: Getting started on Docker
 * Image name: `ghcr.io/warp-tech/warpgate`
 * Image in the GHCR: [https://github.com/warp-tech/warpgate/pkgs/container/warpgate](https://github.com/warp-tech/warpgate/pkgs/container/warpgate)
 * Volumes required: `/data`
-* Ports: `2222` (SSH), `8888` (HTTP), `33306` (MySQL), `55432` (PostgreSQL)
+* Ports: `2222` (SSH), `8888` (HTTP), `33306` (MySQL), `55432` (PostgreSQL), `8443` (Kubernetes), `3389` (RDP), `5900` (VNC) - each only when enabled during setup
 * Tags: `latest` (stable), `X.Y`, `X.Y.Z`
 
 ## Running with Docker Compose
