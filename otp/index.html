@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="text-success" href="./">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -304,6 +312,7 @@
 </figure>
 <p>The QR code shown can now be used to set up a mobile TOTP authenticator app.</p>
 <p>Once done, click <code>Save</code>.</p>
+<p>Users can also enroll themselves from their profile page (if credential self-management is enabled), and you can enable <a href="../auth/#enforcing-mfa-for-everyone">MFA enforcement</a> for everyone (v0.29+).</p>
 <h2 id="credentials-policy-configuration-for-ssh-http">Credentials policy configuration for SSH &amp; HTTP<a class="headerlink" href="#credentials-policy-configuration-for-ssh-http" title="Permanent link">§</a></h2>
 <p>To specify 2FA policies for SSH or HTTP sessions, uncheck <code>Any credential</code> in the corresponding <code>Auth policy</code> section and select all required credentials:</p>
 <figure>
@@ -317,9 +326,9 @@
       
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../tickets/">
+          <a class="btn btn-secondary btn-prev" href="../approvals/">
             &larr;
-            Access tickets
+            Session approvals
             <br/>
             <small class="text-muted">
               Previous

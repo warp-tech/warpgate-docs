@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -295,6 +303,7 @@
       <article>
         <h1 id="access-tickets">Access tickets<a class="headerlink" href="#access-tickets" title="Permanent link">§</a></h1>
 <p>You can issue tickets that grant a specific user access to a specific target, bypassing authorization. This is especially useful for non-interactive sessions where 2FA flows aren't possible, e.g. when connecting an application to a database or an API through Warpgate.</p>
+<p>A ticket can optionally expire at a set time and/or after a number of uses.</p>
 <h2 id="creating-a-ticket">Creating a ticket<a class="headerlink" href="#creating-a-ticket" title="Permanent link">§</a></h2>
 <p>In the admin UI, create a ticket in the <code>Config</code> -&gt; <code>Tickets</code> section, selecting a user account and a target:</p>
 <figure>
@@ -310,6 +319,15 @@
 <p>Ticket connection instructions</p>
 </figcaption>
 </figure>
+<h2 id="self-service-ticket-requests">Self-service ticket requests<a class="headerlink" href="#self-service-ticket-requests" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.24+</div>
+
+<p>Users can also request time-limited tickets from an admin user. Enable this under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Tickets</code> &gt; <code>Allow users to request tickets</code>. Users then get a <code>Ticket requests</code> page in their profile menu, where can send a request for a specific ticket configuration.</p>
+<p>Pending requests show up under <code>Status</code> &gt; <code>Requests</code> in the admin UI, where an admin can approve or deny them.</p>
+<h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
+<ul>
+<li><a href="../approvals/">Session approvals</a></li>
+</ul>
       </article>
 
       
@@ -327,8 +345,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../otp/">
-            One-time passwords (OTP)
+          <a class="btn btn-success btn-next ms-auto" href="../approvals/">
+            Session approvals
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

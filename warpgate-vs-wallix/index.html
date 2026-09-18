@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -351,12 +359,12 @@
 </tr>
 <tr>
 <td><strong>Authentication</strong></td>
-<td>Password, SSH public key, OTP (TOTP), <strong>SSO via OIDC</strong>, client certificates, in-browser approval</td>
+<td>Password, SSH public key, OTP (TOTP, with optional enforced enrollment), <strong>SSO via OIDC</strong>, client certificates, in-browser approval, LDAP key sync</td>
 <td>Password, SSH keys, Kerberos, LDAP/AD, NLA, RADIUS, PKI (X.509), <strong>SAML 2.0 and OIDC</strong></td>
 </tr>
 <tr>
 <td><strong>Self-service / JIT access</strong></td>
-<td>Tickets and self-service <strong>ticket requests</strong> with admin approval — included</td>
+<td>Tickets, self-service <strong>ticket requests</strong> and per-connection <strong>administrator approval</strong> (a dedicated admin permission, no e-mail notification) — included</td>
 <td><strong>Approval workflow</strong> with a dedicated approver role and e-mail notification; integrates with ITSM ticketing</td>
 </tr>
 <tr>
@@ -436,7 +444,7 @@
 </tbody>
 </table>
 <p>WALLIX also offers real-time session monitoring, live session sharing with an invited guest (view-only or shared control), and the ability to terminate a session in progress.</p>
-<p>On the desktop protocols themselves, Warpgate carries the <strong>text clipboard</strong> in both directions for RDP and VNC, and a native RDP client can resize the session live. Clipboard file transfer is not implemented, and Warpgate has no gateway-enforced clipboard policy at all — if your rules require the gateway to restrict clipboard use per direction, that counts against Warpgate here; check the current WALLIX session-policy options for its side.</p>
+<p>On the desktop protocols themselves, Warpgate carries the <strong>text clipboard</strong> in both directions for RDP and VNC, and both native RDP clients and the web desktop can resize the session live. Clipboard file transfer is not implemented, and Warpgate has no gateway-enforced clipboard policy at all — if your rules require the gateway to restrict clipboard use per direction, that counts against Warpgate here; check the current WALLIX session-policy options for its side.</p>
 <h2 id="scope-a-gateway-not-a-suite">Scope: a gateway, not a suite<a class="headerlink" href="#scope-a-gateway-not-a-suite" title="Permanent link">§</a></h2>
 <p>This is the difference that decides most evaluations. WALLIX sells a <strong>PAM programme</strong>; Warpgate is one component of one.</p>
 <p>If your requirement is written as "audited, access-controlled connections to our infrastructure", Warpgate covers it. If it is written as "discover privileged accounts, vault and rotate their credentials, remove local admin rights from workstations, broker secrets to applications, and produce a compliance report", that is a suite-shaped requirement and WALLIX is built for it. Warpgate has per-target credentials and access control — <a href="../encryption/">encrypted at rest</a> under a master key if you set one — but not a rotation engine, not endpoint privilege management, and not identity governance.</p>

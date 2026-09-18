@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -358,6 +366,20 @@
 <p>Setting up a multifactor auth policy</p>
 </figcaption>
 </figure>
+<h2 id="enforcing-mfa-for-everyone">Enforcing MFA for everyone<a class="headerlink" href="#enforcing-mfa-for-everyone" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.29+</div>
+
+<p>Instead of editing every user's auth policy, you can require a second factor globally under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Login</code> &gt; <code>MFA enforcement</code>:</p>
+<ul>
+<li><strong>Off</strong> - default, per-user auth policies apply as-is.</li>
+<li><strong>Enroll</strong> - users who log in on the web and do not have an OTP yet are forced to set one up. Once enrolled, their web logins require the OTP. Other protocols are not affected.</li>
+<li><strong>Require</strong> - above plus every protocol requires a second factor now. SSH, RDP and VNC prompt for the OTP; MySQL, PostgreSQL and Kubernetes use <a href="#in-browser-approval-out-of-band-authentication">in-browser approval</a> instead, where OTP is asked in-browser. Users who haven't enrolled yet get in-browser approval on every protocol until they log in on the web and set up an OTP.</li>
+</ul>
+<p>Enable <code>Exempt SSO users from MFA enforcement</code> if you already enforce MFA at your SSO provider - to avoid users having to set up a second OTP at Warpgate.</p>
+<h2 id="default-auth-policy-for-new-users">Default auth policy for new users<a class="headerlink" href="#default-auth-policy-for-new-users" title="Permanent link">§</a></h2>
+<div class="badge font-xs text-bg-warning mb-3">v0.29+</div>
+
+<p>You can change the default credential policy under <code>Config</code> &gt; <code>Policies</code>.</p>
 <h2 id="ssh-client-authentication-methods">SSH client authentication methods<a class="headerlink" href="#ssh-client-authentication-methods" title="Permanent link">§</a></h2>
 <div class="badge font-xs text-bg-warning mb-3">v0.20+</div>
 
@@ -414,6 +436,7 @@ curl<span style="color: #6E7681"> </span>-H<span style="color: #6E7681"> </span>
 <h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
 <ul>
 <li><a href="../roles/">Roles</a></li>
+<li><a href="../approvals/">Session approvals</a></li>
 </ul>
       </article>
 

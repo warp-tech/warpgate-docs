@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -299,7 +307,7 @@
 <li>Image name: <code>ghcr.io/warp-tech/warpgate</code></li>
 <li>Image in the GHCR: <a href="https://github.com/warp-tech/warpgate/pkgs/container/warpgate">https://github.com/warp-tech/warpgate/pkgs/container/warpgate</a></li>
 <li>Volumes required: <code>/data</code></li>
-<li>Ports: <code>2222</code> (SSH), <code>8888</code> (HTTP), <code>33306</code> (MySQL), <code>55432</code> (PostgreSQL)</li>
+<li>Ports: <code>2222</code> (SSH), <code>8888</code> (HTTP), <code>33306</code> (MySQL), <code>55432</code> (PostgreSQL), <code>8443</code> (Kubernetes), <code>3389</code> (RDP), <code>5900</code> (VNC) - each only when enabled during setup</li>
 <li>Tags: <code>latest</code> (stable), <code>X.Y</code>, <code>X.Y.Z</code></li>
 </ul>
 <h2 id="running-with-docker-compose">Running with Docker Compose<a class="headerlink" href="#running-with-docker-compose" title="Permanent link">§</a></h2>

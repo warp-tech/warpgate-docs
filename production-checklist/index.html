@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -316,7 +324,10 @@
 </ul>
 <h2 id="hardening">Hardening<a class="headerlink" href="#hardening" title="Permanent link">§</a></h2>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox"/> Require <a href="../otp/">OTP</a> or <a href="../auth/#requiring-multiple-authentication-factors">multiple factors</a> for admins and for sensitive targets.</li>
+<li class="task-list-item"><input type="checkbox"/> Require <a href="../otp/">OTP</a> or <a href="../auth/#requiring-multiple-authentication-factors">multiple factors</a> for admins.</li>
+<li class="task-list-item"><input type="checkbox"/> Optionally, turn on <a href="../auth/#enforcing-mfa-for-everyone">MFA enforcement</a> globally.</li>
+<li class="task-list-item"><input type="checkbox"/> Set the <a href="../auth/#default-auth-policy-for-new-users">default auth policy</a> for users created later.</li>
+<li class="task-list-item"><input type="checkbox"/> Require an <a href="../approvals/">administrator approval</a> for your most sensitive targets.</li>
 <li class="task-list-item"><input type="checkbox"/> Enable <a href="../login-protection/">login protection</a> - IP blocking and user lockout thresholds - for your traffic.</li>
 <li class="task-list-item"><input type="checkbox"/> Turn off password SSH logins under <code>Config</code> &gt; <code>Global parameters</code> if you are not using password credentials.</li>
 <li class="task-list-item"><input type="checkbox"/> Turn off web SSH or the web remote desktop client under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>UI</code> if your policy doesn't allow them.</li>
@@ -348,7 +359,7 @@
 <h2 id="before-you-go-live">Before you go live<a class="headerlink" href="#before-you-go-live" title="Permanent link">§</a></h2>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox"/> Test connections to each target as an end user</li>
-<li class="task-list-item"><input type="checkbox"/> Play back a session recording and confirm it lands in the storage you configured</li>
+<li class="task-list-item"><input type="checkbox"/> Play back a session recording and confirm it lands in the <a href="../recordings/">storage you configured</a></li>
 <li class="task-list-item"><input type="checkbox"/> Test admin access recovery with <code>warpgate recover-access</code> - see <a href="../recovering-access/">recovering admin access</a>.</li>
 <li class="task-list-item"><input type="checkbox"/> Restore your backup onto a temporary deployment and test it</li>
 <li class="task-list-item"><input type="checkbox"/> Always upgrade that temporary deployment host to the next version before you do it in production</li>

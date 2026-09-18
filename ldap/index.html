@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -294,7 +302,7 @@
     <main class="page-content">
       <article>
         <h1 id="ldap">LDAP<a class="headerlink" href="#ldap" title="Permanent link">§</a></h1>
-<p>Warpgate can sync users' SSH public keys from LDAP.</p>
+<p>Warpgate can import users from LDAP and sync their SSH public keys from it.</p>
 <p>You can manage LDAP servers under <code>Config</code> &gt; <code>LDAP servers</code>.</p>
 <p>Once an LDAP server is added, you can import users by browsing the LDAP server (from the <code>Config</code> &gt; <code>Users</code> page, click <code>Add from LDAP</code>) or link existing users to their LDAP entries by clicking <code>LDAP</code> &gt; <code>Auto-link to LDAP</code> on the user configuration page.</p>
 <p>Once a user is linked to LDAP, Warpgate will sync their SSH public keys from LDAP every time they try to authenticate. Any existing keys are going to be removed and neither the user nor you will be able to manage their own keys from the Warpgate UI anymore.</p>

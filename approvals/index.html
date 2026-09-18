@@ -3,21 +3,21 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Encrypting credentials at rest — Warpgate</title>
+  <title>Session approvals — Warpgate</title>
   <link rel="icon" type="image/svg" href="/assets/favicon-B-qGPERB.svg">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Securely expose your internal services to the internet">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Encrypting credentials at rest">
+  <meta property="og:title" content="Session approvals">
   <meta property="og:description" content="Securely expose your internal services to the internet">
-  <meta property="og:url" content="https://warpgate.null.page/encryption/">
+  <meta property="og:url" content="https://warpgate.null.page/approvals/">
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Encrypting credentials at rest">
+  <meta name="twitter:title" content="Session approvals">
   <meta name="twitter:description" content="Securely expose your internal services to the internet">
-  <link rel="canonical" href="https://warpgate.null.page/encryption/">
+  <link rel="canonical" href="https://warpgate.null.page/approvals/">
 
   <script type="application/ld+json">
     {
@@ -168,7 +168,7 @@
             </li>
             
             <li>
-              <a class="" href="../approvals/">Session approvals</a>
+              <a class="text-success" href="./">Session approvals</a>
             </li>
             
             <li>
@@ -224,7 +224,7 @@
             </li>
             
             <li>
-              <a class="text-success" href="./">Encrypting credentials at rest</a>
+              <a class="" href="../encryption/">Encrypting credentials at rest</a>
             </li>
             
             <li>
@@ -301,55 +301,41 @@
 
     <main class="page-content">
       <article>
-        <h1 id="encrypting-credentials-at-rest">Encrypting credentials at rest<a class="headerlink" href="#encrypting-credentials-at-rest" title="Permanent link">§</a></h1>
-<div class="badge font-xs text-bg-warning mb-3">v0.28+</div>
+        <h1 id="session-approvals">Session approvals<a class="headerlink" href="#session-approvals" title="Permanent link">§</a></h1>
+<div class="badge font-xs text-bg-warning mb-3">v0.29+</div>
 
-<p>Warpgate has to store the credentials it uses to authenticate <em>to your targets</em> in its database. By default they are stored as-is, so if someone is able to obtain a copy of the database - a backup, a read replica, will hold every target credential.</p>
-<p>With encryption enabled, credentials will be decrypted on demand only whenever Warpgate connects to a target. They stay encrypted in the database, in the API, and in the UI — once encryption is on, even an admin can no longer read a target's password back out of Warpgate.</p>
-<div class="admonition note">
-<p class="admonition-title">What this protects against</p>
-<p>Encryption at rest protects leaked database dumps, backups, replicas and misplaced database files. It does <strong>not</strong> protect against a compromised Warpgate node itself - the key is in that process's environment, so anything that can control the process can read the key.</p>
-</div>
-<h2 id="enabling-encryption">Enabling encryption<a class="headerlink" href="#enabling-encryption" title="Permanent link">§</a></h2>
-<p>Generate a key:</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>openssl<span style="color: #6E7681"> </span>rand<span style="color: #6E7681"> </span>-base64<span style="color: #6E7681"> </span><span style="color: #A5D6FF">32</span>
-</code></pre></div>
-<p>Set it as <code>WARPGATE_ENCRYPTION_KEY</code> on every node and restart Warpgate. Once all nodes have started, Warpgate will encrypt all credentials in the database.</p>
-<p>The key must be exactly 32 bytes, base64-encoded. Warpgate will refuse to start if the value is malformed.</p>
-<div class="admonition warning">
-<p class="admonition-title">Back up the key</p>
-<p>The key is not stored anywhere. If you lose it, the stored credentials cannot be recovered and you will have to re-enter every target's credentials by hand.</p>
-</div>
-<h2 id="helm">Helm<a class="headerlink" href="#helm" title="Permanent link">§</a></h2>
-<p>Put the key in a secret and reference it from <code>values.yaml</code>:</p>
-<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">envFromSecret</span><span style="color: #E6EDF3">:</span>
-<span style="color: #6E7681">  </span><span style="color: #7EE787">WARPGATE_ENCRYPTION_KEY</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-secret/encryptionKey&quot;</span>
-<span style="color: #6E7681">  </span><span style="color: #7EE787">WARPGATE_ENCRYPTION_KEY_OLD</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-secret/encryptionKeyOld&quot;</span>
-</code></pre></div>
-<p>The format is <code>&lt;secret-name&gt;/&lt;key&gt;</code>.</p>
-<h2 id="losing-or-changing-the-key">Losing or changing the key<a class="headerlink" href="#losing-or-changing-the-key" title="Permanent link">§</a></h2>
-<p>Warpgate will never refuse to start because of a missing key, so a lost key won't take it down. A node <strong>without</strong> the key still starts and works, but will not be able to connect to the affected targets.</p>
-<h2 id="rotating-the-key">Rotating the key<a class="headerlink" href="#rotating-the-key" title="Permanent link">§</a></h2>
-<p>A key can be rotated fully online without stopping the cluster.</p>
-<ol>
-<li>Generate a new key.</li>
-<li>On every node, set <code>WARPGATE_ENCRYPTION_KEY</code> to the <strong>new</strong> key and <code>WARPGATE_ENCRYPTION_KEY_OLD</code> to the <strong>previous</strong> value.</li>
-<li>Roll out the change.</li>
-<li>Once every running node reports the new key, Warpgate will re-encrypt all stored credentials with it.</li>
-<li>When the log reports the re-encryption is complete, remove <code>WARPGATE_ENCRYPTION_KEY_OLD</code> and roll out once more.</li>
-</ol>
-<p><code>WARPGATE_ENCRYPTION_KEY_OLD</code> supports a comma-separated list, in case multiple old keys are needed to decrypt existing values (e.g. a rotation was interrupted):</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #79C0FF">WARPGATE_ENCRYPTION_KEY_OLD</span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #A5D6FF">&quot;&lt;previous-key&gt;,&lt;key-before-that&gt;&quot;</span>
-</code></pre></div>
-<p>Keys are only ever used to <em>read</em> with; the key in <code>WARPGATE_ENCRYPTION_KEY</code> is the one everything is written with.</p>
+<p>Also known as Just-In-Time Access/Approvals, this function allows you to set up a target to require a real-time administrator approval before a user can access it.</p>
+<p><em>Note</em>: this is separate from <a href="../auth/#in-browser-approval-out-of-band-authentication">user approvals</a>, where the <em>user themselves</em> confirms a login from their web session.</p>
+<h2 id="requiring-approval-for-a-target">Requiring approval for a target<a class="headerlink" href="#requiring-approval-for-a-target" title="Permanent link">§</a></h2>
+<p>On the target's configuration page, tick <code>Access control</code> &gt; <code>Require administrator approval for each connection</code>.</p>
+<p>Sessions to this target will be placed on hold after authentication until an administrator approves them. </p>
+<p>The exact behavior depends on the protocol:</p>
+<ul>
+<li><strong>SSH, RDP and VNC</strong> show a "waiting" message to the user until the decision is made.</li>
+<li><strong>HTTP and Kubernetes</strong> requests are refused immediately with a retryable response until then.</li>
+<li><strong>MySQL and PostgreSQL</strong> connections simply wait.</li>
+</ul>
+<h2 id="approving-requests">Approving requests<a class="headerlink" href="#approving-requests" title="Permanent link">§</a></h2>
+<p>Pending requests show up under <code>Status</code> &gt; <code>Requests</code> in the admin UI, and additionally as a notification icon at the top of the UI.</p>
+<p>Approving requires the <code>Sessions</code> &gt; <code>Approve</code> <a href="../roles/#admin-roles">admin role</a> permission.</p>
+<p>When approving, admins can choose the scope:</p>
+<ul>
+<li><strong>Approve for this target</strong>: approves this session and remembers the approval for the same user, target and source IP combination.</li>
+<li><strong>Approve for all targets</strong>: additionally covers the user's future connections to other targets from the same IP.</li>
+</ul>
+<p>Approvals are remembered for the <code>Admin approval cache period</code> (under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Session approvals</code>). With no cache period set, every connection requires separate approval.</p>
+<h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
+<ul>
+<li><a href="../tickets/">Access tickets</a></li>
+</ul>
       </article>
 
       
       <div class="d-flex">
         
-          <a class="btn btn-secondary btn-prev" href="../recordings/">
+          <a class="btn btn-secondary btn-prev" href="../tickets/">
             &larr;
-            Session recordings
+            Access tickets
             <br/>
             <small class="text-muted">
               Previous
@@ -359,8 +345,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../backup/">
-            Backup and restore
+          <a class="btn btn-success btn-next ms-auto" href="../otp/">
+            One-time passwords (OTP)
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

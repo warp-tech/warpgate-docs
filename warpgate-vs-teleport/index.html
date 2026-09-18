@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -336,12 +344,12 @@
 </tr>
 <tr>
 <td><strong>Authentication</strong></td>
-<td>Password, SSH public key, OTP (TOTP), <strong>SSO via OIDC</strong> (Google, Microsoft, Apple or any custom provider; Kubernetes targets can use it via the <code>kubelogin</code> plugin), client certificates, in-browser approval</td>
+<td>Password, SSH public key, OTP (TOTP, with optional enforced enrollment), <strong>SSO via OIDC</strong> (Google, Microsoft, Apple or any custom provider; Kubernetes targets can use it via the <code>kubelogin</code> plugin), client certificates, in-browser approval, LDAP key sync</td>
 <td>Short-lived certificates, MFA (TOTP / WebAuthn), SSO (GitHub in the open-source edition; <strong>SAML/OIDC require Enterprise</strong>)</td>
 </tr>
 <tr>
 <td><strong>Self-service / JIT access</strong></td>
-<td>Tickets and self-service <strong>ticket requests</strong> with admin approval — included</td>
+<td>Tickets, self-service <strong>ticket requests</strong> and per-connection <strong>administrator approval</strong> — included</td>
 <td>Access Requests with approval workflows — Enterprise</td>
 </tr>
 <tr>
@@ -455,19 +463,20 @@
 </tr>
 </tbody>
 </table>
-<p>In RDP and VNC sessions Warpgate carries the text clipboard both ways, and a native RDP client can resize the session live; clipboard file transfer and gateway-enforced clipboard policy are not implemented.</p>
+<p>In RDP and VNC sessions Warpgate carries the text clipboard both ways, and both native RDP clients and the web desktop can resize the session live; clipboard file transfer and gateway-enforced clipboard policy are not implemented.</p>
 <h2 id="self-service-and-just-in-time-access">Self-service and just-in-time access<a class="headerlink" href="#self-service-and-just-in-time-access" title="Permanent link">§</a></h2>
 <p>Warpgate ships just-in-time access in the open-source build:</p>
 <ul>
 <li><strong>Tickets</strong> — scoped, single- or limited-use access secrets for a specific target.</li>
 <li><strong>Ticket requests</strong> — users request access to a target from the portal; an admin approves it (or you allow it automatically), with per-target limits on duration and number of uses.</li>
+<li><strong>Session approvals</strong> — mark a target as requiring administrator approval, and every connection to it is held after authentication until an admin lets it through from the admin UI, with approvals optionally remembered per user, target and source IP.</li>
 </ul>
 <p>Teleport's equivalent, <strong>Access Requests</strong> (just-in-time role elevation with approval workflows), lives in its Enterprise tier.</p>
 <h2 id="when-warpgate-is-the-better-choice">When Warpgate is the better choice<a class="headerlink" href="#when-warpgate-is-the-better-choice" title="Permanent link">§</a></h2>
 <ul>
 <li>You want a bastion running <strong>in the next hour</strong>, from a single binary, with no agents and no cluster to operate.</li>
 <li>You want users to keep using <strong>standard clients</strong> (OpenSSH, <code>psql</code>, <code>kubectl</code>, mstsc, a browser) with nothing extra to install.</li>
-<li>You value a <strong>small, auditable, Apache-2.0 codebase</strong> where every feature — SSO, MFA, session recording, ticket requests, clustering, credential encryption at rest — is in the free build.</li>
+<li>You value a <strong>small, auditable, Apache-2.0 codebase</strong> where every feature — SSO, MFA enforcement, session recording, ticket requests, just-in-time approvals, clustering, credential encryption at rest — is in the free build.</li>
 <li>Your access needs are well covered by SSH, HTTP, MySQL, PostgreSQL, Kubernetes, RDP and VNC.</li>
 </ul>
 <section class="production-review-cta" aria-labelledby="production-review-teleport-title">

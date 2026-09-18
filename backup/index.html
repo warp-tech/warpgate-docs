@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -302,9 +310,9 @@
 <p><code>/var/lib/warpgate</code> on a native install. On Docker it's the <code>/data</code> volume itself. It contains:</p>
 <ul>
 <li>TLS certificates</li>
-<li>SSH host keys</li>
 <li>SQLite database (if using SQLite - see below)</li>
 <li>Recordings if using the default on-disk recording storage</li>
+<li>SSH host keys (until v0.29)</li>
 </ul>
 <h3 id="the-database">The database<a class="headerlink" href="#the-database" title="Permanent link">§</a></h3>
 <p>The database holds the entire Warpgate configuration - everything that is not in the config file itself.</p>

@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="text-success" href="./">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -322,7 +330,7 @@
 <p>Warpgate supports load balancing for all protocol listeners. The TCP balancer should ideally implement the PROXY protocol so that Warpgate can see the real client IP address.</p>
 <p>If you enable the PROXY protocol at the LB, you must set <code>proxy_protocol</code> for each affected listener in the config file, i.e. <code>ssh.proxy_protocol</code> and so on.</p>
 <h2 id="recordings-storage">Recordings storage<a class="headerlink" href="#recordings-storage" title="Permanent link">§</a></h2>
-<p>All nodes must share the same storage for session recordings. Point every node at either the <strong>same S3 bucket</strong> or the <strong>same shared filesystem</strong> under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Session recordings</code>.</p>
+<p>All nodes must share the same storage for session recordings. Point every node at either the <strong>same S3 bucket</strong> or the <strong>same shared filesystem</strong> under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Session recordings</code> - see <a href="../recordings/#storage">session recordings</a>, including the <a href="../recordings/#s3-bucket-cors-policy">bucket CORS rule</a> that playback from S3 needs.</p>
       </article>
 
       
@@ -340,8 +348,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../encryption/">
-            Encrypting credentials at rest
+          <a class="btn btn-success btn-next ms-auto" href="../recordings/">
+            Session recordings
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

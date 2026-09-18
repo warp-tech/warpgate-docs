@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="" href="../../otp/">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="" href="../../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -298,7 +306,7 @@
 
 <p>Warpgate can proxy Microsoft <strong>RDP</strong> (Remote Desktop) connections, giving them the same authentication, access control and session recording as the other protocols. Users connect with a standard RDP client (mstsc.exe, FreeRDP, Remmina, …) or open the desktop <strong>directly in their browser</strong>.</p>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">§</a></h2>
-<p>Warpgate terminates the viewer's RDP connection and authenticates the user with their Warpgate credentials, then opens a fresh connection to the upstream host over TLS + CredSSP (NLA), logging in with the credentials you configured on the target. The entire session is recorded, including user inputs.</p>
+<p>Warpgate terminates the viewer's RDP connection and authenticates the user with their Warpgate credentials, then opens a fresh connection to the upstream host over TLS + CredSSP (NLA), logging in with the credentials you configured on the target. The entire session can be recorded, including user inputs.</p>
 <h2 id="enabling-the-rdp-listener">Enabling the RDP listener<a class="headerlink" href="#enabling-the-rdp-listener" title="Permanent link">§</a></h2>
 <p>Enable the RDP protocol in your config file (default: <code>/etc/warpgate.yaml</code>) if you didn't do so during the initial setup:</p>
 <div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #56D364; background-color: #0F5323">+ rdp:</span>
@@ -321,6 +329,11 @@
 <p class="admonition-title">Note</p>
 <p>Most RDP servers use a self-signed certificate, which is why verification is turned off by default.</p>
 </div>
+<h3 id="additional-options">Additional options<a class="headerlink" href="#additional-options" title="Permanent link">§</a></h3>
+<ul>
+<li><strong>Interactive logon</strong> (v0.29+) - Warpgate will ask the remote OS to display a login screen, forcing the user to log in again. The credentials you've previously specified are then only used for the connection itself.</li>
+<li><strong>Compression between Warpgate and target</strong> (v0.28.5+) - <code>RemoteFX</code> (default) or <code>Lossless</code>. If Warpgate has fast connection to the target, you should choose <code>Lossless</code> to avoid image quality loss through double compression.</li>
+</ul>
 <p>The target shows up on the Warpgate homepage for users allowed to access it.</p>
 <h2 id="client-setup">Client setup<a class="headerlink" href="#client-setup" title="Permanent link">§</a></h2>
 <p>Users can connect in two ways.</p>
@@ -354,7 +367,7 @@
 <p>The target connection always uses TLS + CredSSP/NLA. By default Warpgate requires TLS 1.2 (Windows 10 / Server 2016 or newer, or any NLA/CredSSP server such as xrdp); for older hosts, pick a different <strong>Security level</strong> in the target's TLS settings (TLS 1.2 with legacy ciphers for Windows 8 / Server 2012, or TLS 1.0 for Windows Server 2008 R2 and older).</p>
 </div>
 <h2 id="session-recording">Session recording<a class="headerlink" href="#session-recording" title="Permanent link">§</a></h2>
-<p>When session recording is enabled, RDP sessions are recorded as video and can be replayed from the Admin UI.</p>
+<p>When session recording is enabled, RDP sessions are recorded as video and can be replayed from the Admin UI. Keyboard input recording can be disabled under <code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Session recordings</code> (v0.29+) if capturing passwords is a concern.</p>
 <h3 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h3>
 <ul>
 <li><a href="../vnc/">Adding VNC targets</a></li>

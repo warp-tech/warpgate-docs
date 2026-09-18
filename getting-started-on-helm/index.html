@@ -168,6 +168,10 @@
             </li>
             
             <li>
+              <a class="" href="../approvals/">Session approvals</a>
+            </li>
+            
+            <li>
               <a class="" href="../otp/">One-time passwords (OTP)</a>
             </li>
             
@@ -213,6 +217,10 @@
             
             <li>
               <a class="" href="../clustering/">Running a cluster</a>
+            </li>
+            
+            <li>
+              <a class="" href="../recordings/">Session recordings</a>
             </li>
             
             <li>
@@ -303,7 +311,7 @@
 <li>Image name: <code>ghcr.io/warp-tech/warpgate</code></li>
 <li>Image in the GHCR: <a href="https://github.com/warp-tech/warpgate/pkgs/container/warpgate">https://github.com/warp-tech/warpgate/pkgs/container/warpgate</a></li>
 <li>Persistent volume required: <code>/data</code> (when using SQLite)</li>
-<li>Ports: <code>2222</code> (SSH), <code>8888</code> (HTTP), <code>33306</code> (MySQL), <code>55432</code> (PostgreSQL)</li>
+<li>Ports: <code>2222</code> (SSH), <code>8888</code> (HTTP), <code>33306</code> (MySQL), <code>55432</code> (PostgreSQL), optionally Kubernetes (<code>setup.kubernetes</code> / <code>service.ports.kubernetes</code>)</li>
 <li>Tags: <code>latest</code> (stable), <code>X.Y</code>, <code>X.Y.Z</code></li>
 </ul>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">§</a></h2>
@@ -316,8 +324,9 @@
 <h3 id="install-from-official-chart">Install from Official Chart<a class="headerlink" href="#install-from-official-chart" title="Permanent link">§</a></h3>
 <p>The official Helm chart is available in the Warpgate repository and as an OCI image. Create a minimal <code>values.yaml</code> file specifying the version:</p>
 <div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">image</span><span style="color: #E6EDF3">:</span>
-<span style="color: #6E7681">  </span><span style="color: #7EE787">tag</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;0.21.0&quot;</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">tag</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;0.28.6&quot;</span>
 </code></pre></div>
+<p>The chart's default tag is the release it was published with; pin a specific tag so that you control the version.</p>
 <p>Then install:</p>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>oci://ghcr.io/warp-tech/helm-charts/warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
@@ -346,7 +355,7 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 <p>Create a <code>values.yaml</code> file to customize your deployment:</p>
 <div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">image</span><span style="color: #E6EDF3">:</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">repository</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">ghcr.io/warp-tech/warpgate</span>
-<span style="color: #6E7681">  </span><span style="color: #7EE787">tag</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;0.16.0&quot;</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">tag</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;0.28.6&quot;</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">pullPolicy</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">IfNotPresent</span>
 
 <span style="color: #8B949E; font-style: italic"># Automatic setup configuration</span>
@@ -356,11 +365,12 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 <span style="color: #6E7681">  </span><span style="color: #7EE787">envFromSecret</span><span style="color: #E6EDF3">:</span>
 <span style="color: #6E7681">    </span><span style="color: #7EE787">WARPGATE_ADMIN_PASSWORD</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-secret/adminPassword&quot;</span>
 
-<span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># Ports to expose</span>
+<span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># Ports to expose (0 = protocol disabled)</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">ssh</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">2222</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">http</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">8888</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">mysql</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">33306</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">pgsql</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">55432</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">kubernetes</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">0</span>
 
 <span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># Optional: External database</span>
 <span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># databaseUrl: &quot;postgres://user:password@postgres-service:5432/warpgate&quot;</span>
@@ -414,17 +424,28 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">SQLite and Replicas</p>
-<p>Do NOT increase <code>replicaCount</code> above 1 when using SQLite as the database. For high availability, use an external PostgreSQL database.</p>
+<p><code>replicaCount</code> above 1 needs a shared database, see below. Otherwise the chart will fail to render.</p>
 </div>
-<h3 id="external-database">External Database<a class="headerlink" href="#external-database" title="Permanent link">§</a></h3>
-<p>To use an external PostgreSQL or MySQL database:</p>
-<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">setup</span><span style="color: #E6EDF3">:</span>
-<span style="color: #6E7681">  </span><span style="color: #7EE787">enabled</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">true</span>
-<span style="color: #6E7681">  </span><span style="color: #7EE787">databaseUrl</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;postgres://user:password@postgres-service:5432/warpgate&quot;</span>
+<h3 id="database">Database<a class="headerlink" href="#database" title="Permanent link">§</a></h3>
+<p>Multiple replicas need one shared database. The chart can deploy a single-instance PostgreSQL alongside Warpgate (chart v0.1.0+):</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">replicaCount</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">3</span>
 
-<span style="color: #7EE787">data</span><span style="color: #E6EDF3">:</span>
-<span style="color: #6E7681">  </span><span style="color: #7EE787">pvc</span><span style="color: #E6EDF3">:</span>
-<span style="color: #6E7681">    </span><span style="color: #7EE787">enabled</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">false</span><span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># Can use emptyDir with external DB</span>
+<span style="color: #7EE787">postgresql</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">enabled</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">true</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">storage</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">size</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">8Gi</span>
+</code></pre></div>
+<p>It is a simple StatefulSet on one PVC without replication or backups. If you prefer to run your own Postgres deployment point Warpgate at it instead:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">setup</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">databaseUrl</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;postgres://user:password@postgres-service:5432/warpgate&quot;</span>
+</code></pre></div>
+<p>With either of those, <code>data.pvc</code> can stay disabled: the chart renders the config file into a ConfigMap and the TLS certificate into a Secret, so the pods have no persistent state and any of them can be replaced at any time. See <a href="../clustering/">Running a cluster</a> regarding load balancing, peer addressing and encryption keys.</p>
+<p>The bundled database's password is generated once on install. Rendering with <code>helm template</code> (e.g. Argo CD) has no cluster to read the secret from, so it would create a new password on every sync. Supply both secrets yourself there:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">postgresql</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">enabled</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">true</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">passwordSecret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-db/password&quot;</span>
+
+<span style="color: #7EE787">tls_cert_secret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-tls&quot;</span>
 </code></pre></div>
 <h3 id="service-configuration">Service Configuration<a class="headerlink" href="#service-configuration" title="Permanent link">§</a></h3>
 <p>For production deployments, configure the service type and ports:</p>
@@ -455,30 +476,25 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 <span style="color: #6E7681">      </span><span style="color: #7EE787">hosts</span><span style="color: #E6EDF3">:</span>
 <span style="color: #6E7681">        </span><span style="color: #E6EDF3">-</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">warpgate.example.com</span>
 </code></pre></div>
-<h3 id="ssh-keys-and-tls-certificates">SSH Keys and TLS Certificates<a class="headerlink" href="#ssh-keys-and-tls-certificates" title="Permanent link">§</a></h3>
-<p>Provide SSH keys and TLS certificates via Kubernetes secrets:</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #8B949E; font-style: italic"># Create secret with SSH keys</span>
-kubectl<span style="color: #6E7681"> </span>create<span style="color: #6E7681"> </span>secret<span style="color: #6E7681"> </span>generic<span style="color: #6E7681"> </span>warpgate-ssh-keys<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
-<span style="color: #6E7681">  </span>--from-file<span style="color: #FF7B72; font-weight: bold">=</span>host-ed25519<span style="color: #FF7B72; font-weight: bold">=</span>./host-ed25519<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
-<span style="color: #6E7681">  </span>--from-file<span style="color: #FF7B72; font-weight: bold">=</span>host-rsa<span style="color: #FF7B72; font-weight: bold">=</span>./host-rsa<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
-<span style="color: #6E7681">  </span>--from-file<span style="color: #FF7B72; font-weight: bold">=</span>client-ed25519<span style="color: #FF7B72; font-weight: bold">=</span>./client-ed25519<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
-<span style="color: #6E7681">  </span>--from-file<span style="color: #FF7B72; font-weight: bold">=</span>client-rsa<span style="color: #FF7B72; font-weight: bold">=</span>./client-rsa<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
-<span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate
-
-<span style="color: #8B949E; font-style: italic"># Create secret with TLS certificate</span>
-kubectl<span style="color: #6E7681"> </span>create<span style="color: #6E7681"> </span>secret<span style="color: #6E7681"> </span>tls<span style="color: #6E7681"> </span>warpgate-tls<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<h3 id="tls-certificates">TLS Certificates<a class="headerlink" href="#tls-certificates" title="Permanent link">§</a></h3>
+<p>When the chart renders the config (see <a href="#database">Database</a>) it also generates a self-signed certificate into a Secret and keeps it across upgrades. Set <code>tls_cert_secret</code> to provide your own instead.</p>
+<p>Provide the TLS certificate via a Kubernetes secret:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>create<span style="color: #6E7681"> </span>secret<span style="color: #6E7681"> </span>tls<span style="color: #6E7681"> </span>warpgate-tls<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--cert<span style="color: #FF7B72; font-weight: bold">=</span>./tls.crt<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--key<span style="color: #FF7B72; font-weight: bold">=</span>./tls.key<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
-<p>Reference in values.yaml:</p>
-<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">ssh_keys_secret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-ssh-keys&quot;</span>
-<span style="color: #7EE787">tls_cert_secret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-tls&quot;</span>
+<p>Reference it in values.yaml:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">tls_cert_secret</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-tls&quot;</span>
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>As of v0.27 the <code>client-*</code> keys live in Warpgate's database. The chart still copies all four files from the secret, but the <code>client-*</code> ones only seed the database on first startup — Warpgate generates its own if the database has none, and in a multi-replica deployment the client keys are shared through the database rather than mounted on every replica. The <code>host-*</code> keys are still read from the secret.</p>
-</div>
+<h3 id="recordings-on-s3">Recordings on S3<a class="headerlink" href="#recordings-on-s3" title="Permanent link">§</a></h3>
+<p>For more than one replica, recordings must be stored on S3 (<code>Config</code> &gt; <code>Global parameters</code> &gt; <code>Session recordings</code>, see <a href="../recordings/#storage">session recordings</a> - the bucket needs a CORS rule for playback). To use the <code>Automatic</code> credentials mode with a cloud IAM role, annotate the pod's service account:</p>
+<div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">serviceAccount</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">  </span><span style="color: #7EE787">annotations</span><span style="color: #E6EDF3">:</span>
+<span style="color: #6E7681">    </span><span style="color: #7EE787">eks.amazonaws.com/role-arn</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">arn:aws:iam::123456789012:role/warpgate-recordings</span>
+</code></pre></div>
+<h3 id="encryption-at-rest">Encryption at rest<a class="headerlink" href="#encryption-at-rest" title="Permanent link">§</a></h3>
+<p>See <a href="../encryption/#helm">Encrypting credentials at rest</a> for the <code>envFromSecret</code> keys.</p>
 <h3 id="custom-configuration">Custom Configuration<a class="headerlink" href="#custom-configuration" title="Permanent link">§</a></h3>
 <p>To provide a full custom Warpgate configuration:</p>
 <div class="language-yaml highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #7EE787">overrides_config</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">|</span>
@@ -486,21 +502,22 @@ kubectl<span style="color: #6E7681"> </span>create<span style="color: #6E7681"> 
 <span style="color: #6E7681">  </span><span style="color: #79C0FF; font-weight: bold"># Ensure ports match the service configuration</span>
 </code></pre></div>
 <h2 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">§</a></h2>
-<p>To upgrade Warpgate to a new version, pull the latest chart and upgrade:</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">cd</span><span style="color: #6E7681"> </span>warpgate/helm/warpgate
-git<span style="color: #6E7681"> </span>pull<span style="color: #6E7681"> </span>origin<span style="color: #6E7681"> </span>main
-helm<span style="color: #6E7681"> </span>upgrade<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>.<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<p>To upgrade Warpgate to a new version, bump <code>image.tag</code> in your <code>values.yaml</code> and upgrade:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>helm<span style="color: #6E7681"> </span>upgrade<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>oci://ghcr.io/warp-tech/helm-charts/warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
-<span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>image.tag<span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #A5D6FF">0</span>.17.0
+<span style="color: #6E7681">  </span>--values<span style="color: #6E7681"> </span>values.yaml
 </code></pre></div>
+<p>Setup runs once as a Helm hook on install, meaning an upgrade will only rolls out new pods. Database migrations are run by Warpgate itself on pod start.</p>
+<p>Read <a href="../upgrading/">Upgrading</a> first - back up the database, and with several replicas expect a short window of mixed versions.</p>
 <h2 id="uninstalling">Uninstalling<a class="headerlink" href="#uninstalling" title="Permanent link">§</a></h2>
 <p>To remove Warpgate:</p>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>helm<span style="color: #6E7681"> </span>uninstall<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>--namespace<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Data Persistence</p>
-<p>Uninstalling with Helm will remove the deployment, but persistent volume claims (PVCs) are retained by default. To remove all data:</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>delete<span style="color: #6E7681"> </span>pvc<span style="color: #6E7681"> </span>-l<span style="color: #6E7681"> </span>app.kubernetes.io/name<span style="color: #FF7B72; font-weight: bold">=</span>warpgate<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+<p>Uninstalling will retain the following: the data PVC, the bundled database's PVC together with its generated password Secret and the completed setup Job with its logs. </p>
+<p>To throw all of it away, including the database:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>delete<span style="color: #6E7681"> </span>pvc,secret,job<span style="color: #6E7681"> </span>-l<span style="color: #6E7681"> </span>app.kubernetes.io/instance<span style="color: #FF7B72; font-weight: bold">=</span>warpgate<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
 </div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">§</a></h2>
@@ -510,7 +527,7 @@ kubectl<span style="color: #6E7681"> </span>describe<span style="color: #6E7681"
 kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </span>&lt;pod-name&gt;<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
 <h3 id="check-setup-job">Check Setup Job<a class="headerlink" href="#check-setup-job" title="Permanent link">§</a></h3>
-<p>If using automatic setup with Job mode:</p>
+<p>In Job mode the setup Job runs on install and stays there. Its logs are available even after the pods are up:</p>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>get<span style="color: #6E7681"> </span><span style="color: #E6EDF3">jobs</span><span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </span>job/warpgate-setup-job<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
