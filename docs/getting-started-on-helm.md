@@ -154,20 +154,38 @@ data:
 ```
 
 !!! WARNING "SQLite and Replicas"
-    Do NOT increase `replicaCount` above 1 when using SQLite as the database. For high availability, use an external PostgreSQL database.
+    `replicaCount` above 1 needs a shared database, see below. Otherwise the chart will fail to render.
 
-### External Database
+### Database
 
-To use an external PostgreSQL or MySQL database:
+Multiple replicas need one shared database. The chart can deploy a single-instance PostgreSQL alongside Warpgate (chart v0.1.0+):
+
+```yaml
+replicaCount: 3
+
+postgresql:
+  enabled: true
+  storage:
+    size: 8Gi
+```
+
+It is a simple StatefulSet on one PVC without replication or backups. If you prefer to run your own Postgres deployment point Warpgate at it instead:
 
 ```yaml
 setup:
-  enabled: true
   databaseUrl: "postgres://user:password@postgres-service:5432/warpgate"
+```
 
-data:
-  pvc:
-    enabled: false  # Can use emptyDir with external DB
+With either of those, `data.pvc` can stay disabled: the chart renders the config file into a ConfigMap and the TLS certificate into a Secret, so the pods have no persistent state and any of them can be replaced at any time. See [Running a cluster](clustering.md) regarding load balancing, peer addressing and encryption keys.
+
+The bundled database's password is generated once on install. Rendering with `helm template` (e.g. Argo CD) has no cluster to read the secret from, so it would create a new password on every sync. Supply both secrets yourself there:
+
+```yaml
+postgresql:
+  enabled: true
+  passwordSecret: "warpgate-db/password"
+
+tls_cert_secret: "warpgate-tls"
 ```
 
 ### Service Configuration
@@ -208,6 +226,8 @@ ingress:
 ```
 
 ### TLS Certificates
+
+When the chart renders the config (see [Database](#database)) it also generates a self-signed certificate into a Secret and keeps it across upgrades. Set `tls_cert_secret` to provide your own instead.
 
 Provide the TLS certificate via a Kubernetes secret:
 
@@ -258,6 +278,8 @@ helm upgrade warpgate oci://ghcr.io/warp-tech/helm-charts/warpgate \
   --values values.yaml
 ```
 
+Setup runs once as a Helm hook on install, meaning an upgrade will only rolls out new pods. Database migrations are run by Warpgate itself on pod start.
+
 Read [Upgrading](upgrading.md) first - back up the database, and with several replicas expect a short window of mixed versions.
 
 ## Uninstalling
@@ -269,10 +291,12 @@ helm uninstall warpgate --namespace warpgate
 ```
 
 !!! WARNING "Data Persistence"
-    Uninstalling with Helm will remove the deployment, but persistent volume claims (PVCs) are retained by default. To remove all data:
+    Uninstalling will retain the following: the data PVC, the bundled database's PVC together with its generated password Secret and the completed setup Job with its logs. 
+
+    To throw all of it away, including the database:
 
     ```bash
-    kubectl delete pvc -l app.kubernetes.io/name=warpgate -n warpgate
+    kubectl delete pvc,secret,job -l app.kubernetes.io/instance=warpgate -n warpgate
     ```
 
 ## Troubleshooting
@@ -287,7 +311,7 @@ kubectl logs <pod-name> -n warpgate
 
 ### Check Setup Job
 
-If using automatic setup with Job mode:
+In Job mode the setup Job runs on install and stays there. Its logs are available even after the pods are up:
 
 ```bash
 kubectl get jobs -n warpgate
