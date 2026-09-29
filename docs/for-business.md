@@ -43,7 +43,7 @@ description: Direct maintainer support, production-readiness reviews and custom 
         <div class="section-heading">
             <p class="business-eyebrow">Service options</p>
             <h2 id="support-options-title">Ways to work with the maintainers</h2>
-            <p>Choose a pre-launch review, a monthly email support plan, or faster responses for production issues. Support covers SSH, HTTPS, MySQL, PostgreSQL, Kubernetes, RDP and VNC deployments.</p>
+            <p>Choose a pre-launch review, a monthly email support plan, or faster responses for production issues. Support covers SSH, HTTPS, MySQL, PostgreSQL, Kubernetes, RDP and VNC deployments. Listed prices apply to deployments of up to 1,000 targets; larger deployments are priced separately.</p>
         </div>
 
         <div class="offer-grid">
