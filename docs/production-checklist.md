@@ -38,6 +38,7 @@ description: A pre-launch checklist for self-hosting Warpgate - TLS, SSO, roles,
 - [ ] Decide your policy on [tickets](tickets.md) and self-service ticket requests before users start asking.
 - [ ] Enable [credential encryption at rest](encryption.md) - particularly with an external database, replicas or off-host backups.
 - [ ] Store the encryption key where you can recover it.
+- [ ] Consider keeping target credentials out of Warpgate with a Vault/OpenBao [secret backend](secret-backends.md).
 
 ## Scaling and HA
 

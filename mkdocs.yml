@@ -49,6 +49,7 @@ nav:
       - clustering.md
       - recordings.md
       - encryption.md
+      - secret-backends.md
       - backup.md
       - systemd.md
       - log-forwarding.md

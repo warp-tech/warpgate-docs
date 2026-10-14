@@ -21,6 +21,8 @@ Recordings are written to the selected `Storage backend`:
 
 Changing the storage location only affects new recordings and existing files must be copied manually.
 
+With S3, a recording is written to a local scratch file while the session runs and uploaded when it ends. The scratch location defaults to `data/recordings-scratch` next to the config file. If that isn't writable - the config in `/etc`, Warpgate running as an unprivileged user - set `Local scratch directory` in the S3 settings (v0.30+). A relative path is resolved against the config file's directory.
+
 ### S3 bucket CORS policy
 
 The admin UI loads recording files directly from the bucket using a presigned URL. For this to work correctly, the bucket needs a specific CORS policy:

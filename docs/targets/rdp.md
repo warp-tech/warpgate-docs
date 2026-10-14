@@ -43,7 +43,9 @@ RDP target configuration
 ### Additional options
 
 * **Interactive logon** (v0.29+) - Warpgate will ask the remote OS to display a login screen, forcing the user to log in again. The credentials you've previously specified are then only used for the connection itself.
-* **Compression between Warpgate and target** (v0.28.5+) - `RemoteFX` (default) or `Lossless`. If Warpgate has fast connection to the target, you should choose `Lossless` to avoid image quality loss through double compression.
+* **Compression between Warpgate and target** (v0.28.5+) - `RemoteFX` (default), `Lossless` or `Graphics pipeline` (v0.30+, experimental). If Warpgate has a fast connection to the target, choose `Lossless` to avoid image quality loss through double compression. 
+
+Note: GNOME Remote Desktop and KDE KRDP only accept clients that use the graphics pipeline (MS-RDPEGFX).
 
 The target shows up on the Warpgate homepage for users allowed to access it.
 

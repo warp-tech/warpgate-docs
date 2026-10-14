@@ -348,6 +348,33 @@ For that you'll need to:
 * Enable [domain-wide delegation](https://admin.google.com/u/4/ac/owl/domainwidedelegation), using your service account's *Client ID* (visible in the [service accounts list](https://console.cloud.google.com/iam-admin/serviceaccounts)) and `https://www.googleapis.com/auth/admin.directory.group.readonly` scope value.
 
 
+#### Requiring single logout
+
+<div class="badge font-xs text-bg-warning mb-3">v0.30+</div>
+
+You can disable the local logout option and only offer users the OIDC single logout button by setting `disable_local_logout`. Local logout is then hidden for sessions that logged in through this provider. It has no effect if the provider doesn't support single logout.
+
+```diff
+  sso_providers:
+  - name: custom
+    label: ACME SSO
++   disable_local_logout: true
+    provider:
+    ...
+```
+
+#### Back-channel logout
+
+<div class="badge font-xs text-bg-warning mb-3">v0.30+</div>
+
+Warpgate supports [OpenID Connect Back-Channel Logout](https://openid.net/specs/openid-connect-backchannel-1_0.html): when a user's session at the provider ends, the provider notifies Warpgate directly and Warpgate closes the matching sessions. Without it, logging out at the provider would not automatically log the user out of Warpgate.
+
+Register this as the back-channel logout URL in the provider's client settings:
+
+```
+https://<warpgate-external-host>/@warpgate/api/sso/providers/<provider name>/backchannel-logout
+```
+
 ### Kubernetes (kubectl) login via SSO
 
 SSO providers can also issue tokens for `kubectl` via the `kubernetes` section of the provider config. See [Kubernetes targets](targets/kubernetes.md) for details.

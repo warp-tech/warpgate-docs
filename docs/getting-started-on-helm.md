@@ -46,7 +46,7 @@ helm install warpgate oci://ghcr.io/warp-tech/helm-charts/warpgate \
 
 ### Automatic Setup
 
-The Helm chart includes automatic setup via a Kubernetes Job (recommended) or initContainer. Create a secret with the admin password:
+Setup runs in an init container on every pod start (chart v0.2.0+, needs Warpgate v0.30+). On an empty volume it generates the config file and a self-signed certificate; on an empty database it creates the admin user. A volume and database that are already set up are left untouched. Create a secret with the admin password:
 
 ```bash
 kubectl create secret generic warpgate-secret \
@@ -57,7 +57,6 @@ kubectl create secret generic warpgate-secret \
 Then install with setup enabled:
 
 ```bash
-cd warpgate/helm/warpgate
 helm install warpgate oci://ghcr.io/warp-tech/helm-charts/warpgate \
   --namespace warpgate \
   --create-namespace \
@@ -84,7 +83,6 @@ image:
 # Automatic setup configuration
 setup:
   enabled: true
-  type: "job"  # or "podinit"
   envFromSecret:
     WARPGATE_ADMIN_PASSWORD: "warpgate-secret/adminPassword"
 
@@ -152,6 +150,8 @@ data:
         requests:
           storage: 10Gi
 ```
+
+The image runs as UID 1000 and most storage drivers hand over a new volume owned by root, so set `podSecurityContext.fsGroup: 1000` - otherwise setup cannot write to it.
 
 !!! WARNING "SQLite and Replicas"
     `replicaCount` above 1 needs a shared database, see below. Otherwise the chart will fail to render.
@@ -278,7 +278,9 @@ helm upgrade warpgate oci://ghcr.io/warp-tech/helm-charts/warpgate \
   --values values.yaml
 ```
 
-Setup runs once as a Helm hook on install, meaning an upgrade will only rolls out new pods. Database migrations are run by Warpgate itself on pod start.
+An upgrade only rolls out new pods: setup finds the existing config and database and leaves them alone, and database migrations are run by Warpgate itself on pod start. With a PVC the old pod is stopped before the new one starts (a ReadWriteOnce volume can't be attached to both).
+
+Chart v0.2.0 needs Warpgate v0.30 or newer and refuses to render with an older `image.tag`. The `setup.type` value is no longer used and can be removed.
 
 Read [Upgrading](upgrading.md) first - back up the database, and with several replicas expect a short window of mixed versions.
 
@@ -291,12 +293,12 @@ helm uninstall warpgate --namespace warpgate
 ```
 
 !!! WARNING "Data Persistence"
-    Uninstalling will retain the following: the data PVC, the bundled database's PVC together with its generated password Secret and the completed setup Job with its logs. 
+    Uninstalling will retain the following: the data PVC and the bundled database's PVC together with its generated password Secret.
 
     To throw all of it away, including the database:
 
     ```bash
-    kubectl delete pvc,secret,job -l app.kubernetes.io/instance=warpgate -n warpgate
+    kubectl delete pvc,secret -l app.kubernetes.io/instance=warpgate -n warpgate
     ```
 
 ## Troubleshooting
@@ -309,13 +311,12 @@ kubectl describe pod <pod-name> -n warpgate
 kubectl logs <pod-name> -n warpgate
 ```
 
-### Check Setup Job
+### Check setup logs
 
-In Job mode the setup Job runs on install and stays there. Its logs are available even after the pods are up:
+Setup is the `warpgate-setup` init container of each pod. When you provide a certificate, SSH keys or a custom config, a `warpgate-install-files` init container copies them into `/data` before it:
 
 ```bash
-kubectl get jobs -n warpgate
-kubectl logs job/warpgate-setup-job -n warpgate
+kubectl logs <pod-name> -c warpgate-setup -n warpgate
 ```
 
 ### Access Warpgate Admin UI
@@ -343,12 +344,12 @@ kubectl get pvc -n warpgate
 kubectl describe pvc <pvc-name> -n warpgate
 ```
 
-### View Configuration
+### Shell access
 
-Check the generated configuration:
+The image has no shell. Attach a debug container to the pod instead:
 
 ```bash
-kubectl exec -it deployment/warpgate -n warpgate -- cat /data/warpgate.yaml
+kubectl debug -it <pod-name> -n warpgate --image=busybox --target=warpgate -- cat /proc/1/root/data/warpgate.yaml
 ```
 
 ## Up next

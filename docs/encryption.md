@@ -13,6 +13,8 @@ With encryption enabled, credentials will be decrypted on demand only whenever W
 !!! NOTE "What this protects against"
     Encryption at rest protects leaked database dumps, backups, replicas and misplaced database files. It does **not** protect against a compromised Warpgate node itself - the key is in that process's environment, so anything that can control the process can read the key.
 
+To keep target credentials out of Warpgate altogether, consider using a [secret backend](secret-backends.md) (v0.30+): Warpgate then fetches them from Vault or OpenBao at connection time and only keeps a reference. Encryption at rest still covers the backend's own credential.
+
 ## Enabling encryption
 
 Generate a key:

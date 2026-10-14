@@ -23,6 +23,7 @@ Warpgate's public keys
 
 * **Generate** a new Ed25519 or RSA key,
 * **Import** an existing private key (OpenSSH or PKCS#8 PEM format, without a passphrase),
+* **reference** a private key kept in a [secret backend](../secret-backends.md) (v0.30+),
 * **rename** a key,
 * mark one or more keys as **default**,
 * **delete** any key, except the last remaining one.
@@ -51,7 +52,7 @@ An SSH target using public-key authentication is offered every *default* key by 
 
 ### Alternative: password authentication
 
-Although not recommended, you can use a password to authenticate against a target instead.
+Although not recommended, you can use a password to authenticate against a target instead. The password can be a [secret backend](../secret-backends.md) reference (v0.30+).
 
 ### Alternative: AWS EC2 Instance Connect
 
