@@ -6,7 +6,7 @@ title: Adding SSH targets
 
 ## Authentication setup
 
-### Preferred: public-key auth
+### Public-key auth
 
 Warpgate has its own set of SSH keys which the target host must trust in order for connections to work.
 
@@ -50,11 +50,54 @@ Copy one of them and paste it at the end of the `~/.ssh/authorized_keys` file on
 
 An SSH target using public-key authentication is offered every *default* key by default. When editing the target, you can instead pick a **specific key** from the drop-down — useful when a host trusts only one particular key. If that key is later deleted, the target falls back to the default keys.
 
-### Alternative: password authentication
+### SSH certificates signed by Vault / OpenBao
+
+<div class="badge font-xs text-bg-warning mb-3">v0.30+</div>
+
+Warpgate can obtain short-lived Ed25519 certificates from a Vault / OpenBao [secret backend](../secret-backends.md) instead of storing credentials. In this case, the target server only needs to trust the CA, not Warpgate directly. 
+
+The issued certificate's key ID is `warpgate:<username>:<session ID>` and `sshd` logs it, providing attribution even with a shared access principal:
+
+```
+Accepted publickey for root from 10.0.0.5 port 50122 ssh2: ED25519-CERT SHA256:[...] ID warpgate:c.wilde:3f6c[...] (serial 8126[...]) CA ED25519 SHA256:[...]
+```
+
+Mount an SSH secrets engine with a signing key and create a role for Warpgate:
+
+```
+vault secrets enable ssh
+vault write ssh/config/ca generate_signing_key=true key_type=ed25519
+vault write ssh/roles/warpgate - <<EOF
+{
+  "key_type": "ca",
+  "allow_user_certificates": true,
+  "allow_user_key_ids": true,
+  "allowed_users": "root,deploy",
+  "default_extensions": {"permit-pty": ""}
+}
+EOF
+```
+
+* `allow_user_key_ids` is required, since Warpgate always sets the key ID
+* `allowed_users` limits which accounts can be signed for
+* Extensions come from the role. `permit-pty` is required for interactive PTY sessions, and port forwarding needs `permit-port-forwarding`.
+* Warpgate asks for a 5-minute certificate, so a `max_ttl` on the role must be at least `5m`
+
+The backend's token needs `update` on `ssh/sign/warpgate`. If the backend has [allowed path prefixes](../secret-backends.md#connecting-a-backend), one of them must cover `ssh/sign/warpgate`.
+
+On each target, add the CA's public key (`vault read -field=public_key ssh/config/ca`) to the CA keys file and reload sshd:
+
+```
+TrustedUserCAKeys /etc/ssh/warpgate_ca.pub
+```
+
+Then choose `Certificate signed by a secret backend's SSH CA` as the target's authentication and enter the mount and role.
+
+### Password authentication
 
 Although not recommended, you can use a password to authenticate against a target instead. The password can be a [secret backend](../secret-backends.md) reference (v0.30+).
 
-### Alternative: AWS EC2 Instance Connect
+### AWS EC2 Instance Connect
 
 <div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
 
