@@ -228,6 +228,10 @@
             </li>
             
             <li>
+              <a class="" href="../secret-backends/">Vault / OpenBao</a>
+            </li>
+            
+            <li>
               <a class="" href="../backup/">Backup and restore</a>
             </li>
             
@@ -305,6 +309,7 @@
 <p>Warpgate doesn't need any specific configuration except in the following case:</p>
 <ul>
 <li>When using <strong>single sign-on</strong>, make sure your reverse proxy supplies the correct <code>Host</code> (or <code>X-Forwarded-Host</code>) and <code>X-Forwarded-Proto</code> headers - this allows Warpgate to construct correct redirect URLs.</li>
+<li>Have the proxy set <code>X-Forwarded-For</code>, otherwise IP-based features (login protection, per-user IP allow-lists, audit logs) see the proxy's address instead of the client's.</li>
 <li>Set <code>http.trust_x_forwarded_headers</code> to <code>true</code> in the config file.</li>
 </ul>
 <p>Example for NGINX:</p>
@@ -318,6 +323,7 @@
 <span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_pass</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">https</span><span style="color: #F85149">://</span><span style="color: #E6EDF3">192.168.10.1</span><span style="color: #F85149">:</span><span style="color: #E6EDF3">8888</span><span style="color: #F85149">;</span>
 <span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_set_header</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">Host</span><span style="color: #6E7681"> </span><span style="color: #F85149">$</span><span style="color: #E6EDF3">http_host</span><span style="color: #F85149">;</span>
 <span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_set_header</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">X-Forwarded-Proto</span><span style="color: #6E7681"> </span><span style="color: #F85149">$</span><span style="color: #E6EDF3">scheme</span><span style="color: #F85149">;</span>
+<span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_set_header</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">X-Forwarded-For</span><span style="color: #6E7681"> </span><span style="color: #F85149">$</span><span style="color: #E6EDF3">proxy_add_x_forwarded_for</span><span style="color: #F85149">;</span>
 <span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_set_header</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">Upgrade</span><span style="color: #6E7681"> </span><span style="color: #F85149">$</span><span style="color: #E6EDF3">http_upgrade</span><span style="color: #F85149">;</span>
 <span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_set_header</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">Connection</span><span style="color: #6E7681"> </span><span style="color: #F85149">$</span><span style="color: #E6EDF3">http_connection</span><span style="color: #F85149">;</span>
 <span style="color: #6E7681">        </span><span style="color: #E6EDF3">proxy_read_timeout</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">3600s</span><span style="color: #F85149">;</span>

@@ -228,6 +228,10 @@
             </li>
             
             <li>
+              <a class="" href="../secret-backends/">Vault / OpenBao</a>
+            </li>
+            
+            <li>
               <a class="" href="../backup/">Backup and restore</a>
             </li>
             
@@ -316,6 +320,7 @@
 <li><strong>S3</strong> (v0.27+) - both AWS and compatible providers. On EC2/EKS, Warpgate can authenticate with its IAM role. </li>
 </ul>
 <p>Changing the storage location only affects new recordings and existing files must be copied manually.</p>
+<p>With S3, a recording is written to a local scratch file while the session runs and uploaded when it ends. The scratch location defaults to <code>data/recordings-scratch</code> next to the config file. If that isn't writable - the config in <code>/etc</code>, Warpgate running as an unprivileged user - set <code>Local scratch directory</code> in the S3 settings (v0.30+). A relative path is resolved against the config file's directory.</p>
 <h3 id="s3-bucket-cors-policy">S3 bucket CORS policy<a class="headerlink" href="#s3-bucket-cors-policy" title="Permanent link">§</a></h3>
 <p>The admin UI loads recording files directly from the bucket using a presigned URL. For this to work correctly, the bucket needs a specific CORS policy:</p>
 <div class="language-json highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">[</span>

@@ -228,6 +228,10 @@
             </li>
             
             <li>
+              <a class="" href="../../secret-backends/">Vault / OpenBao</a>
+            </li>
+            
+            <li>
               <a class="" href="../../backup/">Backup and restore</a>
             </li>
             
@@ -303,7 +307,7 @@
       <article>
         <h1 id="adding-ssh-targets">Adding SSH targets<a class="headerlink" href="#adding-ssh-targets" title="Permanent link">§</a></h1>
 <h2 id="authentication-setup">Authentication setup<a class="headerlink" href="#authentication-setup" title="Permanent link">§</a></h2>
-<h3 id="preferred-public-key-auth">Preferred: public-key auth<a class="headerlink" href="#preferred-public-key-auth" title="Permanent link">§</a></h3>
+<h3 id="public-key-auth">Public-key auth<a class="headerlink" href="#public-key-auth" title="Permanent link">§</a></h3>
 <p>Warpgate has its own set of SSH keys which the target host must trust in order for connections to work.</p>
 <p>The keys are stored in Warpgate's database and shared across all nodes of a cluster, so you never need to copy them between nodes by hand. On a fresh install Warpgate generates an Ed25519 and an RSA key automatically. Any keys found in the legacy on-disk location are imported into the database once, on first startup.</p>
 <p>Manage the keys on the <code>Config</code> -&gt; <code>SSH keys</code> page of the Admin UI:</p>
@@ -318,6 +322,7 @@
 <ul>
 <li><strong>Generate</strong> a new Ed25519 or RSA key,</li>
 <li><strong>Import</strong> an existing private key (OpenSSH or PKCS#8 PEM format, without a passphrase),</li>
+<li><strong>reference</strong> a private key kept in a <a href="../../secret-backends/">secret backend</a> (v0.30+),</li>
 <li><strong>rename</strong> a key,</li>
 <li>mark one or more keys as <strong>default</strong>,</li>
 <li><strong>delete</strong> any key, except the last remaining one.</li>
@@ -337,9 +342,40 @@ rsa-sha2-256 AAAADHJzYS[...] client-rsa (default)
 <div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
 
 <p>An SSH target using public-key authentication is offered every <em>default</em> key by default. When editing the target, you can instead pick a <strong>specific key</strong> from the drop-down — useful when a host trusts only one particular key. If that key is later deleted, the target falls back to the default keys.</p>
-<h3 id="alternative-password-authentication">Alternative: password authentication<a class="headerlink" href="#alternative-password-authentication" title="Permanent link">§</a></h3>
-<p>Although not recommended, you can use a password to authenticate against a target instead.</p>
-<h3 id="alternative-aws-ec2-instance-connect">Alternative: AWS EC2 Instance Connect<a class="headerlink" href="#alternative-aws-ec2-instance-connect" title="Permanent link">§</a></h3>
+<h3 id="ssh-certificates-signed-by-vault-openbao">SSH certificates signed by Vault / OpenBao<a class="headerlink" href="#ssh-certificates-signed-by-vault-openbao" title="Permanent link">§</a></h3>
+<div class="badge font-xs text-bg-warning mb-3">v0.30+</div>
+
+<p>Warpgate can obtain short-lived Ed25519 certificates from a Vault / OpenBao <a href="../../secret-backends/">secret backend</a> instead of storing credentials. In this case, the target server only needs to trust the CA, not Warpgate directly. </p>
+<p>The issued certificate's key ID is <code>warpgate:&lt;username&gt;:&lt;session ID&gt;</code> and <code>sshd</code> logs it, providing attribution even with a shared access principal:</p>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>Accepted publickey for root from 10.0.0.5 port 50122 ssh2: ED25519-CERT SHA256:[...] ID warpgate:c.wilde:3f6c[...] (serial 8126[...]) CA ED25519 SHA256:[...]
+</code></pre></div>
+<p>Mount an SSH secrets engine with a signing key and create a role for Warpgate:</p>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>vault secrets enable ssh
+vault write ssh/config/ca generate_signing_key=true key_type=ed25519
+vault write ssh/roles/warpgate - &lt;&lt;EOF
+{
+  &quot;key_type&quot;: &quot;ca&quot;,
+  &quot;allow_user_certificates&quot;: true,
+  &quot;allow_user_key_ids&quot;: true,
+  &quot;allowed_users&quot;: &quot;root,deploy&quot;,
+  &quot;default_extensions&quot;: {&quot;permit-pty&quot;: &quot;&quot;}
+}
+EOF
+</code></pre></div>
+<ul>
+<li><code>allow_user_key_ids</code> is required, since Warpgate always sets the key ID</li>
+<li><code>allowed_users</code> limits which accounts can be signed for</li>
+<li>Extensions come from the role. <code>permit-pty</code> is required for interactive PTY sessions, and port forwarding needs <code>permit-port-forwarding</code>.</li>
+<li>Warpgate asks for a 5-minute certificate, so a <code>max_ttl</code> on the role must be at least <code>5m</code></li>
+</ul>
+<p>The backend's token needs <code>update</code> on <code>ssh/sign/warpgate</code>. If the backend has <a href="../../secret-backends/#connecting-a-backend">allowed path prefixes</a>, one of them must cover <code>ssh/sign/warpgate</code>.</p>
+<p>On each target, add the CA's public key (<code>vault read -field=public_key ssh/config/ca</code>) to the CA keys file and reload sshd:</p>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>TrustedUserCAKeys /etc/ssh/warpgate_ca.pub
+</code></pre></div>
+<p>Then choose <code>Certificate signed by a secret backend's SSH CA</code> as the target's authentication and enter the mount and role.</p>
+<h3 id="password-authentication">Password authentication<a class="headerlink" href="#password-authentication" title="Permanent link">§</a></h3>
+<p>Although not recommended, you can use a password to authenticate against a target instead. The password can be a <a href="../../secret-backends/">secret backend</a> reference (v0.30+).</p>
+<h3 id="aws-ec2-instance-connect">AWS EC2 Instance Connect<a class="headerlink" href="#aws-ec2-instance-connect" title="Permanent link">§</a></h3>
 <div class="badge font-xs text-bg-warning mb-3">v0.22+</div>
 
 <p>If Warpgate runs on an EC2 instance, it can authenticate to EC2 SSH targets using <strong>EC2 Instance Connect</strong> — no key or password is stored on the target. Select <strong>IAM Role</strong> as the target's authentication method (this option only appears when Warpgate detects it is running on EC2).</p>

@@ -228,6 +228,10 @@
             </li>
             
             <li>
+              <a class="" href="../../secret-backends/">Vault / OpenBao</a>
+            </li>
+            
+            <li>
               <a class="" href="../../backup/">Backup and restore</a>
             </li>
             
@@ -332,8 +336,9 @@
 <h3 id="additional-options">Additional options<a class="headerlink" href="#additional-options" title="Permanent link">§</a></h3>
 <ul>
 <li><strong>Interactive logon</strong> (v0.29+) - Warpgate will ask the remote OS to display a login screen, forcing the user to log in again. The credentials you've previously specified are then only used for the connection itself.</li>
-<li><strong>Compression between Warpgate and target</strong> (v0.28.5+) - <code>RemoteFX</code> (default) or <code>Lossless</code>. If Warpgate has fast connection to the target, you should choose <code>Lossless</code> to avoid image quality loss through double compression.</li>
+<li><strong>Compression between Warpgate and target</strong> (v0.28.5+) - <code>RemoteFX</code> (default), <code>Lossless</code> or <code>Graphics pipeline</code> (v0.30+, experimental). If Warpgate has a fast connection to the target, choose <code>Lossless</code> to avoid image quality loss through double compression. </li>
 </ul>
+<p>Note: GNOME Remote Desktop and KDE KRDP only accept clients that use the graphics pipeline (MS-RDPEGFX).</p>
 <p>The target shows up on the Warpgate homepage for users allowed to access it.</p>
 <h2 id="client-setup">Client setup<a class="headerlink" href="#client-setup" title="Permanent link">§</a></h2>
 <p>Users can connect in two ways.</p>

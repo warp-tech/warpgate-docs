@@ -228,6 +228,10 @@
             </li>
             
             <li>
+              <a class="" href="../secret-backends/">Vault / OpenBao</a>
+            </li>
+            
+            <li>
               <a class="" href="../backup/">Backup and restore</a>
             </li>
             
@@ -344,7 +348,7 @@
 </tr>
 <tr>
 <td><strong>Credentials to targets</strong></td>
-<td>Stored per target — built in, and optionally <strong>encrypted at rest</strong> under a master key; no rotation engine</td>
+<td>Stored per target and optionally <strong>encrypted at rest</strong>, or read from <strong>Vault / OpenBao</strong> at connection time, which can also sign short-lived SSH certificates; no rotation engine</td>
 <td>Static, or brokered/injected via <strong>Vault</strong></td>
 </tr>
 <tr>
@@ -436,7 +440,7 @@
 <ul>
 <li>You want audited access <strong>today</strong>, from a single binary, without a controller/worker cluster or a client on every machine.</li>
 <li>You want to see <strong>what happened inside</strong> each session — queries, commands, API calls, desktop video — across all your protocols, not just SSH and RDP.</li>
-<li>You'd rather not run <strong>Vault</strong> just to hand credentials to targets — Warpgate stores them itself, and can <a href="../encryption/">encrypt them at rest</a> under a master key so a database dump yields nothing usable.</li>
+<li>You'd rather not run <strong>Vault</strong> just to hand credentials to targets — Warpgate stores them itself, and can <a href="../encryption/">encrypt them at rest</a> under a master key so a database dump yields nothing usable. If you do run Vault or OpenBao, Warpgate can <a href="../secret-backends/">read credentials from it</a> instead.</li>
 <li>You value a <strong>small, Apache-2.0 codebase</strong> with every feature in the free build.</li>
 <li>Homelabs, small-to-medium teams, and focused gateways.</li>
 </ul>

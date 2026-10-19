@@ -228,6 +228,10 @@
             </li>
             
             <li>
+              <a class="" href="../secret-backends/">Vault / OpenBao</a>
+            </li>
+            
+            <li>
               <a class="" href="../backup/">Backup and restore</a>
             </li>
             
@@ -378,7 +382,7 @@
 <p><strong>Warpgate is a self-hosted, transparent proxy.</strong> Everything — the control plane, the data plane, your access logs and recordings — lives in your infrastructure. Users connect with the tools they already have, and every capability is in the open-source build. There is no third party in the path and no per-seat bill.</p>
 <p><strong>StrongDM is a managed access platform.</strong> It is genuinely polished and broad: a large catalogue of databases and cloud resources, strong audit and compliance tooling, and a smooth admin experience. The trade-offs are that the control plane runs in StrongDM's cloud (you can't host it yourself), every user needs the StrongDM client installed, and it's a proprietary, per-user subscription rather than something you own.</p>
 <h2 id="where-your-control-plane-and-data-live">Where your control plane and data live<a class="headerlink" href="#where-your-control-plane-and-data-live" title="Permanent link">§</a></h2>
-<p>This is the defining difference. With StrongDM, configuration and the coordination layer are hosted in <strong>StrongDM's SaaS</strong>; you run gateways in your network, and can optionally keep target credentials in your own secret store, but the control plane itself is not something you operate. With Warpgate, <strong>all of it is yours</strong> — one binary and a database inside your own perimeter — which is often the deciding factor for air-gapped, sovereignty-sensitive, or simply SaaS-averse environments. Target credentials live in that database, and can be <a href="../encryption/">encrypted at rest</a> under a master key you hold, so the credentials stay unreadable in backups, replicas and dumps.</p>
+<p>This is the defining difference. With StrongDM, configuration and the coordination layer are hosted in <strong>StrongDM's SaaS</strong>; you run gateways in your network, and can optionally keep target credentials in your own secret store, but the control plane itself is not something you operate. With Warpgate, <strong>all of it is yours</strong> — one binary and a database inside your own perimeter — which is often the deciding factor for air-gapped, sovereignty-sensitive, or simply SaaS-averse environments. Target credentials live in that database, and can be <a href="../encryption/">encrypted at rest</a> under a master key you hold, so the credentials stay unreadable in backups, replicas and dumps. They can also stay in your own Vault or OpenBao, which Warpgate <a href="../secret-backends/">reads at connection time</a>.</p>
 <h2 id="session-recording">Session recording<a class="headerlink" href="#session-recording" title="Permanent link">§</a></h2>
 <p>Both audit broadly — this is an area where StrongDM is strong, and Warpgate provides replayable recordings for interactive sessions plus query/activity logs for databases and HTTP while keeping it all in the free, self-hosted build.</p>
 <table>

@@ -228,6 +228,10 @@
             </li>
             
             <li>
+              <a class="" href="../secret-backends/">Vault / OpenBao</a>
+            </li>
+            
+            <li>
               <a class="" href="../backup/">Backup and restore</a>
             </li>
             
@@ -310,6 +314,7 @@
 <p class="admonition-title">What this protects against</p>
 <p>Encryption at rest protects leaked database dumps, backups, replicas and misplaced database files. It does <strong>not</strong> protect against a compromised Warpgate node itself - the key is in that process's environment, so anything that can control the process can read the key.</p>
 </div>
+<p>To keep target credentials out of Warpgate altogether, consider using a <a href="../secret-backends/">secret backend</a> (v0.30+): Warpgate then fetches them from Vault or OpenBao at connection time and only keeps a reference. Encryption at rest still covers the backend's own credential.</p>
 <h2 id="enabling-encryption">Enabling encryption<a class="headerlink" href="#enabling-encryption" title="Permanent link">§</a></h2>
 <p>Generate a key:</p>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>openssl<span style="color: #6E7681"> </span>rand<span style="color: #6E7681"> </span>-base64<span style="color: #6E7681"> </span><span style="color: #A5D6FF">32</span>
@@ -359,8 +364,8 @@
 
         <!-- Next page -->
         
-          <a class="btn btn-success btn-next ms-auto" href="../backup/">
-            Backup and restore
+          <a class="btn btn-success btn-next ms-auto" href="../secret-backends/">
+            Vault / OpenBao
             &rarr;
             <br/>
             <small class="text-muted">Next</small>

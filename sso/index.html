@@ -228,6 +228,10 @@
             </li>
             
             <li>
+              <a class="" href="../secret-backends/">Vault / OpenBao</a>
+            </li>
+            
+            <li>
               <a class="" href="../backup/">Backup and restore</a>
             </li>
             
@@ -582,6 +586,26 @@ Make sure you&#39;re seeing this security key: E E 0 5
 <p>Enable <a href="https://admin.google.com/u/4/ac/owl/domainwidedelegation">domain-wide delegation</a>, using your service account's <em>Client ID</em> (visible in the <a href="https://console.cloud.google.com/iam-admin/serviceaccounts">service accounts list</a>) and <code>https://www.googleapis.com/auth/admin.directory.group.readonly</code> scope value.</p>
 </li>
 </ul>
+<h3 id="logging-out">Logging out<a class="headerlink" href="#logging-out" title="Permanent link">§</a></h3>
+<p>If the provider supports single logout (its discovery document has an <code>end_session_endpoint</code>), users who logged in through it can choose between <code>Log out of Warpgate</code> and <code>Log out everywhere</code>, which also ends their session at the provider.</p>
+<h4 id="requiring-single-logout">Requiring single logout<a class="headerlink" href="#requiring-single-logout" title="Permanent link">§</a></h4>
+<div class="badge font-xs text-bg-warning mb-3">v0.30+</div>
+
+<p>Set <code>disable_local_logout</code> to leave only <code>Log out everywhere</code> for sessions that logged in through this provider. It has no effect if the provider doesn't support single logout.</p>
+<div class="language-diff highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #6E7681"> </span> sso_providers:
+<span style="color: #6E7681"> </span> - name: custom
+<span style="color: #6E7681"> </span>   label: ACME SSO
+<span style="color: #56D364; background-color: #0F5323">+   disable_local_logout: true</span>
+<span style="color: #6E7681"> </span>   provider:
+<span style="color: #6E7681"> </span>   ...
+</code></pre></div>
+<h4 id="back-channel-logout">Back-channel logout<a class="headerlink" href="#back-channel-logout" title="Permanent link">§</a></h4>
+<div class="badge font-xs text-bg-warning mb-3">v0.30+</div>
+
+<p>Warpgate supports <a href="https://openid.net/specs/openid-connect-backchannel-1_0.html">OpenID Connect Back-Channel Logout</a>: when a user's session at the provider ends, the provider notifies Warpgate directly and Warpgate closes the matching sessions. Without it, logging out at the provider would not automatically log the user out of Warpgate.</p>
+<p>Register this as the back-channel logout URL in the provider's client settings:</p>
+<div class="language-text highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>https://&lt;warpgate-external-host&gt;/@warpgate/api/sso/providers/&lt;provider name&gt;/backchannel-logout
+</code></pre></div>
 <h3 id="kubernetes-kubectl-login-via-sso">Kubernetes (kubectl) login via SSO<a class="headerlink" href="#kubernetes-kubectl-login-via-sso" title="Permanent link">§</a></h3>
 <p>SSO providers can also issue tokens for <code>kubectl</code> via the <code>kubernetes</code> section of the provider config. See <a href="../targets/kubernetes/">Kubernetes targets</a> for details.</p>
 <h3 id="hiding-password-login">Hiding password login<a class="headerlink" href="#hiding-password-login" title="Permanent link">§</a></h3>

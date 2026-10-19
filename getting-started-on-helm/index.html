@@ -228,6 +228,10 @@
             </li>
             
             <li>
+              <a class="" href="../secret-backends/">Vault / OpenBao</a>
+            </li>
+            
+            <li>
               <a class="" href="../backup/">Backup and restore</a>
             </li>
             
@@ -334,14 +338,13 @@
 <span style="color: #6E7681">  </span>--values<span style="color: #6E7681"> </span>values.yaml
 </code></pre></div>
 <h3 id="automatic-setup">Automatic Setup<a class="headerlink" href="#automatic-setup" title="Permanent link">§</a></h3>
-<p>The Helm chart includes automatic setup via a Kubernetes Job (recommended) or initContainer. Create a secret with the admin password:</p>
+<p>Setup runs in an init container on every pod start (chart v0.2.0+, needs Warpgate v0.30+). On an empty volume it generates the config file and a self-signed certificate; on an empty database it creates the admin user. A volume and database that are already set up are left untouched. Create a secret with the admin password:</p>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>create<span style="color: #6E7681"> </span>secret<span style="color: #6E7681"> </span>generic<span style="color: #6E7681"> </span>warpgate-secret<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--from-literal<span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #79C0FF">adminPassword</span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #A5D6FF">&#39;your-secure-password&#39;</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
 <p>Then install with setup enabled:</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code><span style="color: #E6EDF3">cd</span><span style="color: #6E7681"> </span>warpgate/helm/warpgate
-helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>oci://ghcr.io/warp-tech/helm-charts/warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>oci://ghcr.io/warp-tech/helm-charts/warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--create-namespace<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--set<span style="color: #6E7681"> </span>setup.enabled<span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #E6EDF3">true</span><span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
@@ -361,7 +364,6 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 <span style="color: #8B949E; font-style: italic"># Automatic setup configuration</span>
 <span style="color: #7EE787">setup</span><span style="color: #E6EDF3">:</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">enabled</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">true</span>
-<span style="color: #6E7681">  </span><span style="color: #7EE787">type</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;job&quot;</span><span style="color: #6E7681">  </span><span style="color: #8B949E; font-style: italic"># or &quot;podinit&quot;</span>
 <span style="color: #6E7681">  </span><span style="color: #7EE787">envFromSecret</span><span style="color: #E6EDF3">:</span>
 <span style="color: #6E7681">    </span><span style="color: #7EE787">WARPGATE_ADMIN_PASSWORD</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">&quot;warpgate-secret/adminPassword&quot;</span>
 
@@ -422,6 +424,7 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 <span style="color: #6E7681">        </span><span style="color: #7EE787">requests</span><span style="color: #E6EDF3">:</span>
 <span style="color: #6E7681">          </span><span style="color: #7EE787">storage</span><span style="color: #E6EDF3">:</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">10Gi</span>
 </code></pre></div>
+<p>The image runs as UID 1000 and most storage drivers hand over a new volume owned by root, so set <code>podSecurityContext.fsGroup: 1000</code> - otherwise setup cannot write to it.</p>
 <div class="admonition warning">
 <p class="admonition-title">SQLite and Replicas</p>
 <p><code>replicaCount</code> above 1 needs a shared database, see below. Otherwise the chart will fail to render.</p>
@@ -501,13 +504,15 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 <span style="color: #6E7681">  </span><span style="color: #79C0FF; font-weight: bold"># Your complete warpgate.yaml configuration here</span>
 <span style="color: #6E7681">  </span><span style="color: #79C0FF; font-weight: bold"># Ensure ports match the service configuration</span>
 </code></pre></div>
+<p>The value is rendered as a Helm template (chart v0.2.0+), so it can use expressions such as <code>{{ .Release.Namespace }}</code>, and a literal <code>{{</code> has to be written as <code>{{ "{{" }}</code>.</p>
 <h2 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">§</a></h2>
 <p>To upgrade Warpgate to a new version, bump <code>image.tag</code> in your <code>values.yaml</code> and upgrade:</p>
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>helm<span style="color: #6E7681"> </span>upgrade<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>oci://ghcr.io/warp-tech/helm-charts/warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--namespace<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span><span style="color: #79C0FF">\</span>
 <span style="color: #6E7681">  </span>--values<span style="color: #6E7681"> </span>values.yaml
 </code></pre></div>
-<p>Setup runs once as a Helm hook on install, meaning an upgrade will only rolls out new pods. Database migrations are run by Warpgate itself on pod start.</p>
+<p>An upgrade only rolls out new pods: setup finds the existing config and database and leaves them alone, and database migrations are run by Warpgate itself on pod start. With a PVC the old pod is stopped before the new one starts (a ReadWriteOnce volume can't be attached to both).</p>
+<p>Chart v0.2.0 needs Warpgate v0.30 or newer and refuses to render with an older <code>image.tag</code>. The <code>setup.type</code> value is no longer used and can be removed.</p>
 <p>Read <a href="../upgrading/">Upgrading</a> first - back up the database, and with several replicas expect a short window of mixed versions.</p>
 <h2 id="uninstalling">Uninstalling<a class="headerlink" href="#uninstalling" title="Permanent link">§</a></h2>
 <p>To remove Warpgate:</p>
@@ -515,9 +520,9 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Data Persistence</p>
-<p>Uninstalling will retain the following: the data PVC, the bundled database's PVC together with its generated password Secret and the completed setup Job with its logs. </p>
+<p>Uninstalling will retain the following: the data PVC and the bundled database's PVC together with its generated password Secret.</p>
 <p>To throw all of it away, including the database:</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>delete<span style="color: #6E7681"> </span>pvc,secret,job<span style="color: #6E7681"> </span>-l<span style="color: #6E7681"> </span>app.kubernetes.io/instance<span style="color: #FF7B72; font-weight: bold">=</span>warpgate<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>delete<span style="color: #6E7681"> </span>pvc,secret<span style="color: #6E7681"> </span>-l<span style="color: #6E7681"> </span>app.kubernetes.io/instance<span style="color: #FF7B72; font-weight: bold">=</span>warpgate<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
 </div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">§</a></h2>
@@ -526,10 +531,9 @@ helm<span style="color: #6E7681"> </span>install<span style="color: #6E7681"> </
 kubectl<span style="color: #6E7681"> </span>describe<span style="color: #6E7681"> </span>pod<span style="color: #6E7681"> </span>&lt;pod-name&gt;<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </span>&lt;pod-name&gt;<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
-<h3 id="check-setup-job">Check Setup Job<a class="headerlink" href="#check-setup-job" title="Permanent link">§</a></h3>
-<p>In Job mode the setup Job runs on install and stays there. Its logs are available even after the pods are up:</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>get<span style="color: #6E7681"> </span><span style="color: #E6EDF3">jobs</span><span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
-kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </span>job/warpgate-setup-job<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
+<h3 id="check-setup-logs">Check setup logs<a class="headerlink" href="#check-setup-logs" title="Permanent link">§</a></h3>
+<p>Setup is the <code>warpgate-setup</code> init container of each pod. When you provide a certificate, SSH keys or a custom config, a <code>warpgate-install-files</code> init container copies them into <code>/data</code> before it:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </span>&lt;pod-name&gt;<span style="color: #6E7681"> </span>-c<span style="color: #6E7681"> </span>warpgate-setup<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
 <h3 id="access-warpgate-admin-ui">Access Warpgate Admin UI<a class="headerlink" href="#access-warpgate-admin-ui" title="Permanent link">§</a></h3>
 <p>Get the service endpoint:</p>
@@ -544,9 +548,9 @@ kubectl<span style="color: #6E7681"> </span>logs<span style="color: #6E7681"> </
 <div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>get<span style="color: #6E7681"> </span>pvc<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 kubectl<span style="color: #6E7681"> </span>describe<span style="color: #6E7681"> </span>pvc<span style="color: #6E7681"> </span>&lt;pvc-name&gt;<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate
 </code></pre></div>
-<h3 id="view-configuration">View Configuration<a class="headerlink" href="#view-configuration" title="Permanent link">§</a></h3>
-<p>Check the generated configuration:</p>
-<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span><span style="color: #E6EDF3">exec</span><span style="color: #6E7681"> </span>-it<span style="color: #6E7681"> </span>deployment/warpgate<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>--<span style="color: #6E7681"> </span>cat<span style="color: #6E7681"> </span>/data/warpgate.yaml
+<h3 id="shell-access">Shell access<a class="headerlink" href="#shell-access" title="Permanent link">§</a></h3>
+<p>The image has no shell. Attach a debug container to the pod instead:</p>
+<div class="language-bash highlight" style="background: #0d1117"><pre style="line-height: 125%;"><span></span><code>kubectl<span style="color: #6E7681"> </span>debug<span style="color: #6E7681"> </span>-it<span style="color: #6E7681"> </span>&lt;pod-name&gt;<span style="color: #6E7681"> </span>-n<span style="color: #6E7681"> </span>warpgate<span style="color: #6E7681"> </span>--image<span style="color: #FF7B72; font-weight: bold">=</span>busybox<span style="color: #6E7681"> </span>--target<span style="color: #FF7B72; font-weight: bold">=</span>warpgate<span style="color: #6E7681"> </span>--<span style="color: #6E7681"> </span>cat<span style="color: #6E7681"> </span>/proc/1/root/data/warpgate.yaml
 </code></pre></div>
 <h2 id="up-next">Up next<a class="headerlink" href="#up-next" title="Permanent link">§</a></h2>
 <ul>
