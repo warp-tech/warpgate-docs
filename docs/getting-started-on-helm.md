@@ -268,6 +268,8 @@ overrides_config: |
   # Ensure ports match the service configuration
 ```
 
+The value is rendered as a Helm template (chart v0.2.0+), so it can use expressions such as `{{ .Release.Namespace }}`, and a literal `{{` has to be written as `{{ "{{" }}`.
+
 ## Upgrading
 
 To upgrade Warpgate to a new version, bump `image.tag` in your `values.yaml` and upgrade:

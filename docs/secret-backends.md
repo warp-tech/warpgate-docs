@@ -9,13 +9,13 @@ description: Fetch target passwords, SSH keys and Kubernetes tokens from HashiCo
 
 Instead of storing target credentials in its own database, Warpgate can fetch them from **HashiCorp Vault** compatible secret stores (e.g. **OpenBao**) when a session is opened. Warpgate stores only a *reference* to the secret in its configuration. The value is read from the backend at connection time and never saved or shown.
 
-A backend's SSH secrets engine can also [sign SSH certificates](targets/ssh.md#alternative-certificates-signed-by-vault-openbao), so that the target SSH server can trust a CA instead of a stored service account credential.
+A backend's SSH secrets engine can also [sign SSH certificates](targets/ssh.md#ssh-certificates-signed-by-vault-openbao), so that the target SSH server can trust a CA instead of a stored service account credential.
 
 Backends are managed under `Config` > `Secret backends`. 
 
 ## Connecting a backend
 
-A backend is a Vault or OpenBao address plus credentials
+A backend is a Vault or OpenBao address plus credentials:
 
 * **Token** - a static token. Warpgate will renew it as long as it's renewable, but cannot replace it once it expires.
 * **AppRole** - role ID and secret ID. Warpgate logs in again on its own when the token expires.
@@ -23,7 +23,7 @@ A backend is a Vault or OpenBao address plus credentials
 
 Vault Enterprise and OpenBao namespaces are supported. Secret references can only read **KV version 2** secrets engines.
 
-`Allowed path prefixes` limits the prefixes that may be referenced: `[mount]/[path]` for a secret references and `[mount]/sign/[role]` for [SSH certificate signing](targets/ssh.md#alternative-certificates-signed-by-vault-openbao).  If left empty, anything is allowed.
+`Allowed path prefixes` limits the prefixes that may be referenced: `[mount]/[path]` for secret references and `[mount]/sign/[role]` for [SSH certificate signing](targets/ssh.md#ssh-certificates-signed-by-vault-openbao). If left empty, anything is allowed.
 
 ## Referencing a secret
 
@@ -42,7 +42,7 @@ References work for:
 
 ## Encryption at rest
 
-The backend's own auth credentials (token or AppRole secret ID) is stored in Warpgate's database and is covered by [encryption at rest](encryption.md). References are not secret and are stored as-is.
+The backend's own auth credentials (token or AppRole secret ID) are stored in Warpgate's database and are covered by [encryption at rest](encryption.md). References are not secret and are stored as-is.
 
 ### Up next
 

@@ -13,6 +13,7 @@ title: Protocol support
 * Compression: none.
 * ✅ Tickets
 * ✅ 2FA
+* ✅ [Certificate authentication to targets](targets/ssh.md#ssh-certificates-signed-by-vault-openbao), signed by Vault / OpenBao <div class="badge font-xs text-bg-warning">v0.30+</div>
 
 ## MySQL
 
@@ -84,6 +85,7 @@ title: Protocol support
 * ✅ Clipboard redirection <div class="badge font-xs text-bg-warning">v0.28+</div>
 * ✅ Dynamic resolution / live resize (mstsc and the in-browser client) <div class="badge font-xs text-bg-warning">v0.28+</div>
 * ✅ Interactive (non-NLA) logon screen on the target <div class="badge font-xs text-bg-warning">v0.29+</div>
+* ✅ Graphics pipeline (MS-RDPEGFX) to the target, required by GNOME Remote Desktop and KDE KRDP - experimental <div class="badge font-xs text-bg-warning">v0.30+</div>
 * ❌ Legacy Standard RDP Security
 
 ## VNC

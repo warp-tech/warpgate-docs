@@ -348,11 +348,15 @@ For that you'll need to:
 * Enable [domain-wide delegation](https://admin.google.com/u/4/ac/owl/domainwidedelegation), using your service account's *Client ID* (visible in the [service accounts list](https://console.cloud.google.com/iam-admin/serviceaccounts)) and `https://www.googleapis.com/auth/admin.directory.group.readonly` scope value.
 
 
+### Logging out
+
+If the provider supports single logout (its discovery document has an `end_session_endpoint`), users who logged in through it can choose between `Log out of Warpgate` and `Log out everywhere`, which also ends their session at the provider.
+
 #### Requiring single logout
 
 <div class="badge font-xs text-bg-warning mb-3">v0.30+</div>
 
-You can disable the local logout option and only offer users the OIDC single logout button by setting `disable_local_logout`. Local logout is then hidden for sessions that logged in through this provider. It has no effect if the provider doesn't support single logout.
+Set `disable_local_logout` to leave only `Log out everywhere` for sessions that logged in through this provider. It has no effect if the provider doesn't support single logout.
 
 ```diff
   sso_providers:

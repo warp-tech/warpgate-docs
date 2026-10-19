@@ -34,7 +34,7 @@ Warpgate is a **self-hosted, open-source StrongDM alternative**. Both [StrongDM]
 
 ## Where your control plane and data live
 
-This is the defining difference. With StrongDM, configuration and the coordination layer are hosted in **StrongDM's SaaS**; you run gateways in your network, and can optionally keep target credentials in your own secret store, but the control plane itself is not something you operate. With Warpgate, **all of it is yours** — one binary and a database inside your own perimeter — which is often the deciding factor for air-gapped, sovereignty-sensitive, or simply SaaS-averse environments. Target credentials live in that database, and can be [encrypted at rest](./encryption.md) under a master key you hold, so the credentials stay unreadable in backups, replicas and dumps.
+This is the defining difference. With StrongDM, configuration and the coordination layer are hosted in **StrongDM's SaaS**; you run gateways in your network, and can optionally keep target credentials in your own secret store, but the control plane itself is not something you operate. With Warpgate, **all of it is yours** — one binary and a database inside your own perimeter — which is often the deciding factor for air-gapped, sovereignty-sensitive, or simply SaaS-averse environments. Target credentials live in that database, and can be [encrypted at rest](./encryption.md) under a master key you hold, so the credentials stay unreadable in backups, replicas and dumps. They can also stay in your own Vault or OpenBao, which Warpgate [reads at connection time](./secret-backends.md).
 
 ## Session recording
 

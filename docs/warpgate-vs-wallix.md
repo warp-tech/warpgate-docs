@@ -24,7 +24,7 @@ Warpgate is an **open-source, self-hosted alternative to WALLIX Bastion**. Of th
 | **Web / HTTP targets** | ✅ native — Warpgate *is* an HTTP reverse proxy | **Web Session Manager** drives a real browser (an embedded Chrome engine) on the gateway side |
 | **Authentication** | Password, SSH public key, OTP (TOTP, with optional enforced enrollment), **SSO via OIDC**, client certificates, in-browser approval, LDAP key sync | Password, SSH keys, Kerberos, LDAP/AD, NLA, RADIUS, PKI (X.509), **SAML 2.0 and OIDC** |
 | **Self-service / JIT access** | Tickets, self-service **ticket requests** and per-connection **administrator approval** (a dedicated admin permission, no e-mail notification) — included | **Approval workflow** with a dedicated approver role and e-mail notification; integrates with ITSM ticketing |
-| **Secrets management** | Per-target credentials, optionally **encrypted at rest** under a master key — but no rotation | Full **vault** with automated password and SSH-key rotation, plus application-to-application password management |
+| **Secrets management** | Per-target credentials, optionally **encrypted at rest** under a master key or kept in **Vault / OpenBao**, but no rotation | Full **vault** with automated password and SSH-key rotation, plus application-to-application password management |
 | **Beyond the gateway** | Gateway only | A **suite**: PEDM endpoint privilege management, IDaaS, identity governance |
 | **Security certification** | None | **ANSSI CSPN** and **BSI BSZ** (see [below](#certification-and-compliance)) |
 | **Licensing** | **Apache-2.0, fully self-hosted, no paid tier** | Proprietary and commercial — subscription **per asset or per user**; free trial available |
@@ -67,7 +67,7 @@ On the desktop protocols themselves, Warpgate carries the **text clipboard** in 
 
 This is the difference that decides most evaluations. WALLIX sells a **PAM programme**; Warpgate is one component of one.
 
-If your requirement is written as "audited, access-controlled connections to our infrastructure", Warpgate covers it. If it is written as "discover privileged accounts, vault and rotate their credentials, remove local admin rights from workstations, broker secrets to applications, and produce a compliance report", that is a suite-shaped requirement and WALLIX is built for it. Warpgate has per-target credentials and access control — [encrypted at rest](./encryption.md) under a master key if you set one — but not a rotation engine, not endpoint privilege management, and not identity governance.
+If your requirement is written as "audited, access-controlled connections to our infrastructure", Warpgate covers it. If it is written as "discover privileged accounts, vault and rotate their credentials, remove local admin rights from workstations, broker secrets to applications, and produce a compliance report", that is a suite-shaped requirement and WALLIX is built for it. Warpgate has per-target credentials and access control — [encrypted at rest](./encryption.md) under a master key if you set one, or kept in [Vault / OpenBao](./secret-backends.md) — but not a rotation engine, not endpoint privilege management, and not identity governance.
 
 ## Certification and compliance
 
