@@ -56,13 +56,19 @@ While the target is active, Warpgate will pass-through all HTTP traffic in this 
 Accessing an HTTP target
 ///
 
-## Custom headers
+# A note on security
+
+Since the browser is sending target requests to the same domain that the `/@warpgate` URLs are served from, the target's pages can potentially access Warpgate's API on behalf of the user by making `fetch` requests. If the logged-in user is an admin, that means access to the admin API as well.
+
+If the target's pages' HTML content is untrusted and/or user-controlled (example: an internal wiki where users can edit and share raw HTML pages), you should use [HTTP domain binding](../http-domain-binding.md), which blocks access to the Warpgate API on non-primary domains.
+
+# Custom headers
 
 <div class="badge font-xs text-bg-warning mb-3">v0.12+</div>
 
 You can specify custom HTTP headers that Warpgate will send to the target for every request. This is useful for adding authentication tokens or debugging headers.
 
-### Built-in headers
+## Built-in headers
 
 Warpgate automatically adds the following headers to all requests:
 
