@@ -31,6 +31,7 @@ nav:
       - Kubernetes: targets/kubernetes.md
       - RDP: targets/rdp.md
       - VNC: targets/vnc.md
+      - Port knocking: targets/port-knocking.md
   - Access control:
       - auth.md
       - roles.md
