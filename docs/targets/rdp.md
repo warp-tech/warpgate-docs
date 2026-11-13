@@ -89,6 +89,10 @@ Once authenticated, Warpgate connects to the target and the desktop appears.
 
 When session recording is enabled, RDP sessions are recorded as video and can be replayed from the Admin UI. Keyboard input recording can be disabled under `Config` > `Global parameters` > `Session recordings` (v0.29+) if capturing passwords is a concern.
 
+## Port knocking
+
+If the target is behind a firewall that expects a knock sequence before opening the port, Warpgate can send it before each connection. See [Port knocking](port-knocking.md).
+
 ### Up next
 
 * [Adding VNC targets](./vnc.md)
