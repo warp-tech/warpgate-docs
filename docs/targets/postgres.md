@@ -89,6 +89,10 @@ If Warpgate runs on AWS, it can connect to an RDS instance using a short-lived I
 
 Warpgate supports the "In-browser auth" authentication for PostgreSQL clients by sending a login link in a PostgreSQL notice message. Some clients might ignore notice messages, but the users will still be able see and confirm their login request if they log into the Warpgate web UI.
 
+## Port knocking
+
+If the target is behind a firewall that expects a knock sequence before opening the port, Warpgate can send it before each connection. See [Port knocking](port-knocking.md).
+
 ### Up next
 
 * [User authentication](../auth.md)

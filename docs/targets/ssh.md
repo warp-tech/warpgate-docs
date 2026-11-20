@@ -199,6 +199,10 @@ This is a **heuristic audit aid, not a security boundary**: it is impossible to 
 
 By default Warpgate only offers modern, secure key-exchange and encryption algorithms. To reach an older device that only supports legacy algorithms (DH group 1, AES-CBC/3DES, HMAC-SHA1, RSA-SHA1 or DSA), enable **Allow insecure algorithms**.
 
+## Port knocking
+
+If the target is behind a firewall that expects a knock sequence before opening the port, Warpgate can send it before each connection. See [Port knocking](port-knocking.md).
+
 ### Up next
 
 * [User authentication](../auth.md)
