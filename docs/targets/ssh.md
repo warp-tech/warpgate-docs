@@ -187,6 +187,18 @@ Click the shell session entry in the `Recordings` section for a live view and re
 SSH session recording
 ///
 
+### In the browser
+
+Users can also open an SSH target directly in their browser by clicking it on the Warpgate homepage. The gear menu of the web terminal offers:
+
+* **Font size**: the `-` and `+` buttons,
+* **Terminal font** <div class="badge font-xs text-bg-warning">v0.31+</div>: the name of a monospace font installed on the user's computer, for example `JetBrainsMono Nerd Font Mono` for shell prompts that use icons. If the font isn't available, the terminal falls back to the default font. Leave the field empty to go back to the default font,
+* **Connect from your machine**: the settings to use with a native SSH client.
+
+The font size and font are stored in the browser, so each user sets them per browser. Some browsers limit access to user-installed fonts for privacy reasons; the default font is used then.
+
+Web SSH can be turned off under `Config` > `Global parameters` > `UI`.
+
 ## Shell command auditing
 
 <div class="badge font-xs text-bg-warning mb-3">v0.27+</div>
